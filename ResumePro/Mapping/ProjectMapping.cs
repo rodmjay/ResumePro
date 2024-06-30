@@ -18,6 +18,6 @@ public class ProjectMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Project, ProjectDetails>()
-            .ForMember(x=>x.Highlights, opt=>opt.MapFrom(x=>x.Highlights));
+            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlights.OrderBy(a => a.Order)));
     }
 }

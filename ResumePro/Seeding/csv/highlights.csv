@@ -8,3 +8,21 @@
 7,2,2,"Developed interview process for tech screenings and performed dozens of tech interviews",NULL
 8,2,3,"Developed the common codebase used for all .NET projects",NULL
 9,2,4,"Won award for highest producing developer in 2021",NULL
+10,1,1,"Responsible for development of MicroService that was used as a model for other microservices",1
+11,1,2,"Performed tech screening for hundreds of C# and Angular developers",1
+12,2,1,"Responsible for re-architecture and development of an antiquated system using the latest .NET Technologies",5
+13,2,2,"Wired up existing SQL Server database to EF Core ",5
+14,2,3,"Developed gRPC-based messaging system",5
+15,1,5,"Introduced enhanced unit and integration testing framework patterns",1
+16,1,6,"Maintaned 90% Code Coverage",1
+17,5,1,"Managed 4 developers directly using Agile Scrum"
+18,5,2,"Responsible for architecture/development of components of banking platform"
+19,5,3,"Developed Fingerprint Login and Friends and Family Shared Banking components"
+20,2,4,"Responsible for architecture/development of .net core backend",3
+21,2,2,"Developmed Complex medication and recurring activity scheduling",3
+22,2,3,"Made key technology decisions to keep project on time/budget",3
+23,2,4,"Maintained 90% Code Coverage",3
+24,2,1,"Responsible for entire backend and frontend architecture/development of .net core backend and angular front-end",4
+25,2,2,"Comprehensive single-entry accounting platform that calculates cashflow, tax savings, appreciation, and capital inflow",4
+26,2,4,"Maintained 75% code coverage",4
+27,2,3,"Made key technology decisions to keep project on time/budget",4

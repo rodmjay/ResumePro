@@ -7,20 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Seeding\csv\degrees.csv" />
     <None Remove="Seeding\csv\highlights.csv" />
     <None Remove="Seeding\csv\jobs.csv" />
     <None Remove="Seeding\csv\job_skills.csv" />
     <None Remove="Seeding\csv\personas.csv" />
     <None Remove="Seeding\csv\persona_skills.csv" />
     <None Remove="Seeding\csv\projects.csv" />
+    <None Remove="Seeding\csv\references.csv" />
     <None Remove="Seeding\csv\resumes.csv" />
     <None Remove="Seeding\csv\resume_jobs.csv" />
     <None Remove="Seeding\csv\resume_skills.csv" />
+    <None Remove="Seeding\csv\schools.csv" />
     <None Remove="Seeding\csv\skills.csv" />
     <None Remove="sharedSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Seeding\csv\degrees.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seeding\csv\schools.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\projects.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -43,6 +52,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\resume_skills.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seeding\csv\references.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\skills.csv">

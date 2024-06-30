@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
+﻿using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Core.Services.Interfaces;

@@ -7,7 +7,7 @@
 6,TypeScript
 7,CI/CD
 8,oAuth2
-9,Visual Studio 2022,
+9,Visual Studio 2022
 10,Identity Server
 11,Postman
 12,SignalR
@@ -23,3 +23,7 @@
 22,AppInsights
 23,Kusto
 24,Bicep
+25,Api Integrations
+26,Orchard
+27,Objective-C
+28,Bluetooth Low Energy (BLE)

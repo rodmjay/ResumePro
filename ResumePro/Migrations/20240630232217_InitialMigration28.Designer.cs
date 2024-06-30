@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240630232217_InitialMigration28")]
+    partial class InitialMigration28
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,14 +44,6 @@ namespace ResumePro.Migrations
                     b.HasIndex("SchoolId");
 
                     b.ToTable("Degree");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AAS Computer and Information Systems",
-                            SchoolId = 1
-                        });
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
@@ -1310,11 +1305,11 @@ namespace ResumePro.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
+
+                    b.Property<string>("SchoolName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -1324,16 +1319,6 @@ namespace ResumePro.Migrations
                     b.HasIndex("PersonaId");
 
                     b.ToTable("School");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Portland Community College",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>

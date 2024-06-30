@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240630225351_InitialMigration25")]
+    partial class InitialMigration25
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace ResumePro.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
-
-                    b.ToTable("Degree");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AAS Computer and Information Systems",
-                            SchoolId = 1
-                        });
-                });
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
@@ -215,27 +189,20 @@ namespace ResumePro.Migrations
                         {
                             Id = 18,
                             JobId = 5,
-                            Order = 2,
-                            Text = "Responsible for architecture/development of components of banking platform"
+                            Order = 1,
+                            Text = "Architected complex, mission critical, authentication and authorization features for banking platform including: Fingerprint Login, Friends and Family Shared Banking"
                         },
                         new
                         {
                             Id = 19,
-                            JobId = 5,
-                            Order = 3,
-                            Text = "Developed Fingerprint Login and Friends and Family Shared Banking components"
-                        },
-                        new
-                        {
-                            Id = 20,
                             JobId = 2,
-                            Order = 4,
+                            Order = 1,
                             ProjectId = 3,
                             Text = "Responsible for architecture/development of .net core backend"
                         },
                         new
                         {
-                            Id = 21,
+                            Id = 20,
                             JobId = 2,
                             Order = 2,
                             ProjectId = 3,
@@ -243,7 +210,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
-                            Id = 22,
+                            Id = 21,
                             JobId = 2,
                             Order = 3,
                             ProjectId = 3,
@@ -251,7 +218,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
-                            Id = 23,
+                            Id = 22,
                             JobId = 2,
                             Order = 4,
                             ProjectId = 3,
@@ -259,15 +226,15 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
-                            Id = 24,
+                            Id = 23,
                             JobId = 2,
                             Order = 1,
                             ProjectId = 4,
-                            Text = "Responsible for entire backend and frontend architecture/development of .net core backend and angular front-end"
+                            Text = "Responsible for entire backend and frontend development"
                         },
                         new
                         {
-                            Id = 25,
+                            Id = 24,
                             JobId = 2,
                             Order = 2,
                             ProjectId = 4,
@@ -275,19 +242,11 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
-                            Id = 26,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 4,
-                            Text = "Maintained 75% code coverage"
-                        },
-                        new
-                        {
-                            Id = 27,
+                            Id = 25,
                             JobId = 2,
                             Order = 3,
                             ProjectId = 4,
-                            Text = "Made key technology decisions to keep project on time/budget"
+                            Text = "Maintained 75% code coverage"
                         });
                 });
 
@@ -376,50 +335,6 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sr. Engineer Dev Lead"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Company = "NETCHEX",
-                            Description = "",
-                            EndDate = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Louisiana",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2012, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect Consultant"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Company = "Ancestry.com",
-                            Description = "",
-                            EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Engineer"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Company = "Cathexis",
-                            Description = "",
-                            EndDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect/Dev Manager"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Company = "Motorola Public Safety",
-                            Description = "",
-                            EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Salt Lake City,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Engineer"
                         });
                 });
 
@@ -1299,43 +1214,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonaId");
-
-                    b.ToTable("School");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Portland Community College",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -1494,17 +1372,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.HasOne("ResumePro.Entities.School", "School")
-                        .WithMany("Degrees")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("School");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
@@ -1654,17 +1521,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Schools")
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Navigation("Highlighs");
@@ -1681,8 +1537,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Jobs");
 
                     b.Navigation("Resumes");
-
-                    b.Navigation("Schools");
 
                     b.Navigation("Skills");
                 });
@@ -1712,11 +1566,6 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.Navigation("Jobs");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Navigation("Degrees");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>

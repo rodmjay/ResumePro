@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240630231543_InitialMigration27")]
+    partial class InitialMigration27
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace ResumePro.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
-
-                    b.ToTable("Degree");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AAS Computer and Information Systems",
-                            SchoolId = 1
-                        });
-                });
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
@@ -1299,43 +1273,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonaId");
-
-                    b.ToTable("School");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Portland Community College",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>
                 {
                     b.Property<int>("Id")
@@ -1494,17 +1431,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.HasOne("ResumePro.Entities.School", "School")
-                        .WithMany("Degrees")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("School");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
@@ -1654,17 +1580,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Schools")
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Navigation("Highlighs");
@@ -1681,8 +1596,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Jobs");
 
                     b.Navigation("Resumes");
-
-                    b.Navigation("Schools");
 
                     b.Navigation("Skills");
                 });
@@ -1712,11 +1625,6 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.Navigation("Jobs");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Navigation("Degrees");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>

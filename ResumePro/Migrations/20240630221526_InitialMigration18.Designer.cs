@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240630221526_InitialMigration18")]
+    partial class InitialMigration18
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,35 +24,6 @@ namespace ResumePro.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("SchoolId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SchoolId");
-
-                    b.ToTable("Degree");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "AAS Computer and Information Systems",
-                            SchoolId = 1
-                        });
-                });
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
@@ -170,7 +144,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 1,
                             ProjectId = 5,
-                            Text = "Responsible for re-architecture and development of an antiquated system using the latest .NET Technologies"
+                            Text = "Rebuild an antiquated system using the latest .NET Technologies (Blazor, .NET Core, gRPC)"
                         },
                         new
                         {
@@ -184,110 +158,9 @@ namespace ResumePro.Migrations
                         {
                             Id = 14,
                             JobId = 2,
-                            Order = 3,
+                            Order = 2,
                             ProjectId = 5,
-                            Text = "Developed gRPC-based messaging system"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            JobId = 1,
-                            Order = 5,
-                            ProjectId = 1,
-                            Text = "Introduced enhanced unit and integration testing framework patterns"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            JobId = 1,
-                            Order = 6,
-                            ProjectId = 1,
-                            Text = "Maintaned 90% Code Coverage"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            JobId = 5,
-                            Order = 1,
-                            Text = "Managed 4 developers directly using Agile Scrum"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            JobId = 5,
-                            Order = 2,
-                            Text = "Responsible for architecture/development of components of banking platform"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            JobId = 5,
-                            Order = 3,
-                            Text = "Developed Fingerprint Login and Friends and Family Shared Banking components"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 3,
-                            Text = "Responsible for architecture/development of .net core backend"
-                        },
-                        new
-                        {
-                            Id = 21,
-                            JobId = 2,
-                            Order = 2,
-                            ProjectId = 3,
-                            Text = "Developmed Complex medication and recurring activity scheduling"
-                        },
-                        new
-                        {
-                            Id = 22,
-                            JobId = 2,
-                            Order = 3,
-                            ProjectId = 3,
-                            Text = "Made key technology decisions to keep project on time/budget"
-                        },
-                        new
-                        {
-                            Id = 23,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 3,
-                            Text = "Maintained 90% Code Coverage"
-                        },
-                        new
-                        {
-                            Id = 24,
-                            JobId = 2,
-                            Order = 1,
-                            ProjectId = 4,
-                            Text = "Responsible for entire backend and frontend architecture/development of .net core backend and angular front-end"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            JobId = 2,
-                            Order = 2,
-                            ProjectId = 4,
-                            Text = "Comprehensive single-entry accounting platform that calculates cashflow, tax savings, appreciation, and capital inflow"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 4,
-                            Text = "Maintained 75% code coverage"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            JobId = 2,
-                            Order = 3,
-                            ProjectId = 4,
-                            Text = "Made key technology decisions to keep project on time/budget"
+                            Text = "Developed gRPC-based messaging system as per client request"
                         });
                 });
 
@@ -334,7 +207,7 @@ namespace ResumePro.Migrations
                             Description = "",
                             Location = "Salt Lake City",
                             PersonaId = 1,
-                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2000, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Technical Architect"
                         },
                         new
@@ -344,82 +217,8 @@ namespace ResumePro.Migrations
                             Description = "",
                             Location = "American Fork,UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2002, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sr. Software Architect"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Company = "IdeaFortune",
-                            Description = "",
-                            Location = "American Fork,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2017, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Founder/Architect"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Company = "Agile Software",
-                            Description = "",
-                            Location = "",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Company = "Access Softek",
-                            Description = "",
-                            Location = "West Jordan,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Engineer Dev Lead"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Company = "NETCHEX",
-                            Description = "",
-                            EndDate = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Louisiana",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2012, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect Consultant"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Company = "Ancestry.com",
-                            Description = "",
-                            EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Engineer"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Company = "Cathexis",
-                            Description = "",
-                            EndDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect/Dev Manager"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Company = "Motorola Public Safety",
-                            Description = "",
-                            EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Salt Lake City,UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Engineer"
                         });
                 });
 
@@ -507,120 +306,6 @@ namespace ResumePro.Migrations
                         {
                             SkillId = 24,
                             JobId = 1,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 5,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 17,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 16,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 4,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 3,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 2,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 6,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 7,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 8,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 9,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 10,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 11,
-                            JobId = 2,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 1,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 3,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 25,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 26,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 27,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 28,
-                            JobId = 5,
-                            ResumeId = 1
-                        },
-                        new
-                        {
-                            SkillId = 8,
-                            JobId = 5,
                             ResumeId = 1
                         });
                 });
@@ -837,30 +522,6 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             SkillId = 24,
                             Rating = 8
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            SkillId = 25,
-                            Rating = 8
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            SkillId = 26,
-                            Rating = 8
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            SkillId = 27,
-                            Rating = 8
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            SkillId = 28,
-                            Rating = 8
                         });
                 });
 
@@ -1059,24 +720,6 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             ResumeId = 1,
                             JobId = 2
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            JobId = 3
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            JobId = 4
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            JobId = 5
                         });
                 });
 
@@ -1268,71 +911,6 @@ namespace ResumePro.Migrations
                             ResumeId = 1,
                             SkillId = 24,
                             ShowInSummary = false
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 25,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 26,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 27,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 28,
-                            ShowInSummary = false
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PersonaId");
-
-                    b.ToTable("School");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Name = "Portland Community College",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -1471,38 +1049,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 24,
                             Title = "Bicep"
-                        },
-                        new
-                        {
-                            Id = 25,
-                            Title = "Api Integrations"
-                        },
-                        new
-                        {
-                            Id = 26,
-                            Title = "Orchard"
-                        },
-                        new
-                        {
-                            Id = 27,
-                            Title = "Objective-C"
-                        },
-                        new
-                        {
-                            Id = 28,
-                            Title = "Bluetooth Low Energy (BLE)"
                         });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.Degree", b =>
-                {
-                    b.HasOne("ResumePro.Entities.School", "School")
-                        .WithMany("Degrees")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("School");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
@@ -1654,17 +1201,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Schools")
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Navigation("Highlighs");
@@ -1681,8 +1217,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Jobs");
 
                     b.Navigation("Resumes");
-
-                    b.Navigation("Schools");
 
                     b.Navigation("Skills");
                 });
@@ -1712,11 +1246,6 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.Navigation("Jobs");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.School", b =>
-                {
-                    b.Navigation("Degrees");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>

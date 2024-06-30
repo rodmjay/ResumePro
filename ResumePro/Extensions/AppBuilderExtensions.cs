@@ -4,7 +4,6 @@
 
 #endregion
 
-using Duende.IdentityServer.Services;
 using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Core.Middleware.Builders;
 using ResumePro.Services;

@@ -19,8 +19,9 @@ public class JobMapping : Profile
             .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Job.Description))
             .ForMember(x => x.Location, opt => opt.MapFrom(x => x.Job.Location))
             .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Job.Title))
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills))
-            .ForMember(x=>x.Projects, opt=>opt.MapFrom(x=>x.Job.Projects))
-            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Job.Highlighs.Where(a=>a.ProjectId == null)));
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills
+                .OrderByDescending(a => a.Skill.Skill.Rating)))
+            .ForMember(x => x.Projects, opt => opt.MapFrom(x => x.Job.Projects))
+            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Job.Highlighs.OrderBy(a => a.Order).Where(a => a.ProjectId == null)));
     }
 }
