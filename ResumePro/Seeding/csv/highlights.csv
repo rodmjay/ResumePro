@@ -1,2 +1,10 @@
-﻿Id,JobId,Order,Text
-1,1,1,Hello
+﻿Id,JobId,Order,Text,ProjectId
+1,1,1,"Managed the development and deployment mission-critical workflows related to software reliability",2
+2,1,2,"Developed geneva logging library used by SRE department",2
+3,1,3,"Developed dashboards to display real-time data of millions of records using Geneva",2
+4,1,4,"Used bicep to deploy complex synapse workspaces across multiple environments",2
+5,1,5,"Responsible for implementing integration testing patterns across multiple applications",2
+6,2,1,".NET leader (company-wide)",NULL
+7,2,2,"Developed interview process for tech screenings and performed dozens of tech interviews",NULL
+8,2,3,"Developed the common codebase used for all .NET projects",NULL
+9,2,4,"Won award for highest producing developer in 2021",NULL

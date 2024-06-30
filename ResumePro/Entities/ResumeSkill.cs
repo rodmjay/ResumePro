@@ -13,6 +13,7 @@ public class ResumeSkill : BaseEntity<ResumeSkill>, IResumeSkill
     public int ResumeId { get; set; }
     public int SkillId { get; set; }
     public int PersonaId { get; set; }
+    public bool ShowInSummary { get; set; }
 
     public override void Configure(EntityTypeBuilder<ResumeSkill> builder)
     {

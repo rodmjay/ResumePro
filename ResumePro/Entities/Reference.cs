@@ -7,15 +7,21 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Shared;
 
 namespace ResumePro.Entities;
 
 
-public class Reference : BaseEntity<Reference>
+
+
+public class Reference : BaseEntity<Reference>, IReference
 {
     public Job Job { get; set; }
     public int JobId { get; set; }
     public int Id { get; set; }
+    public string Text { get; set; }
+    public string Name { get; set; }
+    public string PhoneNumber { get; set; }
     
     public override void Configure(EntityTypeBuilder<Reference> builder)
     {

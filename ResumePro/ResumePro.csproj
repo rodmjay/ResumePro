@@ -12,6 +12,7 @@
     <None Remove="Seeding\csv\job_skills.csv" />
     <None Remove="Seeding\csv\personas.csv" />
     <None Remove="Seeding\csv\persona_skills.csv" />
+    <None Remove="Seeding\csv\projects.csv" />
     <None Remove="Seeding\csv\resumes.csv" />
     <None Remove="Seeding\csv\resume_jobs.csv" />
     <None Remove="Seeding\csv\resume_skills.csv" />
@@ -20,6 +21,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Seeding\csv\projects.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\resume_jobs.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -50,11 +54,6 @@
     <EmbeddedResource Include="sharedSettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

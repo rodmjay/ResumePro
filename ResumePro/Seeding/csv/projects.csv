@@ -1,0 +1,6 @@
+﻿Id,JobId,Description,Order
+1,1,"BASF",1
+2,1,"Microsoft",2
+3,2,"Elder Care Management Platform",1
+4,2,"Project 2: Real Estate Accounting Platform",2
+5,2,"Project 3: Major Food Distribution System ($300k)",3

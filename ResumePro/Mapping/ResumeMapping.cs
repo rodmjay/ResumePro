@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Azure.Messaging.ServiceBus;
 using ResumePro.Entities;
 using ResumePro.Shared;
 
@@ -12,7 +13,8 @@ public class ResumeMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Resume, ResumeDetails>()
-            .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs))
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills));
+            .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderBy(a=>a.Job.StartDate)))
+            .ForMember(x => x.References, opt => opt.MapFrom(x => x.Jobs.SelectMany(a=>a.Job.References)))
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.Where(a=>a.ShowInSummary == true)));
     }
 }

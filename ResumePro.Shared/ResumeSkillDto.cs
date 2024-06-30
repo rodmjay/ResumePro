@@ -4,7 +4,6 @@
 
 #endregion
 
-using System.Text.Json.Serialization;
 
 namespace ResumePro.Shared;
 

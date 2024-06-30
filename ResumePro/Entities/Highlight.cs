@@ -15,6 +15,10 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
 {
     public Job Job { get; set; }
     public int JobId { get; set; }
+
+    public Project Project { get; set; }
+    public int? ProjectId { get; set; }
+
     public int Id { get; set; }
     public int Order { get; set; }
     public string Text { get; set; }
@@ -26,5 +30,11 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
             .WithMany(x => x.Highlighs)
             .HasForeignKey(x => x.JobId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(x => x.Project)
+            .WithMany(x => x.Highlights)
+            .HasForeignKey(x => new { x.ProjectId, x.JobId })
+            .HasPrincipalKey(x => new { x.Id, x.JobId })
+            .IsRequired(false);
     }
 }

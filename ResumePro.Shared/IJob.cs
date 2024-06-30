@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Entities;
+namespace ResumePro.Shared;
 
 public interface IJob
 {

@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Shared;
 
 namespace ResumePro.Entities
 {
     public class Job : BaseEntity<Job>, IJob
     {
         public Persona Persona { get; set; }
+        public ICollection<Project> Projects { get; set; }
         public int PersonaId { get; set; }
         public ICollection<ResumeJob> Resumes { get; set; }
         public int Id { get; set; }
@@ -16,6 +18,7 @@ namespace ResumePro.Entities
         public string Company { get; set; }
         public string Location { get; set; }
         public string Description { get; set; }
+        
         public ICollection<Highlight> Highlighs { get; set; } = new List<Highlight>();
         public ICollection<Reference> References { get; set; } = new List<Reference>();
 

@@ -20,6 +20,7 @@ public class JobMapping : Profile
             .ForMember(x => x.Location, opt => opt.MapFrom(x => x.Job.Location))
             .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Job.Title))
             .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills))
-            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Job.Highlighs));
+            .ForMember(x=>x.Projects, opt=>opt.MapFrom(x=>x.Job.Projects))
+            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Job.Highlighs.Where(a=>a.ProjectId == null)));
     }
 }

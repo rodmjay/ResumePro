@@ -16,5 +16,10 @@ public class SkillMapping : Profile
     {
         CreateMap<Skill, SkillDto>()
             .IncludeAllDerived();
+
+        CreateMap<JobSkill, ResumeSkillDto>()
+            .ForMember(x => x.SkillId, opt => opt.MapFrom(x => x.SkillId))
+            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Skill.Skill.Skill.Title))
+            .ForMember(x => x.Rating, opt => opt.MapFrom(x => x.Skill.Skill.Rating));
     }
 }

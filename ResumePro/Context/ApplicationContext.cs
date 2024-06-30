@@ -56,5 +56,6 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<Highlight>().Seed("highlights.csv");
         builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
         builder.Entity<JobSkill>().Seed("job_skills.csv");
+        builder.Entity<Project>().Seed("projects.csv");
     }
 }

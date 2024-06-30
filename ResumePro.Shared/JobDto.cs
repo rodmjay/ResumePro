@@ -4,8 +4,6 @@
 
 #endregion
 
-using ResumePro.Entities;
-
 namespace ResumePro.Shared;
 
 public class JobDto : IJob

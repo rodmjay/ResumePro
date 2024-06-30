@@ -14,12 +14,11 @@ public class ResumeJob : BaseEntity<ResumeJob>
     public int JobId { get; set; }
     public Job Job { get; set; }
     public ICollection<JobSkill> Skills { get; set; } = new List<JobSkill>();
-
-    public int Order { get; set; }
+    
 
     public override void Configure(EntityTypeBuilder<ResumeJob> builder)
     {
-        builder.HasKey(x => new {x.ResumeId, x.JobId});
+        builder.HasKey(x => new {x.PersonaId, x.ResumeId, x.JobId});
 
         builder.HasOne(x => x.Resume)
             .WithMany(x => x.Jobs)
