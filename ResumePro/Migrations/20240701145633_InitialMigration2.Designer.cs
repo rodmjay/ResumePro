@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240701145633_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -542,7 +545,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 2,
                             Company = "Solution Stream",
-                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "American Fork,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -552,17 +554,15 @@ namespace ResumePro.Migrations
                         {
                             Id = 3,
                             Company = "IdeaFortune",
-                            EndDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "American Fork,UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2017, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Founder/Architect"
                         },
                         new
                         {
                             Id = 4,
                             Company = "Agile Software",
-                            EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Sacramento,CA",
                             PersonaId = 1,
                             StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -572,7 +572,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 5,
                             Company = "Access Softek",
-                            EndDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "West Jordan,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -582,10 +581,10 @@ namespace ResumePro.Migrations
                         {
                             Id = 6,
                             Company = "NETCHEX",
-                            EndDate = new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Louisiana",
                             PersonaId = 1,
-                            StartDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartDate = new DateTime(2012, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect Consultant"
                         },
                         new
@@ -602,7 +601,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 8,
                             Company = "Cathexis",
-                            EndDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EndDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Provo,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1303,9 +1302,9 @@ namespace ResumePro.Migrations
                             City = "Salt Lake City",
                             Email = "rodmjay@gmail.com",
                             FirstName = "Rod",
-                            GitHub = "https://www.github.com/rodmjay",
+                            GitHub = "https://www.linkedin.com/in/rodmjay",
                             LastName = "Johnson",
-                            LinkedIn = "https://www.linkedin.com/in/rodmjay",
+                            LinkedIn = "https://www.github.com/rodmjay",
                             PhoneNumber = "3853526026",
                             State = "UT"
                         });
@@ -1760,6 +1759,14 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            Id = 3,
+                            JobId = 2,
+                            Name = "Test1",
+                            PhoneNumber = "Test2",
+                            Text = "We asked people to step up and share their ideas and opinions on how to make SolutionStream more successful, Rod was one of the first people to come forward with an idea and plan and he executed it flawlessly. He is consistently bringing forward new ideas and ways to innovate some of the processes here, from interviewing to development"
+                        },
+                        new
+                        {
                             Id = 5,
                             JobId = 2,
                             Name = "Rob Atlas",
@@ -1769,7 +1776,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 6,
                             JobId = 2,
-                            Name = "Robert Clymer",
+                            Name = "Rob Atlas",
                             Text = "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy."
                         },
                         new
@@ -1806,11 +1813,11 @@ namespace ResumePro.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("JobTitle")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ShortName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -1821,8 +1828,8 @@ namespace ResumePro.Migrations
                         {
                             Id = 1,
                             Description = "Rod is an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience as a professional developer and architect, he has mastered the complete software development lifecycle, from ideation to implementation. Rod is frequently praised as a 10x developer, consistently delivering high-end software solutions from the ground up.",
-                            JobTitle = "Enterprise Application Architect",
-                            PersonaId = 1
+                            PersonaId = 1,
+                            ShortName = "Enterprise Application Architect"
                         });
                 });
 

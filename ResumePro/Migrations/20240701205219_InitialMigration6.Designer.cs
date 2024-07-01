@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240701205219_InitialMigration6")]
+    partial class InitialMigration6
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -542,7 +545,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 2,
                             Company = "Solution Stream",
-                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "American Fork,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -1769,7 +1771,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 6,
                             JobId = 2,
-                            Name = "Robert Clymer",
+                            Name = "Rob Atlas",
                             Text = "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy."
                         },
                         new
@@ -1821,7 +1823,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 1,
                             Description = "Rod is an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience as a professional developer and architect, he has mastered the complete software development lifecycle, from ideation to implementation. Rod is frequently praised as a 10x developer, consistently delivering high-end software solutions from the ground up.",
-                            JobTitle = "Enterprise Application Architect",
                             PersonaId = 1
                         });
                 });

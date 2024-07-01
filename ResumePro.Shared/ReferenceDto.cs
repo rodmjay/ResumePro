@@ -1,5 +1,6 @@
 ﻿namespace ResumePro.Shared;
 
+[JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class ReferenceDto : IReference
 {
     [JsonIgnore]

@@ -45,17 +45,16 @@ namespace ResumePro.Generator
 
             var document = CreateResumePdf(resume);
 
-            // Save the document...
-            const string filename = "HelloWorld.pdf";
-            document.Save(filename);
+            var fn = resume.FirstName + " " + resume.LastName + "-" + resume.JobTitle + ".pdf";
+            
+            document.Save(fn);
             // ...and start a viewer.
-            Process.Start("explorer", filename);
+            Process.Start("explorer", fn);
 
 
             Console.ReadLine();
 
         }
-
 
         public static PdfDocument CreateResumePdf(ResumeDetails resumeDetails)
         {
@@ -65,6 +64,7 @@ namespace ResumePro.Generator
             const double margin = 40;
             const double pageWidth = 595;
             const double pageHeight = 842; // A4 size height
+            const double bottomMargin = 40;
 
             XFont titleFont = new XFont("Verdana", 20, XFontStyleEx.Bold);
             XFont headerFont = new XFont("Verdana", 14, XFontStyleEx.Bold);
@@ -81,12 +81,20 @@ namespace ResumePro.Generator
                 return page;
             }
 
-            void DrawTitle(string title)
+            // Ensure gfx is initialized at the start
+            AddNewPage();
+
+            void EnsureSpaceForText(double lineHeight)
             {
-                if (gfx == null || currentY > pageHeight - margin)
+                if (currentY + lineHeight > pageHeight - bottomMargin)
                 {
                     AddNewPage();
                 }
+            }
+
+            void DrawTitle(string title)
+            {
+                EnsureSpaceForText(titleFont.Height + 10);
                 XRect rect = new XRect(0, currentY, pageWidth, 100);
                 gfx.DrawString(title, titleFont, XBrushes.Black, rect, XStringFormats.TopCenter);
                 currentY += titleFont.Height + 10; // Adjust spacing after title
@@ -94,10 +102,7 @@ namespace ResumePro.Generator
 
             void DrawHeader(string header)
             {
-                if (gfx == null || currentY > pageHeight - margin)
-                {
-                    AddNewPage();
-                }
+                EnsureSpaceForText(headerFont.Height + 15);
                 currentY += 10; // Add space before header
                 XRect rect = new XRect(margin, currentY, pageWidth - margin * 2, 100);
                 gfx.DrawString(header, headerFont, XBrushes.Black, rect, XStringFormats.TopLeft);
@@ -112,20 +117,13 @@ namespace ResumePro.Generator
                 const double lineHeight = 12; // Adjust as needed for line height
                 const double lineSpacing = 5; // Adjust as needed for line spacing
 
-                XRect rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, pageHeight);
-
-                // Split text into lines that fit within the available width
-                List<string> lines = SplitTextToFit(gfx, text, regularFont, rect.Width);
+                List<string> lines = SplitTextToFit(gfx, text, regularFont, pageWidth - margin * 2 - indentation);
 
                 foreach (string line in lines)
                 {
-                    if (currentY > pageHeight - margin)
-                    {
-                        AddNewPage();
-                        rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, pageHeight);
-                    }
+                    EnsureSpaceForText(lineHeight + lineSpacing);
+                    XRect rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
                     gfx.DrawString(line, regularFont, XBrushes.Black, rect, XStringFormats.TopLeft);
-                    rect = new XRect(rect.Left, rect.Top + lineHeight + lineSpacing, rect.Width, rect.Height - lineHeight - lineSpacing);
                     currentY += lineHeight + lineSpacing;
                 }
             }
@@ -179,7 +177,7 @@ namespace ResumePro.Generator
 
         private static IEnumerable<ResumeSection> GetResumeSections(ResumeDetails resumeDetails)
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Title, Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}" };
+            yield return new ResumeSection { SectionType = ResumeSectionType.Title, Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}" };
 
             yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Contact Information" };
             yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
@@ -252,7 +250,6 @@ namespace ResumePro.Generator
             public string Text { get; set; }
             public double Indentation { get; set; }
         }
-
 
 
     }

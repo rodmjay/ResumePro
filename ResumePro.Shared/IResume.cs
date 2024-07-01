@@ -10,6 +10,6 @@ public interface IResume
 {
     int PersonaId { get; set; }
     int Id { get; set; }
-    string ShortName { get; set; }
+    string JobTitle { get; set; }
     string Description { get; set; }
 }
