@@ -30,4 +30,9 @@ public class AppBuilder
     public IConfiguration Configuration { get; }
     public string ConnectionString { get; set; }
     public AppSettings AppSettings { get; set; }
+
+    public IServiceProvider Build()
+    {
+        return Services.BuildServiceProvider();
+    }
 }

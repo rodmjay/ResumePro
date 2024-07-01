@@ -9,6 +9,10 @@ public class ResumeMapping : Profile
     public ResumeMapping()
     {
         CreateMap<Resume, ResumeDto>()
+            .ForMember(x => x.FirstName, opt => opt.MapFrom(x => x.Persona.FirstName))
+            .ForMember(x => x.LastName, opt => opt.MapFrom(x => x.Persona.LastName))
+            .ForMember(x => x.Email, opt => opt.MapFrom(x => x.Persona.Email))
+            .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.Persona.PhoneNumber))
             .IncludeAllDerived();
 
         CreateMap<Resume, ResumeDetails>()
