@@ -1,6 +1,11 @@
-﻿Id,JobId,Description,Order
-1,1,"BASF",1
-2,1,"Microsoft",2
-3,2,"Elder Care Management Platform",1
-4,2,"Project 2: Real Estate Accounting Platform",2
-5,2,"Project 3: Major Food Distribution System ($300k)",3
+﻿Id,JobId,Name,Order,Description,Budget
+1,1,"BASF-Refinity",1,"Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
+2,1,"Microsoft",2,"SRE Team manages the overal qualtiy and monitorying of internal microsoft systems",
+3,2,"Elder Care Management Platform",1,"ElderCare is a platform that manages the health and wellness of senior citizens",500000
+4,2,"Real Estate Accounting Platform",2,NULL,500000
+5,2,"Major Food Distribution System",3,NULL,3000000
+6,3,"Professional Services Management Platform",1,NULL,500000
+7,4,"Family Entertainment Center Platform",1,NULL,500000
+8,7,"Small Collections Self-Management Platform",1,NULL,2000000
+9,8,"Affiliate Marketing Platform",1,NULL,2000000
+10,8,"E-Learning Platform",1,NULL,500000

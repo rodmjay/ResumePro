@@ -86,7 +86,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 1,
                             ProjectId = 2,
-                            Text = "Managed the development and deployment mission-critical workflows related to software reliability"
+                            Text = "Oversaw the development and deployment of mission-critical workflows to enhance software reliability"
                         },
                         new
                         {
@@ -94,7 +94,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 2,
                             ProjectId = 2,
-                            Text = "Developed geneva logging library used by SRE department"
+                            Text = "Developed the Geneva logging library utilized by the Site Reliability Engineering (SRE) department."
                         },
                         new
                         {
@@ -102,7 +102,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 3,
                             ProjectId = 2,
-                            Text = "Developed dashboards to display real-time data of millions of records using Geneva"
+                            Text = "Developed dashboards utilizing Geneva to display real-time data from millions of records."
                         },
                         new
                         {
@@ -110,7 +110,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 4,
                             ProjectId = 2,
-                            Text = "Used bicep to deploy complex synapse workspaces across multiple environments"
+                            Text = "Utilized Bicep to deploy complex Synapse workspaces across multiple environments."
                         },
                         new
                         {
@@ -118,35 +118,35 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 5,
                             ProjectId = 2,
-                            Text = "Responsible for implementing integration testing patterns across multiple applications"
+                            Text = "Responsible for implementing integration testing patterns across multiple applications."
                         },
                         new
                         {
                             Id = 6,
                             JobId = 2,
                             Order = 1,
-                            Text = ".NET leader (company-wide)"
+                            Text = "Company-wide leader for .NET initiatives."
                         },
                         new
                         {
                             Id = 7,
                             JobId = 2,
                             Order = 2,
-                            Text = "Developed interview process for tech screenings and performed dozens of tech interviews"
+                            Text = "Developed the technical screening process and conducted numerous technical interviews."
                         },
                         new
                         {
                             Id = 8,
                             JobId = 2,
                             Order = 3,
-                            Text = "Developed the common codebase used for all .NET projects"
+                            Text = "Developed the common codebase utilized for all .NET projects."
                         },
                         new
                         {
                             Id = 9,
                             JobId = 2,
                             Order = 4,
-                            Text = "Won award for highest producing developer in 2021"
+                            Text = "Received the award for highest-producing developer in 2021."
                         },
                         new
                         {
@@ -154,7 +154,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 1,
                             ProjectId = 1,
-                            Text = "Responsible for development of MicroService that was used as a model for other microservices"
+                            Text = "Responsible for the development and architecture of a new MicroService that served as a model for subsequent microservices."
                         },
                         new
                         {
@@ -162,7 +162,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 2,
                             ProjectId = 1,
-                            Text = "Performed tech screening for hundreds of C# and Angular developers"
+                            Text = "Conducted technical screenings for hundreds of C# and Angular developers."
                         },
                         new
                         {
@@ -170,7 +170,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 1,
                             ProjectId = 5,
-                            Text = "Responsible for re-architecture and development of an antiquated system using the latest .NET Technologies"
+                            Text = "Responsible for the re-architecture and development of an antiquated system using the latest .NET technologies."
                         },
                         new
                         {
@@ -178,7 +178,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 2,
                             ProjectId = 5,
-                            Text = "Wired up existing SQL Server database to EF Core "
+                            Text = "Integrated an existing SQL Server database with EF Core."
                         },
                         new
                         {
@@ -186,7 +186,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 3,
                             ProjectId = 5,
-                            Text = "Developed gRPC-based messaging system"
+                            Text = "Developed a gRPC-based messaging system using C# WebAPI."
                         },
                         new
                         {
@@ -194,7 +194,7 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 5,
                             ProjectId = 1,
-                            Text = "Introduced enhanced unit and integration testing framework patterns"
+                            Text = "Introduced enhanced patterns for unit and integration testing frameworks."
                         },
                         new
                         {
@@ -202,28 +202,28 @@ namespace ResumePro.Migrations
                             JobId = 1,
                             Order = 6,
                             ProjectId = 1,
-                            Text = "Maintaned 90% Code Coverage"
+                            Text = "Maintaned 90% code coverage."
                         },
                         new
                         {
                             Id = 17,
                             JobId = 5,
                             Order = 1,
-                            Text = "Managed 4 developers directly using Agile Scrum"
+                            Text = "Managed four developers directly using Agile Scrum methodologies."
                         },
                         new
                         {
                             Id = 18,
                             JobId = 5,
                             Order = 2,
-                            Text = "Responsible for architecture/development of components of banking platform"
+                            Text = "Responsible for the architecture and development of components within a banking platform."
                         },
                         new
                         {
                             Id = 19,
                             JobId = 5,
                             Order = 3,
-                            Text = "Developed Fingerprint Login and Friends and Family Shared Banking components"
+                            Text = "Developed Fingerprint Login and Friends and Family Shared Banking components."
                         },
                         new
                         {
@@ -231,7 +231,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 4,
                             ProjectId = 3,
-                            Text = "Responsible for architecture/development of .net core backend"
+                            Text = "Responsible for the architecture and development of the .NET Core backend."
                         },
                         new
                         {
@@ -239,7 +239,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 2,
                             ProjectId = 3,
-                            Text = "Developmed Complex medication and recurring activity scheduling"
+                            Text = "Developed complex medication and recurring activity scheduling systems."
                         },
                         new
                         {
@@ -247,7 +247,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 3,
                             ProjectId = 3,
-                            Text = "Made key technology decisions to keep project on time/budget"
+                            Text = "Made key technology decisions to ensure the project remained on schedule and within budget."
                         },
                         new
                         {
@@ -255,7 +255,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 4,
                             ProjectId = 3,
-                            Text = "Maintained 90% Code Coverage"
+                            Text = "Maintained 90% code coverage."
                         },
                         new
                         {
@@ -263,7 +263,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 1,
                             ProjectId = 4,
-                            Text = "Responsible for entire backend and frontend architecture/development of .net core backend and angular front-end"
+                            Text = "Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend."
                         },
                         new
                         {
@@ -271,7 +271,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 2,
                             ProjectId = 4,
-                            Text = "Comprehensive single-entry accounting platform that calculates cashflow, tax savings, appreciation, and capital inflow"
+                            Text = "Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow."
                         },
                         new
                         {
@@ -279,7 +279,7 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 4,
                             ProjectId = 4,
-                            Text = "Maintained 75% code coverage"
+                            Text = "Maintained 75% code coverage."
                         },
                         new
                         {
@@ -287,7 +287,209 @@ namespace ResumePro.Migrations
                             JobId = 2,
                             Order = 3,
                             ProjectId = 4,
-                            Text = "Made key technology decisions to keep project on time/budget"
+                            Text = "Made key technology decisions to ensure the project remained on schedule and within budget."
+                        },
+                        new
+                        {
+                            Id = 28,
+                            JobId = 9,
+                            Order = 1,
+                            Text = "Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department."
+                        },
+                        new
+                        {
+                            Id = 29,
+                            JobId = 9,
+                            Order = 2,
+                            Text = "Received extensive training in .NET, JavaScript, and WCF directly from Microsoft."
+                        },
+                        new
+                        {
+                            Id = 30,
+                            JobId = 1,
+                            Order = 2,
+                            ProjectId = 2,
+                            Text = "Optimized ChatGPT training models to meet internal business needs."
+                        },
+                        new
+                        {
+                            Id = 31,
+                            JobId = 3,
+                            Order = 1,
+                            Text = "Responsible for the ideation, design, and delivery of a comprehensive professional services platform."
+                        },
+                        new
+                        {
+                            Id = 32,
+                            JobId = 3,
+                            Order = 2,
+                            Text = "Raised startup capital to fund company operations for three years."
+                        },
+                        new
+                        {
+                            Id = 33,
+                            JobId = 3,
+                            Order = 3,
+                            Text = "Managed a team of five developers to implement the flagship product."
+                        },
+                        new
+                        {
+                            Id = 34,
+                            JobId = 3,
+                            Order = 1,
+                            ProjectId = 6,
+                            Text = "Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed."
+                        },
+                        new
+                        {
+                            Id = 36,
+                            JobId = 3,
+                            Order = 3,
+                            ProjectId = 6,
+                            Text = "Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs."
+                        },
+                        new
+                        {
+                            Id = 37,
+                            JobId = 4,
+                            Order = 1,
+                            Text = "Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and improve scalability."
+                        },
+                        new
+                        {
+                            Id = 38,
+                            JobId = 4,
+                            Order = 2,
+                            Text = "Developed a comprehensive order and scheduling system with full functionality."
+                        },
+                        new
+                        {
+                            Id = 39,
+                            JobId = 4,
+                            Order = 3,
+                            Text = "Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team."
+                        },
+                        new
+                        {
+                            Id = 40,
+                            JobId = 4,
+                            Order = 4,
+                            Text = "Developed a comprehensive DevOps strategy to ensure compliance with international regulations."
+                        },
+                        new
+                        {
+                            Id = 41,
+                            JobId = 4,
+                            Order = 1,
+                            ProjectId = 7,
+                            Text = "Oversaw and managed the complete backend development process."
+                        },
+                        new
+                        {
+                            Id = 42,
+                            JobId = 4,
+                            Order = 2,
+                            ProjectId = 7,
+                            Text = "Integrated with multiple bowling and card-reading systems to enhance overall system functionality."
+                        },
+                        new
+                        {
+                            Id = 43,
+                            JobId = 4,
+                            Order = 3,
+                            ProjectId = 7,
+                            Text = "Developed a fully-featured order and scheduling system."
+                        },
+                        new
+                        {
+                            Id = 44,
+                            JobId = 6,
+                            Order = 1,
+                            Text = "Redesigned the flagship product by integrating advanced technology to enhance performance and functionality."
+                        },
+                        new
+                        {
+                            Id = 45,
+                            JobId = 6,
+                            Order = 2,
+                            Text = "Collaborated directly with the onsite team, providing mentorship to enhance skills and foster professional growth."
+                        },
+                        new
+                        {
+                            Id = 46,
+                            JobId = 6,
+                            Order = 3,
+                            Text = "Engineered numerous innovative features into the existing platform, significantly enhancing its capabilities and user experience."
+                        },
+                        new
+                        {
+                            Id = 47,
+                            JobId = 6,
+                            Order = 4,
+                            Text = "Specialized expertise in PCI Compliance and payment processing systems."
+                        },
+                        new
+                        {
+                            Id = 48,
+                            JobId = 7,
+                            Order = 1,
+                            ProjectId = 8,
+                            Text = "Developed tools to facilitate the indexing of library archives."
+                        },
+                        new
+                        {
+                            Id = 49,
+                            JobId = 7,
+                            Order = 2,
+                            Text = "Spearheaded companywide adoption and training of jQuery."
+                        },
+                        new
+                        {
+                            Id = 50,
+                            JobId = 7,
+                            Order = 3,
+                            ProjectId = 8,
+                            Text = "Collaborated as a member of an 8-person development team utilizing Agile/Scrum methodologies."
+                        },
+                        new
+                        {
+                            Id = 51,
+                            JobId = 7,
+                            Order = 4,
+                            ProjectId = 8,
+                            Text = "Maintained 100% code coverage."
+                        },
+                        new
+                        {
+                            Id = 53,
+                            JobId = 8,
+                            Order = 1,
+                            ProjectId = 9,
+                            Text = "Oversaw the architecture, development, and deployment of a comprehensive affiliate marketing platform."
+                        },
+                        new
+                        {
+                            Id = 54,
+                            JobId = 8,
+                            Order = 1,
+                            ProjectId = 10,
+                            Text = "Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies."
+                        },
+                        new
+                        {
+                            Id = 55,
+                            JobId = 8,
+                            Order = 2,
+                            ProjectId = 10,
+                            Text = "Oversaw the architecture, development, and deployment of a comprehensive e-learning platform."
+                        },
+                        new
+                        {
+                            Id = 56,
+                            JobId = 8,
+                            Order = 2,
+                            ProjectId = 9,
+                            Text = "Ensured 99% uptime to maintain smooth business operations."
                         });
                 });
 
@@ -331,8 +533,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 1,
                             Company = "InfoSys",
-                            Description = "",
-                            Location = "Salt Lake City",
+                            Location = "Salt Lake City,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Technical Architect"
@@ -341,7 +542,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 2,
                             Company = "Solution Stream",
-                            Description = "",
                             Location = "American Fork,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -351,7 +551,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 3,
                             Company = "IdeaFortune",
-                            Description = "",
                             Location = "American Fork,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2017, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -361,8 +560,7 @@ namespace ResumePro.Migrations
                         {
                             Id = 4,
                             Company = "Agile Software",
-                            Description = "",
-                            Location = "",
+                            Location = "Sacramento,CA",
                             PersonaId = 1,
                             StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect"
@@ -371,7 +569,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 5,
                             Company = "Access Softek",
-                            Description = "",
                             Location = "West Jordan,UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -381,7 +578,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 6,
                             Company = "NETCHEX",
-                            Description = "",
                             EndDate = new DateTime(2013, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Louisiana",
                             PersonaId = 1,
@@ -392,7 +588,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 7,
                             Company = "Ancestry.com",
-                            Description = "",
                             EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Provo,UT",
                             PersonaId = 1,
@@ -403,7 +598,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 8,
                             Company = "Cathexis",
-                            Description = "",
                             EndDate = new DateTime(2010, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Provo,UT",
                             PersonaId = 1,
@@ -414,7 +608,6 @@ namespace ResumePro.Migrations
                         {
                             Id = 9,
                             Company = "Motorola Public Safety",
-                            Description = "",
                             EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Salt Lake City,UT",
                             PersonaId = 1,
@@ -622,6 +815,444 @@ namespace ResumePro.Migrations
                             SkillId = 8,
                             JobId = 5,
                             ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 30,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 33,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 29,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 32,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 4,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 5,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 6,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 31,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 5,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 7,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 36,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 37,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 38,
+                            JobId = 1,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 38,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 39,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 40,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 41,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 42,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 31,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 25,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 10,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 8,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 4,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 42,
+                            JobId = 4,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 44,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 43,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            JobId = 6,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 7,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 44,
+                            JobId = 7,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 7,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 43,
+                            JobId = 7,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 33,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 46,
+                            JobId = 8,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 1,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 2,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 3,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 4,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 5,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 6,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 7,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 8,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 9,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 10,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 11,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 12,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 12,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 13,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 13,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 14,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 22,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 22,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 34,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 44,
+                            JobId = 2,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 44,
+                            JobId = 3,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 43,
+                            JobId = 2,
+                            ResumeId = 1
                         });
                 });
 
@@ -746,7 +1377,7 @@ namespace ResumePro.Migrations
                         {
                             PersonaId = 1,
                             SkillId = 9,
-                            Rating = 8
+                            Rating = 10
                         },
                         new
                         {
@@ -824,7 +1455,7 @@ namespace ResumePro.Migrations
                         {
                             PersonaId = 1,
                             SkillId = 22,
-                            Rating = 8
+                            Rating = 10
                         },
                         new
                         {
@@ -861,6 +1492,114 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             SkillId = 28,
                             Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 29,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 30,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 31,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 32,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 33,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 34,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 35,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 36,
+                            Rating = 9
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 37,
+                            Rating = 9
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 38,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 39,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 40,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 41,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 42,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 43,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 44,
+                            Rating = 10
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 45,
+                            Rating = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 46,
+                            Rating = 5
                         });
                 });
 
@@ -872,7 +1611,13 @@ namespace ResumePro.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
+                    b.Property<decimal?>("Budget")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Order")
@@ -889,36 +1634,82 @@ namespace ResumePro.Migrations
                         {
                             Id = 1,
                             JobId = 1,
-                            Description = "BASF",
+                            Description = "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
+                            Name = "BASF-Refinity",
                             Order = 1
                         },
                         new
                         {
                             Id = 2,
                             JobId = 1,
-                            Description = "Microsoft",
+                            Description = "SRE Team manages the overal qualtiy and monitorying of internal microsoft systems",
+                            Name = "Microsoft",
                             Order = 2
                         },
                         new
                         {
                             Id = 3,
                             JobId = 2,
-                            Description = "Elder Care Management Platform",
+                            Budget = 500000m,
+                            Description = "ElderCare is a platform that manages the health and wellness of senior citizens",
+                            Name = "Elder Care Management Platform",
                             Order = 1
                         },
                         new
                         {
                             Id = 4,
                             JobId = 2,
-                            Description = "Project 2: Real Estate Accounting Platform",
+                            Budget = 500000m,
+                            Name = "Real Estate Accounting Platform",
                             Order = 2
                         },
                         new
                         {
                             Id = 5,
                             JobId = 2,
-                            Description = "Project 3: Major Food Distribution System ($300k)",
+                            Budget = 3000000m,
+                            Name = "Major Food Distribution System",
                             Order = 3
+                        },
+                        new
+                        {
+                            Id = 6,
+                            JobId = 3,
+                            Budget = 500000m,
+                            Name = "Professional Services Management Platform",
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            JobId = 4,
+                            Budget = 500000m,
+                            Name = "Family Entertainment Center Platform",
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            JobId = 7,
+                            Budget = 2000000m,
+                            Name = "Small Collections Self-Management Platform",
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            JobId = 8,
+                            Budget = 2000000m,
+                            Name = "Affiliate Marketing Platform",
+                            Order = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            JobId = 8,
+                            Budget = 500000m,
+                            Name = "E-Learning Platform",
+                            Order = 1
                         });
                 });
 
@@ -1077,6 +1868,30 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             ResumeId = 1,
                             JobId = 5
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            JobId = 6
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            JobId = 7
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            JobId = 8
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            JobId = 9
                         });
                 });
 
@@ -1296,6 +2111,132 @@ namespace ResumePro.Migrations
                             ResumeId = 1,
                             SkillId = 28,
                             ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 29,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 30,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 31,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 32,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 33,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 34,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 35,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 36,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 37,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 38,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 39,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 40,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 41,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 42,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 43,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 44,
+                            ShowInSummary = true
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 45,
+                            ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 46,
+                            ShowInSummary = false
                         });
                 });
 
@@ -1395,7 +2336,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             Id = 9,
-                            Title = "Visual Studio 2022"
+                            Title = "Visual Studio"
                         },
                         new
                         {
@@ -1491,6 +2432,96 @@ namespace ResumePro.Migrations
                         {
                             Id = 28,
                             Title = "Bluetooth Low Energy (BLE)"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Title = "WCF"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Title = "IIS"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Title = ".NET Framework"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Title = "WPF"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Title = "Classic ASP"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Title = "ASP.NET"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Title = "Big Data"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Title = "Html/CSS"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Title = "Artificial Intelligence (AI)"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Title = ".Net Core"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Title = "Stripe"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Title = "WebHooks"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Title = "Microsoft Teams"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Title = "Jira"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Title = "jQuery"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Title = "JavaScript"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Title = "Powershell"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Title = "Python"
                         });
                 });
 

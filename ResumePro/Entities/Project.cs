@@ -13,7 +13,9 @@ public class Project : BaseEntity<Project>, IProject
 
     public ICollection<Highlight> Highlights { get; set; }
 
+    public string Name { get; set; }
     public string Description { get; set; }
+    public decimal? Budget { get; set; }
 
 
     public override void Configure(EntityTypeBuilder<Project> builder)

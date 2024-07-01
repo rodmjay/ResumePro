@@ -9,6 +9,8 @@ namespace ResumePro.Shared;
 public class JobDetails : JobDto
 {
     public List<HighlightDto> Highlights { get; set; }
-    public List<ResumeSkillDto> Skills { get; set; }
+
+    [JsonProperty("technology")]
+    public List<JobSkillDto> Skills { get; set; }
     public List<ProjectDetails> Projects { get; set; }
 }
