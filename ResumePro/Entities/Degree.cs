@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared;
 
@@ -10,6 +16,7 @@ public class Degree : BaseEntity<Degree>, IDegree
     public int SchoolId { get; set; }
     public int Id { get; set; }
     public string Name { get; set; }
+
     public override void Configure(EntityTypeBuilder<Degree> builder)
     {
         builder.HasKey(x => x.Id);

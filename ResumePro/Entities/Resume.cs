@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared;
@@ -8,9 +14,9 @@ namespace ResumePro.Entities;
 public class Resume : BaseEntity<Resume>, IResume
 {
     public Persona Persona { get; set; }
-    public int PersonaId { get; set; }
     public ICollection<ResumeJob> Jobs { get; set; }
     public ICollection<ResumeSkill> Skills { get; set; }
+    public int PersonaId { get; set; }
     public int Id { get; set; }
     public string JobTitle { get; set; }
     public string Description { get; set; }

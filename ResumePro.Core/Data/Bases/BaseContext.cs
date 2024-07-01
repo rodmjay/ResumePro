@@ -136,10 +136,7 @@ public abstract class BaseContext<TContext> : DbContext, IDataContextAsync where
                         if (entityEntry.Entity is IHasCreationTime createdEntity)
                             createdEntity.Created = DateTime.UtcNow;
 
-                        if (entityEntry is ICreated created)
-                        {
-                            created.Created = DateTime.UtcNow;
-                        }
+                        if (entityEntry is ICreated created) created.Created = DateTime.UtcNow;
 
                         break;
                     }

@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 
@@ -14,7 +20,7 @@ public class ResumeJob : BaseEntity<ResumeJob>
     public int JobId { get; set; }
     public Job Job { get; set; }
     public ICollection<JobSkill> Skills { get; set; } = new List<JobSkill>();
-    
+
 
     public override void Configure(EntityTypeBuilder<ResumeJob> builder)
     {
@@ -22,8 +28,8 @@ public class ResumeJob : BaseEntity<ResumeJob>
 
         builder.HasOne(x => x.Resume)
             .WithMany(x => x.Jobs)
-            .HasForeignKey(x => new{ x.PersonaId, x.ResumeId})
-            .HasPrincipalKey(x => new{ x.PersonaId, x.Id})
+            .HasForeignKey(x => new {x.PersonaId, x.ResumeId})
+            .HasPrincipalKey(x => new {x.PersonaId, x.Id})
             .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Job)

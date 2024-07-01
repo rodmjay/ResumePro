@@ -11,11 +11,9 @@ public class Result
 {
     private readonly List<Error> _errors = new();
 
-    [JsonProperty("succeeded")]
-    public bool Succeeded { get; protected set; }
+    [JsonProperty("succeeded")] public bool Succeeded { get; protected set; }
 
-    [JsonProperty("id")]
-    public object Id { get; protected set; }
+    [JsonProperty("id")] public object Id { get; protected set; }
 
     [JsonProperty]
     public IEnumerable<Error> Errors

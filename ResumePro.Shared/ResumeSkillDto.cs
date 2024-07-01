@@ -4,19 +4,16 @@
 
 #endregion
 
-
 namespace ResumePro.Shared;
 
 public class ResumeSkillDto : IResumeSkill
 {
-    [JsonIgnore]
-    public int ResumeId { get; set; }
-
-    [JsonIgnore]
-    public  int SkillId { get; set; }
     public string Title { get; set; }
     public virtual int Rating { get; set; }
 
-    [JsonIgnore]
-    public int PersonaId { get; set; }
+    [JsonIgnore] public int ResumeId { get; set; }
+
+    [JsonIgnore] public int SkillId { get; set; }
+
+    [JsonIgnore] public int PersonaId { get; set; }
 }

@@ -279,10 +279,7 @@ public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : cla
 
     private void _Insert(TEntity entity)
     {
-        if (entity is ICreated timestamp)
-        {
-            timestamp.Created = DateTimeOffset.UtcNow;
-        }
+        if (entity is ICreated timestamp) timestamp.Created = DateTimeOffset.UtcNow;
 
         entity.ObjectState = ObjectState.Added;
         _dbSet.Add(entity);
@@ -317,7 +314,7 @@ public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : cla
         query = query.Skip(skip).Take(pageSize.Value);
         return query;
     }
-    
+
 
     private void SyncObjectGraph(object entity) // scan object graph for all 
     {
@@ -333,10 +330,7 @@ public class Repository<TEntity> : IRepositoryAsync<TEntity> where TEntity : cla
 
         if (objectState is {ObjectState: ObjectState.Added})
         {
-            if (entity is ICreated timestamp)
-            {
-                timestamp.Created = DateTimeOffset.UtcNow;
-            }
+            if (entity is ICreated timestamp) timestamp.Created = DateTimeOffset.UtcNow;
 
             _context.SyncObjectState((IObjectState) entity);
         }

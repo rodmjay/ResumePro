@@ -8,8 +8,8 @@ using System.Runtime.CompilerServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Core.Middleware.Builders;
+using ResumePro.Core.Settings;
 using Serilog;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
 
 namespace ResumePro.Core.Middleware.Extensions;
 
@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
         settingsSection.Bind(appSettings);
 
         Log.Logger.Debug(GetLogMessage($"Application: {appSettings.Name}"));
-        
+
         services.Configure<AppSettings>(settingsSection);
         services.AddOptions();
 

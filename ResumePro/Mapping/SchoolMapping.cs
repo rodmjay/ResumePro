@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using AutoMapper;
 using ResumePro.Entities;
 using ResumePro.Shared;
 
@@ -11,6 +17,6 @@ public class SchoolMapping : Profile
         CreateMap<School, SchoolDto>().IncludeAllDerived();
 
         CreateMap<School, SchoolDetails>()
-            .ForMember(x=>x.Degrees, opt=>opt.MapFrom(x=>x.Degrees));
+            .ForMember(x => x.Degrees, opt => opt.MapFrom(x => x.Degrees));
     }
 }

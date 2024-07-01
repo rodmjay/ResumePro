@@ -9,5 +9,4 @@ namespace ResumePro.Shared;
 public class ProjectDetails : ProjectDto
 {
     public List<HighlightDto> Highlights { get; set; }
-
 }

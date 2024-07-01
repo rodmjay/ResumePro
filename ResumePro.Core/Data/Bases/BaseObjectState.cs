@@ -13,5 +13,5 @@ namespace ResumePro.Core.Data.Bases;
 
 public abstract class BaseObjectState : IObjectState
 {
-    [NotMapped][IgnoreDataMember] public ObjectState ObjectState { get; set; }
+    [NotMapped] [IgnoreDataMember] public ObjectState ObjectState { get; set; }
 }

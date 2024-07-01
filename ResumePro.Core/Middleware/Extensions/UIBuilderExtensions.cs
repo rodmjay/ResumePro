@@ -6,27 +6,21 @@
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
-using Duende.IdentityServer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using ResumePro.Core.Middleware.Builders;
+using ResumePro.Core.Settings;
 using Serilog;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
 
 namespace ResumePro.Core.Middleware.Extensions;
 
 [ExcludeFromCodeCoverage]
 public static class UIBuilderExtensions
 {
-   
-
     private static bool DisallowsSameSiteNone(string userAgent)
     {
         // Cover all iOS based browsers here. This includes:
@@ -100,7 +94,7 @@ public static class UIBuilderExtensions
         });
         return builder;
     }
-    
+
     private static string GetLogMessage(string message, [CallerMemberName] string callerName = null)
     {
         return $"[{nameof(UIBuilderExtensions)}.{callerName}] - {message}";

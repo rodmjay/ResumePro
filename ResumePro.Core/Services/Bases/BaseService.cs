@@ -5,7 +5,6 @@
 #endregion
 
 using AutoMapper;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using ResumePro.Core.Data.Interfaces;
@@ -32,7 +31,6 @@ public abstract class BaseService
 
 public abstract class BaseService<TEntity> : BaseService, IService<TEntity> where TEntity : class, IObjectState
 {
-
     protected BaseService(IServiceProvider serviceProvider) : base(serviceProvider)
     {
         Repository = UnitOfWork.RepositoryAsync<TEntity>();

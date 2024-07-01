@@ -20,11 +20,6 @@ namespace ResumePro.Core.Middleware;
 
 public class ExceptionMiddleware
 {
-    private static string GetLogMessage(string message, [CallerMemberName] string callerName = null)
-    {
-        return $"[{nameof(ExceptionMiddleware)}.{callerName}] - {message}";
-    }
-
     private readonly JsonSerializerSettings _jsonSerializerSettings;
     private readonly ILoggerFactory _loggerFactory;
     private readonly RequestDelegate _next;
@@ -38,6 +33,11 @@ public class ExceptionMiddleware
         _next = next;
         _loggerFactory = loggerFactory;
         _jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
+    }
+
+    private static string GetLogMessage(string message, [CallerMemberName] string callerName = null)
+    {
+        return $"[{nameof(ExceptionMiddleware)}.{callerName}] - {message}";
     }
 
     public async Task InvokeAsync(HttpContext httpContext)

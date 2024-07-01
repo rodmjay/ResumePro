@@ -1,9 +1,15 @@
-﻿namespace ResumePro.Shared;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Shared;
 
 public class PersonaDto : IPersona
 {
-    [JsonIgnore]
-    public int Id { get; set; }
+    [JsonIgnore] public int Id { get; set; }
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }

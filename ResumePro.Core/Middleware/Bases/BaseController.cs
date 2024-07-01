@@ -5,11 +5,9 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using SendGrid.Helpers.Errors.Model;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
+using ResumePro.Core.Settings;
 
 namespace ResumePro.Core.Middleware.Bases;
 
@@ -25,5 +23,4 @@ public class BaseController : ControllerBase
     {
         AppSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
     }
-    
 }

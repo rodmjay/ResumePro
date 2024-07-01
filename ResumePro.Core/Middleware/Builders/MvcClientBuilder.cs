@@ -7,7 +7,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
+using ResumePro.Core.Settings;
 
 namespace ResumePro.Core.Middleware.Builders;
 

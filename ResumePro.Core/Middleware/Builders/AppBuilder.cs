@@ -6,7 +6,7 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
+using ResumePro.Core.Settings;
 
 namespace ResumePro.Core.Middleware.Builders;
 
@@ -23,6 +23,7 @@ public class AppBuilder
         AssembliesToMap = new List<string>();
         AzureServiceBusConnectionString = configuration.GetConnectionString("AzureServiceBusConnection");
     }
+
     public string AzureServiceBusConnectionString { get; set; }
 
     public List<string> AssembliesToMap { get; set; }

@@ -4,7 +4,6 @@
 
 #endregion
 
-
 namespace ResumePro.Core.Data.Interfaces;
 
 public interface ISoftDelete

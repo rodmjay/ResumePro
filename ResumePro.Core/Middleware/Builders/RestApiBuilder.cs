@@ -5,7 +5,7 @@
 #endregion
 
 using Microsoft.Extensions.DependencyInjection;
-using AppSettings = ResumePro.Core.Settings.AppSettings;
+using ResumePro.Core.Settings;
 
 namespace ResumePro.Core.Middleware.Builders;
 

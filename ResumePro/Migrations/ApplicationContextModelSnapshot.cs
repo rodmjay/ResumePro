@@ -1257,6 +1257,18 @@ namespace ResumePro.Migrations
                             SkillId = 43,
                             JobId = 2,
                             ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 44,
+                            JobId = 9,
+                            ResumeId = 1
+                        },
+                        new
+                        {
+                            SkillId = 47,
+                            JobId = 9,
+                            ResumeId = 1
                         });
                 });
 
@@ -1306,7 +1318,7 @@ namespace ResumePro.Migrations
                             GitHub = "https://www.github.com/rodmjay",
                             LastName = "Johnson",
                             LinkedIn = "https://www.linkedin.com/in/rodmjay",
-                            PhoneNumber = "3853526026",
+                            PhoneNumber = "(385) 352-6026",
                             State = "UT"
                         });
                 });
@@ -1603,6 +1615,12 @@ namespace ResumePro.Migrations
                         {
                             PersonaId = 1,
                             SkillId = 46,
+                            Rating = 5
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            SkillId = 47,
                             Rating = 5
                         });
                 });
@@ -2242,6 +2260,13 @@ namespace ResumePro.Migrations
                             ResumeId = 1,
                             SkillId = 46,
                             ShowInSummary = false
+                        },
+                        new
+                        {
+                            PersonaId = 1,
+                            ResumeId = 1,
+                            SkillId = 47,
+                            ShowInSummary = false
                         });
                 });
 
@@ -2527,6 +2552,11 @@ namespace ResumePro.Migrations
                         {
                             Id = 46,
                             Title = "Python"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Title = "XAML"
                         });
                 });
 

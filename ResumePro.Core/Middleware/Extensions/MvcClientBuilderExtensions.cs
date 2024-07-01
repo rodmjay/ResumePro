@@ -4,12 +4,9 @@
 
 #endregion
 
-using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ResumePro.Core.Middleware.Builders;
 
 namespace ResumePro.Core.Middleware.Extensions;
 

@@ -28,7 +28,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         DbContextOptions<ApplicationContext> options) : this(options, null)
     {
     }
-    
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -39,8 +39,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
     {
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
-    
-    
+
 
     protected override void SeedDatabase(ModelBuilder builder)
     {

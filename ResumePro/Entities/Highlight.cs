@@ -22,6 +22,7 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
     public int Id { get; set; }
     public int Order { get; set; }
     public string Text { get; set; }
+
     public override void Configure(EntityTypeBuilder<Highlight> builder)
     {
         builder.HasKey(x => x.Id);
@@ -33,8 +34,8 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
 
         builder.HasOne(x => x.Project)
             .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new { x.ProjectId, x.JobId })
-            .HasPrincipalKey(x => new { x.Id, x.JobId })
+            .HasForeignKey(x => new {x.ProjectId, x.JobId})
+            .HasPrincipalKey(x => new {x.Id, x.JobId})
             .IsRequired(false);
     }
 }

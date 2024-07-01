@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 
 namespace ResumePro.Entities;
@@ -13,16 +19,16 @@ public class JobSkill : BaseEntity<JobSkill>
 
     public override void Configure(EntityTypeBuilder<JobSkill> builder)
     {
-        builder.HasKey(x => new { x.SkillId, x.JobId });
+        builder.HasKey(x => new {x.SkillId, x.JobId});
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Skills)
-            .HasForeignKey(x => new { x.ResumeId, x.JobId })
-            .HasPrincipalKey(x => new { x.ResumeId, x.JobId });
+            .HasForeignKey(x => new {x.ResumeId, x.JobId})
+            .HasPrincipalKey(x => new {x.ResumeId, x.JobId});
 
         builder.HasOne(x => x.Skill)
             .WithMany(x => x.Jobs)
-            .HasForeignKey(x => new { x.ResumeId, x.SkillId })
-            .HasPrincipalKey(x => new { x.ResumeId, x.SkillId });
+            .HasForeignKey(x => new {x.ResumeId, x.SkillId})
+            .HasPrincipalKey(x => new {x.ResumeId, x.SkillId});
     }
 }

@@ -131,7 +131,7 @@ public static class RestApiBuilderExtensions
         app.UseHttpsRedirection();
 
         app.UseRouting();
-        
+
         //app.UseCors();
 
         app.UseEndpoints(endpoints =>

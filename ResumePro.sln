@@ -3,19 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro", "ResumePro\ResumePro.csproj", "{51A0BBAF-9E13-430C-8198-AA16B71433EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro", "ResumePro\ResumePro.csproj", "{51A0BBAF-9E13-430C-8198-AA16B71433EB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Core", "ResumePro.Core\ResumePro.Core.csproj", "{DA52E149-1989-4D47-B787-B1DDB18C998D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Core", "ResumePro.Core\ResumePro.Core.csproj", "{DA52E149-1989-4D47-B787-B1DDB18C998D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Shared", "ResumePro.Shared\ResumePro.Shared.csproj", "{83B95D57-5AC8-4A9B-959D-0BF367072DFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Shared", "ResumePro.Shared\ResumePro.Shared.csproj", "{83B95D57-5AC8-4A9B-959D-0BF367072DFE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{33782044-9F85-4B1A-8BDC-06240B5E6E1E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{626A5BB0-B489-45A1-B55E-7BED62930377}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Api2", "ResumePro.Api2\ResumePro.Api2.csproj", "{399CC769-A4A7-465C-9060-DE4B96D7B381}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Generator", "ResumePro.Generator\ResumePro.Generator.csproj", "{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Generator", "ResumePro.Generator\ResumePro.Generator.csproj", "{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Api", "ResumePro.Api\ResumePro.Api.csproj", "{119A001B-33D0-4B30-BB35-3A33234B9A80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,14 +35,14 @@ Global
 		{83B95D57-5AC8-4A9B-959D-0BF367072DFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83B95D57-5AC8-4A9B-959D-0BF367072DFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83B95D57-5AC8-4A9B-959D-0BF367072DFE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{399CC769-A4A7-465C-9060-DE4B96D7B381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{399CC769-A4A7-465C-9060-DE4B96D7B381}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{399CC769-A4A7-465C-9060-DE4B96D7B381}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{399CC769-A4A7-465C-9060-DE4B96D7B381}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119A001B-33D0-4B30-BB35-3A33234B9A80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119A001B-33D0-4B30-BB35-3A33234B9A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119A001B-33D0-4B30-BB35-3A33234B9A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119A001B-33D0-4B30-BB35-3A33234B9A80}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,8 +51,8 @@ Global
 		{51A0BBAF-9E13-430C-8198-AA16B71433EB} = {626A5BB0-B489-45A1-B55E-7BED62930377}
 		{DA52E149-1989-4D47-B787-B1DDB18C998D} = {626A5BB0-B489-45A1-B55E-7BED62930377}
 		{83B95D57-5AC8-4A9B-959D-0BF367072DFE} = {626A5BB0-B489-45A1-B55E-7BED62930377}
-		{399CC769-A4A7-465C-9060-DE4B96D7B381} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 		{E478B1DE-203C-4397-BD4D-8AC7A69C6F2F} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
+		{119A001B-33D0-4B30-BB35-3A33234B9A80} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EFF1137-0E11-4AC8-B099-BDE1C80E25FC}

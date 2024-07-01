@@ -5,15 +5,11 @@
 #endregion
 
 using System.Runtime.CompilerServices;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
-using ResumePro.Core.Middleware.Builders;
 
 namespace ResumePro.Core.Middleware.Extensions;
 
@@ -23,7 +19,7 @@ public static class SpaBuilderExtensions
     {
         return $"[{nameof(SpaBuilderExtensions)}.{callerName}] - {message}";
     }
-    
+
     public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         if (env.IsDevelopment())

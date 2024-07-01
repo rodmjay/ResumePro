@@ -8,6 +8,5 @@ namespace ResumePro.Shared;
 
 public class JobSkillDto : ResumeSkillDto
 {
-    [JsonIgnore]
-    public override int Rating { get; set; }
+    [JsonIgnore] public override int Rating { get; set; }
 }

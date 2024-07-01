@@ -1,16 +1,19 @@
-﻿namespace ResumePro.Core.Extensions
-{
-    public static class StringHelpers
-    {
-        public static bool IsAscii(this string str)
-        {
-            foreach (char c in str)
-            {
-                if(c > 127)
-                    return false;
-            }
+﻿#region Header Info
 
-            return true;
-        }
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Core.Extensions;
+
+public static class StringHelpers
+{
+    public static bool IsAscii(this string str)
+    {
+        foreach (var c in str)
+            if (c > 127)
+                return false;
+
+        return true;
     }
 }

@@ -1,4 +1,10 @@
-﻿using AutoMapper;
+﻿#region Header Info
+
+// Copyright 2023 Rod Johnson.  All rights reserved
+
+#endregion
+
+using AutoMapper;
 using ResumePro.Entities;
 using ResumePro.Shared;
 
@@ -24,6 +30,8 @@ public class ResumeMapping : Profile
             .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
             .ForMember(x => x.References, opt => opt.MapFrom(x => x.Jobs.SelectMany(a => a.Job.References)))
             .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Persona.Schools))
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.OrderByDescending(a => a.Skill.Rating).Where(a => a.ShowInSummary == true)));
+            .ForMember(x => x.Skills,
+                opt => opt.MapFrom(x =>
+                    x.Skills.OrderByDescending(a => a.Skill.Rating).Where(a => a.ShowInSummary == true)));
     }
 }
