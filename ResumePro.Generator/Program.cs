@@ -53,14 +53,18 @@ internal class Program
 
         var resume = resumeService.GetResume<ResumeDetails>(1).Result;
 
-        //var document = CreateResumePdf(resume);
+        var document = CreateResumePdf(resume);
 
-        //var fn = resume.FirstName + " " + resume.LastName + "-" + resume.JobTitle + ".pdf";
+        var fileName = resume.FirstName + " " + resume.LastName + "-" + resume.JobTitle + ".pdf";
 
-        //document.Save(fn);
-       
-        //Process.Start("explorer", fn);
-        
+        string fileReletavePath = $@"..\..\..\..\{fileName}";
+        string fileAbsolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileReletavePath));
+
+        document.Save(fileAbsolutePath);
+        Console.WriteLine("File saved successfully.");
+
+        // Process.Start("explorer", fileName);
+
         string markdownResume = GenerateMarkdownResume(resume);
         Console.WriteLine(markdownResume);
 
@@ -74,7 +78,7 @@ internal class Program
         {
             // Example of updating the file: appending text
             File.WriteAllText(fullPath, markdownResume);
-            Console.WriteLine("File updated successfully.");
+            Console.WriteLine("readme file updated successfully.");
         }
         else
         {
