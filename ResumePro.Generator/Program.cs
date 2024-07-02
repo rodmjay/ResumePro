@@ -53,20 +53,33 @@ internal class Program
 
         var resume = resumeService.GetResume<ResumeDetails>(1).Result;
 
-        var document = CreateResumePdf(resume);
+        //var document = CreateResumePdf(resume);
 
         //var fn = resume.FirstName + " " + resume.LastName + "-" + resume.JobTitle + ".pdf";
 
         //document.Save(fn);
-        //// ...and start a viewer.
+       
         //Process.Start("explorer", fn);
-
-
-        // Example usage
+        
         string markdownResume = GenerateMarkdownResume(resume);
         Console.WriteLine(markdownResume);
 
+        string relativePath = @"..\..\..\..\readme.md";  // Update 'yourfile.txt' to your actual file name
 
+        // Combine the current project directory path with the relative path
+        string fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath));
+
+        // Check if the file exists
+        if (File.Exists(fullPath))
+        {
+            // Example of updating the file: appending text
+            File.WriteAllText(fullPath, markdownResume);
+            Console.WriteLine("File updated successfully.");
+        }
+        else
+        {
+            Console.WriteLine("File not found.");
+        }
 
         Console.ReadLine();
     }

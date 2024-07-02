@@ -35,7 +35,7 @@ Refinity is a digital platform that manages inventory, color, learning, and busi
 - Maintaned 90% code coverage.
 
 #### Project: Microsoft
-SRE Team manages the overal qualtiy and monitorying of internal microsoft systems
+The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.
 - Oversaw the development and deployment of mission-critical workflows to enhance software reliability
 - Developed the Geneva logging library utilized by the Site Reliability Engineering (SRE) department.
 - Optimized ChatGPT training models to meet internal business needs.
@@ -54,7 +54,7 @@ SRE Team manages the overal qualtiy and monitorying of internal microsoft system
 - Developed the common codebase utilized for all .NET projects.
 - Received the award for highest-producing developer in 2021.
 #### Project: Elder Care Management Platform
-ElderCare is a platform that manages the health and wellness of senior citizens
+ElderKey is a platform that manages the health and wellness of senior citizens
 - Developed complex medication and recurring activity scheduling systems.
 - Made key technology decisions to ensure the project remained on schedule and within budget.
 - Responsible for the architecture and development of the .NET Core backend.
@@ -171,7 +171,7 @@ ElderCare is a platform that manages the health and wellness of senior citizens
 I had the opportunity to work with Rod as a fellow solutions architect at Kahoa. Rod was leading a team of developers to meet client software needs. During my time there, Rod was not only an outstanding project architect and team lead, but an outstanding individual contributor as well. He was still able to contribute just as much as the rest of his team did despite his additional leadership responsibilities.  Rod was also a central contributing figure to company architectural principles as a whole. He was was a senior member of Kahoa's architecture community, and helped guide discussions around software standards and best practices for the company as a whole. Rod is an excellent architect and software engineer. He has the ability to lead teams and projects, and has the grit to get them over the line when it's needed. I very highly recommend him to anyone seeking an outstanding software architect or team lead.
 
 ### Cameo Doran
-I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\Rod's experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company.
+I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\Rod’s experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company.
 
 ### Rob Atlas
 Recently, my startup worked with Rod on the development of our MVP (Minimal Viable Product) offering. I have worked with 100's of software developers over my career. Rod is one of the most talented and efficient architects/developers with whom I have been associated. I highly recommend him as a designer and implementer of complex or sophisticated software.
@@ -187,3 +187,4 @@ I worked with Rod on a complex web project at Ancestry.com. Rod made a big diffe
 
 ### Gregg B. Jensen
 Rod is a very skilled, and well rounded professional in web development. He is committed to success in all of his projects, and makes sure to deliver more than whats expected. His is a great asset to any team, and is an excellent team member.
+
