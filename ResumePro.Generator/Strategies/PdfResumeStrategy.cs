@@ -142,6 +142,12 @@ public class PdfResumeStrategy : IResumeStrategy
             yield return new ResumeSection
                 {SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20};
         }
+
+        yield return new ResumeSection
+        {
+            SectionType = ResumeSectionType.ItalicText, 
+            Text = "The source code and latest version for this resume can be found at: https://www.github.com/rodmjay/resumepro."
+        };
     }
 
 

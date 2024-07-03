@@ -15,11 +15,6 @@ using ResumePro.Shared;
 
 namespace ResumePro.Generator;
 
-internal interface IResumeStrategy
-{
-    void ExecuteOperation(ResumeDetails resume);
-}
-
 internal class Program
 {
     private static readonly IServiceProvider ServiceProvider;
