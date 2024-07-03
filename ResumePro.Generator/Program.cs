@@ -4,15 +4,10 @@
 
 #endregion
 
-using System.Diagnostics;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
 using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Entities;
 using ResumePro.Extensions;
 using ResumePro.Generator.Strategies;
 using ResumePro.Services;
@@ -27,8 +22,7 @@ internal interface IResumeStrategy
 
 internal class Program
 {
-
-    private static readonly IServiceProvider serviceProvider;
+    private static readonly IServiceProvider ServiceProvider;
 
     static Program()
     {
@@ -39,7 +33,7 @@ internal class Program
 
         var services = new ServiceCollection();
 
-        serviceProvider = services!.ConfigureApp(configuration)
+        ServiceProvider = services!.ConfigureApp(configuration)
             .AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
             .AddApplicationDependencies()
@@ -48,21 +42,21 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        if (int.TryParse(args[0], out int resumeId))
+        if (int.TryParse(args[0], out var resumeId))
         {
-            var resumeService = serviceProvider.GetRequiredService<IResumeService>();
+            var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
             var resume = resumeService.GetResume<ResumeDetails>(resumeId).Result;
 
-            List<IResumeStrategy> strategies = new List<IResumeStrategy>
+            if (resume != null)
             {
-                new MarkupResumeStrategy(),
-                new PdfResumeStrategy()
-            };
+                List<IResumeStrategy> strategies = new()
+                {
+                    new MarkupResumeStrategy(true),
+                    new PdfResumeStrategy(true)
+                };
 
-            foreach (var strategy in strategies)
-            {
-                strategy.ExecuteOperation(resume);
+                foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
             }
         }
         else
@@ -72,5 +66,4 @@ internal class Program
 
         Console.ReadLine();
     }
-    
 }

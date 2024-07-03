@@ -14,7 +14,6 @@ namespace ResumePro.Generator.Strategies;
 
 public class PdfResumeStrategy : IResumeStrategy
 {
-
     public enum ResumeSectionType
     {
         Title,
@@ -23,6 +22,25 @@ public class PdfResumeStrategy : IResumeStrategy
         BoldText,
         ItalicText
     }
+
+    private readonly bool _displayInExplorer;
+    private readonly string _fontFamily;
+
+    public PdfResumeStrategy(bool displayInExplorer = true, string fontFamily = "Verdana")
+    {
+        _displayInExplorer = displayInExplorer;
+        _fontFamily = fontFamily;
+    }
+
+
+    public void ExecuteOperation(ResumeDetails resumeDetails)
+    {
+        var document = BuildResumePdf(resumeDetails);
+        var fileName = SaveResume(document, resumeDetails);
+
+        if (_displayInExplorer) Process.Start("explorer", fileName);
+    }
+
     private static IEnumerable<ResumeSection> GetResumeSections(ResumeDetails resumeDetails)
     {
         yield return new ResumeSection
@@ -31,18 +49,18 @@ public class PdfResumeStrategy : IResumeStrategy
             Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}"
         };
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Contact Information" };
-        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Contact Information"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
         yield return new ResumeSection
-            { SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}" };
+            {SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}"};
         yield return new ResumeSection
-            { SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}" };
-        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}" };
+            {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Description" };
-        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = resumeDetails.Description };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Description"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = resumeDetails.Description};
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Skills" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Skills"};
         foreach (var skill in resumeDetails.Skills)
             yield return new ResumeSection
             {
@@ -51,11 +69,11 @@ public class PdfResumeStrategy : IResumeStrategy
                 Indentation = 10
             };
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Experience" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Experience"};
         foreach (var job in resumeDetails.Jobs)
         {
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10 };
+                {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10};
             yield return new ResumeSection
             {
                 SectionType = ResumeSectionType.Text,
@@ -64,19 +82,19 @@ public class PdfResumeStrategy : IResumeStrategy
                 Indentation = 20
             };
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20 };
+                {SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20};
 
             foreach (var highlight in job.Highlights)
                 yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30 };
+                    {SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30};
 
             if (job.Projects.Any())
                 foreach (var project in job.Projects)
                 {
                     yield return new ResumeSection
-                        { SectionType = ResumeSectionType.BoldText, Text = $"Project: {project.Name}", Indentation = 30 };
+                        {SectionType = ResumeSectionType.BoldText, Text = $"Project: {project.Name}", Indentation = 30};
                     yield return new ResumeSection
-                        { SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40 };
+                        {SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40};
 
                     foreach (var projectHighlight in project.Highlights)
                         yield return new ResumeSection
@@ -91,19 +109,19 @@ public class PdfResumeStrategy : IResumeStrategy
             {
                 var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Title));
                 yield return new ResumeSection
-                    { SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10 };
+                    {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
             }
 
             // Add space between jobs
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10 };
+                {SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10};
         }
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Education" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Education"};
         foreach (var school in resumeDetails.Education)
         {
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10 };
+                {SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10};
             yield return new ResumeSection
             {
                 SectionType = ResumeSectionType.Text,
@@ -113,27 +131,21 @@ public class PdfResumeStrategy : IResumeStrategy
             };
             foreach (var degree in school.Degrees)
                 yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20 };
+                    {SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20};
         }
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "References" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "References"};
         foreach (var reference in resumeDetails.References)
         {
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10 };
+                {SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10};
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20 };
+                {SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20};
         }
     }
 
-    public class ResumeSection
-    {
-        public ResumeSectionType SectionType { get; set; }
-        public string Text { get; set; }
-        public double Indentation { get; set; }
-    }
 
-    public void ExecuteOperation(ResumeDetails resumeDetails)
+    private PdfDocument BuildResumePdf(ResumeDetails resumeDetails)
     {
         var document = new PdfDocument();
         document.Info.Title = $"Resume - {resumeDetails.FirstName} {resumeDetails.LastName}";
@@ -143,11 +155,11 @@ public class PdfResumeStrategy : IResumeStrategy
         const double pageHeight = 842; // A4 size height
         const double bottomMargin = 60;
 
-        var titleFont = new XFont("Verdana", 20, XFontStyleEx.Bold);
-        var headerFont = new XFont("Verdana", 14, XFontStyleEx.Bold);
-        var regularFont = new XFont("Verdana", 12, XFontStyleEx.Regular);
-        var italicFont = new XFont("Verdana", 12, XFontStyleEx.Italic);
-        var boldFont = new XFont("Verdana", 12, XFontStyleEx.Bold);
+        var titleFont = new XFont(_fontFamily, 20, XFontStyleEx.Bold);
+        var headerFont = new XFont(_fontFamily, 14, XFontStyleEx.Bold);
+        var regularFont = new XFont(_fontFamily, 12, XFontStyleEx.Regular);
+        var italicFont = new XFont(_fontFamily, 12, XFontStyleEx.Italic);
+        var boldFont = new XFont(_fontFamily, 12, XFontStyleEx.Bold);
 
         var currentY = margin;
         XGraphics gfx = null;
@@ -248,7 +260,7 @@ public class PdfResumeStrategy : IResumeStrategy
         {
             var lines = new List<string>();
             var currentLine = new StringBuilder();
-            var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var word in words)
                 if (gfx.MeasureString(currentLine + " " + word, font).Width <= maxWidth)
@@ -289,16 +301,27 @@ public class PdfResumeStrategy : IResumeStrategy
                     DrawItalicText(section.Text, section.Indentation);
                     break;
             }
-        var fileName = resumeDetails.FirstName + " " + resumeDetails.LastName + "-" + resumeDetails.JobTitle + ".pdf";
 
-        string fileReletavePath = $@"..\..\..\..\{fileName}";
-        string fileAbsolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileReletavePath));
+        return document;
+    }
 
-        document.Save(fileAbsolutePath);
+    private string SaveResume(PdfDocument document, ResumeDetails resumeDetails)
+    {
+        var fileName = $"{resumeDetails.FirstName} {resumeDetails.LastName}-{resumeDetails.JobTitle}.pdf";
+        var relativePath = $@"..\..\..\..\{fileName}";
+        var absolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath));
+
+        document.Save(absolutePath);
+
         Console.WriteLine("File saved successfully.");
 
+        return absolutePath;
+    }
 
-        Process.Start("explorer", fileName);
-
+    public class ResumeSection
+    {
+        public ResumeSectionType SectionType { get; set; }
+        public string Text { get; set; }
+        public double Indentation { get; set; }
     }
 }
