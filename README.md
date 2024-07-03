@@ -50,9 +50,13 @@ The SRE Team oversees the quality assurance and monitoring of Microsoft's intern
 
 
 - Company-wide leader for .NET initiatives.
+
 - Developed the technical screening process and conducted numerous technical interviews.
+
 - Developed the common codebase utilized for all .NET projects.
+
 - Received the award for highest-producing developer in 2021.
+
 #### Project: Elder Care Management Platform
 ElderKey is a platform that manages the health and wellness of senior citizens
 - Developed complex medication and recurring activity scheduling systems.
@@ -80,8 +84,11 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Responsible for the ideation, design, and delivery of a comprehensive professional services platform.
+
 - Raised startup capital to fund company operations for three years.
+
 - Managed a team of five developers to implement the flagship product.
+
 #### Project: Professional Services Management Platform
 
 - Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed.
@@ -94,9 +101,13 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and improve scalability.
+
 - Developed a comprehensive order and scheduling system with full functionality.
+
 - Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team.
+
 - Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
+
 #### Project: Family Entertainment Center Platform
 
 - Oversaw and managed the complete backend development process.
@@ -110,8 +121,11 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Managed four developers directly using Agile Scrum methodologies.
+
 - Responsible for the architecture and development of components within a banking platform.
+
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
+
 **Technology Used:** C# Development, Sql Server, Html/CSS, oAuth2, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE)
 
 ### NETCHEX - Architect Consultant
@@ -119,9 +133,13 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Redesigned the flagship product by integrating advanced technology to enhance performance and functionality.
+
 - Collaborated directly with the onsite team, providing mentorship to enhance skills and foster professional growth.
+
 - Engineered numerous innovative features into the existing platform, significantly enhancing its capabilities and user experience.
+
 - Specialized expertise in PCI Compliance and payment processing systems.
+
 **Technology Used:** C# Development, ASP.NET, jQuery, JavaScript, Sql Server, Html/CSS
 
 ### Ancestry.com - Sr. Engineer
@@ -129,6 +147,7 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Spearheaded companywide adoption and training of jQuery.
+
 #### Project: Small Collections Self-Management Platform
 
 - Developed tools to facilitate the indexing of library archives.
@@ -158,7 +177,9 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 
 
 - Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department.
+
 - Received extensive training in .NET, JavaScript, and WCF directly from Microsoft.
+
 **Technology Used:** C# Development, ASP.NET, JavaScript, Html/CSS, WCF, IIS, WPF, Classic ASP, XAML
 
 ## Education

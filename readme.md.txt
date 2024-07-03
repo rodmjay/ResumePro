@@ -1,0 +1,1 @@
+I am an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience as a professional developer and architect, I have mastered the complete software development lifecycle, from ideation to implementation. I am frequently praised as a 10x developer, consistently delivering high-end software solutions from the ground up.
