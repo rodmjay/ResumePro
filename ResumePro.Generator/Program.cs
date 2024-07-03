@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -47,8 +47,8 @@ internal class Program
             {
                 List<IResumeStrategy> strategies = new()
                 {
-                    new MarkupResumeStrategy(true),
-                    new PdfResumeStrategy(true)
+                    new MarkupResumeStrategy(),
+                    new PdfResumeStrategy()
                 };
 
                 foreach (var strategy in strategies) strategy.ExecuteOperation(resume);

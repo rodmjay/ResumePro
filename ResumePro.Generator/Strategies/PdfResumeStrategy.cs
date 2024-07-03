@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -145,7 +145,7 @@ public class PdfResumeStrategy : IResumeStrategy
 
         yield return new ResumeSection
         {
-            SectionType = ResumeSectionType.ItalicText, 
+            SectionType = ResumeSectionType.ItalicText,
             Text = "More Info: https://www.github.com/rodmjay/resumepro."
         };
     }
@@ -241,7 +241,7 @@ public class PdfResumeStrategy : IResumeStrategy
                 currentY += lineHeight + lineSpacing;
             }
         }
-        
+
         void DrawItalicText(string text, double indentation = 0)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -307,7 +307,7 @@ public class PdfResumeStrategy : IResumeStrategy
                     DrawItalicText(section.Text, section.Indentation);
                     break;
             }
-        
+
 
         return document;
     }
