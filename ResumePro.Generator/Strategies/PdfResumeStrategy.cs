@@ -4,11 +4,15 @@
 
 #endregion
 
+using System;
 using System.Diagnostics;
+using System.Drawing;
+using System.Security.Policy;
 using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ResumePro.Shared;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ResumePro.Generator.Strategies;
 
@@ -146,7 +150,7 @@ public class PdfResumeStrategy : IResumeStrategy
         yield return new ResumeSection
         {
             SectionType = ResumeSectionType.ItalicText, 
-            Text = "The source code and latest version for this resume can be found at: https://www.github.com/rodmjay/resumepro."
+            Text = "More Info: https://www.github.com/rodmjay/resumepro."
         };
     }
 
@@ -241,7 +245,7 @@ public class PdfResumeStrategy : IResumeStrategy
                 currentY += lineHeight + lineSpacing;
             }
         }
-
+        
         void DrawItalicText(string text, double indentation = 0)
         {
             if (string.IsNullOrWhiteSpace(text))
@@ -307,6 +311,7 @@ public class PdfResumeStrategy : IResumeStrategy
                     DrawItalicText(section.Text, section.Indentation);
                     break;
             }
+        
 
         return document;
     }
