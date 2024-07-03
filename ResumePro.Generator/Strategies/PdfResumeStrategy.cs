@@ -4,15 +4,11 @@
 
 #endregion
 
-using System;
 using System.Diagnostics;
-using System.Drawing;
-using System.Security.Policy;
 using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ResumePro.Shared;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ResumePro.Generator.Strategies;
 
