@@ -23,7 +23,7 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 - Big Data (Rating: 8)
 
 ## Experience
-### InfoSys - Technical Architect
+### Infosys - Technical Architect
 *4/1/2022 - Present*
 
 
@@ -65,7 +65,7 @@ ElderKey is a platform that manages the health and wellness of senior citizens
 - Maintained 90% code coverage.
 
 #### Project: Real Estate Accounting Platform
-
+Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.
 - Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend.
 - Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow.
 - Made key technology decisions to ensure the project remained on schedule and within budget.
