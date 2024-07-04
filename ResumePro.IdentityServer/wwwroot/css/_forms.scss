@@ -1,0 +1,59 @@
+﻿@import "_variables.scss";
+
+
+.validation-summary-errors {
+    padding: 1rem;
+    margin-bottom: 20px;
+    box-shadow: 5px 5px 10px #efefef;
+    background-color: lighten($red-1, 50%);
+    border-radius: 5px;
+
+    ul {
+        list-style: none;
+        background-image: url(../assets/feather_icons/info.svg);
+        background-repeat: no-repeat;
+        min-height: 24px;
+        margin-bottom: 0;
+
+        li {
+            line-height: 25px;
+            font-size: .85em;
+        }
+    }
+
+    &.text-danger {
+        background-color: lighten($red-1, 35%);
+        font-family: inter-semibold;
+    }
+}
+
+.form-group{
+    padding-bottom: 0;
+}
+
+.btn-primary {
+
+    &:hover {
+        background-color: darken($blue-1, 20%);
+        border: none;
+    }
+
+    background-color: lighten($blue-1, 20%);
+    border: none;
+}
+
+.input-group {
+    .btn-secondary {
+        background-color: white;
+        color: gray;
+        border: 1px solid #ced4da;
+        border-left: none;
+    }
+}
+
+.btn-group-sm > .btn, .btn-sm {
+    padding: 0 0.5em;
+    font-size: .875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}

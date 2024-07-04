@@ -1,26 +1,53 @@
 ﻿#region Header Info
 
-// Copyright 2024 Rod Johnson.  All rights reserved
+// Copyright 2023 Rod Johnson.  All rights reserved
 
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
+using Duende.IdentityServer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using ResumePro.Core.Middleware.Builders;
 using ResumePro.Core.Settings;
+using ResumePro.Users.Entities;
+using ResumePro.Users.Services;
 using Serilog;
 
-namespace ResumePro.Core.Middleware.Extensions;
+namespace ResumePro.Users;
 
 [ExcludeFromCodeCoverage]
 public static class UIBuilderExtensions
 {
+    public static UIBuilder ConfigureUI(this WebAppBuilder builder)
+    {
+        builder.Services.AddRazorPages();
+        builder.Services.AddServerSideBlazor();
+        builder.Services
+            .AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<User>>();
+        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+
+        return new UIBuilder(builder);
+    }
+
+    public static UIBuilder ConfigureUI(this WebAppBuilder builder, Action<RazorPagesOptions> optionsAction)
+    {
+        builder.Services.AddRazorPages(optionsAction);
+        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+
+        return new UIBuilder(builder);
+    }
+
     private static bool DisallowsSameSiteNone(string userAgent)
     {
         // Cover all iOS based browsers here. This includes:
@@ -94,6 +121,31 @@ public static class UIBuilderExtensions
         });
         return builder;
     }
+
+    public static UIBuilder AddAuthentication(this UIBuilder builder)
+    {
+        builder.Services.AddAuthentication(o =>
+            {
+                o.DefaultScheme = Constants.LocalIdentity.DefaultApplicationScheme;
+                o.DefaultSignInScheme = Constants.LocalIdentity.DefaultExternalScheme;
+            })
+            .AddIdentityCookies(o => { });
+
+        builder.Services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+                options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
+
+                // register your IdentityServer with Google at https://console.developers.google.com
+                // enable the Google+ API
+                // set the redirect URI to https://localhost:5001/signin-google
+                options.ClientId = "copy client ID from Google here";
+                options.ClientSecret = "copy client secret from Google here";
+            });
+
+        return builder;
+    }
+
 
     private static string GetLogMessage(string message, [CallerMemberName] string callerName = null)
     {

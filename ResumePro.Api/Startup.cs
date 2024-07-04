@@ -34,7 +34,6 @@ public class Startup
             .AddAutomapperProfilesFromAssemblies()
             .AddApplicationDependencies();
 
-
         var webAppBuilder = builder.ConfigureWebApp(Environment);
 
         var restBuilder = webAppBuilder.ConfigureRest()
