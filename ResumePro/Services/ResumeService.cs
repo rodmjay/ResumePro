@@ -7,16 +7,11 @@
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ResumePro.Core.Services.Bases;
-using ResumePro.Core.Services.Interfaces;
 using ResumePro.Entities;
+using ResumePro.Interfaces;
 using ResumePro.Shared;
 
 namespace ResumePro.Services;
-
-public interface IResumeService : IService<Resume>
-{
-    Task<T> GetResume<T>(int resumeId) where T : ResumeDto;
-}
 
 public class ResumeService : BaseService<Resume>, IResumeService
 {
@@ -26,9 +21,9 @@ public class ResumeService : BaseService<Resume>, IResumeService
 
     private IQueryable<Resume> Resumes => Repository.Queryable();
 
-    public Task<T> GetResume<T>(int resumeId) where T : ResumeDto
+    public Task<T> GetResume<T>(int organizationId, int resumeId) where T : ResumeDto
     {
-        return Resumes.Where(x => x.Id == resumeId)
+        return Resumes.Where(x => x.Id == resumeId && x.OrganizationId == organizationId)
             .AsNoTracking()
             .ProjectTo<T>(ProjectionMapping)
             .FirstOrDefaultAsync();

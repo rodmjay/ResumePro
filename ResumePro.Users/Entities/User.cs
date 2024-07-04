@@ -9,7 +9,7 @@ using System.Runtime.Serialization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Shared;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Users.Entities;
 

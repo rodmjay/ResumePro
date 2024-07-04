@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Shared;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IPersona
 {
@@ -17,4 +17,5 @@ public interface IPersona
     string GitHub { get; set; }
     string City { get; set; }
     string State { get; set; }
+    int OrganizationId { get; set; }
 }

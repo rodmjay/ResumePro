@@ -1,2 +1,2 @@
-﻿Id,FirstName,LastName,Email,PhoneNumber,GitHub,LinkedIn,City,State
-1,Rod,Johnson,rodmjay@gmail.com,(385) 352-6026,https://www.github.com/rodmjay,https://www.linkedin.com/in/rodmjay,Salt Lake City,UT
+﻿Id,OrganizationId,FirstName,LastName,Email,PhoneNumber,GitHub,LinkedIn,City,State,IsDeleted
+1,1,Rod,Johnson,rodmjay@gmail.com,(385) 352-6026,https://www.github.com/rodmjay,https://www.linkedin.com/in/rodmjay,Salt Lake City,UT,false

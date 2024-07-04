@@ -23,4 +23,6 @@ public class BaseController : ControllerBase
     {
         AppSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
     }
+
+    public int OrganizationId => 1;
 }

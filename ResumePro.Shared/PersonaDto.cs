@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Interfaces;
+
 namespace ResumePro.Shared;
 
 public class PersonaDto : IPersona
@@ -18,4 +20,7 @@ public class PersonaDto : IPersona
     public string GitHub { get; set; }
     public string City { get; set; }
     public string State { get; set; }
+    public int OrganizationId { get; set; }
+    public int Skills { get; set; }
+    public int Resumes { get; set; }
 }

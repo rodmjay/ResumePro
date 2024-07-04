@@ -10,7 +10,7 @@ using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Extensions;
 using ResumePro.Generator.Strategies;
-using ResumePro.Services;
+using ResumePro.Interfaces;
 using ResumePro.Shared;
 
 namespace ResumePro.Generator;
@@ -18,7 +18,7 @@ namespace ResumePro.Generator;
 internal class Program
 {
     private static readonly IServiceProvider ServiceProvider;
-
+    
     static Program()
     {
         IConfiguration configuration = new ConfigurationBuilder()
@@ -40,8 +40,8 @@ internal class Program
         if (int.TryParse(args[0], out var resumeId))
         {
             var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
-
-            var resume = resumeService.GetResume<ResumeDetails>(resumeId).Result;
+            
+            var resume = resumeService.GetResume<ResumeDetails>(1, resumeId).Result;
 
             if (resume != null)
             {

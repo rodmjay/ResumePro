@@ -46,12 +46,14 @@ public static class DataPagerExtension
         paged.PageSize = paging.Size;
 
         var totalCount = await service.Repository.Queryable()
+            .AsNoTracking()
             .Where(filter)
             .CountAsync();
 
         var startRow = (paging.Page - 1) * paging.Size;
 
         paged.Items = await service.Repository.Queryable()
+            .AsNoTracking()
             .Where(filter)
             .OrderBy(paging.Sort)
             .ProjectTo<TOutput>(service.ProjectionMapping)

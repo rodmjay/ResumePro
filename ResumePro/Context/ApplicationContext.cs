@@ -53,11 +53,13 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<ResumeSkill>().Seed("resume_skills.csv");
         builder.Entity<Job>().Seed("jobs.csv");
         builder.Entity<Highlight>().Seed("highlights.csv");
-        builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
         builder.Entity<JobSkill>().Seed("job_skills.csv");
         builder.Entity<Project>().Seed("projects.csv");
         builder.Entity<Reference>().Seed("references.csv");
         builder.Entity<School>().Seed("schools.csv");
         builder.Entity<Degree>().Seed("degrees.csv");
+
+        builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
+
     }
 }

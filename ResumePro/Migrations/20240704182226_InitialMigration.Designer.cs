@@ -12,8 +12,8 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240703214641_InitialMigration3")]
-    partial class InitialMigration3
+    [Migration("20240704182226_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Degree", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -39,15 +39,16 @@ namespace ResumePro.Migrations
                     b.Property<int>("SchoolId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("SchoolId");
+                    b.HasIndex("OrganizationId", "SchoolId");
 
                     b.ToTable("Degree");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             Name = "AAS Computer and Information Systems",
                             SchoolId = 1
@@ -56,11 +57,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
@@ -74,9 +75,9 @@ namespace ResumePro.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("OrganizationId", "JobId");
 
                     b.HasIndex("ProjectId", "JobId");
 
@@ -85,6 +86,7 @@ namespace ResumePro.Migrations
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             JobId = 1,
                             Order = 1,
@@ -93,6 +95,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 2,
                             JobId = 1,
                             Order = 2,
@@ -101,6 +104,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 3,
                             JobId = 1,
                             Order = 3,
@@ -109,6 +113,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 4,
                             JobId = 1,
                             Order = 4,
@@ -117,6 +122,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 5,
                             JobId = 1,
                             Order = 5,
@@ -125,6 +131,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 6,
                             JobId = 2,
                             Order = 1,
@@ -132,6 +139,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 7,
                             JobId = 2,
                             Order = 2,
@@ -139,6 +147,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 8,
                             JobId = 2,
                             Order = 3,
@@ -146,6 +155,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 9,
                             JobId = 2,
                             Order = 4,
@@ -153,6 +163,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 10,
                             JobId = 1,
                             Order = 1,
@@ -161,6 +172,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 11,
                             JobId = 1,
                             Order = 2,
@@ -169,6 +181,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 12,
                             JobId = 2,
                             Order = 1,
@@ -177,6 +190,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 13,
                             JobId = 2,
                             Order = 2,
@@ -185,6 +199,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 14,
                             JobId = 2,
                             Order = 3,
@@ -193,6 +208,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 15,
                             JobId = 1,
                             Order = 5,
@@ -201,6 +217,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 16,
                             JobId = 1,
                             Order = 6,
@@ -209,6 +226,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 17,
                             JobId = 5,
                             Order = 1,
@@ -216,6 +234,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 18,
                             JobId = 5,
                             Order = 2,
@@ -223,6 +242,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 19,
                             JobId = 5,
                             Order = 3,
@@ -230,6 +250,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 20,
                             JobId = 2,
                             Order = 4,
@@ -238,6 +259,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 21,
                             JobId = 2,
                             Order = 2,
@@ -246,6 +268,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 22,
                             JobId = 2,
                             Order = 3,
@@ -254,6 +277,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 23,
                             JobId = 2,
                             Order = 4,
@@ -262,6 +286,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 24,
                             JobId = 2,
                             Order = 1,
@@ -270,6 +295,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 25,
                             JobId = 2,
                             Order = 2,
@@ -278,6 +304,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 26,
                             JobId = 2,
                             Order = 4,
@@ -286,6 +313,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 27,
                             JobId = 2,
                             Order = 3,
@@ -294,6 +322,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 28,
                             JobId = 9,
                             Order = 1,
@@ -301,6 +330,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 29,
                             JobId = 9,
                             Order = 2,
@@ -308,6 +338,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 30,
                             JobId = 1,
                             Order = 2,
@@ -316,6 +347,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 31,
                             JobId = 3,
                             Order = 1,
@@ -323,6 +355,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 32,
                             JobId = 3,
                             Order = 2,
@@ -330,6 +363,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 33,
                             JobId = 3,
                             Order = 3,
@@ -337,6 +371,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 34,
                             JobId = 3,
                             Order = 1,
@@ -345,6 +380,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 36,
                             JobId = 3,
                             Order = 3,
@@ -353,6 +389,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 37,
                             JobId = 4,
                             Order = 1,
@@ -360,6 +397,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 38,
                             JobId = 4,
                             Order = 2,
@@ -367,6 +405,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 39,
                             JobId = 4,
                             Order = 3,
@@ -374,6 +413,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 40,
                             JobId = 4,
                             Order = 4,
@@ -381,6 +421,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 41,
                             JobId = 4,
                             Order = 1,
@@ -389,6 +430,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 42,
                             JobId = 4,
                             Order = 2,
@@ -397,6 +439,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 43,
                             JobId = 4,
                             Order = 3,
@@ -405,6 +448,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 44,
                             JobId = 6,
                             Order = 1,
@@ -412,6 +456,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 45,
                             JobId = 6,
                             Order = 2,
@@ -419,6 +464,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 46,
                             JobId = 6,
                             Order = 3,
@@ -426,6 +472,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 47,
                             JobId = 6,
                             Order = 4,
@@ -433,6 +480,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 48,
                             JobId = 7,
                             Order = 1,
@@ -441,6 +489,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 49,
                             JobId = 7,
                             Order = 2,
@@ -448,6 +497,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 50,
                             JobId = 7,
                             Order = 3,
@@ -456,6 +506,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 51,
                             JobId = 7,
                             Order = 4,
@@ -464,6 +515,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 53,
                             JobId = 8,
                             Order = 1,
@@ -472,6 +524,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 54,
                             JobId = 8,
                             Order = 1,
@@ -480,6 +533,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 55,
                             JobId = 8,
                             Order = 2,
@@ -488,6 +542,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 56,
                             JobId = 8,
                             Order = 2,
@@ -498,11 +553,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Company")
                         .HasColumnType("nvarchar(max)");
@@ -525,15 +580,16 @@ namespace ResumePro.Migrations
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("PersonaId");
+                    b.HasIndex("OrganizationId", "PersonaId");
 
                     b.ToTable("Job");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             Company = "Infosys",
                             Location = "Salt Lake City,UT",
@@ -543,6 +599,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 2,
                             Company = "Solution Stream",
                             EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -553,6 +610,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 3,
                             Company = "IdeaFortune",
                             EndDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -563,6 +621,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 4,
                             Company = "Agile Software",
                             EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -573,6 +632,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 5,
                             Company = "Access Softek",
                             EndDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -583,6 +643,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 6,
                             Company = "NETCHEX",
                             EndDate = new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -593,6 +654,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 7,
                             Company = "Ancestry.com",
                             EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -603,6 +665,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 8,
                             Company = "Cathexis",
                             EndDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -613,6 +676,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 9,
                             Company = "Motorola Public Safety",
                             EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
@@ -625,663 +689,661 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
                 {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
+                    b.HasKey("OrganizationId", "SkillId", "JobId");
 
-                    b.HasKey("SkillId", "JobId");
-
-                    b.HasIndex("ResumeId", "JobId");
-
-                    b.HasIndex("ResumeId", "SkillId");
+                    b.HasIndex("OrganizationId", "JobId");
 
                     b.ToTable("JobSkill");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 9,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 18,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 19,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 20,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 21,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 22,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 7,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 23,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 24,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 5,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 17,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 16,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 4,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 2,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 6,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 7,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 8,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 9,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 10,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 11,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 25,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 26,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 27,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 28,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 8,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 30,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 33,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 29,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 32,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 4,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 5,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 6,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 31,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 5,
-                            ResumeId = 1
+                            JobId = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 7,
-                            ResumeId = 1
+                            JobId = 7
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 36,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 37,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 38,
-                            JobId = 1,
-                            ResumeId = 1
+                            JobId = 1
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 38,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 39,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 40,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 41,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 42,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 31,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 25,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 10,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 8,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 4,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 42,
-                            JobId = 4,
-                            ResumeId = 1
+                            JobId = 4
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 44,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 43,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 6,
-                            ResumeId = 1
+                            JobId = 6
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 7,
-                            ResumeId = 1
+                            JobId = 7
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 44,
-                            JobId = 7,
-                            ResumeId = 1
+                            JobId = 7
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 7,
-                            ResumeId = 1
+                            JobId = 7
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 43,
-                            JobId = 7,
-                            ResumeId = 1
+                            JobId = 7
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 33,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 46,
-                            JobId = 8,
-                            ResumeId = 1
+                            JobId = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 1,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 2,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 3,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 4,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 5,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 6,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 7,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 8,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 9,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 10,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 11,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 12,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 12,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 13,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 13,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 14,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 22,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 22,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 34,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 44,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 44,
-                            JobId = 3,
-                            ResumeId = 1
+                            JobId = 3
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 43,
-                            JobId = 2,
-                            ResumeId = 1
+                            JobId = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 44,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             SkillId = 47,
-                            JobId = 9,
-                            ResumeId = 1
+                            JobId = 9
                         });
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
@@ -1295,6 +1357,9 @@ namespace ResumePro.Migrations
                     b.Property<string>("GitHub")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -1307,18 +1372,20 @@ namespace ResumePro.Migrations
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
                     b.ToTable("Persona");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             City = "Salt Lake City",
                             Email = "rodmjay@gmail.com",
                             FirstName = "Rod",
                             GitHub = "https://www.github.com/rodmjay",
+                            IsDeleted = false,
                             LastName = "Johnson",
                             LinkedIn = "https://www.linkedin.com/in/rodmjay",
                             PhoneNumber = "(385) 352-6026",
@@ -1328,6 +1395,9 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.PersonaSkill", b =>
                 {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
@@ -1337,7 +1407,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("Rating")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonaId", "SkillId");
+                    b.HasKey("OrganizationId", "PersonaId", "SkillId");
 
                     b.HasIndex("SkillId");
 
@@ -1346,282 +1416,329 @@ namespace ResumePro.Migrations
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 1,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 2,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 3,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 4,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 5,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 6,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 7,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 8,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 9,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 10,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 11,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 12,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 13,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 14,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 15,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 16,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 17,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 18,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 19,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 20,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 21,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 22,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 23,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 24,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 25,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 26,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 27,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 28,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 29,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 30,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 31,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 32,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 33,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 34,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 35,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 36,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 37,
                             Rating = 9
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 38,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 39,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 40,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 41,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 42,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 43,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 44,
                             Rating = 10
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 45,
                             Rating = 8
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 46,
                             Rating = 5
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             SkillId = 47,
                             Rating = 5
@@ -1630,6 +1747,9 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Project", b =>
                 {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
@@ -1648,15 +1768,16 @@ namespace ResumePro.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("Id", "JobId");
+                    b.HasKey("OrganizationId", "Id", "JobId");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("OrganizationId", "JobId");
 
                     b.ToTable("Project");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             JobId = 1,
                             Description = "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
@@ -1665,6 +1786,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 2,
                             JobId = 1,
                             Description = "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.",
@@ -1673,6 +1795,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 3,
                             JobId = 2,
                             Budget = 500000m,
@@ -1682,14 +1805,17 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 4,
                             JobId = 2,
                             Budget = 500000m,
+                            Description = "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.",
                             Name = "Real Estate Accounting Platform",
                             Order = 2
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 5,
                             JobId = 2,
                             Budget = 3000000m,
@@ -1698,6 +1824,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 6,
                             JobId = 3,
                             Budget = 500000m,
@@ -1706,6 +1833,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 7,
                             JobId = 4,
                             Budget = 500000m,
@@ -1714,6 +1842,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 8,
                             JobId = 7,
                             Budget = 2000000m,
@@ -1722,6 +1851,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 9,
                             JobId = 8,
                             Budget = 2000000m,
@@ -1730,6 +1860,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 10,
                             JobId = 8,
                             Budget = 500000m,
@@ -1740,11 +1871,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Reference", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
@@ -1758,15 +1889,16 @@ namespace ResumePro.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("OrganizationId", "JobId");
 
                     b.ToTable("Reference");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             JobId = 1,
                             Name = "Joseph Cotton",
@@ -1774,6 +1906,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 2,
                             JobId = 2,
                             Name = "Cameo Doran",
@@ -1781,6 +1914,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 5,
                             JobId = 2,
                             Name = "Rob Atlas",
@@ -1788,6 +1922,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 6,
                             JobId = 2,
                             Name = "Robert Clymer",
@@ -1795,6 +1930,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 7,
                             JobId = 4,
                             Name = "Daniel Schulz",
@@ -1802,6 +1938,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 8,
                             JobId = 7,
                             Name = "Ryan Done",
@@ -1809,6 +1946,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             Id = 9,
                             JobId = 7,
                             Name = "Gregg B. Jensen",
@@ -1818,11 +1956,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -1833,13 +1971,14 @@ namespace ResumePro.Migrations
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
                     b.ToTable("Resume");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             Description = "Rod is an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience as a professional developer and architect, he has mastered the complete software development lifecycle, from ideation to implementation. Rod is frequently praised as a 10x developer, consistently delivering high-end software solutions from the ground up.",
                             JobTitle = "Enterprise Application Architect",
@@ -1849,7 +1988,7 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.ResumeJob", b =>
                 {
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
                     b.Property<int>("ResumeId")
@@ -1858,64 +1997,64 @@ namespace ResumePro.Migrations
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.HasKey("PersonaId", "ResumeId", "JobId");
+                    b.HasKey("OrganizationId", "ResumeId", "JobId");
 
-                    b.HasIndex("JobId");
+                    b.HasIndex("OrganizationId", "JobId");
 
                     b.ToTable("ResumeJob");
 
                     b.HasData(
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 1
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 2
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 3
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 4
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 5
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 6
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 7
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 8
                         },
                         new
                         {
-                            PersonaId = 1,
+                            OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 9
                         });
@@ -1923,6 +2062,9 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
@@ -1935,15 +2077,16 @@ namespace ResumePro.Migrations
                     b.Property<bool>("ShowInSummary")
                         .HasColumnType("bit");
 
-                    b.HasKey("PersonaId", "ResumeId", "SkillId");
+                    b.HasKey("OrganizationId", "PersonaId", "ResumeId", "SkillId");
 
-                    b.HasIndex("PersonaId", "SkillId");
+                    b.HasIndex("OrganizationId", "PersonaId", "SkillId");
 
                     b.ToTable("ResumeSkill");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 1,
@@ -1951,6 +2094,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 2,
@@ -1958,6 +2102,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 3,
@@ -1965,6 +2110,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 4,
@@ -1972,6 +2118,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 5,
@@ -1979,6 +2126,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 6,
@@ -1986,6 +2134,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 7,
@@ -1993,6 +2142,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 8,
@@ -2000,6 +2150,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 9,
@@ -2007,6 +2158,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 10,
@@ -2014,6 +2166,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 11,
@@ -2021,6 +2174,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 12,
@@ -2028,6 +2182,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 13,
@@ -2035,6 +2190,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 14,
@@ -2042,6 +2198,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 15,
@@ -2049,6 +2206,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 16,
@@ -2056,13 +2214,15 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 17,
-                            ShowInSummary = false
+                            ShowInSummary = true
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 18,
@@ -2070,6 +2230,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 19,
@@ -2077,6 +2238,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 20,
@@ -2084,6 +2246,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 21,
@@ -2091,6 +2254,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 22,
@@ -2098,6 +2262,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 23,
@@ -2105,6 +2270,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 24,
@@ -2112,6 +2278,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 25,
@@ -2119,6 +2286,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 26,
@@ -2126,6 +2294,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 27,
@@ -2133,6 +2302,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 28,
@@ -2140,6 +2310,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 29,
@@ -2147,6 +2318,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 30,
@@ -2154,6 +2326,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 31,
@@ -2161,6 +2334,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 32,
@@ -2168,6 +2342,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 33,
@@ -2175,6 +2350,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 34,
@@ -2182,6 +2358,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 35,
@@ -2189,6 +2366,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 36,
@@ -2196,6 +2374,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 37,
@@ -2203,6 +2382,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 38,
@@ -2210,6 +2390,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 39,
@@ -2217,6 +2398,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 40,
@@ -2224,6 +2406,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 41,
@@ -2231,6 +2414,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 42,
@@ -2238,6 +2422,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 43,
@@ -2245,6 +2430,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 44,
@@ -2252,6 +2438,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 45,
@@ -2259,6 +2446,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 46,
@@ -2266,6 +2454,7 @@ namespace ResumePro.Migrations
                         },
                         new
                         {
+                            OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
                             SkillId = 47,
@@ -2275,11 +2464,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.School", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
@@ -2293,15 +2482,16 @@ namespace ResumePro.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("PersonaId");
+                    b.HasIndex("OrganizationId", "PersonaId");
 
                     b.ToTable("School");
 
                     b.HasData(
                         new
                         {
+                            OrganizationId = 1,
                             Id = 1,
                             EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Name = "Portland Community College",
@@ -2567,7 +2757,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.School", "School")
                         .WithMany("Degrees")
-                        .HasForeignKey("SchoolId")
+                        .HasForeignKey("OrganizationId", "SchoolId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2578,13 +2768,14 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Highlighs")
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("OrganizationId", "JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Project", "Project")
                         .WithMany("Highlights")
-                        .HasForeignKey("ProjectId", "JobId");
+                        .HasForeignKey("ProjectId", "JobId")
+                        .HasPrincipalKey("Id", "JobId");
 
                     b.Navigation("Job");
 
@@ -2595,7 +2786,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Jobs")
-                        .HasForeignKey("PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonaId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -2604,18 +2795,17 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
                 {
-                    b.HasOne("ResumePro.Entities.ResumeJob", "Job")
+                    b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Skills")
-                        .HasForeignKey("ResumeId", "JobId")
-                        .HasPrincipalKey("ResumeId", "JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("OrganizationId", "JobId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ResumePro.Entities.ResumeSkill", "Skill")
+                    b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
                         .WithMany("Jobs")
-                        .HasForeignKey("ResumeId", "SkillId")
-                        .HasPrincipalKey("ResumeId", "SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("OrganizationId", "SkillId")
+                        .HasPrincipalKey("OrganizationId", "SkillId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Job");
@@ -2625,16 +2815,16 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.PersonaSkill", b =>
                 {
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Skills")
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("ResumePro.Entities.Skill", "Skill")
                         .WithMany("Personas")
                         .HasForeignKey("SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Persona", "Persona")
+                        .WithMany("Skills")
+                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Persona");
@@ -2646,7 +2836,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Projects")
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("OrganizationId", "JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2657,7 +2847,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("References")
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("OrganizationId", "JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2668,7 +2858,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Resumes")
-                        .HasForeignKey("PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2679,26 +2869,17 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Resumes")
-                        .HasForeignKey("JobId")
+                        .HasForeignKey("OrganizationId", "JobId")
                         .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany()
-                        .HasForeignKey("PersonaId")
-                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
                         .WithMany("Jobs")
-                        .HasForeignKey("PersonaId", "ResumeId")
-                        .HasPrincipalKey("PersonaId", "Id")
+                        .HasForeignKey("OrganizationId", "ResumeId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Job");
-
-                    b.Navigation("Persona");
 
                     b.Navigation("Resume");
                 });
@@ -2707,14 +2888,14 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
                         .WithMany("Skills")
-                        .HasForeignKey("PersonaId", "ResumeId")
-                        .HasPrincipalKey("PersonaId", "Id")
+                        .HasForeignKey("OrganizationId", "PersonaId", "ResumeId")
+                        .HasPrincipalKey("OrganizationId", "PersonaId", "Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
                         .WithMany("Resumes")
-                        .HasForeignKey("PersonaId", "SkillId")
+                        .HasForeignKey("OrganizationId", "PersonaId", "SkillId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -2727,7 +2908,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Schools")
-                        .HasForeignKey("PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -2743,6 +2924,8 @@ namespace ResumePro.Migrations
                     b.Navigation("References");
 
                     b.Navigation("Resumes");
+
+                    b.Navigation("Skills");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
@@ -2758,6 +2941,8 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.PersonaSkill", b =>
                 {
+                    b.Navigation("Jobs");
+
                     b.Navigation("Resumes");
                 });
 
@@ -2771,16 +2956,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Jobs");
 
                     b.Navigation("Skills");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeJob", b =>
-                {
-                    b.Navigation("Skills");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
-                {
-                    b.Navigation("Jobs");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.School", b =>

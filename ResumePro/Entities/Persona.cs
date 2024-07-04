@@ -6,7 +6,7 @@
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Shared;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
@@ -16,6 +16,7 @@ public class Persona : BaseEntity<Persona>, IPersona
     public ICollection<Resume> Resumes { get; set; }
     public ICollection<Job> Jobs { get; set; }
     public ICollection<School> Schools { get; set; }
+    public int OrganizationId { get; set; }
     public int Id { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
@@ -25,9 +26,12 @@ public class Persona : BaseEntity<Persona>, IPersona
     public string GitHub { get; set; }
     public string City { get; set; }
     public string State { get; set; }
+    public bool IsDeleted { get; set; }
 
     public override void Configure(EntityTypeBuilder<Persona> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => new{ x.OrganizationId, x.Id});
+        
+        builder.HasQueryFilter(x => x.IsDeleted == false);
     }
 }

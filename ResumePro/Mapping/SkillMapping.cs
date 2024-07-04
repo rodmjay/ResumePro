@@ -19,10 +19,13 @@ public class SkillMapping : Profile
 
         CreateMap<JobSkill, ResumeSkillDto>()
             .ForMember(x => x.SkillId, opt => opt.MapFrom(x => x.SkillId))
-            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Skill.Skill.Skill.Title))
-            .ForMember(x => x.Rating, opt => opt.MapFrom(x => x.Skill.Skill.Rating))
+            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Skill.Skill.Title))
+            .ForMember(x => x.Rating, opt => opt.MapFrom(x => x.Skill.Rating))
             .IncludeAllDerived();
 
         CreateMap<JobSkill, JobSkillDto>();
+
+        CreateMap<PersonaSkill, PersonaSkillDto>()
+            .ForMember(x => x.SkillName, opt => opt.MapFrom(x => x.Skill.Title));
     }
 }

@@ -4,11 +4,10 @@
 
 #endregion
 
-namespace ResumePro.Shared;
+namespace ResumePro.Shared.Interfaces;
 
-public interface IHighlight
+public interface ISkill
 {
     int Id { get; set; }
-    int Order { get; set; }
-    string Text { get; set; }
+    string Title { get; set; }
 }

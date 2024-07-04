@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 
@@ -11,24 +12,26 @@ namespace ResumePro.Entities;
 
 public class JobSkill : BaseEntity<JobSkill>
 {
+    public int OrganizationId { get; set; }
     public int JobId { get; set; }
-    public ResumeJob Job { get; set; }
-    public ResumeSkill Skill { get; set; }
-    public int ResumeId { get; set; }
+    public Job Job { get; set; }
+    public PersonaSkill Skill { get; set; }
     public int SkillId { get; set; }
 
     public override void Configure(EntityTypeBuilder<JobSkill> builder)
     {
-        builder.HasKey(x => new {x.SkillId, x.JobId});
+        builder.HasKey(x => new {x.OrganizationId, x.SkillId, x.JobId});
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Skills)
-            .HasForeignKey(x => new {x.ResumeId, x.JobId})
-            .HasPrincipalKey(x => new {x.ResumeId, x.JobId});
+            .HasForeignKey(x => new {x.OrganizationId, x.JobId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Skill)
             .WithMany(x => x.Jobs)
-            .HasForeignKey(x => new {x.ResumeId, x.SkillId})
-            .HasPrincipalKey(x => new {x.ResumeId, x.SkillId});
+            .HasForeignKey(x => new {x.OrganizationId, x.SkillId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.SkillId})
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

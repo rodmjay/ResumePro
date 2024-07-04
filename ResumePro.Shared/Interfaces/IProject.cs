@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Shared;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IProject
 {

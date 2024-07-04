@@ -7,7 +7,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Shared;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
@@ -16,6 +16,7 @@ namespace ResumePro.Entities;
 
 public class Reference : BaseEntity<Reference>, IReference
 {
+    public int OrganizationId { get; set; }
     public Job Job { get; set; }
     public int JobId { get; set; }
     public int Id { get; set; }
@@ -26,11 +27,12 @@ public class Reference : BaseEntity<Reference>, IReference
     public override void Configure(EntityTypeBuilder<Reference> builder)
     {
 
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => new{x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.References)
-            .HasForeignKey(x => x.JobId)
+            .HasForeignKey(x => new{x.OrganizationId, x.JobId})
+            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -6,12 +6,13 @@
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Shared;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
 public class School : BaseEntity<School>, ISchool
 {
+    public int OrganizationId { get; set; }
     public Persona Persona { get; set; }
 
     public ICollection<Degree> Degrees { get; set; }
@@ -23,8 +24,11 @@ public class School : BaseEntity<School>, ISchool
 
     public override void Configure(EntityTypeBuilder<School> builder)
     {
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
+
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Schools)
-            .HasForeignKey(x => x.PersonaId);
+            .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})
+            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id});
     }
 }
