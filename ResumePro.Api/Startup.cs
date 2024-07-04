@@ -5,8 +5,11 @@
 #endregion
 
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using ResumePro.Context;
+using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Core.Settings;
 using ResumePro.Extensions;
@@ -37,6 +40,45 @@ public class Startup
         var webAppBuilder = builder.ConfigureWebApp(Environment);
 
         var restBuilder = webAppBuilder.ConfigureRest()
+            .AddAuthorization(policy=>
+            {
+                policy.RequireAuthenticatedUser();
+                policy.RequireClaim("scope", builder.AppSettings.Audience);
+            })
+            .AddBearerAuthentication(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.Authority = builder.AppSettings.Authority;
+                options.Audience = builder.AppSettings.Audience;
+
+                if (_identityServerMessageHandler != null)
+                    options.BackchannelHttpHandler = _identityServerMessageHandler;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateAudience = false,
+                    ValidAudience = builder.AppSettings.Audience,
+
+                    NameClaimType = "name",
+                    RoleClaimType = "role"
+                };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnAuthenticationFailed = c =>
+                    {
+                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
+                        logger.LogTrace("Authentication Failure");
+                        return Task.FromResult(0);
+                    },
+                    OnTokenValidated = c =>
+                    {
+                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
+                        logger.LogTrace("Authentication Success");
+                        return Task.FromResult(0);
+                    }
+                };
+            })
             .AddSwagger(Assembly.GetAssembly(GetType()));
     }
 

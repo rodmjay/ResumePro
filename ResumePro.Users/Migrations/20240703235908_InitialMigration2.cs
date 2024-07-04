@@ -32,7 +32,7 @@ namespace ResumePro.Users.Migrations
                     { 1, 2592000, 400000, 0, false, false, false, true, null, true, true, 300, true, null, null, "", "postman", null, null, null, null, new DateTime(2021, 9, 18, 13, 12, 13, 532, DateTimeKind.Unspecified).AddTicks(8105), new TimeSpan(0, 0, 5, 0, 0), 0, null, 300, true, true, true, null, 300, true, null, null, null, false, null, null, "oidc", null, 1, 1, true, false, false, true, false, false, 1296000, false, null, null, null },
                     { 2, 2592000, 3600, 0, false, false, false, true, null, true, true, 300, true, null, null, "client_", "client", null, null, null, null, new DateTime(2021, 9, 18, 13, 12, 13, 642, DateTimeKind.Unspecified).AddTicks(7421), new TimeSpan(0, 0, 5, 0, 0), 0, null, 300, true, true, true, null, 300, true, null, null, null, false, null, null, "oidc", null, 1, 1, true, false, false, true, false, false, 1296000, false, null, null, null },
                     { 3, 2592000, 3600, 0, false, false, false, true, null, true, true, 300, true, null, null, "client_", "mvc", null, null, null, null, new DateTime(2021, 9, 18, 13, 12, 13, 645, DateTimeKind.Unspecified).AddTicks(5968), new TimeSpan(0, 0, 5, 0, 0), 0, null, 300, true, true, true, null, 300, true, null, null, null, false, null, null, "oidc", null, 1, 1, true, false, false, true, false, false, 1296000, false, null, null, null },
-                    { 5, 2592000, 3600, 0, false, false, false, true, null, true, false, 300, true, null, null, "client_", "translationpro", "TranslationPro", null, null, null, new DateTime(2021, 9, 18, 13, 12, 13, 653, DateTimeKind.Unspecified).AddTicks(7956), new TimeSpan(0, 0, 5, 0, 0), 0, null, 300, true, true, true, null, 300, true, null, null, null, false, null, null, "oidc", null, 1, 1, false, false, false, true, false, false, 1296000, false, null, null, null }
+                    { 5, 2592000, 3600, 0, false, false, false, true, null, true, false, 300, true, null, null, "client_", "resumepro", "TranslationPro", null, null, null, new DateTime(2021, 9, 18, 13, 12, 13, 653, DateTimeKind.Unspecified).AddTicks(7956), new TimeSpan(0, 0, 5, 0, 0), 0, null, 300, true, true, true, null, 300, true, null, null, null, false, null, null, "oidc", null, 1, 1, false, false, false, true, false, false, 1296000, false, null, null, null }
                 });
 
             migrationBuilder.InsertData(
@@ -66,7 +66,7 @@ namespace ResumePro.Users.Migrations
                 values: new object[,]
                 {
                     { 2, 5, "https://localhost:44330" },
-                    { 3, 5, "https://translationpro-app-test.azurewebsites.net" },
+                    { 3, 5, "https://resumepro-app-test.azurewebsites.net" },
                     { 4, 5, "https://localhost:7243" }
                 });
 
@@ -90,7 +90,7 @@ namespace ResumePro.Users.Migrations
                 {
                     { 1, 3, "https://localhost:5002/signout-callback-oidc" },
                     { 3, 5, "https://localhost:44330/authentication/logout-callback" },
-                    { 4, 5, "https://translationpro-app-test.azurewebsites.net/authentication/logout-callback" },
+                    { 4, 5, "https://resumepro-app-test.azurewebsites.net/authentication/logout-callback" },
                     { 5, 5, "https://localhost:7243/authentication/logout-callback" }
                 });
 
@@ -102,7 +102,7 @@ namespace ResumePro.Users.Migrations
                 {
                     { 1, 3, "https://localhost:5002/signin-oidc" },
                     { 3, 5, "https://localhost:44330/authentication/login-callback" },
-                    { 4, 5, "https://translationpro-app-test.azurewebsites.net/authentication/login-callback" },
+                    { 4, 5, "https://resumepro-app-test.azurewebsites.net/authentication/login-callback" },
                     { 5, 5, "https://localhost:7243/authentication/login-callback" }
                 });
 

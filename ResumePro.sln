@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Users", "ResumePr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.IdentityServer", "ResumePro.IdentityServer\ResumePro.IdentityServer.csproj", "{8A8A9441-2973-4BD2-8F0B-A599F1C29501}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.App", "ResumePro.App\ResumePro.App\ResumePro.App.csproj", "{46CA65DA-D455-47F3-9F1B-0B5AC2130B74}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,10 @@ Global
 		{8A8A9441-2973-4BD2-8F0B-A599F1C29501}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8A8A9441-2973-4BD2-8F0B-A599F1C29501}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8A8A9441-2973-4BD2-8F0B-A599F1C29501}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46CA65DA-D455-47F3-9F1B-0B5AC2130B74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46CA65DA-D455-47F3-9F1B-0B5AC2130B74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46CA65DA-D455-47F3-9F1B-0B5AC2130B74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46CA65DA-D455-47F3-9F1B-0B5AC2130B74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +73,7 @@ Global
 		{119A001B-33D0-4B30-BB35-3A33234B9A80} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 		{68671A9F-1F58-41C5-A81F-0CC4E655A0BA} = {626A5BB0-B489-45A1-B55E-7BED62930377}
 		{8A8A9441-2973-4BD2-8F0B-A599F1C29501} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
+		{46CA65DA-D455-47F3-9F1B-0B5AC2130B74} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EFF1137-0E11-4AC8-B099-BDE1C80E25FC}

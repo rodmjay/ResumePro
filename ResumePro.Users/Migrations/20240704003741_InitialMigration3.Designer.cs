@@ -12,8 +12,8 @@ using ResumePro.Users.Contexts;
 namespace ResumePro.Users.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240703235908_InitialMigration2")]
-    partial class InitialMigration2
+    [Migration("20240704003741_InitialMigration3")]
+    partial class InitialMigration3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -631,7 +631,7 @@ namespace ResumePro.Users.Migrations
                             BackChannelLogoutSessionRequired = true,
                             ClientClaimsPrefix = "client_",
                             ClientId = "resumepro",
-                            ClientName = "TranslationPro",
+                            ClientName = "ResumePro",
                             Created = new DateTime(2021, 9, 18, 13, 12, 13, 653, DateTimeKind.Unspecified).AddTicks(7956),
                             DPoPClockSkew = new TimeSpan(0, 0, 5, 0, 0),
                             DPoPValidationMode = 0,

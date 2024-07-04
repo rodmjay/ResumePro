@@ -627,8 +627,8 @@ namespace ResumePro.Users.Migrations
                             AuthorizationCodeLifetime = 300,
                             BackChannelLogoutSessionRequired = true,
                             ClientClaimsPrefix = "client_",
-                            ClientId = "translationpro",
-                            ClientName = "TranslationPro",
+                            ClientId = "resumepro",
+                            ClientName = "ResumePro",
                             Created = new DateTime(2021, 9, 18, 13, 12, 13, 653, DateTimeKind.Unspecified).AddTicks(7956),
                             DPoPClockSkew = new TimeSpan(0, 0, 5, 0, 0),
                             DPoPValidationMode = 0,
@@ -716,7 +716,7 @@ namespace ResumePro.Users.Migrations
                         {
                             Id = 3,
                             ClientId = 5,
-                            Origin = "https://translationpro-app-test.azurewebsites.net"
+                            Origin = "https://resumepro-app-test.azurewebsites.net"
                         },
                         new
                         {
@@ -840,7 +840,7 @@ namespace ResumePro.Users.Migrations
                         {
                             Id = 4,
                             ClientId = 5,
-                            PostLogoutRedirectUri = "https://translationpro-app-test.azurewebsites.net/authentication/logout-callback"
+                            PostLogoutRedirectUri = "https://resumepro-app-test.azurewebsites.net/authentication/logout-callback"
                         },
                         new
                         {
@@ -919,7 +919,7 @@ namespace ResumePro.Users.Migrations
                         {
                             Id = 4,
                             ClientId = 5,
-                            RedirectUri = "https://translationpro-app-test.azurewebsites.net/authentication/login-callback"
+                            RedirectUri = "https://resumepro-app-test.azurewebsites.net/authentication/login-callback"
                         },
                         new
                         {
