@@ -20,6 +20,7 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 - Angular (Rating: 9)
 - Html/CSS (Rating: 9)
 - Artificial Intelligence (AI) (Rating: 9)
+- Blazor (Rating: 8)
 - Big Data (Rating: 8)
 
 ## Experience

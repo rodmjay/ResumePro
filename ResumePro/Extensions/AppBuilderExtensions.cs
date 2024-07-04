@@ -21,6 +21,10 @@ public static class AppBuilderExtensions
         builder.Services.AddScoped<IJobService, JobService>();
         builder.Services.AddScoped<IHighlightService, HighlightService>();
         builder.Services.AddScoped<IPersonalSkillsService, PersonaSkillService>();
+        builder.Services.AddScoped<IDegreeService, DegreeService>();
+        builder.Services.AddScoped<IJobSkillService, JobSkillService>();
+        builder.Services.AddScoped<IReferenceService, ReferenceService>();
+        builder.Services.AddScoped<ISchoolService, SchoolService>();
 
         return builder;
     }
