@@ -13,9 +13,8 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Interfaces;
 
-public interface IResumeService : IService<Resume>
+public interface IJobService : IService<Job>
 {
-    Task<T> GetResume<T>(int organizationId, int resumeId) where T : ResumeDto;
-
-    Task<OneOf<ResumeDetails, Result>> CreateResume(int organizationId, int personaId, CreateResumeOptions options);
+    Task<T> GetJob<T>(int organizationId, int personaId, int jobId) where T : JobDto;
+    Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, CreateJobOptions options);
 }

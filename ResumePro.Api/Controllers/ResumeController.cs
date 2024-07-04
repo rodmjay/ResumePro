@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
+using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
 
@@ -24,5 +25,18 @@ public class ResumeController : BaseController
     public Task<ResumeDetails> Get([FromRoute] int resumeId)
     {
         return _resumeService.GetResume<ResumeDetails>(OrganizationId, resumeId);
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<ResumeDetails>> CreateResume([FromQuery] int personId,
+        [FromBody] CreateResumeOptions options)
+    {
+        var result = await _resumeService.CreateResume(OrganizationId, personId, options);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
+
+        return BadRequest(result.AsT1);
     }
 }

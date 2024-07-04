@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ResumePro.Shared.Filters
+﻿namespace ResumePro.Shared.Filters
 {
     public class PersonaFilters
     {
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public int[] Skills { get; set; }
+
     }
 }

@@ -21,7 +21,7 @@ public class ResumeDto : IResume
 
     [JsonIgnore] public int PersonaId { get; set; }
 
-    [JsonIgnore] public int Id { get; set; }
+    public int Id { get; set; }
 
     public string JobTitle { get; set; }
     public string Description { get; set; }

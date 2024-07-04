@@ -14,6 +14,7 @@ public class JobSkill : BaseEntity<JobSkill>
 {
     public int OrganizationId { get; set; }
     public int JobId { get; set; }
+    public int PersonaId { get; set; }
     public Job Job { get; set; }
     public PersonaSkill Skill { get; set; }
     public int SkillId { get; set; }
@@ -30,8 +31,8 @@ public class JobSkill : BaseEntity<JobSkill>
 
         builder.HasOne(x => x.Skill)
             .WithMany(x => x.Jobs)
-            .HasForeignKey(x => new {x.OrganizationId, x.SkillId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.SkillId})
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId, x.SkillId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.PersonaId, x.SkillId})
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

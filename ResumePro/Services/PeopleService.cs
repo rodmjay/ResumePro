@@ -118,6 +118,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
     {
         var result = await People.AsNoTracking()
             .IgnoreQueryFilters()
+            .OrderByDescending(x=>x.Id)
             .Where(x => x.OrganizationId == organizationId)
             .FirstOrDefaultAsync();
 

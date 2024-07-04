@@ -42,7 +42,7 @@ public class PeopleController : BaseController
     {
         var result = await _peopleService.CreatePerson(OrganizationId, options);
         if (result.IsT0)
-            return CreatedAtAction(nameof(GetPerson), new {personId = result.AsT0.Id});
+            return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

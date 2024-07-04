@@ -18,7 +18,6 @@ public class Job : BaseEntity<Job>, IJob
     public ICollection<Project> Projects { get; set; }
     public int PersonaId { get; set; }
     public ICollection<ResumeJob> Resumes { get; set; }
-
     public ICollection<Highlight> Highlighs { get; set; } = new List<Highlight>();
     public ICollection<Reference> References { get; set; } = new List<Reference>();
     public ICollection<JobSkill> Skills { get; set; }
