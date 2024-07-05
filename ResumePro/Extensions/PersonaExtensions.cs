@@ -27,6 +27,16 @@ public static class PersonaExtensions
             predicate = predicate.And(x => x.FirstName == filters.LastName);
         }
 
+        if (!string.IsNullOrWhiteSpace(filters.State))
+        {
+            predicate = predicate.And(x => x.State == filters.State);
+        }
+
+        if (filters.Skills.Any())
+        {
+            predicate = predicate.And(x => filters.Skills.Intersect(x.Skills.Select(a => a.SkillId)).Any());
+        }
+
         return predicate;
     }
 }
