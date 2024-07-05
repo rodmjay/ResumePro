@@ -7,10 +7,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class JobSkill : BaseEntity<JobSkill>
+public class JobSkill : BaseEntity<JobSkill>, IJobSkill
 {
     public int OrganizationId { get; set; }
     public int JobId { get; set; }

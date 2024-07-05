@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240705181735_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1983,14 +1986,14 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
 
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
@@ -1998,7 +2001,9 @@ namespace ResumePro.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrganizationId", "PersonaId", "Id");
+                    b.HasKey("OrganizationId", "Id");
+
+                    b.HasIndex("OrganizationId", "PersonaId");
 
                     b.ToTable("Reference");
 
@@ -2006,57 +2011,57 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 1,
                             Name = "Joseph Cotton",
+                            PersonaId = 1,
                             Text = "I had the opportunity to work with Rod as a fellow solutions architect at Kahoa. Rod was leading a team of developers to meet client software needs. During my time there, Rod was not only an outstanding project architect and team lead, but an outstanding individual contributor as well. He was still able to contribute just as much as the rest of his team did despite his additional leadership responsibilities.  Rod was also a central contributing figure to company architectural principles as a whole. He was was a senior member of Kahoa's architecture community, and helped guide discussions around software standards and best practices for the company as a whole. Rod is an excellent architect and software engineer. He has the ability to lead teams and projects, and has the grit to get them over the line when it's needed. I very highly recommend him to anyone seeking an outstanding software architect or team lead."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 2,
                             Name = "Cameo Doran",
+                            PersonaId = 1,
                             Text = "I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\\Rod’s experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 5,
                             Name = "Rob Atlas",
+                            PersonaId = 1,
                             Text = "Recently, my startup worked with Rod on the development of our MVP (Minimal Viable Product) offering. I have worked with 100's of software developers over my career. Rod is one of the most talented and efficient architects/developers with whom I have been associated. I highly recommend him as a designer and implementer of complex or sophisticated software."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 6,
                             Name = "Robert Clymer",
+                            PersonaId = 1,
                             Text = "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 7,
                             Name = "Daniel Schulz",
+                            PersonaId = 1,
                             Text = "Rod is a brilliant developer and a hard worker. He literally saved our project as I added him in the last hours as his expertise directed us to deliver. He certainly says up with the latest technologies, is a very fast learner, and was able to lead us in them. I highly recommend him."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 8,
                             Name = "Ryan Done",
+                            PersonaId = 1,
                             Text = "I worked with Rod on a complex web project at Ancestry.com. Rod made a big difference in the success of our project by finding great solutions and sharing different ways of looking at problems. He is sharp, knowledgeable and a great team player."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
                             Id = 9,
                             Name = "Gregg B. Jensen",
+                            PersonaId = 1,
                             Text = "Rod is a very skilled, and well rounded professional in web development. He is committed to success in all of his projects, and makes sure to deliver more than whats expected. His is a great asset to any team, and is an excellent team member."
                         });
                 });
@@ -2164,80 +2169,6 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 9
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReferenceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "ReferenceId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "PersonaId", "ReferenceId");
-
-                    b.ToTable("ResumeReference");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 1,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 2,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 5,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 6,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 7,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 8,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 9,
-                            ResumeId = 1,
-                            PersonaId = 1
                         });
                 });
 
@@ -5390,25 +5321,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Resume");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Resume", "Resume")
-                        .WithMany("References")
-                        .HasForeignKey("OrganizationId", "ResumeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Reference", "Reference")
-                        .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "PersonaId", "ReferenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Reference");
-
-                    b.Navigation("Resume");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
@@ -5485,16 +5397,9 @@ namespace ResumePro.Migrations
                     b.Navigation("Highlights");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Reference", b =>
-                {
-                    b.Navigation("Resumes");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
                     b.Navigation("Jobs");
-
-                    b.Navigation("References");
 
                     b.Navigation("Skills");
                 });

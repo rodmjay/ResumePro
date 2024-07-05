@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
@@ -12,6 +11,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
 
+[Route("v1.0/people/{personId}/resumes")]
 public class ResumeController : BaseController
 {
     private readonly IResumeService _resumeService;
@@ -22,17 +22,32 @@ public class ResumeController : BaseController
     }
 
     [HttpGet("{resumeId}")]
-    public async Task<ResumeDetails> Get([FromRoute] int resumeId)
+    public async Task<ResumeDetails> Get([FromRoute] int personId, [FromRoute] int resumeId)
     {
-        return await _resumeService.GetResume<ResumeDetails>(OrganizationId, resumeId)
+        return await _resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
-    public async Task<ActionResult<ResumeDetails>> CreateResume([FromQuery] int personId,
+    public async Task<ActionResult<ResumeDetails>> CreateResume([FromRoute] int personId,
         [FromBody] CreateResumeOptions options)
     {
         var result = await _resumeService.CreateResume(OrganizationId, personId, options)
+            .ConfigureAwait(false);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
+
+        return BadRequest(result.AsT1);
+    }
+
+    [HttpPut("{resumeId}")]
+    public async Task<ActionResult<ResumeDetails>> UpdateResume([FromRoute] int personId,
+        [FromRoute] int resumeId,
+        [FromBody] CreateResumeOptions options)
+    {
+        var result = await _resumeService.UpdateResume(OrganizationId, personId, resumeId, options)
             .ConfigureAwait(false);
         if (result.IsT0)
         {

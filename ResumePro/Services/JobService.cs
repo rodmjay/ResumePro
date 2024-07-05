@@ -97,7 +97,6 @@ public class JobService : BaseService<Job>, IJobService
             .Include(x=>x.Projects)
             .ThenInclude(x=>x.Highlights)
             .Include(x=>x.Skills)
-            .Include(x=>x.References)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
@@ -126,11 +125,6 @@ public class JobService : BaseService<Job>, IJobService
             {
                 highlight.ObjectState = ObjectState.Deleted;
             }
-        }
-
-        foreach (var reference in job.References)
-        {
-            reference.ObjectState = ObjectState.Deleted;
         }
 
         var results = Repository.InsertOrUpdateGraph(job, true);

@@ -61,6 +61,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<Degree>().Seed("degrees.csv");
 
         builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
+        builder.Entity<ResumeReference>().Seed("resume_reference.csv");
 
     }
 }

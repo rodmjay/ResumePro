@@ -19,7 +19,6 @@ public class Job : BaseEntity<Job>, IJob
     public int PersonaId { get; set; }
     public ICollection<ResumeJob> Resumes { get; set; } = new List<ResumeJob>();
     public ICollection<Highlight> Highlights { get; set; } = new List<Highlight>();
-    public ICollection<Reference> References { get; set; } = new List<Reference>();
     public ICollection<JobSkill> Skills { get; set; } = new List<JobSkill>();
     public int Id { get; set; }
     public DateTime StartDate { get; set; }

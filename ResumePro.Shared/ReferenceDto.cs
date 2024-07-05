@@ -11,7 +11,7 @@ namespace ResumePro.Shared;
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class ReferenceDto : IReference
 {
-    [JsonIgnore] public int JobId { get; set; }
+    [JsonIgnore] public int PersonaId { get; set; }
 
     [JsonIgnore] public int Id { get; set; }
 

@@ -109,7 +109,7 @@ public class PdfResumeStrategy : IResumeStrategy
 
             if (job.Skills != null && job.Skills.Any())
             {
-                var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Title));
+                var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
                 yield return new ResumeSection
                     {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
             }

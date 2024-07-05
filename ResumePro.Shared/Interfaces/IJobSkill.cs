@@ -6,11 +6,10 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IReference
+public interface IJobSkill
 {
+    int OrganizationId { get; set; }
+    int JobId { get; set; }
     int PersonaId { get; set; }
-    int Id { get; set; }
-    string Text { get; set; }
-    string Name { get; set; }
-    string PhoneNumber { get; set; }
+    int SkillId { get; set; }
 }

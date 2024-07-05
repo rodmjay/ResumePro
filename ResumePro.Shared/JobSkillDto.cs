@@ -4,9 +4,20 @@
 
 #endregion
 
+using ResumePro.Shared.Interfaces;
+
 namespace ResumePro.Shared;
 
-public class JobSkillDto : ResumeSkillDto
+public class JobSkillDto : IJobSkill
 {
-    [JsonIgnore] public override int Rating { get; set; }
+    [JsonIgnore]
+    public int OrganizationId { get; set; }
+
+    [JsonIgnore]
+    public int JobId { get; set; }
+
+    [JsonIgnore]
+    public int PersonaId { get; set; }
+    public int SkillId { get; set; }
+    public string Name { get; set; }
 }

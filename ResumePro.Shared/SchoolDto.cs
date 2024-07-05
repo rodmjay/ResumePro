@@ -10,7 +10,7 @@ namespace ResumePro.Shared;
 
 public class SchoolDto : ISchool
 {
-    [JsonIgnore] public int Id { get; set; }
+    public int Id { get; set; }
 
     [JsonIgnore] public int PersonaId { get; set; }
 

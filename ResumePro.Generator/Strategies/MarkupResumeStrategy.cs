@@ -84,7 +84,7 @@ public class MarkupResumeStrategy : IResumeStrategy
                 }
 
             if (job.Skills != null && job.Skills.Any())
-                sb.AppendLine($"**Technology Used:** {string.Join(", ", job.Skills.Select(s => s.Title))}");
+                sb.AppendLine($"**Technology Used:** {string.Join(", ", job.Skills.Select(s => s.Name))}");
 
             sb.AppendLine();
         }

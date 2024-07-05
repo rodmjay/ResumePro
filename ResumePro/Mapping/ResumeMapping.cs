@@ -28,11 +28,13 @@ public class ResumeMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Resume, ResumeDetails>()
-            .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
-            .ForMember(x => x.References, opt => opt.MapFrom(x => x.Jobs.SelectMany(a => a.Job.References)))
-            .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Persona.Schools))
-            .ForMember(x => x.Skills,
-                opt => opt.MapFrom(x =>
-                    x.Skills.OrderByDescending(a => a.Skill.Rating)));
+            .ForMember(x => x.Jobs, opt => opt
+                .MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
+            .ForMember(x => x.References, opt => opt
+                .MapFrom(x => x.References))
+            .ForMember(x => x.Education, opt => opt
+                .MapFrom(x => x.Persona.Schools))
+            .ForMember(x => x.Skills, opt => opt
+                .MapFrom(x => x.Skills.OrderByDescending(a => a.Skill.Rating)));
     }
 }

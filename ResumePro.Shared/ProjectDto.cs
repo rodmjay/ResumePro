@@ -15,7 +15,7 @@ public class ProjectDto : IProject
 
     [JsonIgnore] public int JobId { get; set; }
 
-    [JsonIgnore] public int Order { get; set; }
+    public int Order { get; set; }
 
     public string Name { get; set; }
     public string Description { get; set; }

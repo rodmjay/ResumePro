@@ -14,21 +14,25 @@ namespace ResumePro.Entities;
 public class Reference : BaseEntity<Reference>, IReference
 {
     public int OrganizationId { get; set; }
-    public Job Job { get; set; }
-    public int JobId { get; set; }
+ 
+    public int PersonaId { get; set; }
+    public Persona Persona { get; set; }
+
     public int Id { get; set; }
     public string Text { get; set; }
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
-    
+
+    public ICollection<ResumeReference> Resumes { get; set; }
+
     public override void Configure(EntityTypeBuilder<Reference> builder)
     {
 
-        builder.HasKey(x => new{x.OrganizationId, x.Id});
+        builder.HasKey(x => new{x.OrganizationId, x.PersonaId, x.Id});
 
-        builder.HasOne(x => x.Job)
+        builder.HasOne(x => x.Persona)
             .WithMany(x => x.References)
-            .HasForeignKey(x => new{x.OrganizationId, x.JobId})
+            .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})
             .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }

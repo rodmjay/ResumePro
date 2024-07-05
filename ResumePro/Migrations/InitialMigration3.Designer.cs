@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240705182158_InitialMigration3")]
+    partial class InitialMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2164,80 +2167,6 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 9
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReferenceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "ReferenceId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "PersonaId", "ReferenceId");
-
-                    b.ToTable("ResumeReference");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 1,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 2,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 5,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 6,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 7,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 8,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 9,
-                            ResumeId = 1,
-                            PersonaId = 1
                         });
                 });
 
@@ -5390,25 +5319,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Resume");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Resume", "Resume")
-                        .WithMany("References")
-                        .HasForeignKey("OrganizationId", "ResumeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Reference", "Reference")
-                        .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "PersonaId", "ReferenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Reference");
-
-                    b.Navigation("Resume");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
@@ -5485,16 +5395,9 @@ namespace ResumePro.Migrations
                     b.Navigation("Highlights");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Reference", b =>
-                {
-                    b.Navigation("Resumes");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
                     b.Navigation("Jobs");
-
-                    b.Navigation("References");
 
                     b.Navigation("Skills");
                 });

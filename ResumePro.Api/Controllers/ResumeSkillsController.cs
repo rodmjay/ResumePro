@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Common;

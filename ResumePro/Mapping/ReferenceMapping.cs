@@ -16,5 +16,10 @@ public class ReferenceMapping : Profile
     {
         CreateMap<Reference, ReferenceDto>()
             .IncludeAllDerived();
+
+        CreateMap<ResumeReference, ReferenceDto>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Reference.Name))
+            .ForMember(x => x.Id, opt => opt.MapFrom(x => x.Reference.Id))
+            .ForMember(x => x.Text, opt => opt.MapFrom(x => x.Reference.Text));
     }
 }

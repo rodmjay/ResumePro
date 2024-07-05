@@ -32,6 +32,9 @@ public class Persona : BaseEntity<Persona>, IPersona
     public int StateId { get; set; }
     public bool IsDeleted { get; set; }
 
+    public ICollection<Reference> References { get; set; } = new List<Reference>();
+
+
     public override void Configure(EntityTypeBuilder<Persona> builder)
     {
         builder.HasKey(x => new{ x.OrganizationId, x.Id});

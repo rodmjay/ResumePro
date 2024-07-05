@@ -43,7 +43,7 @@ internal class Program
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        var resume = resumeService.GetResume<ResumeDetails>(organizationId, resumeId).Result;
+        var resume = resumeService.GetResume<ResumeDetails>(organizationId, 1, resumeId).Result;
 
         if (resume != null)
         {
@@ -52,11 +52,11 @@ internal class Program
                 new MarkupResumeStrategy(new MarkupSettings()
                 {
                     OutputToConsole = true,
-                    UpdateReadme = false
+                    UpdateReadme = true
                 }),
                 new PdfResumeStrategy(new PdfSettings()
                 {
-                    CreateUpdatePdf = false,
+                    CreateUpdatePdf = true,
                     DisplayInExplorer = false,
                     FontFamily = "Verdana"
                 })

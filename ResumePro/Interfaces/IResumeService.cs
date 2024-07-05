@@ -15,7 +15,9 @@ namespace ResumePro.Interfaces;
 
 public interface IResumeService : IService<Resume>
 {
-    Task<T> GetResume<T>(int organizationId, int resumeId) where T : ResumeDto;
-
+    Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto;
+    Task<List<T>> GetResumes<T>(int organizationId, int personaId) where T : ResumeDto;
     Task<OneOf<ResumeDetails, Result>> CreateResume(int organizationId, int personaId, CreateResumeOptions options);
+    Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId, CreateResumeOptions options);
+    Task<Result> DeleteResume(int organizationId, int personaId, int resumeId);
 }
