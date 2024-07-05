@@ -73,7 +73,7 @@ Cashflow Tactics is a platform designed to enhance the profitability of real est
 - Maintained 75% code coverage.
 
 #### Project: Major Food Distribution System
-
+Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.
 - Responsible for the re-architecture and development of an antiquated system using the latest .NET technologies.
 - Integrated an existing SQL Server database with EF Core.
 - Developed a gRPC-based messaging system using C# WebAPI.
