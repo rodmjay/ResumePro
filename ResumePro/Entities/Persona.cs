@@ -4,8 +4,10 @@
 
 #endregion
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Geography.Entities;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -25,12 +27,19 @@ public class Persona : BaseEntity<Persona>, IPersona
     public string LinkedIn { get; set; }
     public string GitHub { get; set; }
     public string City { get; set; }
-    public string State { get; set; }
+
+    public StateProvince State { get; set; }
+    public int StateId { get; set; }
     public bool IsDeleted { get; set; }
 
     public override void Configure(EntityTypeBuilder<Persona> builder)
     {
         builder.HasKey(x => new{ x.OrganizationId, x.Id});
+
+        builder.HasOne(x => x.State)
+            .WithMany(x => x.People)
+            .HasForeignKey(x => x.StateId)
+            .OnDelete(DeleteBehavior.NoAction);
         
         builder.HasQueryFilter(x => x.IsDeleted == false);
     }

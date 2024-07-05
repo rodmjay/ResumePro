@@ -23,4 +23,5 @@ public class PersonaDto : IPersona
     public int OrganizationId { get; set; }
     public int Skills { get; set; }
     public int Resumes { get; set; }
+    public string Country { get; set; }
 }

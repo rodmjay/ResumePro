@@ -17,6 +17,8 @@ public class PersonaMapping : Profile
         CreateMap<Persona, PersonaDto>()
             .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.Count))
             .ForMember(x => x.Resumes, opt => opt.MapFrom(x => x.Resumes.Count))
+            .ForMember(x=>x.State, opt=>opt.MapFrom(x=>x.State.Code))
+            .ForMember(x=>x.Country, opt=>opt.MapFrom(x=>x.State.Country.Iso2))
             .IncludeAllDerived();
 
         CreateMap<Persona, PersonaDetails>()

@@ -14,24 +14,19 @@ namespace ResumePro.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Persona",
+                name: "Country",
                 columns: table => new
                 {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LinkedIn = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    GitHub = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    State = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    Iso2 = table.Column<string>(type: "nvarchar(2)", maxLength: 2, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    CapsName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Iso3 = table.Column<string>(type: "nvarchar(3)", maxLength: 3, nullable: true),
+                    NumberCode = table.Column<int>(type: "int", nullable: true),
+                    PhoneCode = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persona", x => new { x.OrganizationId, x.Id });
+                    table.PrimaryKey("PK_Country", x => x.Iso2);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,6 +40,53 @@ namespace ResumePro.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skill", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StateProvince",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Iso2 = table.Column<string>(type: "nvarchar(2)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Abbrev = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StateProvince", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StateProvince_Country_Iso2",
+                        column: x => x.Iso2,
+                        principalTable: "Country",
+                        principalColumn: "Iso2");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Persona",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LinkedIn = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    GitHub = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StateId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Persona", x => new { x.OrganizationId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Persona_StateProvince_StateId",
+                        column: x => x.StateId,
+                        principalTable: "StateProvince",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -69,6 +111,30 @@ namespace ResumePro.Migrations
                         columns: x => new { x.OrganizationId, x.PersonaId },
                         principalTable: "Persona",
                         principalColumns: new[] { "OrganizationId", "Id" });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonaSkill",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    Rating = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonaSkill", x => new { x.OrganizationId, x.PersonaId, x.SkillId });
+                    table.ForeignKey(
+                        name: "FK_PersonaSkill_Persona_OrganizationId_PersonaId",
+                        columns: x => new { x.OrganizationId, x.PersonaId },
+                        principalTable: "Persona",
+                        principalColumns: new[] { "OrganizationId", "Id" });
+                    table.ForeignKey(
+                        name: "FK_PersonaSkill_Skill_SkillId",
+                        column: x => x.SkillId,
+                        principalTable: "Skill",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -113,31 +179,6 @@ namespace ResumePro.Migrations
                         principalTable: "Persona",
                         principalColumns: new[] { "OrganizationId", "Id" },
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PersonaSkill",
-                columns: table => new
-                {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    PersonaId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PersonaSkill", x => new { x.OrganizationId, x.PersonaId, x.SkillId });
-                    table.UniqueConstraint("AK_PersonaSkill_OrganizationId_SkillId", x => new { x.OrganizationId, x.SkillId });
-                    table.ForeignKey(
-                        name: "FK_PersonaSkill_Persona_OrganizationId_PersonaId",
-                        columns: x => new { x.OrganizationId, x.PersonaId },
-                        principalTable: "Persona",
-                        principalColumns: new[] { "OrganizationId", "Id" });
-                    table.ForeignKey(
-                        name: "FK_PersonaSkill_Skill_SkillId",
-                        column: x => x.SkillId,
-                        principalTable: "Skill",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -187,6 +228,30 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "JobSkill",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    JobId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JobSkill", x => new { x.OrganizationId, x.SkillId, x.JobId });
+                    table.ForeignKey(
+                        name: "FK_JobSkill_Job_OrganizationId_JobId",
+                        columns: x => new { x.OrganizationId, x.JobId },
+                        principalTable: "Job",
+                        principalColumns: new[] { "OrganizationId", "Id" });
+                    table.ForeignKey(
+                        name: "FK_JobSkill_PersonaSkill_OrganizationId_PersonaId_SkillId",
+                        columns: x => new { x.OrganizationId, x.PersonaId, x.SkillId },
+                        principalTable: "PersonaSkill",
+                        principalColumns: new[] { "OrganizationId", "PersonaId", "SkillId" });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ResumeJob",
                 columns: table => new
                 {
@@ -210,6 +275,30 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ResumeSkill",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    ResumeId = table.Column<int>(type: "int", nullable: false),
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResumeSkill", x => new { x.OrganizationId, x.PersonaId, x.ResumeId, x.SkillId });
+                    table.ForeignKey(
+                        name: "FK_ResumeSkill_PersonaSkill_OrganizationId_PersonaId_SkillId",
+                        columns: x => new { x.OrganizationId, x.PersonaId, x.SkillId },
+                        principalTable: "PersonaSkill",
+                        principalColumns: new[] { "OrganizationId", "PersonaId", "SkillId" });
+                    table.ForeignKey(
+                        name: "FK_ResumeSkill_Resume_OrganizationId_PersonaId_ResumeId",
+                        columns: x => new { x.OrganizationId, x.PersonaId, x.ResumeId },
+                        principalTable: "Resume",
+                        principalColumns: new[] { "OrganizationId", "PersonaId", "Id" });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Degree",
                 columns: table => new
                 {
@@ -227,54 +316,6 @@ namespace ResumePro.Migrations
                         principalTable: "School",
                         principalColumns: new[] { "OrganizationId", "Id" },
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "JobSkill",
-                columns: table => new
-                {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    JobId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_JobSkill", x => new { x.OrganizationId, x.SkillId, x.JobId });
-                    table.ForeignKey(
-                        name: "FK_JobSkill_Job_OrganizationId_JobId",
-                        columns: x => new { x.OrganizationId, x.JobId },
-                        principalTable: "Job",
-                        principalColumns: new[] { "OrganizationId", "Id" });
-                    table.ForeignKey(
-                        name: "FK_JobSkill_PersonaSkill_OrganizationId_SkillId",
-                        columns: x => new { x.OrganizationId, x.SkillId },
-                        principalTable: "PersonaSkill",
-                        principalColumns: new[] { "OrganizationId", "SkillId" });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ResumeSkill",
-                columns: table => new
-                {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    ResumeId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false),
-                    PersonaId = table.Column<int>(type: "int", nullable: false),
-                    ShowInSummary = table.Column<bool>(type: "bit", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ResumeSkill", x => new { x.OrganizationId, x.PersonaId, x.ResumeId, x.SkillId });
-                    table.ForeignKey(
-                        name: "FK_ResumeSkill_PersonaSkill_OrganizationId_PersonaId_SkillId",
-                        columns: x => new { x.OrganizationId, x.PersonaId, x.SkillId },
-                        principalTable: "PersonaSkill",
-                        principalColumns: new[] { "OrganizationId", "PersonaId", "SkillId" });
-                    table.ForeignKey(
-                        name: "FK_ResumeSkill_Resume_OrganizationId_PersonaId_ResumeId",
-                        columns: x => new { x.OrganizationId, x.PersonaId, x.ResumeId },
-                        principalTable: "Resume",
-                        principalColumns: new[] { "OrganizationId", "PersonaId", "Id" });
                 });
 
             migrationBuilder.CreateTable(
@@ -305,9 +346,250 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Persona",
-                columns: new[] { "Id", "OrganizationId", "City", "Email", "FirstName", "GitHub", "IsDeleted", "LastName", "LinkedIn", "PhoneNumber", "State" },
-                values: new object[] { 1, 1, "Salt Lake City", "rodmjay@gmail.com", "Rod", "https://www.github.com/rodmjay", false, "Johnson", "https://www.linkedin.com/in/rodmjay", "(385) 352-6026", "UT" });
+                table: "Country",
+                columns: new[] { "Iso2", "CapsName", "Iso3", "Name", "NumberCode", "PhoneCode" },
+                values: new object[,]
+                {
+                    { "AD", "ANDORRA", "AND", "Andorra", 20, 376 },
+                    { "AE", "UNITED ARAB EMIRATES", "ARE", "United Arab Emirates", 784, 971 },
+                    { "AF", "AFGHANISTAN", "AFG", "Afghanistan", 4, 93 },
+                    { "AG", "ANTIGUA AND BARBUDA", "ATG", "Antigua and Barbuda", 28, 1268 },
+                    { "AI", "ANGUILLA", "AIA", "Anguilla", 660, 1264 },
+                    { "AL", "ALBANIA", "ALB", "Albania", 8, 355 },
+                    { "AM", "ARMENIA", "ARM", "Armenia", 51, 374 },
+                    { "AN", "NETHERLANDS ANTILLES", "ANT", "Netherlands Antilles", 530, 599 },
+                    { "AO", "ANGOLA", "AGO", "Angola", 24, 244 },
+                    { "AQ", "ANTARCTICA", "", "Antarctica", null, 0 },
+                    { "AR", "ARGENTINA", "ARG", "Argentina", 32, 54 },
+                    { "AS", "AMERICAN SAMOA", "ASM", "American Samoa", 16, 1684 },
+                    { "AT", "AUSTRIA", "AUT", "Austria", 40, 43 },
+                    { "AU", "AUSTRALIA", "AUS", "Australia", 36, 61 },
+                    { "AW", "ARUBA", "ABW", "Aruba", 533, 297 },
+                    { "AZ", "AZERBAIJAN", "AZE", "Azerbaijan", 31, 994 },
+                    { "BA", "BOSNIA AND HERZEGOVINA", "BIH", "Bosnia and Herzegovina", 70, 387 },
+                    { "BB", "BARBADOS", "BRB", "Barbados", 52, 1246 },
+                    { "BD", "BANGLADESH", "BGD", "Bangladesh", 50, 880 },
+                    { "BE", "BELGIUM", "BEL", "Belgium", 56, 32 },
+                    { "BF", "BURKINA FASO", "BFA", "Burkina Faso", 854, 226 },
+                    { "BG", "BULGARIA", "BGR", "Bulgaria", 100, 359 },
+                    { "BH", "BAHRAIN", "BHR", "Bahrain", 48, 973 },
+                    { "BI", "BURUNDI", "BDI", "Burundi", 108, 257 },
+                    { "BJ", "BENIN", "BEN", "Benin", 204, 229 },
+                    { "BM", "BERMUDA", "BMU", "Bermuda", 60, 1441 },
+                    { "BN", "BRUNEI DARUSSALAM", "BRN", "Brunei Darussalam", 96, 673 },
+                    { "BO", "BOLIVIA", "BOL", "Bolivia", 68, 591 },
+                    { "BR", "BRAZIL", "BRA", "Brazil", 76, 55 },
+                    { "BS", "BAHAMAS", "BHS", "Bahamas", 44, 1242 },
+                    { "BT", "BHUTAN", "BTN", "Bhutan", 64, 975 },
+                    { "BV", "BOUVET ISLAND", "", "Bouvet Island", null, 0 },
+                    { "BW", "BOTSWANA", "BWA", "Botswana", 72, 267 },
+                    { "BY", "BELARUS", "BLR", "Belarus", 112, 375 },
+                    { "BZ", "BELIZE", "BLZ", "Belize", 84, 501 },
+                    { "CA", "CANADA", "CAN", "Canada", 124, 1 },
+                    { "CC", "COCOS (KEELING) ISLANDS", "", "Cocos (Keeling) Islands", null, 672 },
+                    { "CD", "CONGO, THE DEMOCRATIC REPUBLIC OF THE", "COD", "Congo, the Democratic Republic of the", 180, 242 },
+                    { "CF", "CENTRAL AFRICAN REPUBLIC", "CAF", "Central African Republic", 140, 236 },
+                    { "CG", "CONGO", "COG", "Congo", 178, 242 },
+                    { "CH", "SWITZERLAND", "CHE", "Switzerland", 756, 41 },
+                    { "CI", "COTE D'IVOIRE", "CIV", "Cote D'Ivoire", 384, 225 },
+                    { "CK", "COOK ISLANDS", "COK", "Cook Islands", 184, 682 },
+                    { "CL", "CHILE", "CHL", "Chile", 152, 56 },
+                    { "CM", "CAMEROON", "CMR", "Cameroon", 120, 237 },
+                    { "CN", "CHINA", "CHN", "China", 156, 86 },
+                    { "CO", "COLOMBIA", "COL", "Colombia", 170, 57 },
+                    { "CR", "COSTA RICA", "CRI", "Costa Rica", 188, 506 },
+                    { "CS", "SERBIA AND MONTENEGRO", "", "Serbia and Montenegro", null, 381 },
+                    { "CU", "CUBA", "CUB", "Cuba", 192, 53 },
+                    { "CV", "CAPE VERDE", "CPV", "Cape Verde", 132, 238 },
+                    { "CX", "CHRISTMAS ISLAND", "", "Christmas Island", null, 61 },
+                    { "CY", "CYPRUS", "CYP", "Cyprus", 196, 357 },
+                    { "CZ", "CZECH REPUBLIC", "CZE", "Czech Republic", 203, 420 },
+                    { "DE", "GERMANY", "DEU", "Germany", 276, 49 },
+                    { "DJ", "DJIBOUTI", "DJI", "Djibouti", 262, 253 },
+                    { "DK", "DENMARK", "DNK", "Denmark", 208, 45 },
+                    { "DM", "DOMINICA", "DMA", "Dominica", 212, 1767 },
+                    { "DO", "DOMINICAN REPUBLIC", "DOM", "Dominican Republic", 214, 1809 },
+                    { "DZ", "ALGERIA", "DZA", "Algeria", 12, 213 },
+                    { "EC", "ECUADOR", "ECU", "Ecuador", 218, 593 },
+                    { "EE", "ESTONIA", "EST", "Estonia", 233, 372 },
+                    { "EG", "EGYPT", "EGY", "Egypt", 818, 20 },
+                    { "EH", "WESTERN SAHARA", "ESH", "Western Sahara", 732, 212 },
+                    { "ER", "ERITREA", "ERI", "Eritrea", 232, 291 },
+                    { "ES", "SPAIN", "ESP", "Spain", 724, 34 },
+                    { "ET", "ETHIOPIA", "ETH", "Ethiopia", 231, 251 },
+                    { "FI", "FINLAND", "FIN", "Finland", 246, 358 },
+                    { "FJ", "FIJI", "FJI", "Fiji", 242, 679 },
+                    { "FK", "FALKLAND ISLANDS (MALVINAS)", "FLK", "Falkland Islands (Malvinas)", 238, 500 },
+                    { "FM", "MICRONESIA, FEDERATED STATES OF", "FSM", "Micronesia, Federated States of", 583, 691 },
+                    { "FO", "FAROE ISLANDS", "FRO", "Faroe Islands", 234, 298 },
+                    { "FR", "FRANCE", "FRA", "France", 250, 33 },
+                    { "GA", "GABON", "GAB", "Gabon", 266, 241 },
+                    { "GB", "UNITED KINGDOM", "GBR", "United Kingdom", 826, 44 },
+                    { "GD", "GRENADA", "GRD", "Grenada", 308, 1473 },
+                    { "GE", "GEORGIA", "GEO", "Georgia", 268, 995 },
+                    { "GF", "FRENCH GUIANA", "GUF", "French Guiana", 254, 594 },
+                    { "GH", "GHANA", "GHA", "Ghana", 288, 233 },
+                    { "GI", "GIBRALTAR", "GIB", "Gibraltar", 292, 350 },
+                    { "GL", "GREENLAND", "GRL", "Greenland", 304, 299 },
+                    { "GM", "GAMBIA", "GMB", "Gambia", 270, 220 },
+                    { "GN", "GUINEA", "GIN", "Guinea", 324, 224 },
+                    { "GP", "GUADELOUPE", "GLP", "Guadeloupe", 312, 590 },
+                    { "GQ", "EQUATORIAL GUINEA", "GNQ", "Equatorial Guinea", 226, 240 },
+                    { "GR", "GREECE", "GRC", "Greece", 300, 30 },
+                    { "GS", "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS", "", "South Georgia and the South Sandwich Islands", null, 0 },
+                    { "GT", "GUATEMALA", "GTM", "Guatemala", 320, 502 },
+                    { "GU", "GUAM", "GUM", "Guam", 316, 1671 },
+                    { "GW", "GUINEA-BISSAU", "GNB", "Guinea-Bissau", 624, 245 },
+                    { "GY", "GUYANA", "GUY", "Guyana", 328, 592 },
+                    { "HK", "HONG KONG", "HKG", "Hong Kong", 344, 852 },
+                    { "HM", "HEARD ISLAND AND MCDONALD ISLANDS", "", "Heard Island and Mcdonald Islands", null, 0 },
+                    { "HN", "HONDURAS", "HND", "Honduras", 340, 504 },
+                    { "HR", "CROATIA", "HRV", "Croatia", 191, 385 },
+                    { "HT", "HAITI", "HTI", "Haiti", 332, 509 },
+                    { "HU", "HUNGARY", "HUN", "Hungary", 348, 36 },
+                    { "ID", "INDONESIA", "IDN", "Indonesia", 360, 62 },
+                    { "IE", "IRELAND", "IRL", "Ireland", 372, 353 },
+                    { "IL", "ISRAEL", "ISR", "Israel", 376, 972 },
+                    { "IN", "INDIA", "IND", "India", 356, 91 },
+                    { "IO", "BRITISH INDIAN OCEAN TERRITORY", "", "British Indian Ocean Territory", null, 246 },
+                    { "IQ", "IRAQ", "IRQ", "Iraq", 368, 964 },
+                    { "IR", "IRAN, ISLAMIC REPUBLIC OF", "IRN", "Iran, Islamic Republic of", 364, 98 },
+                    { "IS", "ICELAND", "ISL", "Iceland", 352, 354 },
+                    { "IT", "ITALY", "ITA", "Italy", 380, 39 },
+                    { "JM", "JAMAICA", "JAM", "Jamaica", 388, 1876 },
+                    { "JO", "JORDAN", "JOR", "Jordan", 400, 962 },
+                    { "JP", "JAPAN", "JPN", "Japan", 392, 81 },
+                    { "KE", "KENYA", "KEN", "Kenya", 404, 254 },
+                    { "KG", "KYRGYZSTAN", "KGZ", "Kyrgyzstan", 417, 996 },
+                    { "KH", "CAMBODIA", "KHM", "Cambodia", 116, 855 },
+                    { "KI", "KIRIBATI", "KIR", "Kiribati", 296, 686 },
+                    { "KM", "COMOROS", "COM", "Comoros", 174, 269 },
+                    { "KN", "SAINT KITTS AND NEVIS", "KNA", "Saint Kitts and Nevis", 659, 1869 },
+                    { "KP", "KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF", "PRK", "Korea, Democratic People's Republic of", 408, 850 },
+                    { "KR", "KOREA, REPUBLIC OF", "KOR", "Korea, Republic of", 410, 82 },
+                    { "KW", "KUWAIT", "KWT", "Kuwait", 414, 965 },
+                    { "KY", "CAYMAN ISLANDS", "CYM", "Cayman Islands", 136, 1345 },
+                    { "KZ", "KAZAKHSTAN", "KAZ", "Kazakhstan", 398, 7 },
+                    { "LA", "LAO PEOPLE'S DEMOCRATIC REPUBLIC", "LAO", "Lao People's Democratic Republic", 418, 856 },
+                    { "LB", "LEBANON", "LBN", "Lebanon", 422, 961 },
+                    { "LC", "SAINT LUCIA", "LCA", "Saint Lucia", 662, 1758 },
+                    { "LI", "LIECHTENSTEIN", "LIE", "Liechtenstein", 438, 423 },
+                    { "LK", "SRI LANKA", "LKA", "Sri Lanka", 144, 94 },
+                    { "LR", "LIBERIA", "LBR", "Liberia", 430, 231 },
+                    { "LS", "LESOTHO", "LSO", "Lesotho", 426, 266 },
+                    { "LT", "LITHUANIA", "LTU", "Lithuania", 440, 370 },
+                    { "LU", "LUXEMBOURG", "LUX", "Luxembourg", 442, 352 },
+                    { "LV", "LATVIA", "LVA", "Latvia", 428, 371 },
+                    { "LY", "LIBYAN ARAB JAMAHIRIYA", "LBY", "Libyan Arab Jamahiriya", 434, 218 },
+                    { "MA", "MOROCCO", "MAR", "Morocco", 504, 212 },
+                    { "MC", "MONACO", "MCO", "Monaco", 492, 377 },
+                    { "MD", "MOLDOVA, REPUBLIC OF", "MDA", "Moldova, Republic of", 498, 373 },
+                    { "MG", "MADAGASCAR", "MDG", "Madagascar", 450, 261 },
+                    { "MH", "MARSHALL ISLANDS", "MHL", "Marshall Islands", 584, 692 },
+                    { "MK", "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF", "MKD", "Macedonia, the Former Yugoslav Republic of", 807, 389 },
+                    { "ML", "MALI", "MLI", "Mali", 466, 223 },
+                    { "MM", "MYANMAR", "MMR", "Myanmar", 104, 95 },
+                    { "MN", "MONGOLIA", "MNG", "Mongolia", 496, 976 },
+                    { "MO", "MACAO", "MAC", "Macao", 446, 853 },
+                    { "MP", "NORTHERN MARIANA ISLANDS", "MNP", "Northern Mariana Islands", 580, 1670 },
+                    { "MQ", "MARTINIQUE", "MTQ", "Martinique", 474, 596 },
+                    { "MR", "MAURITANIA", "MRT", "Mauritania", 478, 222 },
+                    { "MS", "MONTSERRAT", "MSR", "Montserrat", 500, 1664 },
+                    { "MT", "MALTA", "MLT", "Malta", 470, 356 },
+                    { "MU", "MAURITIUS", "MUS", "Mauritius", 480, 230 },
+                    { "MV", "MALDIVES", "MDV", "Maldives", 462, 960 },
+                    { "MW", "MALAWI", "MWI", "Malawi", 454, 265 },
+                    { "MX", "MEXICO", "MEX", "Mexico", 484, 52 },
+                    { "MY", "MALAYSIA", "MYS", "Malaysia", 458, 60 },
+                    { "MZ", "MOZAMBIQUE", "MOZ", "Mozambique", 508, 258 },
+                    { "NA", "NAMIBIA", "NAM", "Namibia", 516, 264 },
+                    { "NC", "NEW CALEDONIA", "NCL", "New Caledonia", 540, 687 },
+                    { "NE", "NIGER", "NER", "Niger", 562, 227 },
+                    { "NF", "NORFOLK ISLAND", "NFK", "Norfolk Island", 574, 672 },
+                    { "NG", "NIGERIA", "NGA", "Nigeria", 566, 234 },
+                    { "NI", "NICARAGUA", "NIC", "Nicaragua", 558, 505 },
+                    { "NL", "NETHERLANDS", "NLD", "Netherlands", 528, 31 },
+                    { "NO", "NORWAY", "NOR", "Norway", 578, 47 },
+                    { "NP", "NEPAL", "NPL", "Nepal", 524, 977 },
+                    { "NR", "NAURU", "NRU", "Nauru", 520, 674 },
+                    { "NU", "NIUE", "NIU", "Niue", 570, 683 },
+                    { "NZ", "NEW ZEALAND", "NZL", "New Zealand", 554, 64 },
+                    { "OM", "OMAN", "OMN", "Oman", 512, 968 },
+                    { "PA", "PANAMA", "PAN", "Panama", 591, 507 },
+                    { "PE", "PERU", "PER", "Peru", 604, 51 },
+                    { "PF", "FRENCH POLYNESIA", "PYF", "French Polynesia", 258, 689 },
+                    { "PG", "PAPUA NEW GUINEA", "PNG", "Papua New Guinea", 598, 675 },
+                    { "PH", "PHILIPPINES", "PHL", "Philippines", 608, 63 },
+                    { "PK", "PAKISTAN", "PAK", "Pakistan", 586, 92 },
+                    { "PL", "POLAND", "POL", "Poland", 616, 48 },
+                    { "PM", "SAINT PIERRE AND MIQUELON", "SPM", "Saint Pierre and Miquelon", 666, 508 },
+                    { "PN", "PITCAIRN", "PCN", "Pitcairn", 612, 0 },
+                    { "PR", "PUERTO RICO", "PRI", "Puerto Rico", 630, 1787 },
+                    { "PS", "PALESTINIAN TERRITORY, OCCUPIED", "", "Palestinian Territory, Occupied", null, 970 },
+                    { "PT", "PORTUGAL", "PRT", "Portugal", 620, 351 },
+                    { "PW", "PALAU", "PLW", "Palau", 585, 680 },
+                    { "PY", "PARAGUAY", "PRY", "Paraguay", 600, 595 },
+                    { "QA", "QATAR", "QAT", "Qatar", 634, 974 },
+                    { "RE", "REUNION", "REU", "Reunion", 638, 262 },
+                    { "RO", "ROMANIA", "ROM", "Romania", 642, 40 },
+                    { "RU", "RUSSIAN FEDERATION", "RUS", "Russian Federation", 643, 70 },
+                    { "RW", "RWANDA", "RWA", "Rwanda", 646, 250 },
+                    { "SA", "SAUDI ARABIA", "SAU", "Saudi Arabia", 682, 966 },
+                    { "SB", "SOLOMON ISLANDS", "SLB", "Solomon Islands", 90, 677 },
+                    { "SC", "SEYCHELLES", "SYC", "Seychelles", 690, 248 },
+                    { "SD", "SUDAN", "SDN", "Sudan", 736, 249 },
+                    { "SE", "SWEDEN", "SWE", "Sweden", 752, 46 },
+                    { "SG", "SINGAPORE", "SGP", "Singapore", 702, 65 },
+                    { "SH", "SAINT HELENA", "SHN", "Saint Helena", 654, 290 },
+                    { "SI", "SLOVENIA", "SVN", "Slovenia", 705, 386 },
+                    { "SJ", "SVALBARD AND JAN MAYEN", "SJM", "Svalbard and Jan Mayen", 744, 47 },
+                    { "SK", "SLOVAKIA", "SVK", "Slovakia", 703, 421 },
+                    { "SL", "SIERRA LEONE", "SLE", "Sierra Leone", 694, 232 },
+                    { "SM", "SAN MARINO", "SMR", "San Marino", 674, 378 },
+                    { "SN", "SENEGAL", "SEN", "Senegal", 686, 221 },
+                    { "SO", "SOMALIA", "SOM", "Somalia", 706, 252 },
+                    { "SR", "SURINAME", "SUR", "Suriname", 740, 597 },
+                    { "ST", "SAO TOME AND PRINCIPE", "STP", "Sao Tome and Principe", 678, 239 },
+                    { "SV", "EL SALVADOR", "SLV", "El Salvador", 222, 503 },
+                    { "SY", "SYRIAN ARAB REPUBLIC", "SYR", "Syrian Arab Republic", 760, 963 },
+                    { "SZ", "SWAZILAND", "SWZ", "Swaziland", 748, 268 },
+                    { "TC", "TURKS AND CAICOS ISLANDS", "TCA", "Turks and Caicos Islands", 796, 1649 },
+                    { "TD", "CHAD", "TCD", "Chad", 148, 235 },
+                    { "TF", "FRENCH SOUTHERN TERRITORIES", "", "French Southern Territories", null, 0 },
+                    { "TG", "TOGO", "TGO", "Togo", 768, 228 },
+                    { "TH", "THAILAND", "THA", "Thailand", 764, 66 },
+                    { "TJ", "TAJIKISTAN", "TJK", "Tajikistan", 762, 992 },
+                    { "TK", "TOKELAU", "TKL", "Tokelau", 772, 690 },
+                    { "TL", "TIMOR-LESTE", "", "Timor-Leste", null, 670 },
+                    { "TM", "TURKMENISTAN", "TKM", "Turkmenistan", 795, 7370 },
+                    { "TN", "TUNISIA", "TUN", "Tunisia", 788, 216 },
+                    { "TO", "TONGA", "TON", "Tonga", 776, 676 },
+                    { "TR", "TURKEY", "TUR", "Turkey", 792, 90 },
+                    { "TT", "TRINIDAD AND TOBAGO", "TTO", "Trinidad and Tobago", 780, 1868 },
+                    { "TV", "TUVALU", "TUV", "Tuvalu", 798, 688 },
+                    { "TW", "TAIWAN, PROVINCE OF CHINA", "TWN", "Taiwan, Province of China", 158, 886 },
+                    { "TZ", "TANZANIA, UNITED REPUBLIC OF", "TZA", "Tanzania, United Republic of", 834, 255 },
+                    { "UA", "UKRAINE", "UKR", "Ukraine", 804, 380 },
+                    { "UG", "UGANDA", "UGA", "Uganda", 800, 256 },
+                    { "UM", "UNITED STATES MINOR OUTLYING ISLANDS", "", "United States Minor Outlying Islands", null, 1 },
+                    { "US", "UNITED STATES", "USA", "United States", 840, 1 },
+                    { "UY", "URUGUAY", "URY", "Uruguay", 858, 598 },
+                    { "UZ", "UZBEKISTAN", "UZB", "Uzbekistan", 860, 998 },
+                    { "VA", "HOLY SEE (VATICAN CITY STATE)", "VAT", "Holy See (Vatican City State)", 336, 39 },
+                    { "VC", "SAINT VINCENT AND THE GRENADINES", "VCT", "Saint Vincent and the Grenadines", 670, 1784 },
+                    { "VE", "VENEZUELA", "VEN", "Venezuela", 862, 58 },
+                    { "VG", "VIRGIN ISLANDS, BRITISH", "VGB", "Virgin Islands, British", 92, 1284 },
+                    { "VI", "VIRGIN ISLANDS, U.S.", "VIR", "Virgin Islands, U.s.", 850, 1340 },
+                    { "VN", "VIET NAM", "VNM", "Viet Nam", 704, 84 },
+                    { "VU", "VANUATU", "VUT", "Vanuatu", 548, 678 },
+                    { "WF", "WALLIS AND FUTUNA", "WLF", "Wallis and Futuna", 876, 681 },
+                    { "WS", "SAMOA", "WSM", "Samoa", 882, 684 },
+                    { "YE", "YEMEN", "YEM", "Yemen", 887, 967 },
+                    { "YT", "MAYOTTE", "", "Mayotte", null, 269 },
+                    { "ZA", "SOUTH AFRICA", "ZAF", "South Africa", 710, 27 },
+                    { "ZM", "ZAMBIA", "ZMB", "Zambia", 894, 260 },
+                    { "ZW", "ZIMBABWE", "ZWE", "Zimbabwe", 716, 263 }
+                });
 
             migrationBuilder.InsertData(
                 table: "Skill",
@@ -362,6 +644,69 @@ namespace ResumePro.Migrations
                     { 46, "Python" },
                     { 47, "XAML" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "StateProvince",
+                columns: new[] { "Id", "Abbrev", "Code", "Iso2", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Ala.", "AL", "US", "Alabama" },
+                    { 2, "Alaska", "AK", "US", "Alaska" },
+                    { 3, "Ariz.", "AZ", "US", "Arizona" },
+                    { 4, "Ark.", "AR", "US", "Arkansas" },
+                    { 5, "Calif.", "CA", "US", "California" },
+                    { 6, "Colo.", "CO", "US", "Colorado" },
+                    { 7, "Conn.", "CT", "US", "Connecticut" },
+                    { 8, "Del.", "DE", "US", "Delaware" },
+                    { 9, "D.C.", "DC", "US", "District of Columbia" },
+                    { 10, "Fla.", "FL", "US", "Florida" },
+                    { 11, "Ga.", "GA", "US", "Georgia" },
+                    { 12, "Hawaii", "HI", "US", "Hawaii" },
+                    { 13, "Idaho", "ID", "US", "Idaho" },
+                    { 14, "Ill.", "IL", "US", "Illinois" },
+                    { 15, "Ind.", "IN", "US", "Indiana" },
+                    { 16, "Iowa", "IA", "US", "Iowa" },
+                    { 17, "Kans.", "KS", "US", "Kansas" },
+                    { 18, "Ky.", "KY", "US", "Kentucky" },
+                    { 19, "La.", "LA", "US", "Louisiana" },
+                    { 20, "Maine", "ME", "US", "Maine" },
+                    { 21, "Md.", "MD", "US", "Maryland" },
+                    { 22, "Mass.", "MA", "US", "Massachusetts" },
+                    { 23, "Mich.", "MI", "US", "Michigan" },
+                    { 24, "Minn.", "MN", "US", "Minnesota" },
+                    { 25, "Miss.", "MS", "US", "Mississippi" },
+                    { 26, "Mo.", "MO", "US", "Missouri" },
+                    { 27, "Mont.", "MT", "US", "Montana" },
+                    { 28, "Nebr.", "NE", "US", "Nebraska" },
+                    { 29, "Nev.", "NV", "US", "Nevada" },
+                    { 30, "N.H.", "NH", "US", "New Hampshire" },
+                    { 31, "N.J.", "NJ", "US", "New Jersey" },
+                    { 32, "N.M.", "NM", "US", "New Mexico" },
+                    { 33, "N.Y.", "NY", "US", "New York" },
+                    { 34, "N.C.", "NC", "US", "North Carolina" },
+                    { 35, "N.D.", "ND", "US", "North Dakota" },
+                    { 36, "Ohio", "OH", "US", "Ohio" },
+                    { 37, "Okla.", "OK", "US", "Oklahoma" },
+                    { 38, "Ore.", "OR", "US", "Oregon" },
+                    { 39, "Pa.", "PA", "US", "Pennsylvania" },
+                    { 40, "R.I.", "RI", "US", "Rhode Island" },
+                    { 41, "S.C.", "SC", "US", "South Carolina" },
+                    { 42, "S.D.", "SD", "US", "South Dakota" },
+                    { 43, "Tenn.", "TN", "US", "Tennessee" },
+                    { 44, "Tex.", "TX", "US", "Texas" },
+                    { 45, "Utah", "UT", "US", "Utah" },
+                    { 46, "Vt.", "VT", "US", "Vermont" },
+                    { 47, "Va.", "VA", "US", "Virginia" },
+                    { 48, "Wash.", "WA", "US", "Washington" },
+                    { 49, "W.Va.", "WV", "US", "West Virginia" },
+                    { 50, "Wis.", "WI", "US", "Wisconsin" },
+                    { 51, "Wyo.", "WY", "US", "Wyoming" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Persona",
+                columns: new[] { "Id", "OrganizationId", "City", "Email", "FirstName", "GitHub", "IsDeleted", "LastName", "LinkedIn", "PhoneNumber", "StateId" },
+                values: new object[] { 1, 1, "Salt Lake City", "rodmjay@gmail.com", "Rod", "https://www.github.com/rodmjay", false, "Johnson", "https://www.linkedin.com/in/rodmjay", "(385) 352-6026", 45 });
 
             migrationBuilder.InsertData(
                 table: "Job",
@@ -478,114 +823,114 @@ namespace ResumePro.Migrations
 
             migrationBuilder.InsertData(
                 table: "JobSkill",
-                columns: new[] { "JobId", "OrganizationId", "SkillId" },
+                columns: new[] { "JobId", "OrganizationId", "SkillId", "PersonaId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1 },
-                    { 2, 1, 1 },
-                    { 3, 1, 1 },
-                    { 4, 1, 1 },
-                    { 5, 1, 1 },
-                    { 6, 1, 1 },
-                    { 7, 1, 1 },
-                    { 8, 1, 1 },
-                    { 9, 1, 1 },
-                    { 2, 1, 2 },
-                    { 3, 1, 2 },
-                    { 1, 1, 3 },
-                    { 2, 1, 3 },
-                    { 3, 1, 3 },
-                    { 4, 1, 3 },
-                    { 5, 1, 3 },
-                    { 6, 1, 3 },
-                    { 8, 1, 3 },
-                    { 1, 1, 4 },
-                    { 2, 1, 4 },
-                    { 3, 1, 4 },
-                    { 4, 1, 4 },
-                    { 1, 1, 5 },
-                    { 2, 1, 5 },
-                    { 3, 1, 5 },
-                    { 1, 1, 6 },
-                    { 2, 1, 6 },
-                    { 3, 1, 6 },
-                    { 1, 1, 7 },
-                    { 2, 1, 7 },
-                    { 3, 1, 7 },
-                    { 2, 1, 8 },
-                    { 3, 1, 8 },
-                    { 4, 1, 8 },
-                    { 5, 1, 8 },
-                    { 1, 1, 9 },
-                    { 2, 1, 9 },
-                    { 3, 1, 9 },
-                    { 2, 1, 10 },
-                    { 3, 1, 10 },
-                    { 4, 1, 10 },
-                    { 2, 1, 11 },
-                    { 3, 1, 11 },
-                    { 2, 1, 12 },
-                    { 3, 1, 12 },
-                    { 2, 1, 13 },
-                    { 3, 1, 13 },
-                    { 2, 1, 14 },
-                    { 2, 1, 16 },
-                    { 2, 1, 17 },
-                    { 1, 1, 18 },
-                    { 1, 1, 19 },
-                    { 1, 1, 20 },
-                    { 1, 1, 21 },
-                    { 1, 1, 22 },
-                    { 2, 1, 22 },
-                    { 3, 1, 22 },
-                    { 1, 1, 23 },
-                    { 1, 1, 24 },
-                    { 4, 1, 25 },
-                    { 5, 1, 25 },
-                    { 5, 1, 26 },
-                    { 5, 1, 27 },
-                    { 5, 1, 28 },
-                    { 9, 1, 29 },
-                    { 9, 1, 30 },
-                    { 1, 1, 31 },
-                    { 4, 1, 31 },
-                    { 9, 1, 32 },
-                    { 8, 1, 33 },
-                    { 9, 1, 33 },
-                    { 1, 1, 34 },
-                    { 2, 1, 34 },
-                    { 3, 1, 34 },
-                    { 6, 1, 34 },
-                    { 7, 1, 34 },
-                    { 8, 1, 34 },
-                    { 9, 1, 34 },
-                    { 1, 1, 36 },
-                    { 2, 1, 36 },
-                    { 3, 1, 36 },
-                    { 4, 1, 36 },
-                    { 5, 1, 36 },
-                    { 6, 1, 36 },
-                    { 7, 1, 36 },
-                    { 8, 1, 36 },
-                    { 9, 1, 36 },
-                    { 1, 1, 37 },
-                    { 1, 1, 38 },
-                    { 2, 1, 38 },
-                    { 3, 1, 39 },
-                    { 3, 1, 40 },
-                    { 3, 1, 41 },
-                    { 3, 1, 42 },
-                    { 4, 1, 42 },
-                    { 2, 1, 43 },
-                    { 6, 1, 43 },
-                    { 7, 1, 43 },
-                    { 2, 1, 44 },
-                    { 3, 1, 44 },
-                    { 6, 1, 44 },
-                    { 7, 1, 44 },
-                    { 9, 1, 44 },
-                    { 8, 1, 46 },
-                    { 9, 1, 47 }
+                    { 1, 1, 1, 1 },
+                    { 2, 1, 1, 1 },
+                    { 3, 1, 1, 1 },
+                    { 4, 1, 1, 1 },
+                    { 5, 1, 1, 1 },
+                    { 6, 1, 1, 1 },
+                    { 7, 1, 1, 1 },
+                    { 8, 1, 1, 1 },
+                    { 9, 1, 1, 1 },
+                    { 2, 1, 2, 1 },
+                    { 3, 1, 2, 1 },
+                    { 1, 1, 3, 1 },
+                    { 2, 1, 3, 1 },
+                    { 3, 1, 3, 1 },
+                    { 4, 1, 3, 1 },
+                    { 5, 1, 3, 1 },
+                    { 6, 1, 3, 1 },
+                    { 8, 1, 3, 1 },
+                    { 1, 1, 4, 1 },
+                    { 2, 1, 4, 1 },
+                    { 3, 1, 4, 1 },
+                    { 4, 1, 4, 1 },
+                    { 1, 1, 5, 1 },
+                    { 2, 1, 5, 1 },
+                    { 3, 1, 5, 1 },
+                    { 1, 1, 6, 1 },
+                    { 2, 1, 6, 1 },
+                    { 3, 1, 6, 1 },
+                    { 1, 1, 7, 1 },
+                    { 2, 1, 7, 1 },
+                    { 3, 1, 7, 1 },
+                    { 2, 1, 8, 1 },
+                    { 3, 1, 8, 1 },
+                    { 4, 1, 8, 1 },
+                    { 5, 1, 8, 1 },
+                    { 1, 1, 9, 1 },
+                    { 2, 1, 9, 1 },
+                    { 3, 1, 9, 1 },
+                    { 2, 1, 10, 1 },
+                    { 3, 1, 10, 1 },
+                    { 4, 1, 10, 1 },
+                    { 2, 1, 11, 1 },
+                    { 3, 1, 11, 1 },
+                    { 2, 1, 12, 1 },
+                    { 3, 1, 12, 1 },
+                    { 2, 1, 13, 1 },
+                    { 3, 1, 13, 1 },
+                    { 2, 1, 14, 1 },
+                    { 2, 1, 16, 1 },
+                    { 2, 1, 17, 1 },
+                    { 1, 1, 18, 1 },
+                    { 1, 1, 19, 1 },
+                    { 1, 1, 20, 1 },
+                    { 1, 1, 21, 1 },
+                    { 1, 1, 22, 1 },
+                    { 2, 1, 22, 1 },
+                    { 3, 1, 22, 1 },
+                    { 1, 1, 23, 1 },
+                    { 1, 1, 24, 1 },
+                    { 4, 1, 25, 1 },
+                    { 5, 1, 25, 1 },
+                    { 5, 1, 26, 1 },
+                    { 5, 1, 27, 1 },
+                    { 5, 1, 28, 1 },
+                    { 9, 1, 29, 1 },
+                    { 9, 1, 30, 1 },
+                    { 1, 1, 31, 1 },
+                    { 4, 1, 31, 1 },
+                    { 9, 1, 32, 1 },
+                    { 8, 1, 33, 1 },
+                    { 9, 1, 33, 1 },
+                    { 1, 1, 34, 1 },
+                    { 2, 1, 34, 1 },
+                    { 3, 1, 34, 1 },
+                    { 6, 1, 34, 1 },
+                    { 7, 1, 34, 1 },
+                    { 8, 1, 34, 1 },
+                    { 9, 1, 34, 1 },
+                    { 1, 1, 36, 1 },
+                    { 2, 1, 36, 1 },
+                    { 3, 1, 36, 1 },
+                    { 4, 1, 36, 1 },
+                    { 5, 1, 36, 1 },
+                    { 6, 1, 36, 1 },
+                    { 7, 1, 36, 1 },
+                    { 8, 1, 36, 1 },
+                    { 9, 1, 36, 1 },
+                    { 1, 1, 37, 1 },
+                    { 1, 1, 38, 1 },
+                    { 2, 1, 38, 1 },
+                    { 3, 1, 39, 1 },
+                    { 3, 1, 40, 1 },
+                    { 3, 1, 41, 1 },
+                    { 3, 1, 42, 1 },
+                    { 4, 1, 42, 1 },
+                    { 2, 1, 43, 1 },
+                    { 6, 1, 43, 1 },
+                    { 7, 1, 43, 1 },
+                    { 2, 1, 44, 1 },
+                    { 3, 1, 44, 1 },
+                    { 6, 1, 44, 1 },
+                    { 7, 1, 44, 1 },
+                    { 9, 1, 44, 1 },
+                    { 8, 1, 46, 1 },
+                    { 9, 1, 47, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -637,56 +982,21 @@ namespace ResumePro.Migrations
 
             migrationBuilder.InsertData(
                 table: "ResumeSkill",
-                columns: new[] { "OrganizationId", "PersonaId", "ResumeId", "SkillId", "ShowInSummary" },
+                columns: new[] { "OrganizationId", "PersonaId", "ResumeId", "SkillId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, true },
-                    { 1, 1, 1, 2, true },
-                    { 1, 1, 1, 3, true },
-                    { 1, 1, 1, 4, true },
-                    { 1, 1, 1, 5, true },
-                    { 1, 1, 1, 6, false },
-                    { 1, 1, 1, 7, false },
-                    { 1, 1, 1, 8, false },
-                    { 1, 1, 1, 9, false },
-                    { 1, 1, 1, 10, false },
-                    { 1, 1, 1, 11, false },
-                    { 1, 1, 1, 12, false },
-                    { 1, 1, 1, 13, false },
-                    { 1, 1, 1, 14, false },
-                    { 1, 1, 1, 15, false },
-                    { 1, 1, 1, 16, false },
-                    { 1, 1, 1, 17, true },
-                    { 1, 1, 1, 18, false },
-                    { 1, 1, 1, 19, false },
-                    { 1, 1, 1, 20, false },
-                    { 1, 1, 1, 21, false },
-                    { 1, 1, 1, 22, false },
-                    { 1, 1, 1, 23, false },
-                    { 1, 1, 1, 24, false },
-                    { 1, 1, 1, 25, false },
-                    { 1, 1, 1, 26, false },
-                    { 1, 1, 1, 27, false },
-                    { 1, 1, 1, 28, false },
-                    { 1, 1, 1, 29, false },
-                    { 1, 1, 1, 30, false },
-                    { 1, 1, 1, 31, false },
-                    { 1, 1, 1, 32, false },
-                    { 1, 1, 1, 33, false },
-                    { 1, 1, 1, 34, true },
-                    { 1, 1, 1, 35, true },
-                    { 1, 1, 1, 36, true },
-                    { 1, 1, 1, 37, true },
-                    { 1, 1, 1, 38, true },
-                    { 1, 1, 1, 39, false },
-                    { 1, 1, 1, 40, false },
-                    { 1, 1, 1, 41, false },
-                    { 1, 1, 1, 42, false },
-                    { 1, 1, 1, 43, false },
-                    { 1, 1, 1, 44, true },
-                    { 1, 1, 1, 45, false },
-                    { 1, 1, 1, 46, false },
-                    { 1, 1, 1, 47, false }
+                    { 1, 1, 1, 1 },
+                    { 1, 1, 1, 2 },
+                    { 1, 1, 1, 3 },
+                    { 1, 1, 1, 4 },
+                    { 1, 1, 1, 5 },
+                    { 1, 1, 1, 17 },
+                    { 1, 1, 1, 34 },
+                    { 1, 1, 1, 35 },
+                    { 1, 1, 1, 36 },
+                    { 1, 1, 1, 37 },
+                    { 1, 1, 1, 38 },
+                    { 1, 1, 1, 44 }
                 });
 
             migrationBuilder.InsertData(
@@ -730,6 +1040,16 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Country_Iso2",
+                table: "Country",
+                column: "Iso2");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Country_Iso3",
+                table: "Country",
+                column: "Iso3");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Degree_OrganizationId_SchoolId",
                 table: "Degree",
                 columns: new[] { "OrganizationId", "SchoolId" });
@@ -753,6 +1073,16 @@ namespace ResumePro.Migrations
                 name: "IX_JobSkill_OrganizationId_JobId",
                 table: "JobSkill",
                 columns: new[] { "OrganizationId", "JobId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_JobSkill_OrganizationId_PersonaId_SkillId",
+                table: "JobSkill",
+                columns: new[] { "OrganizationId", "PersonaId", "SkillId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Persona_StateId",
+                table: "Persona",
+                column: "StateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PersonaSkill_SkillId",
@@ -783,6 +1113,11 @@ namespace ResumePro.Migrations
                 name: "IX_School_OrganizationId_PersonaId",
                 table: "School",
                 columns: new[] { "OrganizationId", "PersonaId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StateProvince_Iso2",
+                table: "StateProvince",
+                column: "Iso2");
         }
 
         /// <inheritdoc />
@@ -826,6 +1161,12 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "Persona");
+
+            migrationBuilder.DropTable(
+                name: "StateProvince");
+
+            migrationBuilder.DropTable(
+                name: "Country");
         }
     }
 }

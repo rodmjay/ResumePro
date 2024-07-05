@@ -29,7 +29,7 @@ public static class PersonaExtensions
 
         if (!string.IsNullOrWhiteSpace(filters.State))
         {
-            predicate = predicate.And(x => x.State == filters.State);
+            predicate = predicate.And(x => x.State.Code == filters.State);
         }
 
         if (filters.Skills.Any())

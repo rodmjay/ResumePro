@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Seeding\csv\countries.csv" />
     <None Remove="Seeding\csv\degrees.csv" />
     <None Remove="Seeding\csv\highlights.csv" />
     <None Remove="Seeding\csv\jobs.csv" />
@@ -20,10 +21,14 @@
     <None Remove="Seeding\csv\resume_skills.csv" />
     <None Remove="Seeding\csv\schools.csv" />
     <None Remove="Seeding\csv\skills.csv" />
+    <None Remove="Seeding\csv\stateProvinces.csv" />
     <None Remove="sharedSettings.json" />
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Seeding\csv\countries.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\degrees.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -61,6 +66,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\personas.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seeding\csv\stateProvinces.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="sharedSettings.json">

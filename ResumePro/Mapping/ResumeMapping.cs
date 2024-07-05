@@ -22,7 +22,8 @@ public class ResumeMapping : Profile
             .ForMember(x => x.GitHub, opt => opt.MapFrom(x => x.Persona.GitHub))
             .ForMember(x => x.JobTitle, opt => opt.MapFrom(x => x.JobTitle))
             .ForMember(x => x.City, opt => opt.MapFrom(x => x.Persona.City))
-            .ForMember(x => x.State, opt => opt.MapFrom(x => x.Persona.State))
+            .ForMember(x => x.State, opt => opt.MapFrom(x => x.Persona.State.Code))
+            .ForMember(x => x.Country, opt => opt.MapFrom(x => x.Persona.State.Country.Iso2))
             .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.Persona.PhoneNumber))
             .IncludeAllDerived();
 

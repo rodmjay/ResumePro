@@ -12,8 +12,8 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240704211602_InitialMigration2")]
-    partial class InitialMigration2
+    [Migration("20240705152719_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1479,10 +1479,12 @@ namespace ResumePro.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("StateId")
+                        .HasColumnType("int");
 
                     b.HasKey("OrganizationId", "Id");
+
+                    b.HasIndex("StateId");
 
                     b.ToTable("Persona");
 
@@ -1499,7 +1501,7 @@ namespace ResumePro.Migrations
                             LastName = "Johnson",
                             LinkedIn = "https://www.linkedin.com/in/rodmjay",
                             PhoneNumber = "(385) 352-6026",
-                            State = "UT"
+                            StateId = 45
                         });
                 });
 
@@ -2184,9 +2186,6 @@ namespace ResumePro.Migrations
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("ShowInSummary")
-                        .HasColumnType("bit");
-
                     b.HasKey("OrganizationId", "PersonaId", "ResumeId", "SkillId");
 
                     b.HasIndex("OrganizationId", "PersonaId", "SkillId");
@@ -2199,376 +2198,84 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 1,
-                            ShowInSummary = true
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 2,
-                            ShowInSummary = true
+                            SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 3,
-                            ShowInSummary = true
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 4,
-                            ShowInSummary = true
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 5,
-                            ShowInSummary = true
+                            SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 6,
-                            ShowInSummary = false
+                            SkillId = 17
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 7,
-                            ShowInSummary = false
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 8,
-                            ShowInSummary = false
+                            SkillId = 35
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 9,
-                            ShowInSummary = false
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 10,
-                            ShowInSummary = false
+                            SkillId = 37
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 11,
-                            ShowInSummary = false
+                            SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 12,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 13,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 14,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 15,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 16,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 17,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 18,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 19,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 20,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 21,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 22,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 23,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 24,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 25,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 26,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 27,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 28,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 29,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 30,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 31,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 32,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 33,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 34,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 35,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 36,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 37,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 38,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 39,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 40,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 41,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 42,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 43,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 44,
-                            ShowInSummary = true
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 45,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 46,
-                            ShowInSummary = false
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 47,
-                            ShowInSummary = false
+                            SkillId = 44
                         });
                 });
 
@@ -2863,6 +2570,2616 @@ namespace ResumePro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ResumePro.Geography.Entities.Country", b =>
+                {
+                    b.Property<string>("Iso2")
+                        .HasMaxLength(2)
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("CapsName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Iso3")
+                        .HasMaxLength(3)
+                        .HasColumnType("nvarchar(3)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<int?>("NumberCode")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PhoneCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Iso2");
+
+                    b.HasIndex("Iso2");
+
+                    b.HasIndex("Iso3");
+
+                    b.ToTable("Country");
+
+                    b.HasData(
+                        new
+                        {
+                            Iso2 = "AF",
+                            CapsName = "AFGHANISTAN",
+                            Iso3 = "AFG",
+                            Name = "Afghanistan",
+                            NumberCode = 4,
+                            PhoneCode = 93
+                        },
+                        new
+                        {
+                            Iso2 = "AL",
+                            CapsName = "ALBANIA",
+                            Iso3 = "ALB",
+                            Name = "Albania",
+                            NumberCode = 8,
+                            PhoneCode = 355
+                        },
+                        new
+                        {
+                            Iso2 = "DZ",
+                            CapsName = "ALGERIA",
+                            Iso3 = "DZA",
+                            Name = "Algeria",
+                            NumberCode = 12,
+                            PhoneCode = 213
+                        },
+                        new
+                        {
+                            Iso2 = "AS",
+                            CapsName = "AMERICAN SAMOA",
+                            Iso3 = "ASM",
+                            Name = "American Samoa",
+                            NumberCode = 16,
+                            PhoneCode = 1684
+                        },
+                        new
+                        {
+                            Iso2 = "AD",
+                            CapsName = "ANDORRA",
+                            Iso3 = "AND",
+                            Name = "Andorra",
+                            NumberCode = 20,
+                            PhoneCode = 376
+                        },
+                        new
+                        {
+                            Iso2 = "AO",
+                            CapsName = "ANGOLA",
+                            Iso3 = "AGO",
+                            Name = "Angola",
+                            NumberCode = 24,
+                            PhoneCode = 244
+                        },
+                        new
+                        {
+                            Iso2 = "AI",
+                            CapsName = "ANGUILLA",
+                            Iso3 = "AIA",
+                            Name = "Anguilla",
+                            NumberCode = 660,
+                            PhoneCode = 1264
+                        },
+                        new
+                        {
+                            Iso2 = "AQ",
+                            CapsName = "ANTARCTICA",
+                            Iso3 = "",
+                            Name = "Antarctica",
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "AG",
+                            CapsName = "ANTIGUA AND BARBUDA",
+                            Iso3 = "ATG",
+                            Name = "Antigua and Barbuda",
+                            NumberCode = 28,
+                            PhoneCode = 1268
+                        },
+                        new
+                        {
+                            Iso2 = "AR",
+                            CapsName = "ARGENTINA",
+                            Iso3 = "ARG",
+                            Name = "Argentina",
+                            NumberCode = 32,
+                            PhoneCode = 54
+                        },
+                        new
+                        {
+                            Iso2 = "AM",
+                            CapsName = "ARMENIA",
+                            Iso3 = "ARM",
+                            Name = "Armenia",
+                            NumberCode = 51,
+                            PhoneCode = 374
+                        },
+                        new
+                        {
+                            Iso2 = "AW",
+                            CapsName = "ARUBA",
+                            Iso3 = "ABW",
+                            Name = "Aruba",
+                            NumberCode = 533,
+                            PhoneCode = 297
+                        },
+                        new
+                        {
+                            Iso2 = "AU",
+                            CapsName = "AUSTRALIA",
+                            Iso3 = "AUS",
+                            Name = "Australia",
+                            NumberCode = 36,
+                            PhoneCode = 61
+                        },
+                        new
+                        {
+                            Iso2 = "AT",
+                            CapsName = "AUSTRIA",
+                            Iso3 = "AUT",
+                            Name = "Austria",
+                            NumberCode = 40,
+                            PhoneCode = 43
+                        },
+                        new
+                        {
+                            Iso2 = "AZ",
+                            CapsName = "AZERBAIJAN",
+                            Iso3 = "AZE",
+                            Name = "Azerbaijan",
+                            NumberCode = 31,
+                            PhoneCode = 994
+                        },
+                        new
+                        {
+                            Iso2 = "BS",
+                            CapsName = "BAHAMAS",
+                            Iso3 = "BHS",
+                            Name = "Bahamas",
+                            NumberCode = 44,
+                            PhoneCode = 1242
+                        },
+                        new
+                        {
+                            Iso2 = "BH",
+                            CapsName = "BAHRAIN",
+                            Iso3 = "BHR",
+                            Name = "Bahrain",
+                            NumberCode = 48,
+                            PhoneCode = 973
+                        },
+                        new
+                        {
+                            Iso2 = "BD",
+                            CapsName = "BANGLADESH",
+                            Iso3 = "BGD",
+                            Name = "Bangladesh",
+                            NumberCode = 50,
+                            PhoneCode = 880
+                        },
+                        new
+                        {
+                            Iso2 = "BB",
+                            CapsName = "BARBADOS",
+                            Iso3 = "BRB",
+                            Name = "Barbados",
+                            NumberCode = 52,
+                            PhoneCode = 1246
+                        },
+                        new
+                        {
+                            Iso2 = "BY",
+                            CapsName = "BELARUS",
+                            Iso3 = "BLR",
+                            Name = "Belarus",
+                            NumberCode = 112,
+                            PhoneCode = 375
+                        },
+                        new
+                        {
+                            Iso2 = "BE",
+                            CapsName = "BELGIUM",
+                            Iso3 = "BEL",
+                            Name = "Belgium",
+                            NumberCode = 56,
+                            PhoneCode = 32
+                        },
+                        new
+                        {
+                            Iso2 = "BZ",
+                            CapsName = "BELIZE",
+                            Iso3 = "BLZ",
+                            Name = "Belize",
+                            NumberCode = 84,
+                            PhoneCode = 501
+                        },
+                        new
+                        {
+                            Iso2 = "BJ",
+                            CapsName = "BENIN",
+                            Iso3 = "BEN",
+                            Name = "Benin",
+                            NumberCode = 204,
+                            PhoneCode = 229
+                        },
+                        new
+                        {
+                            Iso2 = "BM",
+                            CapsName = "BERMUDA",
+                            Iso3 = "BMU",
+                            Name = "Bermuda",
+                            NumberCode = 60,
+                            PhoneCode = 1441
+                        },
+                        new
+                        {
+                            Iso2 = "BT",
+                            CapsName = "BHUTAN",
+                            Iso3 = "BTN",
+                            Name = "Bhutan",
+                            NumberCode = 64,
+                            PhoneCode = 975
+                        },
+                        new
+                        {
+                            Iso2 = "BO",
+                            CapsName = "BOLIVIA",
+                            Iso3 = "BOL",
+                            Name = "Bolivia",
+                            NumberCode = 68,
+                            PhoneCode = 591
+                        },
+                        new
+                        {
+                            Iso2 = "BA",
+                            CapsName = "BOSNIA AND HERZEGOVINA",
+                            Iso3 = "BIH",
+                            Name = "Bosnia and Herzegovina",
+                            NumberCode = 70,
+                            PhoneCode = 387
+                        },
+                        new
+                        {
+                            Iso2 = "BW",
+                            CapsName = "BOTSWANA",
+                            Iso3 = "BWA",
+                            Name = "Botswana",
+                            NumberCode = 72,
+                            PhoneCode = 267
+                        },
+                        new
+                        {
+                            Iso2 = "BV",
+                            CapsName = "BOUVET ISLAND",
+                            Iso3 = "",
+                            Name = "Bouvet Island",
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "BR",
+                            CapsName = "BRAZIL",
+                            Iso3 = "BRA",
+                            Name = "Brazil",
+                            NumberCode = 76,
+                            PhoneCode = 55
+                        },
+                        new
+                        {
+                            Iso2 = "IO",
+                            CapsName = "BRITISH INDIAN OCEAN TERRITORY",
+                            Iso3 = "",
+                            Name = "British Indian Ocean Territory",
+                            PhoneCode = 246
+                        },
+                        new
+                        {
+                            Iso2 = "BN",
+                            CapsName = "BRUNEI DARUSSALAM",
+                            Iso3 = "BRN",
+                            Name = "Brunei Darussalam",
+                            NumberCode = 96,
+                            PhoneCode = 673
+                        },
+                        new
+                        {
+                            Iso2 = "BG",
+                            CapsName = "BULGARIA",
+                            Iso3 = "BGR",
+                            Name = "Bulgaria",
+                            NumberCode = 100,
+                            PhoneCode = 359
+                        },
+                        new
+                        {
+                            Iso2 = "BF",
+                            CapsName = "BURKINA FASO",
+                            Iso3 = "BFA",
+                            Name = "Burkina Faso",
+                            NumberCode = 854,
+                            PhoneCode = 226
+                        },
+                        new
+                        {
+                            Iso2 = "BI",
+                            CapsName = "BURUNDI",
+                            Iso3 = "BDI",
+                            Name = "Burundi",
+                            NumberCode = 108,
+                            PhoneCode = 257
+                        },
+                        new
+                        {
+                            Iso2 = "KH",
+                            CapsName = "CAMBODIA",
+                            Iso3 = "KHM",
+                            Name = "Cambodia",
+                            NumberCode = 116,
+                            PhoneCode = 855
+                        },
+                        new
+                        {
+                            Iso2 = "CM",
+                            CapsName = "CAMEROON",
+                            Iso3 = "CMR",
+                            Name = "Cameroon",
+                            NumberCode = 120,
+                            PhoneCode = 237
+                        },
+                        new
+                        {
+                            Iso2 = "CA",
+                            CapsName = "CANADA",
+                            Iso3 = "CAN",
+                            Name = "Canada",
+                            NumberCode = 124,
+                            PhoneCode = 1
+                        },
+                        new
+                        {
+                            Iso2 = "CV",
+                            CapsName = "CAPE VERDE",
+                            Iso3 = "CPV",
+                            Name = "Cape Verde",
+                            NumberCode = 132,
+                            PhoneCode = 238
+                        },
+                        new
+                        {
+                            Iso2 = "KY",
+                            CapsName = "CAYMAN ISLANDS",
+                            Iso3 = "CYM",
+                            Name = "Cayman Islands",
+                            NumberCode = 136,
+                            PhoneCode = 1345
+                        },
+                        new
+                        {
+                            Iso2 = "CF",
+                            CapsName = "CENTRAL AFRICAN REPUBLIC",
+                            Iso3 = "CAF",
+                            Name = "Central African Republic",
+                            NumberCode = 140,
+                            PhoneCode = 236
+                        },
+                        new
+                        {
+                            Iso2 = "TD",
+                            CapsName = "CHAD",
+                            Iso3 = "TCD",
+                            Name = "Chad",
+                            NumberCode = 148,
+                            PhoneCode = 235
+                        },
+                        new
+                        {
+                            Iso2 = "CL",
+                            CapsName = "CHILE",
+                            Iso3 = "CHL",
+                            Name = "Chile",
+                            NumberCode = 152,
+                            PhoneCode = 56
+                        },
+                        new
+                        {
+                            Iso2 = "CN",
+                            CapsName = "CHINA",
+                            Iso3 = "CHN",
+                            Name = "China",
+                            NumberCode = 156,
+                            PhoneCode = 86
+                        },
+                        new
+                        {
+                            Iso2 = "CX",
+                            CapsName = "CHRISTMAS ISLAND",
+                            Iso3 = "",
+                            Name = "Christmas Island",
+                            PhoneCode = 61
+                        },
+                        new
+                        {
+                            Iso2 = "CC",
+                            CapsName = "COCOS (KEELING) ISLANDS",
+                            Iso3 = "",
+                            Name = "Cocos (Keeling) Islands",
+                            PhoneCode = 672
+                        },
+                        new
+                        {
+                            Iso2 = "CO",
+                            CapsName = "COLOMBIA",
+                            Iso3 = "COL",
+                            Name = "Colombia",
+                            NumberCode = 170,
+                            PhoneCode = 57
+                        },
+                        new
+                        {
+                            Iso2 = "KM",
+                            CapsName = "COMOROS",
+                            Iso3 = "COM",
+                            Name = "Comoros",
+                            NumberCode = 174,
+                            PhoneCode = 269
+                        },
+                        new
+                        {
+                            Iso2 = "CG",
+                            CapsName = "CONGO",
+                            Iso3 = "COG",
+                            Name = "Congo",
+                            NumberCode = 178,
+                            PhoneCode = 242
+                        },
+                        new
+                        {
+                            Iso2 = "CD",
+                            CapsName = "CONGO, THE DEMOCRATIC REPUBLIC OF THE",
+                            Iso3 = "COD",
+                            Name = "Congo, the Democratic Republic of the",
+                            NumberCode = 180,
+                            PhoneCode = 242
+                        },
+                        new
+                        {
+                            Iso2 = "CK",
+                            CapsName = "COOK ISLANDS",
+                            Iso3 = "COK",
+                            Name = "Cook Islands",
+                            NumberCode = 184,
+                            PhoneCode = 682
+                        },
+                        new
+                        {
+                            Iso2 = "CR",
+                            CapsName = "COSTA RICA",
+                            Iso3 = "CRI",
+                            Name = "Costa Rica",
+                            NumberCode = 188,
+                            PhoneCode = 506
+                        },
+                        new
+                        {
+                            Iso2 = "CI",
+                            CapsName = "COTE D'IVOIRE",
+                            Iso3 = "CIV",
+                            Name = "Cote D'Ivoire",
+                            NumberCode = 384,
+                            PhoneCode = 225
+                        },
+                        new
+                        {
+                            Iso2 = "HR",
+                            CapsName = "CROATIA",
+                            Iso3 = "HRV",
+                            Name = "Croatia",
+                            NumberCode = 191,
+                            PhoneCode = 385
+                        },
+                        new
+                        {
+                            Iso2 = "CU",
+                            CapsName = "CUBA",
+                            Iso3 = "CUB",
+                            Name = "Cuba",
+                            NumberCode = 192,
+                            PhoneCode = 53
+                        },
+                        new
+                        {
+                            Iso2 = "CY",
+                            CapsName = "CYPRUS",
+                            Iso3 = "CYP",
+                            Name = "Cyprus",
+                            NumberCode = 196,
+                            PhoneCode = 357
+                        },
+                        new
+                        {
+                            Iso2 = "CZ",
+                            CapsName = "CZECH REPUBLIC",
+                            Iso3 = "CZE",
+                            Name = "Czech Republic",
+                            NumberCode = 203,
+                            PhoneCode = 420
+                        },
+                        new
+                        {
+                            Iso2 = "DK",
+                            CapsName = "DENMARK",
+                            Iso3 = "DNK",
+                            Name = "Denmark",
+                            NumberCode = 208,
+                            PhoneCode = 45
+                        },
+                        new
+                        {
+                            Iso2 = "DJ",
+                            CapsName = "DJIBOUTI",
+                            Iso3 = "DJI",
+                            Name = "Djibouti",
+                            NumberCode = 262,
+                            PhoneCode = 253
+                        },
+                        new
+                        {
+                            Iso2 = "DM",
+                            CapsName = "DOMINICA",
+                            Iso3 = "DMA",
+                            Name = "Dominica",
+                            NumberCode = 212,
+                            PhoneCode = 1767
+                        },
+                        new
+                        {
+                            Iso2 = "DO",
+                            CapsName = "DOMINICAN REPUBLIC",
+                            Iso3 = "DOM",
+                            Name = "Dominican Republic",
+                            NumberCode = 214,
+                            PhoneCode = 1809
+                        },
+                        new
+                        {
+                            Iso2 = "EC",
+                            CapsName = "ECUADOR",
+                            Iso3 = "ECU",
+                            Name = "Ecuador",
+                            NumberCode = 218,
+                            PhoneCode = 593
+                        },
+                        new
+                        {
+                            Iso2 = "EG",
+                            CapsName = "EGYPT",
+                            Iso3 = "EGY",
+                            Name = "Egypt",
+                            NumberCode = 818,
+                            PhoneCode = 20
+                        },
+                        new
+                        {
+                            Iso2 = "SV",
+                            CapsName = "EL SALVADOR",
+                            Iso3 = "SLV",
+                            Name = "El Salvador",
+                            NumberCode = 222,
+                            PhoneCode = 503
+                        },
+                        new
+                        {
+                            Iso2 = "GQ",
+                            CapsName = "EQUATORIAL GUINEA",
+                            Iso3 = "GNQ",
+                            Name = "Equatorial Guinea",
+                            NumberCode = 226,
+                            PhoneCode = 240
+                        },
+                        new
+                        {
+                            Iso2 = "ER",
+                            CapsName = "ERITREA",
+                            Iso3 = "ERI",
+                            Name = "Eritrea",
+                            NumberCode = 232,
+                            PhoneCode = 291
+                        },
+                        new
+                        {
+                            Iso2 = "EE",
+                            CapsName = "ESTONIA",
+                            Iso3 = "EST",
+                            Name = "Estonia",
+                            NumberCode = 233,
+                            PhoneCode = 372
+                        },
+                        new
+                        {
+                            Iso2 = "ET",
+                            CapsName = "ETHIOPIA",
+                            Iso3 = "ETH",
+                            Name = "Ethiopia",
+                            NumberCode = 231,
+                            PhoneCode = 251
+                        },
+                        new
+                        {
+                            Iso2 = "FK",
+                            CapsName = "FALKLAND ISLANDS (MALVINAS)",
+                            Iso3 = "FLK",
+                            Name = "Falkland Islands (Malvinas)",
+                            NumberCode = 238,
+                            PhoneCode = 500
+                        },
+                        new
+                        {
+                            Iso2 = "FO",
+                            CapsName = "FAROE ISLANDS",
+                            Iso3 = "FRO",
+                            Name = "Faroe Islands",
+                            NumberCode = 234,
+                            PhoneCode = 298
+                        },
+                        new
+                        {
+                            Iso2 = "FJ",
+                            CapsName = "FIJI",
+                            Iso3 = "FJI",
+                            Name = "Fiji",
+                            NumberCode = 242,
+                            PhoneCode = 679
+                        },
+                        new
+                        {
+                            Iso2 = "FI",
+                            CapsName = "FINLAND",
+                            Iso3 = "FIN",
+                            Name = "Finland",
+                            NumberCode = 246,
+                            PhoneCode = 358
+                        },
+                        new
+                        {
+                            Iso2 = "FR",
+                            CapsName = "FRANCE",
+                            Iso3 = "FRA",
+                            Name = "France",
+                            NumberCode = 250,
+                            PhoneCode = 33
+                        },
+                        new
+                        {
+                            Iso2 = "GF",
+                            CapsName = "FRENCH GUIANA",
+                            Iso3 = "GUF",
+                            Name = "French Guiana",
+                            NumberCode = 254,
+                            PhoneCode = 594
+                        },
+                        new
+                        {
+                            Iso2 = "PF",
+                            CapsName = "FRENCH POLYNESIA",
+                            Iso3 = "PYF",
+                            Name = "French Polynesia",
+                            NumberCode = 258,
+                            PhoneCode = 689
+                        },
+                        new
+                        {
+                            Iso2 = "TF",
+                            CapsName = "FRENCH SOUTHERN TERRITORIES",
+                            Iso3 = "",
+                            Name = "French Southern Territories",
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "GA",
+                            CapsName = "GABON",
+                            Iso3 = "GAB",
+                            Name = "Gabon",
+                            NumberCode = 266,
+                            PhoneCode = 241
+                        },
+                        new
+                        {
+                            Iso2 = "GM",
+                            CapsName = "GAMBIA",
+                            Iso3 = "GMB",
+                            Name = "Gambia",
+                            NumberCode = 270,
+                            PhoneCode = 220
+                        },
+                        new
+                        {
+                            Iso2 = "GE",
+                            CapsName = "GEORGIA",
+                            Iso3 = "GEO",
+                            Name = "Georgia",
+                            NumberCode = 268,
+                            PhoneCode = 995
+                        },
+                        new
+                        {
+                            Iso2 = "DE",
+                            CapsName = "GERMANY",
+                            Iso3 = "DEU",
+                            Name = "Germany",
+                            NumberCode = 276,
+                            PhoneCode = 49
+                        },
+                        new
+                        {
+                            Iso2 = "GH",
+                            CapsName = "GHANA",
+                            Iso3 = "GHA",
+                            Name = "Ghana",
+                            NumberCode = 288,
+                            PhoneCode = 233
+                        },
+                        new
+                        {
+                            Iso2 = "GI",
+                            CapsName = "GIBRALTAR",
+                            Iso3 = "GIB",
+                            Name = "Gibraltar",
+                            NumberCode = 292,
+                            PhoneCode = 350
+                        },
+                        new
+                        {
+                            Iso2 = "GR",
+                            CapsName = "GREECE",
+                            Iso3 = "GRC",
+                            Name = "Greece",
+                            NumberCode = 300,
+                            PhoneCode = 30
+                        },
+                        new
+                        {
+                            Iso2 = "GL",
+                            CapsName = "GREENLAND",
+                            Iso3 = "GRL",
+                            Name = "Greenland",
+                            NumberCode = 304,
+                            PhoneCode = 299
+                        },
+                        new
+                        {
+                            Iso2 = "GD",
+                            CapsName = "GRENADA",
+                            Iso3 = "GRD",
+                            Name = "Grenada",
+                            NumberCode = 308,
+                            PhoneCode = 1473
+                        },
+                        new
+                        {
+                            Iso2 = "GP",
+                            CapsName = "GUADELOUPE",
+                            Iso3 = "GLP",
+                            Name = "Guadeloupe",
+                            NumberCode = 312,
+                            PhoneCode = 590
+                        },
+                        new
+                        {
+                            Iso2 = "GU",
+                            CapsName = "GUAM",
+                            Iso3 = "GUM",
+                            Name = "Guam",
+                            NumberCode = 316,
+                            PhoneCode = 1671
+                        },
+                        new
+                        {
+                            Iso2 = "GT",
+                            CapsName = "GUATEMALA",
+                            Iso3 = "GTM",
+                            Name = "Guatemala",
+                            NumberCode = 320,
+                            PhoneCode = 502
+                        },
+                        new
+                        {
+                            Iso2 = "GN",
+                            CapsName = "GUINEA",
+                            Iso3 = "GIN",
+                            Name = "Guinea",
+                            NumberCode = 324,
+                            PhoneCode = 224
+                        },
+                        new
+                        {
+                            Iso2 = "GW",
+                            CapsName = "GUINEA-BISSAU",
+                            Iso3 = "GNB",
+                            Name = "Guinea-Bissau",
+                            NumberCode = 624,
+                            PhoneCode = 245
+                        },
+                        new
+                        {
+                            Iso2 = "GY",
+                            CapsName = "GUYANA",
+                            Iso3 = "GUY",
+                            Name = "Guyana",
+                            NumberCode = 328,
+                            PhoneCode = 592
+                        },
+                        new
+                        {
+                            Iso2 = "HT",
+                            CapsName = "HAITI",
+                            Iso3 = "HTI",
+                            Name = "Haiti",
+                            NumberCode = 332,
+                            PhoneCode = 509
+                        },
+                        new
+                        {
+                            Iso2 = "HM",
+                            CapsName = "HEARD ISLAND AND MCDONALD ISLANDS",
+                            Iso3 = "",
+                            Name = "Heard Island and Mcdonald Islands",
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "VA",
+                            CapsName = "HOLY SEE (VATICAN CITY STATE)",
+                            Iso3 = "VAT",
+                            Name = "Holy See (Vatican City State)",
+                            NumberCode = 336,
+                            PhoneCode = 39
+                        },
+                        new
+                        {
+                            Iso2 = "HN",
+                            CapsName = "HONDURAS",
+                            Iso3 = "HND",
+                            Name = "Honduras",
+                            NumberCode = 340,
+                            PhoneCode = 504
+                        },
+                        new
+                        {
+                            Iso2 = "HK",
+                            CapsName = "HONG KONG",
+                            Iso3 = "HKG",
+                            Name = "Hong Kong",
+                            NumberCode = 344,
+                            PhoneCode = 852
+                        },
+                        new
+                        {
+                            Iso2 = "HU",
+                            CapsName = "HUNGARY",
+                            Iso3 = "HUN",
+                            Name = "Hungary",
+                            NumberCode = 348,
+                            PhoneCode = 36
+                        },
+                        new
+                        {
+                            Iso2 = "IS",
+                            CapsName = "ICELAND",
+                            Iso3 = "ISL",
+                            Name = "Iceland",
+                            NumberCode = 352,
+                            PhoneCode = 354
+                        },
+                        new
+                        {
+                            Iso2 = "IN",
+                            CapsName = "INDIA",
+                            Iso3 = "IND",
+                            Name = "India",
+                            NumberCode = 356,
+                            PhoneCode = 91
+                        },
+                        new
+                        {
+                            Iso2 = "ID",
+                            CapsName = "INDONESIA",
+                            Iso3 = "IDN",
+                            Name = "Indonesia",
+                            NumberCode = 360,
+                            PhoneCode = 62
+                        },
+                        new
+                        {
+                            Iso2 = "IR",
+                            CapsName = "IRAN, ISLAMIC REPUBLIC OF",
+                            Iso3 = "IRN",
+                            Name = "Iran, Islamic Republic of",
+                            NumberCode = 364,
+                            PhoneCode = 98
+                        },
+                        new
+                        {
+                            Iso2 = "IQ",
+                            CapsName = "IRAQ",
+                            Iso3 = "IRQ",
+                            Name = "Iraq",
+                            NumberCode = 368,
+                            PhoneCode = 964
+                        },
+                        new
+                        {
+                            Iso2 = "IE",
+                            CapsName = "IRELAND",
+                            Iso3 = "IRL",
+                            Name = "Ireland",
+                            NumberCode = 372,
+                            PhoneCode = 353
+                        },
+                        new
+                        {
+                            Iso2 = "IL",
+                            CapsName = "ISRAEL",
+                            Iso3 = "ISR",
+                            Name = "Israel",
+                            NumberCode = 376,
+                            PhoneCode = 972
+                        },
+                        new
+                        {
+                            Iso2 = "IT",
+                            CapsName = "ITALY",
+                            Iso3 = "ITA",
+                            Name = "Italy",
+                            NumberCode = 380,
+                            PhoneCode = 39
+                        },
+                        new
+                        {
+                            Iso2 = "JM",
+                            CapsName = "JAMAICA",
+                            Iso3 = "JAM",
+                            Name = "Jamaica",
+                            NumberCode = 388,
+                            PhoneCode = 1876
+                        },
+                        new
+                        {
+                            Iso2 = "JP",
+                            CapsName = "JAPAN",
+                            Iso3 = "JPN",
+                            Name = "Japan",
+                            NumberCode = 392,
+                            PhoneCode = 81
+                        },
+                        new
+                        {
+                            Iso2 = "JO",
+                            CapsName = "JORDAN",
+                            Iso3 = "JOR",
+                            Name = "Jordan",
+                            NumberCode = 400,
+                            PhoneCode = 962
+                        },
+                        new
+                        {
+                            Iso2 = "KZ",
+                            CapsName = "KAZAKHSTAN",
+                            Iso3 = "KAZ",
+                            Name = "Kazakhstan",
+                            NumberCode = 398,
+                            PhoneCode = 7
+                        },
+                        new
+                        {
+                            Iso2 = "KE",
+                            CapsName = "KENYA",
+                            Iso3 = "KEN",
+                            Name = "Kenya",
+                            NumberCode = 404,
+                            PhoneCode = 254
+                        },
+                        new
+                        {
+                            Iso2 = "KI",
+                            CapsName = "KIRIBATI",
+                            Iso3 = "KIR",
+                            Name = "Kiribati",
+                            NumberCode = 296,
+                            PhoneCode = 686
+                        },
+                        new
+                        {
+                            Iso2 = "KP",
+                            CapsName = "KOREA, DEMOCRATIC PEOPLE'S REPUBLIC OF",
+                            Iso3 = "PRK",
+                            Name = "Korea, Democratic People's Republic of",
+                            NumberCode = 408,
+                            PhoneCode = 850
+                        },
+                        new
+                        {
+                            Iso2 = "KR",
+                            CapsName = "KOREA, REPUBLIC OF",
+                            Iso3 = "KOR",
+                            Name = "Korea, Republic of",
+                            NumberCode = 410,
+                            PhoneCode = 82
+                        },
+                        new
+                        {
+                            Iso2 = "KW",
+                            CapsName = "KUWAIT",
+                            Iso3 = "KWT",
+                            Name = "Kuwait",
+                            NumberCode = 414,
+                            PhoneCode = 965
+                        },
+                        new
+                        {
+                            Iso2 = "KG",
+                            CapsName = "KYRGYZSTAN",
+                            Iso3 = "KGZ",
+                            Name = "Kyrgyzstan",
+                            NumberCode = 417,
+                            PhoneCode = 996
+                        },
+                        new
+                        {
+                            Iso2 = "LA",
+                            CapsName = "LAO PEOPLE'S DEMOCRATIC REPUBLIC",
+                            Iso3 = "LAO",
+                            Name = "Lao People's Democratic Republic",
+                            NumberCode = 418,
+                            PhoneCode = 856
+                        },
+                        new
+                        {
+                            Iso2 = "LV",
+                            CapsName = "LATVIA",
+                            Iso3 = "LVA",
+                            Name = "Latvia",
+                            NumberCode = 428,
+                            PhoneCode = 371
+                        },
+                        new
+                        {
+                            Iso2 = "LB",
+                            CapsName = "LEBANON",
+                            Iso3 = "LBN",
+                            Name = "Lebanon",
+                            NumberCode = 422,
+                            PhoneCode = 961
+                        },
+                        new
+                        {
+                            Iso2 = "LS",
+                            CapsName = "LESOTHO",
+                            Iso3 = "LSO",
+                            Name = "Lesotho",
+                            NumberCode = 426,
+                            PhoneCode = 266
+                        },
+                        new
+                        {
+                            Iso2 = "LR",
+                            CapsName = "LIBERIA",
+                            Iso3 = "LBR",
+                            Name = "Liberia",
+                            NumberCode = 430,
+                            PhoneCode = 231
+                        },
+                        new
+                        {
+                            Iso2 = "LY",
+                            CapsName = "LIBYAN ARAB JAMAHIRIYA",
+                            Iso3 = "LBY",
+                            Name = "Libyan Arab Jamahiriya",
+                            NumberCode = 434,
+                            PhoneCode = 218
+                        },
+                        new
+                        {
+                            Iso2 = "LI",
+                            CapsName = "LIECHTENSTEIN",
+                            Iso3 = "LIE",
+                            Name = "Liechtenstein",
+                            NumberCode = 438,
+                            PhoneCode = 423
+                        },
+                        new
+                        {
+                            Iso2 = "LT",
+                            CapsName = "LITHUANIA",
+                            Iso3 = "LTU",
+                            Name = "Lithuania",
+                            NumberCode = 440,
+                            PhoneCode = 370
+                        },
+                        new
+                        {
+                            Iso2 = "LU",
+                            CapsName = "LUXEMBOURG",
+                            Iso3 = "LUX",
+                            Name = "Luxembourg",
+                            NumberCode = 442,
+                            PhoneCode = 352
+                        },
+                        new
+                        {
+                            Iso2 = "MO",
+                            CapsName = "MACAO",
+                            Iso3 = "MAC",
+                            Name = "Macao",
+                            NumberCode = 446,
+                            PhoneCode = 853
+                        },
+                        new
+                        {
+                            Iso2 = "MK",
+                            CapsName = "MACEDONIA, THE FORMER YUGOSLAV REPUBLIC OF",
+                            Iso3 = "MKD",
+                            Name = "Macedonia, the Former Yugoslav Republic of",
+                            NumberCode = 807,
+                            PhoneCode = 389
+                        },
+                        new
+                        {
+                            Iso2 = "MG",
+                            CapsName = "MADAGASCAR",
+                            Iso3 = "MDG",
+                            Name = "Madagascar",
+                            NumberCode = 450,
+                            PhoneCode = 261
+                        },
+                        new
+                        {
+                            Iso2 = "MW",
+                            CapsName = "MALAWI",
+                            Iso3 = "MWI",
+                            Name = "Malawi",
+                            NumberCode = 454,
+                            PhoneCode = 265
+                        },
+                        new
+                        {
+                            Iso2 = "MY",
+                            CapsName = "MALAYSIA",
+                            Iso3 = "MYS",
+                            Name = "Malaysia",
+                            NumberCode = 458,
+                            PhoneCode = 60
+                        },
+                        new
+                        {
+                            Iso2 = "MV",
+                            CapsName = "MALDIVES",
+                            Iso3 = "MDV",
+                            Name = "Maldives",
+                            NumberCode = 462,
+                            PhoneCode = 960
+                        },
+                        new
+                        {
+                            Iso2 = "ML",
+                            CapsName = "MALI",
+                            Iso3 = "MLI",
+                            Name = "Mali",
+                            NumberCode = 466,
+                            PhoneCode = 223
+                        },
+                        new
+                        {
+                            Iso2 = "MT",
+                            CapsName = "MALTA",
+                            Iso3 = "MLT",
+                            Name = "Malta",
+                            NumberCode = 470,
+                            PhoneCode = 356
+                        },
+                        new
+                        {
+                            Iso2 = "MH",
+                            CapsName = "MARSHALL ISLANDS",
+                            Iso3 = "MHL",
+                            Name = "Marshall Islands",
+                            NumberCode = 584,
+                            PhoneCode = 692
+                        },
+                        new
+                        {
+                            Iso2 = "MQ",
+                            CapsName = "MARTINIQUE",
+                            Iso3 = "MTQ",
+                            Name = "Martinique",
+                            NumberCode = 474,
+                            PhoneCode = 596
+                        },
+                        new
+                        {
+                            Iso2 = "MR",
+                            CapsName = "MAURITANIA",
+                            Iso3 = "MRT",
+                            Name = "Mauritania",
+                            NumberCode = 478,
+                            PhoneCode = 222
+                        },
+                        new
+                        {
+                            Iso2 = "MU",
+                            CapsName = "MAURITIUS",
+                            Iso3 = "MUS",
+                            Name = "Mauritius",
+                            NumberCode = 480,
+                            PhoneCode = 230
+                        },
+                        new
+                        {
+                            Iso2 = "YT",
+                            CapsName = "MAYOTTE",
+                            Iso3 = "",
+                            Name = "Mayotte",
+                            PhoneCode = 269
+                        },
+                        new
+                        {
+                            Iso2 = "MX",
+                            CapsName = "MEXICO",
+                            Iso3 = "MEX",
+                            Name = "Mexico",
+                            NumberCode = 484,
+                            PhoneCode = 52
+                        },
+                        new
+                        {
+                            Iso2 = "FM",
+                            CapsName = "MICRONESIA, FEDERATED STATES OF",
+                            Iso3 = "FSM",
+                            Name = "Micronesia, Federated States of",
+                            NumberCode = 583,
+                            PhoneCode = 691
+                        },
+                        new
+                        {
+                            Iso2 = "MD",
+                            CapsName = "MOLDOVA, REPUBLIC OF",
+                            Iso3 = "MDA",
+                            Name = "Moldova, Republic of",
+                            NumberCode = 498,
+                            PhoneCode = 373
+                        },
+                        new
+                        {
+                            Iso2 = "MC",
+                            CapsName = "MONACO",
+                            Iso3 = "MCO",
+                            Name = "Monaco",
+                            NumberCode = 492,
+                            PhoneCode = 377
+                        },
+                        new
+                        {
+                            Iso2 = "MN",
+                            CapsName = "MONGOLIA",
+                            Iso3 = "MNG",
+                            Name = "Mongolia",
+                            NumberCode = 496,
+                            PhoneCode = 976
+                        },
+                        new
+                        {
+                            Iso2 = "MS",
+                            CapsName = "MONTSERRAT",
+                            Iso3 = "MSR",
+                            Name = "Montserrat",
+                            NumberCode = 500,
+                            PhoneCode = 1664
+                        },
+                        new
+                        {
+                            Iso2 = "MA",
+                            CapsName = "MOROCCO",
+                            Iso3 = "MAR",
+                            Name = "Morocco",
+                            NumberCode = 504,
+                            PhoneCode = 212
+                        },
+                        new
+                        {
+                            Iso2 = "MZ",
+                            CapsName = "MOZAMBIQUE",
+                            Iso3 = "MOZ",
+                            Name = "Mozambique",
+                            NumberCode = 508,
+                            PhoneCode = 258
+                        },
+                        new
+                        {
+                            Iso2 = "MM",
+                            CapsName = "MYANMAR",
+                            Iso3 = "MMR",
+                            Name = "Myanmar",
+                            NumberCode = 104,
+                            PhoneCode = 95
+                        },
+                        new
+                        {
+                            Iso2 = "NA",
+                            CapsName = "NAMIBIA",
+                            Iso3 = "NAM",
+                            Name = "Namibia",
+                            NumberCode = 516,
+                            PhoneCode = 264
+                        },
+                        new
+                        {
+                            Iso2 = "NR",
+                            CapsName = "NAURU",
+                            Iso3 = "NRU",
+                            Name = "Nauru",
+                            NumberCode = 520,
+                            PhoneCode = 674
+                        },
+                        new
+                        {
+                            Iso2 = "NP",
+                            CapsName = "NEPAL",
+                            Iso3 = "NPL",
+                            Name = "Nepal",
+                            NumberCode = 524,
+                            PhoneCode = 977
+                        },
+                        new
+                        {
+                            Iso2 = "NL",
+                            CapsName = "NETHERLANDS",
+                            Iso3 = "NLD",
+                            Name = "Netherlands",
+                            NumberCode = 528,
+                            PhoneCode = 31
+                        },
+                        new
+                        {
+                            Iso2 = "AN",
+                            CapsName = "NETHERLANDS ANTILLES",
+                            Iso3 = "ANT",
+                            Name = "Netherlands Antilles",
+                            NumberCode = 530,
+                            PhoneCode = 599
+                        },
+                        new
+                        {
+                            Iso2 = "NC",
+                            CapsName = "NEW CALEDONIA",
+                            Iso3 = "NCL",
+                            Name = "New Caledonia",
+                            NumberCode = 540,
+                            PhoneCode = 687
+                        },
+                        new
+                        {
+                            Iso2 = "NZ",
+                            CapsName = "NEW ZEALAND",
+                            Iso3 = "NZL",
+                            Name = "New Zealand",
+                            NumberCode = 554,
+                            PhoneCode = 64
+                        },
+                        new
+                        {
+                            Iso2 = "NI",
+                            CapsName = "NICARAGUA",
+                            Iso3 = "NIC",
+                            Name = "Nicaragua",
+                            NumberCode = 558,
+                            PhoneCode = 505
+                        },
+                        new
+                        {
+                            Iso2 = "NE",
+                            CapsName = "NIGER",
+                            Iso3 = "NER",
+                            Name = "Niger",
+                            NumberCode = 562,
+                            PhoneCode = 227
+                        },
+                        new
+                        {
+                            Iso2 = "NG",
+                            CapsName = "NIGERIA",
+                            Iso3 = "NGA",
+                            Name = "Nigeria",
+                            NumberCode = 566,
+                            PhoneCode = 234
+                        },
+                        new
+                        {
+                            Iso2 = "NU",
+                            CapsName = "NIUE",
+                            Iso3 = "NIU",
+                            Name = "Niue",
+                            NumberCode = 570,
+                            PhoneCode = 683
+                        },
+                        new
+                        {
+                            Iso2 = "NF",
+                            CapsName = "NORFOLK ISLAND",
+                            Iso3 = "NFK",
+                            Name = "Norfolk Island",
+                            NumberCode = 574,
+                            PhoneCode = 672
+                        },
+                        new
+                        {
+                            Iso2 = "MP",
+                            CapsName = "NORTHERN MARIANA ISLANDS",
+                            Iso3 = "MNP",
+                            Name = "Northern Mariana Islands",
+                            NumberCode = 580,
+                            PhoneCode = 1670
+                        },
+                        new
+                        {
+                            Iso2 = "NO",
+                            CapsName = "NORWAY",
+                            Iso3 = "NOR",
+                            Name = "Norway",
+                            NumberCode = 578,
+                            PhoneCode = 47
+                        },
+                        new
+                        {
+                            Iso2 = "OM",
+                            CapsName = "OMAN",
+                            Iso3 = "OMN",
+                            Name = "Oman",
+                            NumberCode = 512,
+                            PhoneCode = 968
+                        },
+                        new
+                        {
+                            Iso2 = "PK",
+                            CapsName = "PAKISTAN",
+                            Iso3 = "PAK",
+                            Name = "Pakistan",
+                            NumberCode = 586,
+                            PhoneCode = 92
+                        },
+                        new
+                        {
+                            Iso2 = "PW",
+                            CapsName = "PALAU",
+                            Iso3 = "PLW",
+                            Name = "Palau",
+                            NumberCode = 585,
+                            PhoneCode = 680
+                        },
+                        new
+                        {
+                            Iso2 = "PS",
+                            CapsName = "PALESTINIAN TERRITORY, OCCUPIED",
+                            Iso3 = "",
+                            Name = "Palestinian Territory, Occupied",
+                            PhoneCode = 970
+                        },
+                        new
+                        {
+                            Iso2 = "PA",
+                            CapsName = "PANAMA",
+                            Iso3 = "PAN",
+                            Name = "Panama",
+                            NumberCode = 591,
+                            PhoneCode = 507
+                        },
+                        new
+                        {
+                            Iso2 = "PG",
+                            CapsName = "PAPUA NEW GUINEA",
+                            Iso3 = "PNG",
+                            Name = "Papua New Guinea",
+                            NumberCode = 598,
+                            PhoneCode = 675
+                        },
+                        new
+                        {
+                            Iso2 = "PY",
+                            CapsName = "PARAGUAY",
+                            Iso3 = "PRY",
+                            Name = "Paraguay",
+                            NumberCode = 600,
+                            PhoneCode = 595
+                        },
+                        new
+                        {
+                            Iso2 = "PE",
+                            CapsName = "PERU",
+                            Iso3 = "PER",
+                            Name = "Peru",
+                            NumberCode = 604,
+                            PhoneCode = 51
+                        },
+                        new
+                        {
+                            Iso2 = "PH",
+                            CapsName = "PHILIPPINES",
+                            Iso3 = "PHL",
+                            Name = "Philippines",
+                            NumberCode = 608,
+                            PhoneCode = 63
+                        },
+                        new
+                        {
+                            Iso2 = "PN",
+                            CapsName = "PITCAIRN",
+                            Iso3 = "PCN",
+                            Name = "Pitcairn",
+                            NumberCode = 612,
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "PL",
+                            CapsName = "POLAND",
+                            Iso3 = "POL",
+                            Name = "Poland",
+                            NumberCode = 616,
+                            PhoneCode = 48
+                        },
+                        new
+                        {
+                            Iso2 = "PT",
+                            CapsName = "PORTUGAL",
+                            Iso3 = "PRT",
+                            Name = "Portugal",
+                            NumberCode = 620,
+                            PhoneCode = 351
+                        },
+                        new
+                        {
+                            Iso2 = "PR",
+                            CapsName = "PUERTO RICO",
+                            Iso3 = "PRI",
+                            Name = "Puerto Rico",
+                            NumberCode = 630,
+                            PhoneCode = 1787
+                        },
+                        new
+                        {
+                            Iso2 = "QA",
+                            CapsName = "QATAR",
+                            Iso3 = "QAT",
+                            Name = "Qatar",
+                            NumberCode = 634,
+                            PhoneCode = 974
+                        },
+                        new
+                        {
+                            Iso2 = "RE",
+                            CapsName = "REUNION",
+                            Iso3 = "REU",
+                            Name = "Reunion",
+                            NumberCode = 638,
+                            PhoneCode = 262
+                        },
+                        new
+                        {
+                            Iso2 = "RO",
+                            CapsName = "ROMANIA",
+                            Iso3 = "ROM",
+                            Name = "Romania",
+                            NumberCode = 642,
+                            PhoneCode = 40
+                        },
+                        new
+                        {
+                            Iso2 = "RU",
+                            CapsName = "RUSSIAN FEDERATION",
+                            Iso3 = "RUS",
+                            Name = "Russian Federation",
+                            NumberCode = 643,
+                            PhoneCode = 70
+                        },
+                        new
+                        {
+                            Iso2 = "RW",
+                            CapsName = "RWANDA",
+                            Iso3 = "RWA",
+                            Name = "Rwanda",
+                            NumberCode = 646,
+                            PhoneCode = 250
+                        },
+                        new
+                        {
+                            Iso2 = "SH",
+                            CapsName = "SAINT HELENA",
+                            Iso3 = "SHN",
+                            Name = "Saint Helena",
+                            NumberCode = 654,
+                            PhoneCode = 290
+                        },
+                        new
+                        {
+                            Iso2 = "KN",
+                            CapsName = "SAINT KITTS AND NEVIS",
+                            Iso3 = "KNA",
+                            Name = "Saint Kitts and Nevis",
+                            NumberCode = 659,
+                            PhoneCode = 1869
+                        },
+                        new
+                        {
+                            Iso2 = "LC",
+                            CapsName = "SAINT LUCIA",
+                            Iso3 = "LCA",
+                            Name = "Saint Lucia",
+                            NumberCode = 662,
+                            PhoneCode = 1758
+                        },
+                        new
+                        {
+                            Iso2 = "PM",
+                            CapsName = "SAINT PIERRE AND MIQUELON",
+                            Iso3 = "SPM",
+                            Name = "Saint Pierre and Miquelon",
+                            NumberCode = 666,
+                            PhoneCode = 508
+                        },
+                        new
+                        {
+                            Iso2 = "VC",
+                            CapsName = "SAINT VINCENT AND THE GRENADINES",
+                            Iso3 = "VCT",
+                            Name = "Saint Vincent and the Grenadines",
+                            NumberCode = 670,
+                            PhoneCode = 1784
+                        },
+                        new
+                        {
+                            Iso2 = "WS",
+                            CapsName = "SAMOA",
+                            Iso3 = "WSM",
+                            Name = "Samoa",
+                            NumberCode = 882,
+                            PhoneCode = 684
+                        },
+                        new
+                        {
+                            Iso2 = "SM",
+                            CapsName = "SAN MARINO",
+                            Iso3 = "SMR",
+                            Name = "San Marino",
+                            NumberCode = 674,
+                            PhoneCode = 378
+                        },
+                        new
+                        {
+                            Iso2 = "ST",
+                            CapsName = "SAO TOME AND PRINCIPE",
+                            Iso3 = "STP",
+                            Name = "Sao Tome and Principe",
+                            NumberCode = 678,
+                            PhoneCode = 239
+                        },
+                        new
+                        {
+                            Iso2 = "SA",
+                            CapsName = "SAUDI ARABIA",
+                            Iso3 = "SAU",
+                            Name = "Saudi Arabia",
+                            NumberCode = 682,
+                            PhoneCode = 966
+                        },
+                        new
+                        {
+                            Iso2 = "SN",
+                            CapsName = "SENEGAL",
+                            Iso3 = "SEN",
+                            Name = "Senegal",
+                            NumberCode = 686,
+                            PhoneCode = 221
+                        },
+                        new
+                        {
+                            Iso2 = "CS",
+                            CapsName = "SERBIA AND MONTENEGRO",
+                            Iso3 = "",
+                            Name = "Serbia and Montenegro",
+                            PhoneCode = 381
+                        },
+                        new
+                        {
+                            Iso2 = "SC",
+                            CapsName = "SEYCHELLES",
+                            Iso3 = "SYC",
+                            Name = "Seychelles",
+                            NumberCode = 690,
+                            PhoneCode = 248
+                        },
+                        new
+                        {
+                            Iso2 = "SL",
+                            CapsName = "SIERRA LEONE",
+                            Iso3 = "SLE",
+                            Name = "Sierra Leone",
+                            NumberCode = 694,
+                            PhoneCode = 232
+                        },
+                        new
+                        {
+                            Iso2 = "SG",
+                            CapsName = "SINGAPORE",
+                            Iso3 = "SGP",
+                            Name = "Singapore",
+                            NumberCode = 702,
+                            PhoneCode = 65
+                        },
+                        new
+                        {
+                            Iso2 = "SK",
+                            CapsName = "SLOVAKIA",
+                            Iso3 = "SVK",
+                            Name = "Slovakia",
+                            NumberCode = 703,
+                            PhoneCode = 421
+                        },
+                        new
+                        {
+                            Iso2 = "SI",
+                            CapsName = "SLOVENIA",
+                            Iso3 = "SVN",
+                            Name = "Slovenia",
+                            NumberCode = 705,
+                            PhoneCode = 386
+                        },
+                        new
+                        {
+                            Iso2 = "SB",
+                            CapsName = "SOLOMON ISLANDS",
+                            Iso3 = "SLB",
+                            Name = "Solomon Islands",
+                            NumberCode = 90,
+                            PhoneCode = 677
+                        },
+                        new
+                        {
+                            Iso2 = "SO",
+                            CapsName = "SOMALIA",
+                            Iso3 = "SOM",
+                            Name = "Somalia",
+                            NumberCode = 706,
+                            PhoneCode = 252
+                        },
+                        new
+                        {
+                            Iso2 = "ZA",
+                            CapsName = "SOUTH AFRICA",
+                            Iso3 = "ZAF",
+                            Name = "South Africa",
+                            NumberCode = 710,
+                            PhoneCode = 27
+                        },
+                        new
+                        {
+                            Iso2 = "GS",
+                            CapsName = "SOUTH GEORGIA AND THE SOUTH SANDWICH ISLANDS",
+                            Iso3 = "",
+                            Name = "South Georgia and the South Sandwich Islands",
+                            PhoneCode = 0
+                        },
+                        new
+                        {
+                            Iso2 = "ES",
+                            CapsName = "SPAIN",
+                            Iso3 = "ESP",
+                            Name = "Spain",
+                            NumberCode = 724,
+                            PhoneCode = 34
+                        },
+                        new
+                        {
+                            Iso2 = "LK",
+                            CapsName = "SRI LANKA",
+                            Iso3 = "LKA",
+                            Name = "Sri Lanka",
+                            NumberCode = 144,
+                            PhoneCode = 94
+                        },
+                        new
+                        {
+                            Iso2 = "SD",
+                            CapsName = "SUDAN",
+                            Iso3 = "SDN",
+                            Name = "Sudan",
+                            NumberCode = 736,
+                            PhoneCode = 249
+                        },
+                        new
+                        {
+                            Iso2 = "SR",
+                            CapsName = "SURINAME",
+                            Iso3 = "SUR",
+                            Name = "Suriname",
+                            NumberCode = 740,
+                            PhoneCode = 597
+                        },
+                        new
+                        {
+                            Iso2 = "SJ",
+                            CapsName = "SVALBARD AND JAN MAYEN",
+                            Iso3 = "SJM",
+                            Name = "Svalbard and Jan Mayen",
+                            NumberCode = 744,
+                            PhoneCode = 47
+                        },
+                        new
+                        {
+                            Iso2 = "SZ",
+                            CapsName = "SWAZILAND",
+                            Iso3 = "SWZ",
+                            Name = "Swaziland",
+                            NumberCode = 748,
+                            PhoneCode = 268
+                        },
+                        new
+                        {
+                            Iso2 = "SE",
+                            CapsName = "SWEDEN",
+                            Iso3 = "SWE",
+                            Name = "Sweden",
+                            NumberCode = 752,
+                            PhoneCode = 46
+                        },
+                        new
+                        {
+                            Iso2 = "CH",
+                            CapsName = "SWITZERLAND",
+                            Iso3 = "CHE",
+                            Name = "Switzerland",
+                            NumberCode = 756,
+                            PhoneCode = 41
+                        },
+                        new
+                        {
+                            Iso2 = "SY",
+                            CapsName = "SYRIAN ARAB REPUBLIC",
+                            Iso3 = "SYR",
+                            Name = "Syrian Arab Republic",
+                            NumberCode = 760,
+                            PhoneCode = 963
+                        },
+                        new
+                        {
+                            Iso2 = "TW",
+                            CapsName = "TAIWAN, PROVINCE OF CHINA",
+                            Iso3 = "TWN",
+                            Name = "Taiwan, Province of China",
+                            NumberCode = 158,
+                            PhoneCode = 886
+                        },
+                        new
+                        {
+                            Iso2 = "TJ",
+                            CapsName = "TAJIKISTAN",
+                            Iso3 = "TJK",
+                            Name = "Tajikistan",
+                            NumberCode = 762,
+                            PhoneCode = 992
+                        },
+                        new
+                        {
+                            Iso2 = "TZ",
+                            CapsName = "TANZANIA, UNITED REPUBLIC OF",
+                            Iso3 = "TZA",
+                            Name = "Tanzania, United Republic of",
+                            NumberCode = 834,
+                            PhoneCode = 255
+                        },
+                        new
+                        {
+                            Iso2 = "TH",
+                            CapsName = "THAILAND",
+                            Iso3 = "THA",
+                            Name = "Thailand",
+                            NumberCode = 764,
+                            PhoneCode = 66
+                        },
+                        new
+                        {
+                            Iso2 = "TL",
+                            CapsName = "TIMOR-LESTE",
+                            Iso3 = "",
+                            Name = "Timor-Leste",
+                            PhoneCode = 670
+                        },
+                        new
+                        {
+                            Iso2 = "TG",
+                            CapsName = "TOGO",
+                            Iso3 = "TGO",
+                            Name = "Togo",
+                            NumberCode = 768,
+                            PhoneCode = 228
+                        },
+                        new
+                        {
+                            Iso2 = "TK",
+                            CapsName = "TOKELAU",
+                            Iso3 = "TKL",
+                            Name = "Tokelau",
+                            NumberCode = 772,
+                            PhoneCode = 690
+                        },
+                        new
+                        {
+                            Iso2 = "TO",
+                            CapsName = "TONGA",
+                            Iso3 = "TON",
+                            Name = "Tonga",
+                            NumberCode = 776,
+                            PhoneCode = 676
+                        },
+                        new
+                        {
+                            Iso2 = "TT",
+                            CapsName = "TRINIDAD AND TOBAGO",
+                            Iso3 = "TTO",
+                            Name = "Trinidad and Tobago",
+                            NumberCode = 780,
+                            PhoneCode = 1868
+                        },
+                        new
+                        {
+                            Iso2 = "TN",
+                            CapsName = "TUNISIA",
+                            Iso3 = "TUN",
+                            Name = "Tunisia",
+                            NumberCode = 788,
+                            PhoneCode = 216
+                        },
+                        new
+                        {
+                            Iso2 = "TR",
+                            CapsName = "TURKEY",
+                            Iso3 = "TUR",
+                            Name = "Turkey",
+                            NumberCode = 792,
+                            PhoneCode = 90
+                        },
+                        new
+                        {
+                            Iso2 = "TM",
+                            CapsName = "TURKMENISTAN",
+                            Iso3 = "TKM",
+                            Name = "Turkmenistan",
+                            NumberCode = 795,
+                            PhoneCode = 7370
+                        },
+                        new
+                        {
+                            Iso2 = "TC",
+                            CapsName = "TURKS AND CAICOS ISLANDS",
+                            Iso3 = "TCA",
+                            Name = "Turks and Caicos Islands",
+                            NumberCode = 796,
+                            PhoneCode = 1649
+                        },
+                        new
+                        {
+                            Iso2 = "TV",
+                            CapsName = "TUVALU",
+                            Iso3 = "TUV",
+                            Name = "Tuvalu",
+                            NumberCode = 798,
+                            PhoneCode = 688
+                        },
+                        new
+                        {
+                            Iso2 = "UG",
+                            CapsName = "UGANDA",
+                            Iso3 = "UGA",
+                            Name = "Uganda",
+                            NumberCode = 800,
+                            PhoneCode = 256
+                        },
+                        new
+                        {
+                            Iso2 = "UA",
+                            CapsName = "UKRAINE",
+                            Iso3 = "UKR",
+                            Name = "Ukraine",
+                            NumberCode = 804,
+                            PhoneCode = 380
+                        },
+                        new
+                        {
+                            Iso2 = "AE",
+                            CapsName = "UNITED ARAB EMIRATES",
+                            Iso3 = "ARE",
+                            Name = "United Arab Emirates",
+                            NumberCode = 784,
+                            PhoneCode = 971
+                        },
+                        new
+                        {
+                            Iso2 = "GB",
+                            CapsName = "UNITED KINGDOM",
+                            Iso3 = "GBR",
+                            Name = "United Kingdom",
+                            NumberCode = 826,
+                            PhoneCode = 44
+                        },
+                        new
+                        {
+                            Iso2 = "US",
+                            CapsName = "UNITED STATES",
+                            Iso3 = "USA",
+                            Name = "United States",
+                            NumberCode = 840,
+                            PhoneCode = 1
+                        },
+                        new
+                        {
+                            Iso2 = "UM",
+                            CapsName = "UNITED STATES MINOR OUTLYING ISLANDS",
+                            Iso3 = "",
+                            Name = "United States Minor Outlying Islands",
+                            PhoneCode = 1
+                        },
+                        new
+                        {
+                            Iso2 = "UY",
+                            CapsName = "URUGUAY",
+                            Iso3 = "URY",
+                            Name = "Uruguay",
+                            NumberCode = 858,
+                            PhoneCode = 598
+                        },
+                        new
+                        {
+                            Iso2 = "UZ",
+                            CapsName = "UZBEKISTAN",
+                            Iso3 = "UZB",
+                            Name = "Uzbekistan",
+                            NumberCode = 860,
+                            PhoneCode = 998
+                        },
+                        new
+                        {
+                            Iso2 = "VU",
+                            CapsName = "VANUATU",
+                            Iso3 = "VUT",
+                            Name = "Vanuatu",
+                            NumberCode = 548,
+                            PhoneCode = 678
+                        },
+                        new
+                        {
+                            Iso2 = "VE",
+                            CapsName = "VENEZUELA",
+                            Iso3 = "VEN",
+                            Name = "Venezuela",
+                            NumberCode = 862,
+                            PhoneCode = 58
+                        },
+                        new
+                        {
+                            Iso2 = "VN",
+                            CapsName = "VIET NAM",
+                            Iso3 = "VNM",
+                            Name = "Viet Nam",
+                            NumberCode = 704,
+                            PhoneCode = 84
+                        },
+                        new
+                        {
+                            Iso2 = "VG",
+                            CapsName = "VIRGIN ISLANDS, BRITISH",
+                            Iso3 = "VGB",
+                            Name = "Virgin Islands, British",
+                            NumberCode = 92,
+                            PhoneCode = 1284
+                        },
+                        new
+                        {
+                            Iso2 = "VI",
+                            CapsName = "VIRGIN ISLANDS, U.S.",
+                            Iso3 = "VIR",
+                            Name = "Virgin Islands, U.s.",
+                            NumberCode = 850,
+                            PhoneCode = 1340
+                        },
+                        new
+                        {
+                            Iso2 = "WF",
+                            CapsName = "WALLIS AND FUTUNA",
+                            Iso3 = "WLF",
+                            Name = "Wallis and Futuna",
+                            NumberCode = 876,
+                            PhoneCode = 681
+                        },
+                        new
+                        {
+                            Iso2 = "EH",
+                            CapsName = "WESTERN SAHARA",
+                            Iso3 = "ESH",
+                            Name = "Western Sahara",
+                            NumberCode = 732,
+                            PhoneCode = 212
+                        },
+                        new
+                        {
+                            Iso2 = "YE",
+                            CapsName = "YEMEN",
+                            Iso3 = "YEM",
+                            Name = "Yemen",
+                            NumberCode = 887,
+                            PhoneCode = 967
+                        },
+                        new
+                        {
+                            Iso2 = "ZM",
+                            CapsName = "ZAMBIA",
+                            Iso3 = "ZMB",
+                            Name = "Zambia",
+                            NumberCode = 894,
+                            PhoneCode = 260
+                        },
+                        new
+                        {
+                            Iso2 = "ZW",
+                            CapsName = "ZIMBABWE",
+                            Iso3 = "ZWE",
+                            Name = "Zimbabwe",
+                            NumberCode = 716,
+                            PhoneCode = 263
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Abbrev")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Iso2")
+                        .HasColumnType("nvarchar(2)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Iso2");
+
+                    b.ToTable("StateProvince");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Abbrev = "Ala.",
+                            Code = "AL",
+                            Iso2 = "US",
+                            Name = "Alabama"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Abbrev = "Alaska",
+                            Code = "AK",
+                            Iso2 = "US",
+                            Name = "Alaska"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Abbrev = "Ariz.",
+                            Code = "AZ",
+                            Iso2 = "US",
+                            Name = "Arizona"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abbrev = "Ark.",
+                            Code = "AR",
+                            Iso2 = "US",
+                            Name = "Arkansas"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Abbrev = "Calif.",
+                            Code = "CA",
+                            Iso2 = "US",
+                            Name = "California"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Abbrev = "Colo.",
+                            Code = "CO",
+                            Iso2 = "US",
+                            Name = "Colorado"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Abbrev = "Conn.",
+                            Code = "CT",
+                            Iso2 = "US",
+                            Name = "Connecticut"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Abbrev = "Del.",
+                            Code = "DE",
+                            Iso2 = "US",
+                            Name = "Delaware"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Abbrev = "D.C.",
+                            Code = "DC",
+                            Iso2 = "US",
+                            Name = "District of Columbia"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Abbrev = "Fla.",
+                            Code = "FL",
+                            Iso2 = "US",
+                            Name = "Florida"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Abbrev = "Ga.",
+                            Code = "GA",
+                            Iso2 = "US",
+                            Name = "Georgia"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Abbrev = "Hawaii",
+                            Code = "HI",
+                            Iso2 = "US",
+                            Name = "Hawaii"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Abbrev = "Idaho",
+                            Code = "ID",
+                            Iso2 = "US",
+                            Name = "Idaho"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Abbrev = "Ill.",
+                            Code = "IL",
+                            Iso2 = "US",
+                            Name = "Illinois"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Abbrev = "Ind.",
+                            Code = "IN",
+                            Iso2 = "US",
+                            Name = "Indiana"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Abbrev = "Iowa",
+                            Code = "IA",
+                            Iso2 = "US",
+                            Name = "Iowa"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Abbrev = "Kans.",
+                            Code = "KS",
+                            Iso2 = "US",
+                            Name = "Kansas"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Abbrev = "Ky.",
+                            Code = "KY",
+                            Iso2 = "US",
+                            Name = "Kentucky"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Abbrev = "La.",
+                            Code = "LA",
+                            Iso2 = "US",
+                            Name = "Louisiana"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Abbrev = "Maine",
+                            Code = "ME",
+                            Iso2 = "US",
+                            Name = "Maine"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Abbrev = "Md.",
+                            Code = "MD",
+                            Iso2 = "US",
+                            Name = "Maryland"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Abbrev = "Mass.",
+                            Code = "MA",
+                            Iso2 = "US",
+                            Name = "Massachusetts"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Abbrev = "Mich.",
+                            Code = "MI",
+                            Iso2 = "US",
+                            Name = "Michigan"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Abbrev = "Minn.",
+                            Code = "MN",
+                            Iso2 = "US",
+                            Name = "Minnesota"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Abbrev = "Miss.",
+                            Code = "MS",
+                            Iso2 = "US",
+                            Name = "Mississippi"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Abbrev = "Mo.",
+                            Code = "MO",
+                            Iso2 = "US",
+                            Name = "Missouri"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Abbrev = "Mont.",
+                            Code = "MT",
+                            Iso2 = "US",
+                            Name = "Montana"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Abbrev = "Nebr.",
+                            Code = "NE",
+                            Iso2 = "US",
+                            Name = "Nebraska"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Abbrev = "Nev.",
+                            Code = "NV",
+                            Iso2 = "US",
+                            Name = "Nevada"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Abbrev = "N.H.",
+                            Code = "NH",
+                            Iso2 = "US",
+                            Name = "New Hampshire"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Abbrev = "N.J.",
+                            Code = "NJ",
+                            Iso2 = "US",
+                            Name = "New Jersey"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Abbrev = "N.M.",
+                            Code = "NM",
+                            Iso2 = "US",
+                            Name = "New Mexico"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Abbrev = "N.Y.",
+                            Code = "NY",
+                            Iso2 = "US",
+                            Name = "New York"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Abbrev = "N.C.",
+                            Code = "NC",
+                            Iso2 = "US",
+                            Name = "North Carolina"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Abbrev = "N.D.",
+                            Code = "ND",
+                            Iso2 = "US",
+                            Name = "North Dakota"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Abbrev = "Ohio",
+                            Code = "OH",
+                            Iso2 = "US",
+                            Name = "Ohio"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Abbrev = "Okla.",
+                            Code = "OK",
+                            Iso2 = "US",
+                            Name = "Oklahoma"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Abbrev = "Ore.",
+                            Code = "OR",
+                            Iso2 = "US",
+                            Name = "Oregon"
+                        },
+                        new
+                        {
+                            Id = 39,
+                            Abbrev = "Pa.",
+                            Code = "PA",
+                            Iso2 = "US",
+                            Name = "Pennsylvania"
+                        },
+                        new
+                        {
+                            Id = 40,
+                            Abbrev = "R.I.",
+                            Code = "RI",
+                            Iso2 = "US",
+                            Name = "Rhode Island"
+                        },
+                        new
+                        {
+                            Id = 41,
+                            Abbrev = "S.C.",
+                            Code = "SC",
+                            Iso2 = "US",
+                            Name = "South Carolina"
+                        },
+                        new
+                        {
+                            Id = 42,
+                            Abbrev = "S.D.",
+                            Code = "SD",
+                            Iso2 = "US",
+                            Name = "South Dakota"
+                        },
+                        new
+                        {
+                            Id = 43,
+                            Abbrev = "Tenn.",
+                            Code = "TN",
+                            Iso2 = "US",
+                            Name = "Tennessee"
+                        },
+                        new
+                        {
+                            Id = 44,
+                            Abbrev = "Tex.",
+                            Code = "TX",
+                            Iso2 = "US",
+                            Name = "Texas"
+                        },
+                        new
+                        {
+                            Id = 45,
+                            Abbrev = "Utah",
+                            Code = "UT",
+                            Iso2 = "US",
+                            Name = "Utah"
+                        },
+                        new
+                        {
+                            Id = 46,
+                            Abbrev = "Vt.",
+                            Code = "VT",
+                            Iso2 = "US",
+                            Name = "Vermont"
+                        },
+                        new
+                        {
+                            Id = 47,
+                            Abbrev = "Va.",
+                            Code = "VA",
+                            Iso2 = "US",
+                            Name = "Virginia"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Abbrev = "Wash.",
+                            Code = "WA",
+                            Iso2 = "US",
+                            Name = "Washington"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Abbrev = "W.Va.",
+                            Code = "WV",
+                            Iso2 = "US",
+                            Name = "West Virginia"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Abbrev = "Wis.",
+                            Code = "WI",
+                            Iso2 = "US",
+                            Name = "Wisconsin"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Abbrev = "Wyo.",
+                            Code = "WY",
+                            Iso2 = "US",
+                            Name = "Wyoming"
+                        });
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Degree", b =>
                 {
                     b.HasOne("ResumePro.Entities.School", "School")
@@ -2877,7 +5194,7 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
                     b.HasOne("ResumePro.Entities.Job", "Job")
-                        .WithMany("Highlighs")
+                        .WithMany("Highlights")
                         .HasForeignKey("OrganizationId", "JobId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -2920,6 +5237,17 @@ namespace ResumePro.Migrations
                     b.Navigation("Job");
 
                     b.Navigation("Skill");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Persona", b =>
+                {
+                    b.HasOne("ResumePro.Geography.Entities.StateProvince", "State")
+                        .WithMany("People")
+                        .HasForeignKey("StateId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("State");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.PersonaSkill", b =>
@@ -3024,9 +5352,18 @@ namespace ResumePro.Migrations
                     b.Navigation("Persona");
                 });
 
+            modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
+                {
+                    b.HasOne("ResumePro.Geography.Entities.Country", "Country")
+                        .WithMany("StateProvinces")
+                        .HasForeignKey("Iso2");
+
+                    b.Navigation("Country");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
-                    b.Navigation("Highlighs");
+                    b.Navigation("Highlights");
 
                     b.Navigation("Projects");
 
@@ -3075,6 +5412,16 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>
                 {
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("ResumePro.Geography.Entities.Country", b =>
+                {
+                    b.Navigation("StateProvinces");
+                });
+
+            modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
+                {
+                    b.Navigation("People");
                 });
 #pragma warning restore 612, 618
         }

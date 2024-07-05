@@ -25,4 +25,5 @@ public class ResumeDto : IResume
 
     public string JobTitle { get; set; }
     public string Description { get; set; }
+    public string Country { get; set; }
 }

@@ -16,6 +16,5 @@ public interface IPersona
     string LinkedIn { get; set; }
     string GitHub { get; set; }
     string City { get; set; }
-    string State { get; set; }
     int OrganizationId { get; set; }
 }

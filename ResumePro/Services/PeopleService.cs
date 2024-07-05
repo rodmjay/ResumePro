@@ -74,7 +74,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
             City = options.City,
-            State = options.State,
+            StateId = options.StateId,
             FirstName = options.FirstName,
             LastName = options.LastName,
             Email = options.Email,
@@ -104,7 +104,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         person.FirstName = options.FirstName;
         person.LastName = options.LastName;
         person.GitHub = options.GitHub;
-        person.State = options.State;
+        person.StateId = options.StateId;
         person.City = options.City;
 
         var results = Repository.InsertOrUpdateGraph(person, true);

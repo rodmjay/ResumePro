@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Entities;
+using ResumePro.Geography.Entities;
 using ResumePro.Seeding.Extensions;
 
 namespace ResumePro.Context;
@@ -39,13 +40,13 @@ public class ApplicationContext : BaseContext<ApplicationContext>
     {
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
-
-
+    
     protected override void SeedDatabase(ModelBuilder builder)
     {
         // these should be placed in the Seeding/csv folder for it to work
         // make sure files are marked as "EmbeddedResource => Copy if newer"
-
+        builder.Entity<Country>().Seed("countries.csv");
+        builder.Entity<StateProvince>().Seed("stateProvinces.csv");
         builder.Entity<Persona>().Seed("personas.csv");
         builder.Entity<Skill>().Seed("skills.csv");
         builder.Entity<PersonaSkill>().Seed("persona_skills.csv");
