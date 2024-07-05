@@ -11,9 +11,6 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-
-
-
 public class Reference : BaseEntity<Reference>, IReference
 {
     public int OrganizationId { get; set; }

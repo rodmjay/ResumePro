@@ -11,21 +11,24 @@ namespace ResumePro.Generator.Strategies;
 
 public class MarkupResumeStrategy : IResumeStrategy
 {
+    private readonly MarkupSettings _settings;
     private const string ReadMePath = @"..\..\..\..\readme.md";
-    private readonly bool _outputToConsole;
+    
 
-    public MarkupResumeStrategy(bool outputToConsole = true)
+    public MarkupResumeStrategy(MarkupSettings settings)
     {
-        _outputToConsole = outputToConsole;
+        _settings = settings;
     }
 
     public void ExecuteOperation(ResumeDetails resumeDetails)
     {
         var resumeText = BuildResumeMarkdown(resumeDetails);
 
-        UpdateReadMe(resumeText);
+        if(_settings.UpdateReadme)
+            UpdateReadMe(resumeText);
 
-        if (_outputToConsole) Console.WriteLine(resumeText);
+        if (_settings.OutputToConsole)
+            Console.WriteLine(resumeText);
     }
 
     private string BuildResumeMarkdown(ResumeDetails resumeDetails)

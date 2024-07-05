@@ -29,7 +29,7 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
         builder.HasKey(x => new { x.OrganizationId, x.Id });
 
         builder.HasOne(x => x.Job)
-            .WithMany(x => x.Highlighs)
+            .WithMany(x => x.Highlights)
             .HasForeignKey(x => new{x.OrganizationId, x.JobId})
             .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);

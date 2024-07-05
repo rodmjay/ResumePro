@@ -37,27 +37,35 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        if (int.TryParse(args[0], out var resumeId))
-        {
-            var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
-            
-            var resume = resumeService.GetResume<ResumeDetails>(1, resumeId).Result;
+        int resumeId = args.Length > 0 && int.TryParse(args[0], out int parsedResumeId) ? parsedResumeId : 1;
 
-            if (resume != null)
+        int organizationId = args.Length > 1 && int.TryParse(args[1], out int parsedOrgValue) ? parsedOrgValue : 1;
+
+        var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
+
+        var resume = resumeService.GetResume<ResumeDetails>(organizationId, resumeId).Result;
+
+        if (resume != null)
+        {
+            List<IResumeStrategy> strategies = new()
             {
-                List<IResumeStrategy> strategies = new()
+                new MarkupResumeStrategy(new MarkupSettings()
                 {
-                    new MarkupResumeStrategy(),
-                    new PdfResumeStrategy()
-                };
+                    OutputToConsole = true,
+                    UpdateReadme = false
+                }),
+                new PdfResumeStrategy(new PdfSettings()
+                {
+                    CreateUpdatePdf = false,
+                    DisplayInExplorer = false,
+                    FontFamily = "Verdana"
+                })
+            };
 
-                foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
-            }
+            foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
         }
-        else
-        {
-            Console.WriteLine("Please pass in a integer value for resumeID");
-        }
+
+        
 
         Console.ReadLine();
     }

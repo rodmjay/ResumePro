@@ -18,7 +18,7 @@ public class JobMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Job, JobDetails>()
-            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlighs));
+            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlights));
 
         CreateMap<ResumeJob, JobDetails>()
             .ForMember(x => x.Company, opt => opt.MapFrom(x => x.Job.Company))
@@ -31,6 +31,6 @@ public class JobMapping : Profile
                 .OrderByDescending(a => a.Skill.Rating)))
             .ForMember(x => x.Projects, opt => opt.MapFrom(x => x.Job.Projects.OrderBy(a => a.Order)))
             .ForMember(x => x.Highlights,
-                opt => opt.MapFrom(x => x.Job.Highlighs.OrderBy(a => a.Order).Where(a => a.ProjectId == null)));
+                opt => opt.MapFrom(x => x.Job.Highlights.OrderBy(a => a.Order).Where(a => a.ProjectId == null)));
     }
 }

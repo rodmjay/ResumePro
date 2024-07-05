@@ -6,7 +6,7 @@
 
 namespace ResumePro.Shared.Options;
 
-public class CreateHighlightOptions
+public class HighlightOptions
 {
     public string Text { get; set; }
     public int Order { get; set; }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
+using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
@@ -22,9 +23,21 @@ public class HighlightsController : BaseController
         _highlightService = highlightService;
     }
 
+    [HttpGet("{highlightId}")]
+    public Task <HighlightDto> GetHighlight([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int highlightId)
+    {
+        return _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId);
+    }
+
+    [HttpGet]
+    public Task<List<HighlightDto>> GetHighlights([FromRoute] int personId, [FromRoute] int jobId)
+    {
+        return _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId);
+    }
+
     [HttpPost]
     public async Task<ActionResult<HighlightDto>> CreateHighlight([FromRoute] int personId, [FromRoute] int jobId,
-        [FromBody] CreateHighlightOptions options)
+        [FromBody] HighlightOptions options)
     {
         var result = await _highlightService.CreateHighlight(OrganizationId, personId, jobId, options);
         if (result.IsT0)
@@ -33,5 +46,26 @@ public class HighlightsController : BaseController
         }
 
         return BadRequest(result.AsT1);
+    }
+
+    [HttpPut("{highlightId}")]
+    public async Task<ActionResult<HighlightDto>> UpdateHighlight([FromRoute] int personId, [FromRoute] int jobId,
+        [FromRoute] int highlightId,
+        [FromBody] HighlightOptions options)
+    {
+        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, highlightId, options);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
+
+        return BadRequest(result.AsT1);
+    }
+
+    [HttpDelete("{highlightId}")]
+    public Task<Result> DeleteHighlight([FromRoute] int personId, [FromRoute] int jobId,
+        [FromRoute] int highlightId)
+    {
+        return _highlightService.DeleteHighlight(OrganizationId, personId, jobId, highlightId);
     }
 }

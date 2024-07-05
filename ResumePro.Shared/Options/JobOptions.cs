@@ -6,11 +6,12 @@
 
 namespace ResumePro.Shared.Options;
 
-public class CreateJobOptions
+public class JobOptions
 {
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public string Company { get; set; }
     public string Description { get; set; }
     public string Location { get; set; }
+    public string Title { get; set; }
 }
