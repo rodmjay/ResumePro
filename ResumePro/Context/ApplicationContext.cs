@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Entities;
 using ResumePro.Geography.Entities;
+using ResumePro.Languages.Entities;
 using ResumePro.Seeding.Extensions;
 
 namespace ResumePro.Context;
@@ -62,6 +63,8 @@ public class ApplicationContext : BaseContext<ApplicationContext>
 
         builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
         builder.Entity<ResumeReference>().Seed("resume_reference.csv");
+        builder.Entity<Language>().Seed("languages.csv");
+        builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
 
     }
 }

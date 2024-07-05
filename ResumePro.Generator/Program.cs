@@ -57,7 +57,7 @@ internal class Program
                 new PdfResumeStrategy(new PdfSettings()
                 {
                     CreateUpdatePdf = true,
-                    DisplayInExplorer = false,
+                    DisplayInExplorer = true,
                     FontFamily = "Verdana"
                 })
             };

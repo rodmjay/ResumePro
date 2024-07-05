@@ -13,6 +13,8 @@ using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Core.Settings;
 using ResumePro.Extensions;
+using ResumePro.Geography.Extensions;
+using ResumePro.Languages.Extensions;
 
 namespace ResumePro.Api;
 
@@ -35,6 +37,8 @@ public class Startup
     {
         var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
+            .AddGeographyDependencies()
+            .AddLanguageDependencies()
             .AddApplicationDependencies();
 
         var webAppBuilder = builder.ConfigureWebApp(Environment);

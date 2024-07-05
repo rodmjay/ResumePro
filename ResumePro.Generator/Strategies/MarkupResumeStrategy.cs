@@ -45,6 +45,13 @@ public class MarkupResumeStrategy : IResumeStrategy
         sb.AppendLine($"- **Phone:** {resumeDetails.PhoneNumber}");
         sb.AppendLine($"- **LinkedIn:** {resumeDetails.LinkedIn}");
         sb.AppendLine($"- **GitHub:** {resumeDetails.GitHub}");
+        
+        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a=>a.Proficiency)
+            .Select(language => $"{language.LanguageName}").ToList());
+
+        sb.AppendLine($"- **Languages:** {languages}");
+
+
         sb.AppendLine();
 
         // Description

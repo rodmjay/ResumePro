@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240705220722_AddLanguages")]
+    partial class AddLanguages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1526,43 +1529,6 @@ namespace ResumePro.Migrations
                             LinkedIn = "https://www.linkedin.com/in/rodmjay",
                             PhoneNumber = "(385) 352-6026",
                             StateId = 45
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.PersonaLanguage", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code3")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("Proficiency")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "PersonaId", "Code3");
-
-                    b.HasIndex("Code3");
-
-                    b.ToTable("PersonaLanguage");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            Code3 = "eng",
-                            Proficiency = 5
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            Code3 = "spa",
-                            Proficiency = 4
                         });
                 });
 
@@ -6373,8 +6339,8 @@ namespace ResumePro.Migrations
                         {
                             Code3 = "spa",
                             Code2 = "es",
-                            Name = "Spanish",
-                            NativeName = "español"
+                            Name = "Spanish; Castilian",
+                            NativeName = "español, castellano"
                         },
                         new
                         {
@@ -6711,25 +6677,6 @@ namespace ResumePro.Migrations
                     b.Navigation("State");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.PersonaLanguage", b =>
-                {
-                    b.HasOne("ResumePro.Languages.Entities.Language", "Language")
-                        .WithMany("People")
-                        .HasForeignKey("Code3")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Languages")
-                        .HasForeignKey("OrganizationId", "PersonaId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Language");
-
-                    b.Navigation("Persona");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.PersonaSkill", b =>
                 {
                     b.HasOne("ResumePro.Entities.Skill", "Skill")
@@ -6877,8 +6824,6 @@ namespace ResumePro.Migrations
 
                     b.Navigation("Jobs");
 
-                    b.Navigation("Languages");
-
                     b.Navigation("References");
 
                     b.Navigation("Resumes");
@@ -6930,11 +6875,6 @@ namespace ResumePro.Migrations
                 });
 
             modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
-                {
-                    b.Navigation("People");
-                });
-
-            modelBuilder.Entity("ResumePro.Languages.Entities.Language", b =>
                 {
                     b.Navigation("People");
                 });

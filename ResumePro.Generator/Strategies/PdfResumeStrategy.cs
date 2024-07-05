@@ -59,6 +59,12 @@ public class PdfResumeStrategy : IResumeStrategy
             {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
 
+
+        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
+            .Select(language => $"{language.LanguageName}").ToList());
+
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Languages: {languages}"};
+
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Description"};
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = resumeDetails.Description};
 
