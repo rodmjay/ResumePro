@@ -22,16 +22,18 @@ public class ResumeController : BaseController
     }
 
     [HttpGet("{resumeId}")]
-    public Task<ResumeDetails> Get([FromRoute] int resumeId)
+    public async Task<ResumeDetails> Get([FromRoute] int resumeId)
     {
-        return _resumeService.GetResume<ResumeDetails>(OrganizationId, resumeId);
+        return await _resumeService.GetResume<ResumeDetails>(OrganizationId, resumeId)
+            .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<ResumeDetails>> CreateResume([FromQuery] int personId,
         [FromBody] CreateResumeOptions options)
     {
-        var result = await _resumeService.CreateResume(OrganizationId, personId, options);
+        var result = await _resumeService.CreateResume(OrganizationId, personId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);

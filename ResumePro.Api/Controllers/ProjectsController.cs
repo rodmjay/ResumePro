@@ -24,22 +24,25 @@ public class ProjectsController : BaseController
     }
 
     [HttpGet("{projectId}")]
-    public Task<ProjectDetails> GetProject([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int projectId)
+    public async Task<ProjectDetails> GetProject([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int projectId)
     {
-        return _projectService.GetProject<ProjectDetails>(OrganizationId, projectId);
+        return await _projectService.GetProject<ProjectDetails>(OrganizationId, projectId)
+            .ConfigureAwait(false);
     }
 
     [HttpGet]
-    public Task<List<ProjectDetails>> GetList([FromRoute] int personId, [FromRoute] int jobId)
+    public async Task<List<ProjectDetails>> GetList([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return _projectService.GetProjects<ProjectDetails>(OrganizationId, jobId);
+        return await _projectService.GetProjects<ProjectDetails>(OrganizationId, jobId)
+            .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<ProjectDetails>> Create([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] ProjectOptions options)
     {
-        var result = await _projectService.CreateProject(OrganizationId, jobId, options);
+        var result = await _projectService.CreateProject(OrganizationId, jobId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -52,7 +55,8 @@ public class ProjectsController : BaseController
     public async Task<ActionResult<ProjectDetails>> Update([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute]int projectId, [FromBody] ProjectOptions options)
     {
-        var result = await _projectService.UpdateProject(OrganizationId, jobId, projectId, options);
+        var result = await _projectService.UpdateProject(OrganizationId, jobId, projectId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -62,9 +66,10 @@ public class ProjectsController : BaseController
     }
 
     [HttpDelete("{projectId}")]
-    public Task<Result> Delete([FromRoute] int personId, [FromRoute] int jobId,
+    public async Task<Result> Delete([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId)
     {
-        return _projectService.DeleteProject(OrganizationId, jobId, projectId);
+        return await _projectService.DeleteProject(OrganizationId, jobId, projectId)
+            .ConfigureAwait(false);
     }
 }

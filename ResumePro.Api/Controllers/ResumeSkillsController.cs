@@ -23,15 +23,16 @@ public class ResumeSkillsController : BaseController
     }
 
     [HttpPatch("{skillId}")]
-    public Task<Result> AddResumeSkill([FromRoute] int personId, [FromRoute] int resumeId, [FromRoute]int skillId)
+    public async Task<Result> AddResumeSkill([FromRoute] int personId, [FromRoute] int resumeId, [FromRoute]int skillId)
     {
-        return _resumeSkillService.AddResumeSkill(OrganizationId, personId, resumeId, skillId);
+        return await _resumeSkillService.AddResumeSkill(OrganizationId, personId, resumeId, skillId)
+            .ConfigureAwait(false);
     }
 
     [HttpDelete("{skillId}")]
-    public Task<Result> DeleteResumeSkill([FromRoute] int personId, [FromRoute] int resumeId, [FromRoute] int skillId)
+    public async Task<Result> DeleteResumeSkill([FromRoute] int personId, [FromRoute] int resumeId, [FromRoute] int skillId)
     {
-        return _resumeSkillService.DeleteResumeSkill(OrganizationId, personId, resumeId, skillId);
-
+        return await _resumeSkillService.DeleteResumeSkill(OrganizationId, personId, resumeId, skillId)
+            .ConfigureAwait(false);
     }
 }

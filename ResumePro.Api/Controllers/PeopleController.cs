@@ -25,22 +25,25 @@ public class PeopleController : BaseController
     }
 
     [HttpPost("Search")]
-    public Task<PagedList<PersonaDto>> GetPeople(
+    public async Task<PagedList<PersonaDto>> GetPeople(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] PersonaFilters? filters, [FromQuery] PagingQuery paging)
     {
-        return _peopleService.GetPeople<PersonaDto>(OrganizationId, filters, paging);
+        return await _peopleService.GetPeople<PersonaDto>(OrganizationId, filters, paging)
+            .ConfigureAwait(false);
     }
 
     [HttpGet("{personId}")]
-    public Task<PersonaDetails> GetPerson([FromRoute] int personId)
+    public async Task<PersonaDetails> GetPerson([FromRoute] int personId)
     {
-        return _peopleService.GetPerson<PersonaDetails>(OrganizationId, personId);
+        return await _peopleService.GetPerson<PersonaDetails>(OrganizationId, personId)
+            .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<PersonaDetails>> CreatePerson([FromBody] PersonaOptions options)
     {
-        var result = await _peopleService.CreatePerson(OrganizationId, options);
+        var result = await _peopleService.CreatePerson(OrganizationId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
             return Ok(result.AsT0);
 

@@ -24,20 +24,23 @@ public class PersonSkillsController : BaseController
     }
 
     [HttpGet]
-    public Task<List<PersonaSkillDto>> GetSkills([FromRoute] int personId)
+    public async Task<List<PersonaSkillDto>> GetSkills([FromRoute] int personId)
     {
-        return _skillService.GetPersonaSkills<PersonaSkillDto>(OrganizationId, personId);
+        return await _skillService.GetPersonaSkills<PersonaSkillDto>(OrganizationId, personId)
+            .ConfigureAwait(false);
     }
 
     [HttpPatch]
-    public Task<Result> AddOrUpdateSkill([FromRoute] int personId, [FromBody] PersonaSkillsOptions options)
+    public async Task<Result> AddOrUpdateSkill([FromRoute] int personId, [FromBody] PersonaSkillsOptions options)
     {
-        return _skillService.AddOrUpdatePersonaSkill(OrganizationId, personId, options);
+        return await _skillService.AddOrUpdatePersonaSkill(OrganizationId, personId, options)
+            .ConfigureAwait(false);
     }
 
     [HttpDelete("{skillId}")]
-    public Task<Result> DeletePersonalSkill([FromRoute] int personId, [FromRoute] int skillId)
+    public async Task<Result> DeletePersonalSkill([FromRoute] int personId, [FromRoute] int skillId)
     {
-        return _skillService.DeletePersonalSkill(OrganizationId, personId, skillId);
+        return await _skillService.DeletePersonalSkill(OrganizationId, personId, skillId)
+            .ConfigureAwait(false);
     }
 }

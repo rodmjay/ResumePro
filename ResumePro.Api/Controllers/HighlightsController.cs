@@ -24,22 +24,25 @@ public class HighlightsController : BaseController
     }
 
     [HttpGet("{highlightId}")]
-    public Task <HighlightDto> GetHighlight([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int highlightId)
+    public async Task <HighlightDto> GetHighlight([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int highlightId)
     {
-        return _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId);
+        return await _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId)
+            .ConfigureAwait(false);
     }
 
     [HttpGet]
-    public Task<List<HighlightDto>> GetHighlights([FromRoute] int personId, [FromRoute] int jobId)
+    public async Task<List<HighlightDto>> GetHighlights([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId);
+        return await _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId)
+            .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<HighlightDto>> CreateHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] HighlightOptions options)
     {
-        var result = await _highlightService.CreateHighlight(OrganizationId, personId, jobId, options);
+        var result = await _highlightService.CreateHighlight(OrganizationId, personId, jobId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -53,7 +56,8 @@ public class HighlightsController : BaseController
         [FromRoute] int highlightId,
         [FromBody] HighlightOptions options)
     {
-        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, highlightId, options);
+        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, highlightId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -63,9 +67,10 @@ public class HighlightsController : BaseController
     }
 
     [HttpDelete("{highlightId}")]
-    public Task<Result> DeleteHighlight([FromRoute] int personId, [FromRoute] int jobId,
+    public async Task<Result> DeleteHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int highlightId)
     {
-        return _highlightService.DeleteHighlight(OrganizationId, personId, jobId, highlightId);
+        return await _highlightService.DeleteHighlight(OrganizationId, personId, jobId, highlightId)
+            .ConfigureAwait(false);
     }
 }

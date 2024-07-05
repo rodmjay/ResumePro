@@ -24,21 +24,24 @@ public class JobsController : BaseController
     }
 
     [HttpGet]
-    public Task<List<JobDetails>> GetJobs([FromRoute] int personId)
+    public async Task<List<JobDetails>> GetJobs([FromRoute] int personId)
     {
-        return _jobService.GetJobs<JobDetails>(OrganizationId, personId);
+        return await _jobService.GetJobs<JobDetails>(OrganizationId, personId)
+            .ConfigureAwait(false);
     }
 
     [HttpGet("{jobId}")]
-    public Task<JobDetails> GetJob([FromRoute] int personId, [FromRoute] int jobId)
+    public async Task<JobDetails> GetJob([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return _jobService.GetJob<JobDetails>(OrganizationId, personId, jobId);
+        return await _jobService.GetJob<JobDetails>(OrganizationId, personId, jobId)
+            .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<JobDetails>> CreateJob([FromRoute] int personId, [FromBody] JobOptions options)
     {
-        var result = await _jobService.CreateJob(OrganizationId, personId, options);
+        var result = await _jobService.CreateJob(OrganizationId, personId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -51,7 +54,8 @@ public class JobsController : BaseController
     public async Task<ActionResult<JobDetails>> UpdateJob([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] JobOptions options)
     {
-        var result = await _jobService.UpdateJob(OrganizationId, personId, jobId, options);
+        var result = await _jobService.UpdateJob(OrganizationId, personId, jobId, options)
+            .ConfigureAwait(false);
         if (result.IsT0)
         {
             return Ok(result.AsT0);
@@ -61,8 +65,9 @@ public class JobsController : BaseController
     }
 
     [HttpDelete("{jobId}")]
-    public Task<Result> DeleteJob([FromRoute] int personId, [FromRoute] int jobId)
+    public async Task<Result> DeleteJob([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return _jobService.DeleteJob(OrganizationId, personId, jobId);
+        return await _jobService.DeleteJob(OrganizationId, personId, jobId)
+            .ConfigureAwait(false);
     }
 }

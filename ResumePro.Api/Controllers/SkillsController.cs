@@ -21,8 +21,9 @@ public class SkillsController : BaseController
     }
 
     [HttpGet]
-    public Task<List<SkillDto>> GetSkills()
+    public async Task<List<SkillDto>> GetSkills()
     {
-        return _skillService.GetSkills<SkillDto>();
+        return await _skillService.GetSkills<SkillDto>()
+            .ConfigureAwait(false);
     }
 }
