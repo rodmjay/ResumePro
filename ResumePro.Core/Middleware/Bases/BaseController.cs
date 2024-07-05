@@ -24,5 +24,23 @@ public class BaseController : ControllerBase
         AppSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
     }
 
-    public int OrganizationId => 1;
+    public int OrganizationId
+    {
+        get
+        {
+            // Attempt to retrieve the organizationId claim as a string
+            var organizationIdClaim = User.Claims.FirstOrDefault(c => c.Type == "organizationId")?.Value;
+
+            // Try parsing the claim value to an integer
+            if (int.TryParse(organizationIdClaim, out int organizationId))
+            {
+                return organizationId;
+            }
+            else
+            {
+                // Handle the case where the claim is missing or not an integer
+                throw new Exception("The organizationId claim is missing or not a valid integer.");
+            }
+        }
+    }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Users.Contexts;
 
@@ -11,9 +12,11 @@ using ResumePro.Users.Contexts;
 namespace ResumePro.Users.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240705030601_AddOrganizations3")]
+    partial class AddOrganizations3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1012,12 +1015,6 @@ namespace ResumePro.Users.Migrations
                             Id = 13,
                             ClientId = 5,
                             Scope = "openid"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ClientId = 1,
-                            Scope = "organization"
                         });
                 });
 

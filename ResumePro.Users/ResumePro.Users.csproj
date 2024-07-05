@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,6 +17,7 @@
     <None Remove="Seeding\csv\clientSecrets.csv" />
     <None Remove="Seeding\csv\identityResourceClaims.csv" />
     <None Remove="Seeding\csv\identityResources.csv" />
+    <None Remove="Seeding\csv\organizations.csv" />
     <None Remove="Seeding\csv\roles.csv" />
     <None Remove="Seeding\csv\userRoles.csv" />
     <None Remove="Seeding\csv\users.csv" />
@@ -58,6 +59,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\userRoles.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seeding\csv\organizations.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\users.csv">

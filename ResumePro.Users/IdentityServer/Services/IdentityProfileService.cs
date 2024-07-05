@@ -41,7 +41,7 @@ public class IdentityProfileService : IProfileService
         claims.Add(user.TwoFactorEnabled ? new Claim("amr", "mfa") : new Claim("amr", "pwd"));
 
         claims.Add(new Claim(IdentityServerConstants.StandardScopes.Email, user.Email));
-
+        claims.Add(new Claim("organizationId", user.OrganizationId.ToString()));
 
         context.IssuedClaims = claims;
     }

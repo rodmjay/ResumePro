@@ -32,6 +32,10 @@ public partial class User : IdentityUser<int>, IEntityTypeConfiguration<User>, I
     public ICollection<UserToken> UserTokens { get; set; }
     public ICollection<UserLogin> UserLogins { get; set; }
     public ICollection<UserClaim> UserClaims { get; set; }
+
+    public Organization Organization { get; set; }
+    public int OrganizationId { get; set; }
+
     public Guid? CurrentApplication { get; set; }
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -60,7 +64,12 @@ public partial class User : IdentityUser<int>, IEntityTypeConfiguration<User>, I
             .WithOne(x => x.User)
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
-        
+
+        builder.HasOne(x => x.Organization)
+            .WithMany(x => x.Users)
+            .HasForeignKey(x => x.OrganizationId)
+            .OnDelete(DeleteBehavior.Cascade);
+
     }
 
     [NotMapped][IgnoreDataMember] public ObjectState ObjectState { get; set; }

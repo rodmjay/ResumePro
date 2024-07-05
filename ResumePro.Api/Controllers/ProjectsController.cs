@@ -7,6 +7,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared;
+using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
 
@@ -20,5 +22,16 @@ public class ProjectsController : BaseController
         _projectService = projectService;
     }
 
+    [HttpPost]
+    public async Task<ActionResult<ProjectDetails>> Create([FromRoute] int personId, [FromRoute] int jobId,
+        [FromBody] ProjectOptions options)
+    {
+        var result = await _projectService.CreateProject(OrganizationId, jobId, options);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
 
+        return BadRequest(result.AsT1);
+    }
 }

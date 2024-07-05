@@ -39,6 +39,7 @@ public class UserClaimsPrincipalFactory : UserClaimsPrincipalFactory<User>
 
         id.AddClaim(new Claim(Options.ClaimsIdentity.UserIdClaimType, userId));
         id.AddClaim(new Claim(Options.ClaimsIdentity.UserNameClaimType, userName));
+        id.AddClaim(new Claim("organizationId", user.OrganizationId.ToString()));
 
         if (UserManager.SupportsUserEmail)
         {
