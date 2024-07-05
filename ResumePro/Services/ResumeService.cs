@@ -90,7 +90,6 @@ public class ResumeService : BaseService<Resume>, IResumeService
                 {
                     ObjectState = ObjectState.Added,
                     SkillId = skill.SkillId,
-                    ShowInSummary = true
                 });
             }
         }

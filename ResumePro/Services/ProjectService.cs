@@ -25,6 +25,14 @@ public class ProjectService : BaseService<Project>, IProjectService
 
     private IQueryable<Project> Projects => Repository.Queryable();
 
+    public Task<List<T>> GetProjects<T>(int organizationId, int jobId) where T : ProjectDto
+    {
+        return Projects.AsNoTracking()
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .ProjectTo<T>(ProjectionMapping)
+            .ToListAsync();
+    }
+
     public Task<T> GetProject<T>(int organizationId, int projectId) where T : ProjectDto
     {
         return Projects.AsNoTracking()
@@ -75,6 +83,32 @@ public class ProjectService : BaseService<Project>, IProjectService
         if (results > 0)
         {
             return await GetProject<ProjectDetails>(organizationId, project.Id);
+        }
+
+        return Result.Failed();
+    }
+
+    public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
+    {
+        var project = await Projects
+            .Include(x=>x.Highlights)
+            .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
+            .FirstOrDefaultAsync();
+
+        if (project == null)
+            return Result.Failed();
+
+        project.ObjectState = ObjectState.Deleted;
+
+        foreach (var highlight in project.Highlights)
+        {
+            highlight.ObjectState = ObjectState.Deleted;
+        }
+
+        var changes = Repository.InsertOrUpdateGraph(project, true);
+        if (changes > 0)
+        {
+            return Result.Success();
         }
 
         return Result.Failed();

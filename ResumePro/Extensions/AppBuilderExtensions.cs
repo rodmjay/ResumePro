@@ -26,6 +26,7 @@ public static class AppBuilderExtensions
         builder.Services.AddScoped<IReferenceService, ReferenceService>();
         builder.Services.AddScoped<ISchoolService, SchoolService>();
         builder.Services.AddScoped<IProjectService, ProjectService>();
+        builder.Services.AddScoped<IResumeSkillService, ResumeSkillService>();
 
         return builder;
     }

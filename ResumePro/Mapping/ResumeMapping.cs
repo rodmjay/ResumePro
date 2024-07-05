@@ -32,6 +32,6 @@ public class ResumeMapping : Profile
             .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Persona.Schools))
             .ForMember(x => x.Skills,
                 opt => opt.MapFrom(x =>
-                    x.Skills.OrderByDescending(a => a.Skill.Rating).Where(a => a.ShowInSummary == true)));
+                    x.Skills.OrderByDescending(a => a.Skill.Rating)));
     }
 }

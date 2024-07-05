@@ -43,7 +43,14 @@ public class Startup
             .AddAuthorization(policy=>
             {
                 policy.RequireAuthenticatedUser();
-                policy.RequireClaim("scope", builder.AppSettings.Audience);
+
+                var scopes = builder.AppSettings.Audience.Split(" ");
+                foreach (var scope in scopes)
+                {
+                    policy.RequireClaim("scope", scope);
+                }
+
+
             })
             .AddBearerAuthentication(options =>
             {

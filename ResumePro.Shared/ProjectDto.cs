@@ -11,7 +11,7 @@ namespace ResumePro.Shared;
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class ProjectDto : IProject
 {
-    [JsonIgnore] public int Id { get; set; }
+    public int Id { get; set; }
 
     [JsonIgnore] public int JobId { get; set; }
 
