@@ -647,9 +647,9 @@ namespace ResumePro.Migrations
                         {
                             OrganizationId = 1,
                             Id = 4,
-                            Company = "Agile Software",
+                            Company = "Agile Software and Marketing",
                             EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Sacramento,CA",
+                            Location = "Cameron Park,CA",
                             PersonaId = 1,
                             StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect"
@@ -2011,6 +2011,7 @@ namespace ResumePro.Migrations
                             Id = 7,
                             JobId = 4,
                             Budget = 500000m,
+                            Description = "Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.",
                             Name = "Family Entertainment Center Platform",
                             Order = 1
                         },

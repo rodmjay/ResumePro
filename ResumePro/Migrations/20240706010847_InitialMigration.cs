@@ -30,6 +30,20 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Language",
+                columns: table => new
+                {
+                    Code3 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NativeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Code2 = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Language", x => x.Code3);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skill",
                 columns: table => new
                 {
@@ -90,6 +104,27 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Certification",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Body = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Certification", x => new { x.OrganizationId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Certification_Persona_OrganizationId_PersonaId",
+                        columns: x => new { x.OrganizationId, x.PersonaId },
+                        principalTable: "Persona",
+                        principalColumns: new[] { "OrganizationId", "Id" });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Job",
                 columns: table => new
                 {
@@ -108,6 +143,31 @@ namespace ResumePro.Migrations
                     table.PrimaryKey("PK_Job", x => new { x.OrganizationId, x.Id });
                     table.ForeignKey(
                         name: "FK_Job_Persona_OrganizationId_PersonaId",
+                        columns: x => new { x.OrganizationId, x.PersonaId },
+                        principalTable: "Persona",
+                        principalColumns: new[] { "OrganizationId", "Id" });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PersonaLanguage",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false),
+                    Code3 = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Proficiency = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonaLanguage", x => new { x.OrganizationId, x.PersonaId, x.Code3 });
+                    table.ForeignKey(
+                        name: "FK_PersonaLanguage_Language_Code3",
+                        column: x => x.Code3,
+                        principalTable: "Language",
+                        principalColumn: "Code3",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PersonaLanguage_Persona_OrganizationId_PersonaId",
                         columns: x => new { x.OrganizationId, x.PersonaId },
                         principalTable: "Persona",
                         principalColumns: new[] { "OrganizationId", "Id" });
@@ -135,6 +195,28 @@ namespace ResumePro.Migrations
                         column: x => x.SkillId,
                         principalTable: "Skill",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reference",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reference", x => new { x.OrganizationId, x.PersonaId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_Reference_Persona_OrganizationId_PersonaId",
+                        columns: x => new { x.OrganizationId, x.PersonaId },
+                        principalTable: "Persona",
+                        principalColumns: new[] { "OrganizationId", "Id" },
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -206,28 +288,6 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Reference",
-                columns: table => new
-                {
-                    OrganizationId = table.Column<int>(type: "int", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    JobId = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Reference", x => new { x.OrganizationId, x.Id });
-                    table.ForeignKey(
-                        name: "FK_Reference_Job_OrganizationId_JobId",
-                        columns: x => new { x.OrganizationId, x.JobId },
-                        principalTable: "Job",
-                        principalColumns: new[] { "OrganizationId", "Id" },
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "JobSkill",
                 columns: table => new
                 {
@@ -269,6 +329,30 @@ namespace ResumePro.Migrations
                         principalColumns: new[] { "OrganizationId", "Id" });
                     table.ForeignKey(
                         name: "FK_ResumeJob_Resume_OrganizationId_ResumeId",
+                        columns: x => new { x.OrganizationId, x.ResumeId },
+                        principalTable: "Resume",
+                        principalColumns: new[] { "OrganizationId", "Id" });
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResumeReference",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    ResumeId = table.Column<int>(type: "int", nullable: false),
+                    ReferenceId = table.Column<int>(type: "int", nullable: false),
+                    PersonaId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResumeReference", x => new { x.OrganizationId, x.ReferenceId, x.ResumeId });
+                    table.ForeignKey(
+                        name: "FK_ResumeReference_Reference_OrganizationId_PersonaId_ReferenceId",
+                        columns: x => new { x.OrganizationId, x.PersonaId, x.ReferenceId },
+                        principalTable: "Reference",
+                        principalColumns: new[] { "OrganizationId", "PersonaId", "Id" });
+                    table.ForeignKey(
+                        name: "FK_ResumeReference_Resume_OrganizationId_ResumeId",
                         columns: x => new { x.OrganizationId, x.ResumeId },
                         principalTable: "Resume",
                         principalColumns: new[] { "OrganizationId", "Id" });
@@ -592,6 +676,198 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Language",
+                columns: new[] { "Code3", "Code2", "Name", "NativeName" },
+                values: new object[,]
+                {
+                    { "aar", "aa", "Afar", "Afaraf" },
+                    { "abk", "ab", "Abkhaz", "аҧсуа бызшәа, аҧсшәа" },
+                    { "afr", "af", "Afrikaans", "Afrikaans" },
+                    { "aka", "ak", "Akan", "Akan" },
+                    { "amh", "am", "Amharic", "አማርኛ" },
+                    { "ara", "ar", "Arabic", "العربية" },
+                    { "arg", "an", "Aragonese", "aragonés" },
+                    { "asm", "as", "Assamese", "অসমীয়া" },
+                    { "ava", "av", "Avaric", "авар мацӀ, магӀарул мацӀ" },
+                    { "ave", "ae", "Avestan", "avesta" },
+                    { "aym", "ay", "Aymara", "aymar aru" },
+                    { "azb", "az", "South Azerbaijani", "تورکجه‎" },
+                    { "aze", "az", "Azerbaijani", "azərbaycan dili" },
+                    { "bak", "ba", "Bashkir", "башҡорт теле" },
+                    { "bam", "bm", "Bambara", "bamanankan" },
+                    { "bel", "be", "Belarusian", "беларуская мова" },
+                    { "ben", "bn", "Bengali; Bangla", "বাংলা" },
+                    { "bih", "bh", "Bihari", "भोजपुरी" },
+                    { "bis", "bi", "Bislama", "Bislama" },
+                    { "bod", "bo", "Tibetan Standard, Tibetan, Central", "བོད་ཡིག" },
+                    { "bos", "bs", "Bosnian", "bosanski jezik" },
+                    { "bre", "br", "Breton", "brezhoneg" },
+                    { "bul", "bg", "Bulgarian", "български език" },
+                    { "cat", "ca", "Catalan; Valencian", "català, valencià" },
+                    { "ces", "cs", "Czech", "čeština, český jazyk" },
+                    { "cha", "ch", "Chamorro", "Chamoru" },
+                    { "che", "ce", "Chechen", "нохчийн мотт" },
+                    { "chu", "cu", "Old Church Slavonic, Church Slavonic, Old Bulgarian", "ѩзыкъ словѣньскъ" },
+                    { "chv", "cv", "Chuvash", "чӑваш чӗлхи" },
+                    { "cor", "kw", "Cornish", "Kernewek" },
+                    { "cos", "co", "Corsican", "corsu, lingua corsa" },
+                    { "cre", "cr", "Cree", "ᓀᐦᐃᔭᐍᐏᐣ" },
+                    { "cym", "cy", "Welsh", "Cymraeg" },
+                    { "dan", "da", "Danish", "dansk" },
+                    { "deu", "de", "German", "Deutsch" },
+                    { "div", "dv", "Divehi; Dhivehi; Maldivian;", "ދިވެހި" },
+                    { "dzo", "dz", "Dzongkha", "རྫོང་ཁ" },
+                    { "ell", "el", "Greek, Modern", "ελληνικά" },
+                    { "eng", "en", "English", "English" },
+                    { "epo", "eo", "Esperanto", "Esperanto" },
+                    { "est", "et", "Estonian", "eesti, eesti keel" },
+                    { "eus", "eu", "Basque", "euskara, euskera" },
+                    { "ewe", "ee", "Ewe", "Eʋegbe" },
+                    { "fao", "fo", "Faroese", "føroyskt" },
+                    { "fas", "fa", "Persian (Farsi)", "فارسی" },
+                    { "fij", "fj", "Fijian", "vosa Vakaviti" },
+                    { "fin", "fi", "Finnish", "suomi, suomen kieli" },
+                    { "fra", "fr", "French", "français, langue française" },
+                    { "fry", "fy", "Western Frisian", "Frysk" },
+                    { "ful", "ff", "Fula; Fulah; Pulaar; Pular", "Fulfulde, Pulaar, Pular" },
+                    { "gla", "gd", "Scottish Gaelic; Gaelic", "Gàidhlig" },
+                    { "gle", "ga", "Irish", "Gaeilge" },
+                    { "glg", "gl", "Galician", "galego" },
+                    { "glv", "gv", "Manx", "Gaelg, Gailck" },
+                    { "grn", "gn", "Guaraní", "Avañe'ẽ" },
+                    { "guj", "gu", "Gujarati", "ગુજરાતી" },
+                    { "hat", "ht", "Haitian; Haitian Creole", "Kreyòl ayisyen" },
+                    { "hau", "ha", "Hausa", "Hausa, هَوُسَ" },
+                    { "heb", "he", "Hebrew (modern)", "עברית" },
+                    { "her", "hz", "Herero", "Otjiherero" },
+                    { "hin", "hi", "Hindi", "हिन्दी, हिंदी" },
+                    { "hmo", "ho", "Hiri Motu", "Hiri Motu" },
+                    { "hrv", "hr", "Croatian", "hrvatski jezik" },
+                    { "hun", "hu", "Hungarian", "magyar" },
+                    { "hye", "hy", "Armenian", "Հայերեն" },
+                    { "ibo", "ig", "Igbo", "Asụsụ Igbo" },
+                    { "ido", "io", "Ido", "Ido" },
+                    { "iii", "ii", "Nuosu", "ꆈꌠ꒿ Nuosuhxop" },
+                    { "iku", "iu", "Inuktitut", "ᐃᓄᒃᑎᑐᑦ" },
+                    { "ile", "ie", "Interlingue", "Originally called Occidental; then Interlingue after WWII" },
+                    { "ina", "ia", "Interlingua", "Interlingua" },
+                    { "ind", "id", "Indonesian", "Bahasa Indonesia" },
+                    { "ipk", "ik", "Inupiaq", "Iñupiaq, Iñupiatun" },
+                    { "isl", "is", "Icelandic", "Íslenska" },
+                    { "ita", "it", "Italian", "italiano" },
+                    { "jav", "jv", "Javanese", "basa Jawa" },
+                    { "jpn", "ja", "Japanese", "日本語 (にほんご)" },
+                    { "kal", "kl", "Kalaallisut, Greenlandic", "kalaallisut, kalaallit oqaasii" },
+                    { "kan", "kn", "Kannada", "ಕನ್ನಡ" },
+                    { "kas", "ks", "Kashmiri", "कश्मीरी, كشميري‎" },
+                    { "kat", "ka", "Georgian", "ქართული" },
+                    { "kau", "kr", "Kanuri", "Kanuri" },
+                    { "kaz", "kk", "Kazakh", "қазақ тілі" },
+                    { "khm", "km", "Khmer", "ខ្មែរ, ខេមរភាសា, ភាសាខ្មែរ" },
+                    { "kik", "ki", "Kikuyu, Gikuyu", "Gĩkũyũ" },
+                    { "kin", "rw", "Kinyarwanda", "Ikinyarwanda" },
+                    { "kir", "ky", "Kyrgyz", "Кыргызча, Кыргыз тили" },
+                    { "kom", "kv", "Komi", "коми кыв" },
+                    { "kon", "kg", "Kongo", "KiKongo" },
+                    { "kor", "ko", "Korean", "한국어 (韓國語), 조선어 (朝鮮語)" },
+                    { "kua", "kj", "Kwanyama, Kuanyama", "Kuanyama" },
+                    { "kur", "ku", "Kurdish", "Kurdî, كوردی‎" },
+                    { "lao", "lo", "Lao", "ພາສາລາວ" },
+                    { "lat", "la", "Latin", "latine, lingua latina" },
+                    { "lav", "lv", "Latvian", "latviešu valoda" },
+                    { "lim", "li", "Limburgish, Limburgan, Limburger", "Limburgs" },
+                    { "lin", "ln", "Lingala", "Lingála" },
+                    { "lit", "lt", "Lithuanian", "lietuvių kalba" },
+                    { "ltz", "lb", "Luxembourgish, Letzeburgesch", "Lëtzebuergesch" },
+                    { "lub", "lu", "Luba-Katanga", "Tshiluba" },
+                    { "lug", "lg", "Ganda", "Luganda" },
+                    { "mah", "mh", "Marshallese", "Kajin M̧ajeļ" },
+                    { "mal", "ml", "Malayalam", "മലയാളം" },
+                    { "mar", "mr", "Marathi (Marāṭhī)", "मराठी" },
+                    { "mkd", "mk", "Macedonian", "македонски јазик" },
+                    { "mlg", "mg", "Malagasy", "fiteny malagasy" },
+                    { "mlt", "mt", "Maltese", "Malti" },
+                    { "mon", "mn", "Mongolian", "монгол" },
+                    { "mri", "mi", "Māori", "te reo Māori" },
+                    { "msa", "ms", "Malay", "bahasa Melayu, بهاس ملايو‎" },
+                    { "mya", "my", "Burmese", "ဗမာစာ" },
+                    { "nau", "na", "Nauru", "Ekakairũ Naoero" },
+                    { "nav", "nv", "Navajo, Navaho", "Diné bizaad, Dinékʼehǰí" },
+                    { "nbl", "nr", "South Ndebele", "isiNdebele" },
+                    { "nde", "nd", "North Ndebele", "isiNdebele" },
+                    { "ndo", "ng", "Ndonga", "Owambo" },
+                    { "nep", "ne", "Nepali", "नेपाली" },
+                    { "nld", "nl", "Dutch", "Nederlands, Vlaams" },
+                    { "nno", "nn", "Norwegian Nynorsk", "Norsk nynorsk" },
+                    { "nob", "nb", "Norwegian Bokmål", "Norsk bokmål" },
+                    { "nor", "no", "Norwegian", "Norsk" },
+                    { "nya", "ny", "Chichewa; Chewa; Nyanja", "chiCheŵa, chinyanja" },
+                    { "oci", "oc", "Occitan", "occitan, lenga d'òc" },
+                    { "oji", "oj", "Ojibwe, Ojibwa", "ᐊᓂᔑᓈᐯᒧᐎᓐ" },
+                    { "ori", "or", "Oriya", "ଓଡ଼ିଆ" },
+                    { "orm", "om", "Oromo", "Afaan Oromoo" },
+                    { "oss", "os", "Ossetian, Ossetic", "ирон æвзаг" },
+                    { "pan", "pa", "Panjabi, Punjabi", "ਪੰਜਾਬੀ, پنجابی‎" },
+                    { "pli", "pi", "Pāli", "पाऴि" },
+                    { "pol", "pl", "Polish", "język polski, polszczyzna" },
+                    { "por", "pt", "Portuguese", "português" },
+                    { "pus", "ps", "Pashto, Pushto", "پښتو" },
+                    { "que", "qu", "Quechua", "Runa Simi, Kichwa" },
+                    { "roh", "rm", "Romansh", "rumantsch grischun" },
+                    { "ron", "ro", "Romanian", "limba română" },
+                    { "run", "rn", "Kirundi", "Ikirundi" },
+                    { "rus", "ru", "Russian", "русский язык" },
+                    { "sag", "sg", "Sango", "yângâ tî sängö" },
+                    { "san", "sa", "Sanskrit (Saṁskṛta)", "संस्कृतम्" },
+                    { "sin", "si", "Sinhala, Sinhalese", "සිංහල" },
+                    { "slk", "sk", "Slovak", "slovenčina, slovenský jazyk" },
+                    { "slv", "sl", "Slovene", "slovenski jezik, slovenščina" },
+                    { "sme", "se", "Northern Sami", "Davvisámegiella" },
+                    { "smo", "sm", "Samoan", "gagana fa'a Samoa" },
+                    { "sna", "sn", "Shona", "chiShona" },
+                    { "snd", "sd", "Sindhi", "सिन्धी, سنڌي، سندھی‎" },
+                    { "som", "so", "Somali", "Soomaaliga, af Soomaali" },
+                    { "sot", "st", "Southern Sotho", "Sesotho" },
+                    { "spa", "es", "Spanish", "español" },
+                    { "sqi", "sq", "Albanian", "gjuha shqipe" },
+                    { "srd", "sc", "Sardinian", "sardu" },
+                    { "srp", "sr", "Serbian", "српски језик" },
+                    { "ssw", "ss", "Swati", "SiSwati" },
+                    { "sun", "su", "Sundanese", "Basa Sunda" },
+                    { "swa", "sw", "Swahili", "Kiswahili" },
+                    { "swe", "sv", "Swedish", "Svenska" },
+                    { "tah", "ty", "Tahitian", "Reo Tahiti" },
+                    { "tam", "ta", "Tamil", "தமிழ்" },
+                    { "tat", "tt", "Tatar", "татар теле, tatar tele" },
+                    { "tel", "te", "Telugu", "తెలుగు" },
+                    { "tgk", "tg", "Tajik", "тоҷикӣ, toğikī, تاجیکی‎" },
+                    { "tgl", "tl", "Tagalog", "Wikang Tagalog, ᜏᜒᜃᜅ᜔ ᜆᜄᜎᜓᜄ᜔" },
+                    { "tha", "th", "Thai", "ไทย" },
+                    { "tir", "ti", "Tigrinya", "ትግርኛ" },
+                    { "ton", "to", "Tonga (Tonga Islands)", "faka Tonga" },
+                    { "tsn", "tn", "Tswana", "Setswana" },
+                    { "tso", "ts", "Tsonga", "Xitsonga" },
+                    { "tuk", "tk", "Turkmen", "Türkmen, Түркмен" },
+                    { "tur", "tr", "Turkish", "Türkçe" },
+                    { "twi", "tw", "Twi", "Twi" },
+                    { "uig", "ug", "Uyghur, Uighur", "Uyƣurqə, ئۇيغۇرچە‎" },
+                    { "ukr", "uk", "Ukrainian", "українська мова" },
+                    { "urd", "ur", "Urdu", "اردو" },
+                    { "uzb", "uz", "Uzbek", "O‘zbek, Ўзбек, أۇزبېك‎" },
+                    { "ven", "ve", "Venda", "Tshivenḓa" },
+                    { "vie", "vi", "Vietnamese", "Tiếng Việt" },
+                    { "vol", "vo", "Volapük", "Volapük" },
+                    { "wln", "wa", "Walloon", "walon" },
+                    { "wol", "wo", "Wolof", "Wollof" },
+                    { "xho", "xh", "Xhosa", "isiXhosa" },
+                    { "yid", "yi", "Yiddish", "ייִדיש" },
+                    { "yor", "yo", "Yoruba", "Yorùbá" },
+                    { "zha", "za", "Zhuang, Chuang", "Saɯ cueŋƅ, Saw cuengh" },
+                    { "zho", "zh", "Chinese", "中文 (Zhōngwén), 汉语, 漢語" },
+                    { "zul", "zu", "Zulu", "isiZulu" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Skill",
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
@@ -716,12 +992,21 @@ namespace ResumePro.Migrations
                     { 1, 1, "Infosys", null, null, "Salt Lake City,UT", 1, new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Technical Architect" },
                     { 2, 1, "Solution Stream", null, new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork,UT", 1, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Software Architect" },
                     { 3, 1, "IdeaFortune", null, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork,UT", 1, new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Founder/Architect" },
-                    { 4, 1, "Agile Software", null, new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sacramento,CA", 1, new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect" },
+                    { 4, 1, "Agile Software and Marketing", null, new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cameron Park,CA", 1, new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect" },
                     { 5, 1, "Access Softek", null, new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "West Jordan,UT", 1, new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer Dev Lead" },
                     { 6, 1, "NETCHEX", null, new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Louisiana", 1, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect Consultant" },
                     { 7, 1, "Ancestry.com", null, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo,UT", 1, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer" },
                     { 8, 1, "Cathexis", null, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo,UT", 1, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect/Dev Manager" },
                     { 9, 1, "Motorola Public Safety", null, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Salt Lake City,UT", 1, new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Engineer" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PersonaLanguage",
+                columns: new[] { "Code3", "OrganizationId", "PersonaId", "Proficiency" },
+                values: new object[,]
+                {
+                    { "eng", 1, 1, 5 },
+                    { "spa", 1, 1, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -776,6 +1061,20 @@ namespace ResumePro.Migrations
                     { 1, 1, 45, 8 },
                     { 1, 1, 46, 5 },
                     { 1, 1, 47, 5 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reference",
+                columns: new[] { "Id", "OrganizationId", "PersonaId", "Name", "PhoneNumber", "Text" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, "Joseph Cotton", null, "I had the opportunity to work with Rod as a fellow solutions architect at Kahoa. Rod was leading a team of developers to meet client software needs. During my time there, Rod was not only an outstanding project architect and team lead, but an outstanding individual contributor as well. He was still able to contribute just as much as the rest of his team did despite his additional leadership responsibilities.  Rod was also a central contributing figure to company architectural principles as a whole. He was was a senior member of Kahoa's architecture community, and helped guide discussions around software standards and best practices for the company as a whole. Rod is an excellent architect and software engineer. He has the ability to lead teams and projects, and has the grit to get them over the line when it's needed. I very highly recommend him to anyone seeking an outstanding software architect or team lead." },
+                    { 2, 1, 1, "Cameo Doran", null, "I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\\Rod’s experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company." },
+                    { 5, 1, 1, "Rob Atlas", null, "Recently, my startup worked with Rod on the development of our MVP (Minimal Viable Product) offering. I have worked with 100's of software developers over my career. Rod is one of the most talented and efficient architects/developers with whom I have been associated. I highly recommend him as a designer and implementer of complex or sophisticated software." },
+                    { 6, 1, 1, "Robert Clymer", null, "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy." },
+                    { 7, 1, 1, "Daniel Schulz", null, "Rod is a brilliant developer and a hard worker. He literally saved our project as I added him in the last hours as his expertise directed us to deliver. He certainly says up with the latest technologies, is a very fast learner, and was able to lead us in them. I highly recommend him." },
+                    { 8, 1, 1, "Ryan Done", null, "I worked with Rod on a complex web project at Ancestry.com. Rod made a big difference in the success of our project by finding great solutions and sharing different ways of looking at problems. He is sharp, knowledgeable and a great team player." },
+                    { 9, 1, 1, "Gregg B. Jensen", null, "Rod is a very skilled, and well rounded professional in web development. He is committed to success in all of his projects, and makes sure to deliver more than whats expected. His is a great asset to any team, and is an excellent team member." }
                 });
 
             migrationBuilder.InsertData(
@@ -942,26 +1241,12 @@ namespace ResumePro.Migrations
                     { 2, 1, 1, null, "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.", "Microsoft", 2 },
                     { 3, 2, 1, 500000m, "ElderKey is a platform that manages the health and wellness of senior citizens", "Elder Care Management Platform", 1 },
                     { 4, 2, 1, 500000m, "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.", "Real Estate Accounting Platform", 2 },
-                    { 5, 2, 1, 3000000m, null, "Major Food Distribution System", 3 },
+                    { 5, 2, 1, 3000000m, "Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.", "Major Food Distribution System", 3 },
                     { 6, 3, 1, 500000m, null, "Professional Services Management Platform", 1 },
-                    { 7, 4, 1, 500000m, null, "Family Entertainment Center Platform", 1 },
+                    { 7, 4, 1, 500000m, "Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.", "Family Entertainment Center Platform", 1 },
                     { 8, 7, 1, 2000000m, null, "Small Collections Self-Management Platform", 1 },
-                    { 9, 8, 1, 2000000m, null, "Affiliate Marketing Platform", 1 },
-                    { 10, 8, 1, 500000m, null, "E-Learning Platform", 1 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Reference",
-                columns: new[] { "Id", "OrganizationId", "JobId", "Name", "PhoneNumber", "Text" },
-                values: new object[,]
-                {
-                    { 1, 1, 1, "Joseph Cotton", null, "I had the opportunity to work with Rod as a fellow solutions architect at Kahoa. Rod was leading a team of developers to meet client software needs. During my time there, Rod was not only an outstanding project architect and team lead, but an outstanding individual contributor as well. He was still able to contribute just as much as the rest of his team did despite his additional leadership responsibilities.  Rod was also a central contributing figure to company architectural principles as a whole. He was was a senior member of Kahoa's architecture community, and helped guide discussions around software standards and best practices for the company as a whole. Rod is an excellent architect and software engineer. He has the ability to lead teams and projects, and has the grit to get them over the line when it's needed. I very highly recommend him to anyone seeking an outstanding software architect or team lead." },
-                    { 2, 1, 2, "Cameo Doran", null, "I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\\Rod’s experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company." },
-                    { 5, 1, 2, "Rob Atlas", null, "Recently, my startup worked with Rod on the development of our MVP (Minimal Viable Product) offering. I have worked with 100's of software developers over my career. Rod is one of the most talented and efficient architects/developers with whom I have been associated. I highly recommend him as a designer and implementer of complex or sophisticated software." },
-                    { 6, 1, 2, "Robert Clymer", null, "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy." },
-                    { 7, 1, 4, "Daniel Schulz", null, "Rod is a brilliant developer and a hard worker. He literally saved our project as I added him in the last hours as his expertise directed us to deliver. He certainly says up with the latest technologies, is a very fast learner, and was able to lead us in them. I highly recommend him." },
-                    { 8, 1, 7, "Ryan Done", null, "I worked with Rod on a complex web project at Ancestry.com. Rod made a big difference in the success of our project by finding great solutions and sharing different ways of looking at problems. He is sharp, knowledgeable and a great team player." },
-                    { 9, 1, 7, "Gregg B. Jensen", null, "Rod is a very skilled, and well rounded professional in web development. He is committed to success in all of his projects, and makes sure to deliver more than whats expected. His is a great asset to any team, and is an excellent team member." }
+                    { 9, 8, 1, 2000000m, "Cathexis is a platform that hosts extensive affiliate marketing campaigns, tracking clicks and conversions to inform business decisions.", "Affiliate Marketing Platform", 1 },
+                    { 10, 8, 1, 500000m, "Monaco Classroom is a virtual learning environment that offers access to digital training materials purchased online.", "E-Learning Platform", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -978,6 +1263,20 @@ namespace ResumePro.Migrations
                     { 7, 1, 1 },
                     { 8, 1, 1 },
                     { 9, 1, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ResumeReference",
+                columns: new[] { "OrganizationId", "ReferenceId", "ResumeId", "PersonaId" },
+                values: new object[,]
+                {
+                    { 1, 1, 1, 1 },
+                    { 1, 2, 1, 1 },
+                    { 1, 5, 1, 1 },
+                    { 1, 6, 1, 1 },
+                    { 1, 7, 1, 1 },
+                    { 1, 8, 1, 1 },
+                    { 1, 9, 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -1040,6 +1339,11 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Certification_OrganizationId_PersonaId",
+                table: "Certification",
+                columns: new[] { "OrganizationId", "PersonaId" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Country_Iso2",
                 table: "Country",
                 column: "Iso2");
@@ -1085,6 +1389,11 @@ namespace ResumePro.Migrations
                 column: "StateId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PersonaLanguage_Code3",
+                table: "PersonaLanguage",
+                column: "Code3");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PersonaSkill_SkillId",
                 table: "PersonaSkill",
                 column: "SkillId");
@@ -1095,14 +1404,19 @@ namespace ResumePro.Migrations
                 columns: new[] { "OrganizationId", "JobId" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reference_OrganizationId_JobId",
-                table: "Reference",
-                columns: new[] { "OrganizationId", "JobId" });
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ResumeJob_OrganizationId_JobId",
                 table: "ResumeJob",
                 columns: new[] { "OrganizationId", "JobId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResumeReference_OrganizationId_PersonaId_ReferenceId",
+                table: "ResumeReference",
+                columns: new[] { "OrganizationId", "PersonaId", "ReferenceId" });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ResumeReference_OrganizationId_ResumeId",
+                table: "ResumeReference",
+                columns: new[] { "OrganizationId", "ResumeId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ResumeSkill_OrganizationId_PersonaId_SkillId",
@@ -1124,6 +1438,9 @@ namespace ResumePro.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "Certification");
+
+            migrationBuilder.DropTable(
                 name: "Degree");
 
             migrationBuilder.DropTable(
@@ -1133,10 +1450,13 @@ namespace ResumePro.Migrations
                 name: "JobSkill");
 
             migrationBuilder.DropTable(
-                name: "Reference");
+                name: "PersonaLanguage");
 
             migrationBuilder.DropTable(
                 name: "ResumeJob");
+
+            migrationBuilder.DropTable(
+                name: "ResumeReference");
 
             migrationBuilder.DropTable(
                 name: "ResumeSkill");
@@ -1146,6 +1466,12 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "Project");
+
+            migrationBuilder.DropTable(
+                name: "Language");
+
+            migrationBuilder.DropTable(
+                name: "Reference");
 
             migrationBuilder.DropTable(
                 name: "PersonaSkill");

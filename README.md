@@ -98,7 +98,7 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 
 **Technology Used:** C# Development, Entity Framework, Visual Studio, AppInsights, ASP.NET, Stripe, WebHooks, Microsoft Teams, Jira, JavaScript, Azure, Sql Server, Angular, CI/CD, Html/CSS, TypeScript, oAuth2, Identity Server, Postman, SignalR, Material Design
 
-### Agile Software - Architect
+### Agile Software and Marketing - Architect
 *1/1/2016 - 10/1/2017*
 
 
@@ -111,7 +111,7 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
 
 #### Project: Family Entertainment Center Platform
-
+Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.
 - Oversaw and managed the complete backend development process.
 - Integrated with multiple bowling and card-reading systems to enhance overall system functionality.
 - Developed a fully-featured order and scheduling system.
