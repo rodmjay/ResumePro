@@ -15,11 +15,12 @@ namespace ResumePro.Interfaces;
 
 public interface IHighlightService : IService<Highlight>
 {
-    Task<List<T>> GetHighlights<T>(int organizationId, int jobId) where T : HighlightDto;
+    Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto;
 
     Task<T> GetHighlight<T>(int organizationId, int highlightId) where T : HighlightDto;
 
-    Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId, HighlightOptions options);
+    Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
+        CreateHighlightOptions options);
     Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int highlightId, HighlightOptions options);
 
     Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int highlightId);

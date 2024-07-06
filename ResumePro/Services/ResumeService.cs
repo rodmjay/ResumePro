@@ -56,6 +56,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
         return Resumes.Where(x => x.PersonaId == personaId
                                   && x.OrganizationId == organizationId)
             .AsNoTracking()
+            .AsSplitQuery()
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }

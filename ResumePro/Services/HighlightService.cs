@@ -8,6 +8,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
+using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
 using ResumePro.Interfaces;
@@ -19,17 +20,22 @@ namespace ResumePro.Services;
 
 public class HighlightService : BaseService<Highlight>, IHighlightService
 {
-    public HighlightService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly IRepositoryAsync<Job> _jobRepository;
+
+    public HighlightService(IServiceProvider serviceProvider, IRepositoryAsync<Job> jobRepository) : base(serviceProvider)
     {
+        _jobRepository = jobRepository;
     }
 
     private IQueryable<Highlight> Highlights => Repository.Queryable();
+    private IQueryable<Job> Jobs => _jobRepository.Queryable();
 
-    public Task<List<T>> GetHighlights<T>(int organizationId, int jobId) where T : HighlightDto
+    public Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto
     {
         return Highlights
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
+            .OrderBy(x=>x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -43,19 +49,33 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId, HighlightOptions options)
+    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId, CreateHighlightOptions options)
     {
         // todo: figure out ordering of other highlights
+
+        var lastHighlight = await
+            Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .AsNoTracking()
+            .OrderByDescending(x => x.Order)
+            .FirstOrDefaultAsync();
 
         var highlight = new Highlight
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
-            Order = options.Order,
             Text = options.Text,
             JobId = jobId,
             Id = await GetNextHighlightId(organizationId)
         };
+
+        if (lastHighlight == null)
+        {
+            highlight.Order = 1;
+        }
+        else
+        {
+            highlight.Order = lastHighlight.Order + 1;
+        }
 
         var results = Repository.InsertOrUpdateGraph(highlight, true);
         if (results > 0)
@@ -75,11 +95,33 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
             return Result.Failed();
         }
 
-        highlight.ObjectState = ObjectState.Modified;
-        highlight.Order = options.Order;
-        highlight.Text = options.Text;
+        var highlights = await Highlights
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
+            .OrderBy(x=>x.Order)
+            .ToListAsync();
 
-        var results = Repository.InsertOrUpdateGraph(highlight, true);
+        highlights.Remove(highlight);
+
+        highlight.Text = options.Text;
+        highlight.ObjectState = ObjectState.Modified;
+
+        int index = options.Order - 1;
+        if (index < 0 || index > highlights.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(options.Order), "new order position is out of range");
+        }
+
+        highlights.Insert(index, highlight);
+
+        for (int i = 0; i < highlights.Count; i++)
+        {
+            highlights[i].Order = i + 1;
+            highlights[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(highlights[0], false);
+        }
+
+        var results = Repository.Commit();
         if (results > 0)
             return await GetHighlight<HighlightDto>(organizationId, highlight.Id);
 

@@ -32,13 +32,13 @@ public class HighlightsController : BaseController
     [HttpGet]
     public async Task<List<HighlightDto>> GetHighlights([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return await _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId)
+        return await _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId, null)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<HighlightDto>> CreateHighlight([FromRoute] int personId, [FromRoute] int jobId,
-        [FromBody] HighlightOptions options)
+        [FromBody] CreateHighlightOptions options)
     {
         var result = await _highlightService.CreateHighlight(OrganizationId, personId, jobId, options)
             .ConfigureAwait(false);
@@ -57,6 +57,7 @@ public class HighlightsController : BaseController
     {
         var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, highlightId, options)
             .ConfigureAwait(false);
+
         if (result.IsT0)
         {
             return Ok(result.AsT0);
