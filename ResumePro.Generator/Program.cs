@@ -26,7 +26,7 @@ internal class Program
             .AddJsonFile("appsettings.json", false, true)
             .Build();
 
-        var services = new ServiceCollection();
+        ServiceCollection services = new ServiceCollection();
 
         ServiceProvider = services!.ConfigureApp(configuration)
             .AddDatabase<ApplicationContext>()
@@ -37,13 +37,13 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        int resumeId = args.Length > 0 && int.TryParse(args[0], out int parsedResumeId) ? parsedResumeId : 1;
+        int organizationId = args.Length > 0 && int.TryParse(args[1], out int parsedOrgValue) ? parsedOrgValue : 1;
+        int personaId = args.Length > 1 && int.TryParse(args[1], out int passedPersonId) ? passedPersonId : 1;
+        int resumeId = args.Length > 2 && int.TryParse(args[2], out int parsedResumeId) ? parsedResumeId : 1;
 
-        int organizationId = args.Length > 1 && int.TryParse(args[1], out int parsedOrgValue) ? parsedOrgValue : 1;
+        IResumeService resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
-
-        var resume = resumeService.GetResume<ResumeDetails>(organizationId, 1, resumeId).Result;
+        ResumeDetails? resume = resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId).Result;
 
         if (resume != null)
         {
@@ -62,7 +62,7 @@ internal class Program
                 })
             };
 
-            foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
+            foreach (IResumeStrategy strategy in strategies) strategy.ExecuteOperation(resume);
         }
 
         

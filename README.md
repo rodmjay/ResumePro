@@ -163,12 +163,12 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 
 
 #### Project: Affiliate Marketing Platform
-
+Cathexis is a platform that hosts extensive affiliate marketing campaigns, tracking clicks and conversions to inform business decisions.
 - Oversaw the architecture, development, and deployment of a comprehensive affiliate marketing platform.
 - Ensured 99% uptime to maintain smooth business operations.
 
 #### Project: E-Learning Platform
-
+Monaco Classroom is a virtual learning environment that offers access to digital training materials purchased online.
 - Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies.
 - Oversaw the architecture, development, and deployment of a comprehensive e-learning platform.
 

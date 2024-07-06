@@ -22,7 +22,7 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     public void ExecuteOperation(ResumeDetails resumeDetails)
     {
-        var resumeText = BuildResumeMarkdown(resumeDetails);
+        string resumeText = BuildResumeMarkdown(resumeDetails);
 
         if(_settings.UpdateReadme)
             UpdateReadMe(resumeText);
@@ -33,7 +33,7 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     private string BuildResumeMarkdown(ResumeDetails resumeDetails)
     {
-        var sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
 
         // Title
         sb.AppendLine($"# {resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}");
@@ -46,7 +46,7 @@ public class MarkupResumeStrategy : IResumeStrategy
         sb.AppendLine($"- **LinkedIn:** {resumeDetails.LinkedIn}");
         sb.AppendLine($"- **GitHub:** {resumeDetails.GitHub}");
         
-        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a=>a.Proficiency)
+        string languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a=>a.Proficiency)
             .Select(language => $"{language.LanguageName}").ToList());
 
         sb.AppendLine($"- **Languages:** {languages}");
@@ -61,12 +61,12 @@ public class MarkupResumeStrategy : IResumeStrategy
 
         // Skills
         sb.AppendLine("## Skills");
-        foreach (var skill in resumeDetails.Skills) sb.AppendLine($"- {skill.Title} (Rating: {skill.Rating})");
+        foreach (ResumeSkillDto? skill in resumeDetails.Skills) sb.AppendLine($"- {skill.Title} (Rating: {skill.Rating})");
         sb.AppendLine();
 
         // Experience
         sb.AppendLine("## Experience");
-        foreach (var job in resumeDetails.Jobs)
+        foreach (JobDetails? job in resumeDetails.Jobs)
         {
             sb.AppendLine($"### {job.Company} - {job.Title}");
             sb.AppendLine(
@@ -74,19 +74,19 @@ public class MarkupResumeStrategy : IResumeStrategy
             sb.AppendLine(job.Description);
             sb.AppendLine();
 
-            foreach (var highlight in job.Highlights)
+            foreach (HighlightDto? highlight in job.Highlights)
             {
                 sb.AppendLine($"- {highlight.Text}");
                 sb.AppendLine();
             }
 
             if (job.Projects.Any())
-                foreach (var project in job.Projects)
+                foreach (ProjectDetails? project in job.Projects)
                 {
                     sb.AppendLine($"#### Project: {project.Name}");
                     sb.AppendLine(project.Description);
 
-                    foreach (var projectHighlight in project.Highlights) sb.AppendLine($"- {projectHighlight.Text}");
+                    foreach (HighlightDto? projectHighlight in project.Highlights) sb.AppendLine($"- {projectHighlight.Text}");
                     sb.AppendLine();
                 }
 
@@ -98,18 +98,18 @@ public class MarkupResumeStrategy : IResumeStrategy
 
         // Education
         sb.AppendLine("## Education");
-        foreach (var school in resumeDetails.Education)
+        foreach (SchoolDetails? school in resumeDetails.Education)
         {
             sb.AppendLine($"### {school.Name}");
             sb.AppendLine(
                 $"*{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}*");
-            foreach (var degree in school.Degrees) sb.AppendLine($"- Degree: {degree.Name}");
+            foreach (DegreeDto? degree in school.Degrees) sb.AppendLine($"- Degree: {degree.Name}");
             sb.AppendLine();
         }
 
         // References
         sb.AppendLine("## References");
-        foreach (var reference in resumeDetails.References)
+        foreach (ReferenceDto? reference in resumeDetails.References)
         {
             sb.AppendLine($"### {reference.Name}");
             sb.AppendLine(reference.Text);
@@ -121,7 +121,7 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     private void UpdateReadMe(string resumeText)
     {
-        var fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ReadMePath));
+        string fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ReadMePath));
 
         if (File.Exists(fullPath))
         {
