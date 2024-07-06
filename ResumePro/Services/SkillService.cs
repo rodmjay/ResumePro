@@ -23,6 +23,6 @@ public class SkillService : BaseService<Skill>, ISkillService
 
     public Task<List<T>> GetSkills<T>() where T : SkillDto
     {
-        return Skills.AsNoTracking().ProjectTo<T>(ProjectionMapping).ToListAsync();
+        return Skills.AsNoTracking().ProjectTo<T>(Mapper).ToListAsync();
     }
 }

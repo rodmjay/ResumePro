@@ -28,7 +28,7 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonalSkillsSer
     {
         return PersonalSkills.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 

@@ -4,8 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
-using Microsoft.Build.Framework;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -37,7 +35,6 @@ public class ResumeService : BaseService<Resume>, IResumeService
     }
 
     private IQueryable<Resume> Resumes => Repository.Queryable();
-    private IQueryable<Reference> References => _referencesRepo.Queryable();
     private IQueryable<Job> Jobs => _jobRepository.Queryable();
 
     private IQueryable<PersonaSkill> PersonalSkills => _personalSkillsRepo.Queryable();
@@ -47,7 +44,8 @@ public class ResumeService : BaseService<Resume>, IResumeService
         var resume = await Resumes.Where(x => x.Id == resumeId && x.PersonaId == personId
                                   && x.OrganizationId == organizationId)
             .AsNoTracking()
-            .ProjectTo<T>(ProjectionMapping)
+            .AsSplitQuery()
+            .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
 
         return resume;
@@ -58,7 +56,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
         return Resumes.Where(x => x.PersonaId == personaId
                                   && x.OrganizationId == organizationId)
             .AsNoTracking()
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 

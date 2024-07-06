@@ -29,14 +29,14 @@ public class JobService : BaseService<Job>, IJobService
     {
         return Jobs.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
-            .ProjectTo<T>(ProjectionMapping).ToListAsync();
+            .ProjectTo<T>(Mapper).ToListAsync();
     }
 
     public Task<T> GetJob<T>(int organizationId, int personaId, int jobId) where T : JobDto
     {
         return Jobs.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId && x.Id == jobId)
-            .ProjectTo<T>(ProjectionMapping).FirstOrDefaultAsync();
+            .ProjectTo<T>(Mapper).FirstOrDefaultAsync();
     }
 
     public async Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options)

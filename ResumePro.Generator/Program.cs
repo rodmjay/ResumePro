@@ -31,7 +31,7 @@ internal class Program
         ServiceProvider = services!.ConfigureApp(configuration)
             .AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
-            .AddApplicationDependencies()
+            .RegisterAllServices(typeof(ApplicationContext).Assembly)
             .Build();
     }
 

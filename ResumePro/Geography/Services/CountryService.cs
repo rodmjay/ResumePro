@@ -12,7 +12,6 @@ using System.Runtime.CompilerServices;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ResumePro.Core.Data.Interfaces;
-using ResumePro.Core.Extensions;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Geography.Entities;
 using ResumePro.Geography.Interfaces;
@@ -37,7 +36,7 @@ namespace ResumePro.Geography.Services
         {
             return Countries.Where(x => x.Iso2 == id)
                 .AsNoTracking()
-                .ProjectTo<T>(ProjectionMapping)
+                .ProjectTo<T>(Mapper)
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
         }
@@ -50,7 +49,7 @@ namespace ResumePro.Geography.Services
 
         public Task<List<T>> GetStateProvincesForCountry<T>(string iso2) where T : StateProvinceOutput
         {
-            return StateProvinces.Where(x => x.Iso2 == iso2).ProjectTo<T>(ProjectionMapping)
+            return StateProvinces.Where(x => x.Iso2 == iso2).ProjectTo<T>(Mapper)
                 .AsNoTracking()
                 .ToListAsync();
         }

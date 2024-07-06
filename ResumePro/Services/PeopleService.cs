@@ -8,7 +8,6 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Extensions;
 using ResumePro.Core.Queries;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
@@ -42,7 +41,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
     public Task<T> GetPerson<T>(int organizationId, int personId) where T : PersonaDto
     {
         return People.AsNoTracking().Where(x => x.OrganizationId == organizationId && x.Id == personId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 

@@ -29,7 +29,7 @@ public class ProjectService : BaseService<Project>, IProjectService
     {
         return Projects.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 
@@ -37,7 +37,7 @@ public class ProjectService : BaseService<Project>, IProjectService
     {
         return Projects.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 

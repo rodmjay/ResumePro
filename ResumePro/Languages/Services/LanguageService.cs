@@ -1,6 +1,5 @@
 ﻿using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Extensions;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Languages.Entities;
 using ResumePro.Languages.Extensions;
@@ -26,7 +25,7 @@ namespace ResumePro.Languages.Services
 
         public Task<T> GetLanguage<T>(string code2)
         {
-            return Languages.Where(x=>x.Code2 == code2).ProjectTo<T>(ProjectionMapping).FirstAsync();
+            return Languages.Where(x=>x.Code2 == code2).ProjectTo<T>(Mapper).FirstAsync();
         }
     }
 }

@@ -5,6 +5,7 @@
 #endregion
 
 using AutoMapper;
+using NWebsec.AspNetCore.Middleware.Middleware;
 using ResumePro.Entities;
 using ResumePro.Shared;
 

@@ -4,30 +4,34 @@
 
 #endregion
 
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Core.Middleware.Builders;
-using ResumePro.Interfaces;
-using ResumePro.Services;
 
 namespace ResumePro.Extensions;
 
 public static class AppBuilderExtensions
 {
-    public static AppBuilder AddApplicationDependencies(this AppBuilder builder)
-    {
-        builder.Services.AddScoped<IResumeService, ResumeService>();
-        builder.Services.AddScoped<IPeopleService, PeopleService>();
-        builder.Services.AddScoped<ISkillService, SkillService>();
-        builder.Services.AddScoped<IJobService, JobService>();
-        builder.Services.AddScoped<IHighlightService, HighlightService>();
-        builder.Services.AddScoped<IPersonalSkillsService, PersonaSkillService>();
-        builder.Services.AddScoped<IDegreeService, DegreeService>();
-        builder.Services.AddScoped<IJobSkillService, JobSkillService>();
-        builder.Services.AddScoped<IReferenceService, ReferenceService>();
-        builder.Services.AddScoped<ISchoolService, SchoolService>();
-        builder.Services.AddScoped<IProjectService, ProjectService>();
-        builder.Services.AddScoped<IResumeSkillService, ResumeSkillService>();
 
+    public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
+    {
+        var typesWithInterfaces = assembly.GetTypes()
+            .Where(x => x.IsClass && !x.IsAbstract && x.GetInterfaces().Any())
+            .Select(x => new
+            {
+                Implementation = x,
+                Services = x.GetInterfaces().Where(i => i.Name == $"I{x.Name}")
+            })
+            .Where(x => x.Services.Any());
+
+
+        foreach (var type in typesWithInterfaces)
+        {
+            foreach (var service in type.Services)
+            {
+                builder.Services.AddScoped(service, type.Implementation);
+            }
+        }
         return builder;
     }
 }

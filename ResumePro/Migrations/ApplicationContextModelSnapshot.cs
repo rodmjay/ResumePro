@@ -22,6 +22,43 @@ namespace ResumePro.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ResumePro.Entities.Application", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("ApplicationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ApplicationStatus")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobPostingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationId", "JobPostingId");
+
+                    b.HasIndex("OrganizationId", "PersonaId");
+
+                    b.HasIndex("OrganizationId", "ResumeId");
+
+                    b.ToTable("Application");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Certification", b =>
                 {
                     b.Property<int>("OrganizationId")
@@ -47,6 +84,22 @@ namespace ResumePro.Migrations
                     b.HasIndex("OrganizationId", "PersonaId");
 
                     b.ToTable("Certification");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Company", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrganizationId", "Id");
+
+                    b.ToTable("Company");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Degree", b =>
@@ -575,6 +628,34 @@ namespace ResumePro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.HiringManager", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Department")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrganizationId", "Id");
+
+                    b.ToTable("HiringManager");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Property<int>("OrganizationId")
@@ -709,6 +790,178 @@ namespace ResumePro.Migrations
                             StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Engineer"
                         });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.JobCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Jobs related to developing and maintaining software applications.",
+                            Name = "Software Development"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Positions focused on promoting products and services.",
+                            Name = "Marketing"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Roles involved in selling products and services to customers.",
+                            Name = "Sales"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Jobs related to recruiting",
+                            Name = "Human Resources"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Positions focused on managing company finances and accounts.",
+                            Name = "Finance"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Roles involved in supporting and assisting customers.",
+                            Name = "Customer Service"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Jobs related to designing and building products or infrastructure.",
+                            Name = "Engineering"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Description = "Positions focused on overseeing product development and strategy.",
+                            Name = "Product Management"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Description = "Roles involved in managing day-to-day business operations.",
+                            Name = "Operations"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Description = "Jobs related to legal compliance and providing legal advice.",
+                            Name = "Legal"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Description = "Positions focused on administrative and clerical tasks.",
+                            Name = "Administrative"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Description = "Jobs related to providing technical support and managing IT systems.",
+                            Name = "IT Support"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Description = "Positions focused on innovating and developing new products.",
+                            Name = "Research and Development"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Description = "Roles involved in teaching and educational administration.",
+                            Name = "Education"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Description = "Jobs related to providing medical and healthcare services.",
+                            Name = "Healthcare"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Description = "Positions focused on managing supply chain and distribution.",
+                            Name = "Logistics"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Description = "Roles related to graphic design",
+                            Name = "Creative"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Description = "Jobs focused on ensuring product or service quality.",
+                            Name = "Quality Assurance"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Description = "Positions involved in the production of goods.",
+                            Name = "Manufacturing"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Description = "Roles related to planning and overseeing projects.",
+                            Name = "Project Management"
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.JobPosting", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("HiringManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("JobCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrganizationId", "Id");
+
+                    b.HasIndex("JobCategoryId");
+
+                    b.HasIndex("OrganizationId", "CompanyId");
+
+                    b.HasIndex("OrganizationId", "HiringManagerId");
+
+                    b.ToTable("JobPosting");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
@@ -6633,6 +6886,33 @@ namespace ResumePro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.Application", b =>
+                {
+                    b.HasOne("ResumePro.Entities.JobPosting", "JobPosting")
+                        .WithMany("Applications")
+                        .HasForeignKey("OrganizationId", "JobPostingId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Persona", "Persona")
+                        .WithMany("Applications")
+                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Resume", "Resume")
+                        .WithMany("Applications")
+                        .HasForeignKey("OrganizationId", "ResumeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("JobPosting");
+
+                    b.Navigation("Persona");
+
+                    b.Navigation("Resume");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Certification", b =>
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
@@ -6682,6 +6962,33 @@ namespace ResumePro.Migrations
                         .IsRequired();
 
                     b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.JobPosting", b =>
+                {
+                    b.HasOne("ResumePro.Entities.JobCategory", "JobCategory")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("JobCategoryId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Company", "Company")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("OrganizationId", "CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.HiringManager", "HiringManager")
+                        .WithMany("JobPostings")
+                        .HasForeignKey("OrganizationId", "HiringManagerId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("HiringManager");
+
+                    b.Navigation("JobCategory");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
@@ -6863,6 +7170,16 @@ namespace ResumePro.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.Company", b =>
+                {
+                    b.Navigation("JobPostings");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.HiringManager", b =>
+                {
+                    b.Navigation("JobPostings");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Navigation("Highlights");
@@ -6874,8 +7191,20 @@ namespace ResumePro.Migrations
                     b.Navigation("Skills");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.JobCategory", b =>
+                {
+                    b.Navigation("JobPostings");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.JobPosting", b =>
+                {
+                    b.Navigation("Applications");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
                 {
+                    b.Navigation("Applications");
+
                     b.Navigation("Certifications");
 
                     b.Navigation("Jobs");
@@ -6910,6 +7239,8 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
+                    b.Navigation("Applications");
+
                     b.Navigation("Jobs");
 
                     b.Navigation("References");

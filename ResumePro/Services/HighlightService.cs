@@ -30,7 +30,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         return Highlights
             .AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 
@@ -39,7 +39,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         return Highlights
             .AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.Id == highlightId)
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 

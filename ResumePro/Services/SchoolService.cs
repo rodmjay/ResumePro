@@ -29,7 +29,7 @@ public class SchoolService : BaseService<School>, ISchoolService
     {
         return Schools.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .AsNoTracking()
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 
@@ -37,7 +37,7 @@ public class SchoolService : BaseService<School>, ISchoolService
     {
         return Schools.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == schoolId)
             .AsNoTracking()
-            .ProjectTo<T>(ProjectionMapping)
+            .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 

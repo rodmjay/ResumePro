@@ -11,6 +11,7 @@
     <None Remove="Seeding\csv\degrees.csv" />
     <None Remove="Seeding\csv\highlights.csv" />
     <None Remove="Seeding\csv\jobs.csv" />
+    <None Remove="Seeding\csv\job_categories.csv" />
     <None Remove="Seeding\csv\job_skills.csv" />
     <None Remove="Seeding\csv\languages.csv" />
     <None Remove="Seeding\csv\personas.csv" />
@@ -33,6 +34,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\degrees.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Seeding\csv\job_categories.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Seeding\csv\languages.csv">

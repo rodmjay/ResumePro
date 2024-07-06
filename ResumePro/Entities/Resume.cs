@@ -18,6 +18,7 @@ public class Resume : BaseEntity<Resume>, IResume
     public ICollection<ResumeJob> Jobs { get; set; } = new List<ResumeJob>();
     public ICollection<ResumeSkill> Skills { get; set; } = new List<ResumeSkill>();
     public ICollection<ResumeReference> References { get; set; } = new List<ResumeReference>();
+    public ICollection<Application> Applications { get; set; } = new List<Application>();
     public int PersonaId { get; set; }
     public int Id { get; set; }
     public string JobTitle { get; set; }
