@@ -4,6 +4,7 @@
 - **Phone:** {{phoneNumber}}
 - **LinkedIn:** {{linkedIn}}
 - **GitHub:** {{gitHub}}
+- **Languages:** {{languageString}}
 
 ## Description
 {{description}}
