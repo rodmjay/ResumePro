@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -38,7 +38,6 @@ public static class IdentityBuilderExtensions
                 options.EmitStaticAudienceClaim = true;
 
                 options.UserInteraction.LoginUrl = "/Account/Login";
-
             })
             .AddConfigurationStore<ApplicationContext>(options =>
             {

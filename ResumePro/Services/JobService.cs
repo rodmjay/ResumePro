@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -56,15 +55,13 @@ public class JobService : BaseService<Job>, IJobService
         };
 
         var results = Repository.InsertOrUpdateGraph(job, true);
-        if (results > 0)
-        {
-            return await GetJob<JobDetails>(organizationId, personId, job.Id);
-        }
+        if (results > 0) return await GetJob<JobDetails>(organizationId, personId, job.Id);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<JobDetails, Result>> UpdateJob(int organizationId, int personId, int jobId, JobOptions options)
+    public async Task<OneOf<JobDetails, Result>> UpdateJob(int organizationId, int personId, int jobId,
+        JobOptions options)
     {
         var job = await Jobs.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
@@ -81,10 +78,7 @@ public class JobService : BaseService<Job>, IJobService
         job.Title = options.Title;
 
         var results = Repository.InsertOrUpdateGraph(job, true);
-        if (results > 0)
-        {
-            return await GetJob<JobDetails>(organizationId, personId, jobId);
-        }
+        if (results > 0) return await GetJob<JobDetails>(organizationId, personId, jobId);
 
         return Result.Failed();
     }
@@ -92,46 +86,31 @@ public class JobService : BaseService<Job>, IJobService
     public async Task<Result> DeleteJob(int organizationId, int personId, int jobId)
     {
         var job = await Jobs
-            .Include(x=>x.Highlights)
-            .Include(x=>x.Resumes)
-            .Include(x=>x.Projects)
-            .ThenInclude(x=>x.Highlights)
-            .Include(x=>x.Skills)
+            .Include(x => x.Highlights)
+            .Include(x => x.Resumes)
+            .Include(x => x.Projects)
+            .ThenInclude(x => x.Highlights)
+            .Include(x => x.Skills)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
-        if (job == null)
-        {
-            return Result.Failed();
-        }
+        if (job == null) return Result.Failed();
 
         job.ObjectState = ObjectState.Deleted;
 
-        foreach (var highlight in job.Highlights)
-        {
-            highlight.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var highlight in job.Highlights) highlight.ObjectState = ObjectState.Deleted;
 
-        foreach (var resume in job.Resumes)
-        {
-            resume.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var resume in job.Resumes) resume.ObjectState = ObjectState.Deleted;
 
         foreach (var project in job.Projects)
         {
             project.ObjectState = ObjectState.Deleted;
 
-            foreach (var highlight in project.Highlights)
-            {
-                highlight.ObjectState = ObjectState.Deleted;
-            }
+            foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
         }
 
         var results = Repository.InsertOrUpdateGraph(job, true);
-        if (results > 0)
-        {
-            return Result.Success();
-        }
+        if (results > 0) return Result.Success();
 
         return Result.Failed();
     }
@@ -149,5 +128,4 @@ public class JobService : BaseService<Job>, IJobService
 
         return job.Id + 1;
     }
-
 }

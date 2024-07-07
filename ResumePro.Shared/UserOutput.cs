@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Header Info
 
-namespace ResumePro.Shared
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Shared;
+
+public class UserOutput
 {
-    public class UserOutput
-    {
-    }
 }

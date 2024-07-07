@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -13,7 +12,6 @@ using ResumePro.Entities;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
-using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
@@ -30,7 +28,7 @@ public class ProjectService : BaseService<Project>, IProjectService
     {
         return Projects.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
-            .OrderBy(x=>x.Order)
+            .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -43,7 +41,8 @@ public class ProjectService : BaseService<Project>, IProjectService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId, ProjectOptions options)
+    public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId,
+        ProjectOptions options)
     {
         var lastProject = await
             Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
@@ -65,24 +64,18 @@ public class ProjectService : BaseService<Project>, IProjectService
 
 
         if (lastProject == null)
-        {
             project.Order = 1;
-        }
         else
-        {
             project.Order = lastProject.Order + 1;
-        }
 
         var results = Repository.InsertOrUpdateGraph(project, true);
-        if (results > 0)
-        {
-            return await GetProject<ProjectDetails>(organizationId, project.Id);
-        }
+        if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId, ProjectOptions options)
+    public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
+        ProjectOptions options)
     {
         var project = await Projects.Where(x => x.OrganizationId == organizationId && x.Id == projectId)
             .FirstOrDefaultAsync();
@@ -105,32 +98,23 @@ public class ProjectService : BaseService<Project>, IProjectService
         project.Order = options.Order;
 
 
-        int index = options.Order - 1;
+        var index = options.Order - 1;
 
-        if (index < 0)
-        {
-            index = 0;
-        }
-        if (index > projects.Count)
-        {
-            index = projects.Count;
-        }
+        if (index < 0) index = 0;
+        if (index > projects.Count) index = projects.Count;
 
         projects.Insert(index, project);
 
-        for (int i = 0; i < projects.Count; i++)
+        for (var i = 0; i < projects.Count; i++)
         {
             projects[i].Order = i + 1;
             projects[i].ObjectState = ObjectState.Modified;
 
-            Repository.InsertOrUpdateGraph(projects[0], false);
+            Repository.InsertOrUpdateGraph(projects[0]);
         }
 
         var results = Repository.Commit();
-        if (results > 0)
-        {
-            return await GetProject<ProjectDetails>(organizationId, project.Id);
-        }
+        if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
         return Result.Failed();
     }
@@ -138,7 +122,7 @@ public class ProjectService : BaseService<Project>, IProjectService
     public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
     {
         var project = await Projects
-            .Include(x=>x.Highlights)
+            .Include(x => x.Highlights)
             .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
             .FirstOrDefaultAsync();
 
@@ -147,16 +131,10 @@ public class ProjectService : BaseService<Project>, IProjectService
 
         project.ObjectState = ObjectState.Deleted;
 
-        foreach (var highlight in project.Highlights)
-        {
-            highlight.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
 
         var changes = Repository.InsertOrUpdateGraph(project, true);
-        if (changes > 0)
-        {
-            return Result.Success();
-        }
+        if (changes > 0) return Result.Success();
 
         return Result.Failed();
     }
@@ -169,10 +147,7 @@ public class ProjectService : BaseService<Project>, IProjectService
             .OrderByDescending(x => x.Id)
             .FirstOrDefaultAsync();
 
-        if (project == null)
-        {
-            return 1;
-        }
+        if (project == null) return 1;
 
         return project.Id + 1;
     }

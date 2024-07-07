@@ -24,12 +24,12 @@ public class Resume : BaseEntity<Resume>, IResume
 
     public override void Configure(EntityTypeBuilder<Resume> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.Id });
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Resumes)
-            .HasForeignKey(x => new { x.OrganizationId, x.PersonaId })
-            .HasPrincipalKey(x => new { x.OrganizationId, x.Id })
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

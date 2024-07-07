@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -12,18 +9,17 @@ using ResumePro.Geography.Entities;
 using ResumePro.Geography.Models;
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Projections
-{
-    public class StateProvinceProjections : Profile
-    {
-        public StateProvinceProjections()
-        {
-            CreateMap<StateProvince, StateProvinceOutput>()
-                .IncludeAllDerived();
+namespace ResumePro.Geography.Projections;
 
-            CreateMap<StateProvince, DropdownItem>()
-                .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
-                .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Id));
-        }
+public class StateProvinceProjections : Profile
+{
+    public StateProvinceProjections()
+    {
+        CreateMap<StateProvince, StateProvinceOutput>()
+            .IncludeAllDerived();
+
+        CreateMap<StateProvince, DropdownItem>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
+            .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Id));
     }
 }

@@ -11,5 +11,4 @@ namespace ResumePro.Interfaces;
 
 public interface IJobSkillService : IService<JobSkill>
 {
-
 }

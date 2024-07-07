@@ -1,9 +1,8 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
-
 
 namespace ResumePro.Languages.Interfaces;
 

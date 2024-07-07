@@ -18,6 +18,9 @@ public interface IProjectService : IService<Project>
     Task<List<T>> GetProjects<T>(int organizationId, int jobId) where T : ProjectDto;
     Task<T> GetProject<T>(int organizationId, int projectId) where T : ProjectDto;
     Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId, ProjectOptions options);
-    Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId, ProjectOptions options);
+
+    Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
+        ProjectOptions options);
+
     Task<Result> DeleteProject(int organizationId, int jobId, int projectId);
 }

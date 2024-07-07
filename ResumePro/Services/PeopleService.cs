@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -28,12 +27,13 @@ public class PeopleService : BaseService<Persona>, IPeopleService
 
     private IQueryable<Persona> People => Repository.Queryable();
 
-    public async Task<PagedList<T>> GetPeople<T>(int organizationId, PersonaFilters filters, PagingQuery paging) where T : PersonaDto
+    public async Task<PagedList<T>> GetPeople<T>(int organizationId, PersonaFilters filters, PagingQuery paging)
+        where T : PersonaDto
     {
         if (filters == null) filters = new PersonaFilters();
 
         var expr = filters.GetExpression()
-            .And(x=>x.OrganizationId == organizationId);
+            .And(x => x.OrganizationId == organizationId);
 
         return await this.PaginateAsync<Persona, T>(expr, paging);
     }
@@ -57,11 +57,10 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         person.ObjectState = ObjectState.Modified;
 
         var results = Repository.InsertOrUpdateGraph(person, true);
-        if(results > 0)
+        if (results > 0)
             return Result.Success();
 
         return Result.Failed();
-
     }
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
@@ -82,15 +81,13 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         };
 
         var result = Repository.InsertOrUpdateGraph(person, true);
-        if (result > 0)
-        {
-            return await GetPerson<PersonaDetails>(organizationId, person.Id);
-        }
-        
+        if (result > 0) return await GetPerson<PersonaDetails>(organizationId, person.Id);
+
         return Result.Failed();
     }
 
-    public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId, PersonaOptions options)
+    public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId,
+        PersonaOptions options)
     {
         var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)
             .FirstOrDefaultAsync();
@@ -117,7 +114,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
     {
         var result = await People.AsNoTracking()
             .IgnoreQueryFilters()
-            .OrderByDescending(x=>x.Id)
+            .OrderByDescending(x => x.Id)
             .Where(x => x.OrganizationId == organizationId)
             .FirstOrDefaultAsync();
 

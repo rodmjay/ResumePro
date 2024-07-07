@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Diagnostics;
+﻿#region Header Info
 
-namespace ResumePro.Core.Data
-{
-}
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Core.Data;

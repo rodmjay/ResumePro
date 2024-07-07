@@ -1,16 +1,18 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
 using Microsoft.JSInterop;
 
 namespace TranslationPro.Blazor.Services;
+
 public class FormResponse
 {
     public string Value { get; set; }
 }
+
 public class SessionStorageInterop
 {
     private readonly IJSRuntime _jsRuntime;

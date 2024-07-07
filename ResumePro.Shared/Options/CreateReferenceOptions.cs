@@ -4,9 +4,10 @@
 
 #endregion
 
-namespace ResumePro.Languages.Models;
+namespace ResumePro.Shared.Options;
 
-public class LanguageFilters
+public class CreateReferenceOptions
 {
+    public string Text { get; set; }
     public string Name { get; set; }
 }

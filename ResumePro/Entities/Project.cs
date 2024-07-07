@@ -28,7 +28,7 @@ public class Project : BaseEntity<Project>, IProject
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Projects)
-            .HasForeignKey(x => new{x.OrganizationId, x.JobId})
-            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id});
+            .HasForeignKey(x => new {x.OrganizationId, x.JobId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id});
     }
 }

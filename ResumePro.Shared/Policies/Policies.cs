@@ -1,16 +1,21 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿#region Header Info
 
-namespace ResumePro.Shared.Policies
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Authorization;
+
+namespace ResumePro.Shared.Policies;
+
+public static class Policies
 {
-    public static class Policies
-    {
-        public const string CanAccessApis = "CanAccessApi";
+    public const string CanAccessApis = "CanAccessApi";
 
-        public static AuthorizationPolicy CanAccessApi()
-        {
-            return new AuthorizationPolicyBuilder()
-                .RequireAuthenticatedUser()
-                .Build();
-        }
+    public static AuthorizationPolicy CanAccessApi()
+    {
+        return new AuthorizationPolicyBuilder()
+            .RequireAuthenticatedUser()
+            .Build();
     }
 }

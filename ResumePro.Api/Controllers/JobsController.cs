@@ -41,10 +41,7 @@ public class JobsController : BaseController
     {
         var result = await _jobService.CreateJob(OrganizationId, personId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
@@ -55,10 +52,7 @@ public class JobsController : BaseController
     {
         var result = await _jobService.UpdateJob(OrganizationId, personId, jobId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

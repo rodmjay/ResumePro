@@ -30,7 +30,7 @@ public class SchoolsController : BaseController
     }
 
     [HttpGet("{schoolId}")]
-    public async Task<SchoolDetails> GetSchool([FromRoute] int personId, [FromRoute]int schoolId)
+    public async Task<SchoolDetails> GetSchool([FromRoute] int personId, [FromRoute] int schoolId)
     {
         return await _schoolService.GetSchool<SchoolDetails>(OrganizationId, personId, schoolId)
             .ConfigureAwait(false);
@@ -43,10 +43,7 @@ public class SchoolsController : BaseController
     {
         var result = await _schoolService.UpdateSchool(OrganizationId, personId, schoolId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
@@ -63,14 +60,11 @@ public class SchoolsController : BaseController
 
     [HttpPost]
     public async Task<ActionResult<SchoolDetails>> CreateSchool([FromRoute] int personId,
-        [FromBody]SchoolOptions options)
+        [FromBody] SchoolOptions options)
     {
         var result = await _schoolService.CreateSchool(OrganizationId, personId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

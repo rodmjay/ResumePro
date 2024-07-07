@@ -42,10 +42,7 @@ public class ResumeController : BaseController
     {
         var result = await _resumeService.CreateResume(OrganizationId, personId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
@@ -57,10 +54,7 @@ public class ResumeController : BaseController
     {
         var result = await _resumeService.UpdateResume(OrganizationId, personId, resumeId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

@@ -14,18 +14,18 @@ namespace ResumePro.Entities;
 public class PersonaSkill : BaseEntity<PersonaSkill>, IPersonaSkill
 {
     public int OrganizationId { get; set; }
-    public int PersonaId { get; set; }
     public Persona Persona { get; set; }
-    public int SkillId { get; set; }
     public Skill Skill { get; set; }
-    public int Rating { get; set; }
     public ICollection<JobSkill> Jobs { get; set; }
 
     public ICollection<ResumeSkill> Resumes { get; set; }
+    public int PersonaId { get; set; }
+    public int SkillId { get; set; }
+    public int Rating { get; set; }
 
     public override void Configure(EntityTypeBuilder<PersonaSkill> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.PersonaId, x.SkillId });
+        builder.HasKey(x => new {x.OrganizationId, x.PersonaId, x.SkillId});
 
         builder.HasOne(x => x.Skill)
             .WithMany(x => x.Personas)
@@ -34,8 +34,8 @@ public class PersonaSkill : BaseEntity<PersonaSkill>, IPersonaSkill
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Skills)
-            .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})
-            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

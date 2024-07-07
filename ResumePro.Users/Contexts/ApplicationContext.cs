@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -18,9 +18,8 @@ namespace ResumePro.Users.Contexts;
 
 public class ApplicationContext : BaseContext<ApplicationContext>, IConfigurationDbContext, IPersistedGrantDbContext
 {
+    private static readonly string IdentityServerSchema = "IdentityServer";
     private readonly ILoggerFactory _loggerFactory;
-
-    private static string IdentityServerSchema = "IdentityServer";
 
     public ApplicationContext(
         DbContextOptions<ApplicationContext> options, ILoggerFactory loggerFactory) :
@@ -86,8 +85,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>, IConfiguratio
             ClientSecret = new TableConfiguration("ClientSecret", IdentityServerSchema),
             IdentityResourceClaim = new TableConfiguration("IdentityResourceClaim", IdentityServerSchema),
             IdentityResourceProperty = new TableConfiguration("IdentityResourceProperty", IdentityServerSchema),
-            IdentityProvider = new TableConfiguration("IdentityProvider", IdentityServerSchema),
-
+            IdentityProvider = new TableConfiguration("IdentityProvider", IdentityServerSchema)
         };
         var operationalStoreOptions = new OperationalStoreOptions
         {
@@ -134,7 +132,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>, IConfiguratio
         builder.Entity<Role>().Seed("roles.csv");
         builder.Entity<UserRole>().Seed("userRoles.csv");
     }
-    
+
     protected override void SeedDatabase(ModelBuilder builder)
     {
         // these should be placed in the Seeding/csv folder for it to work

@@ -20,11 +20,11 @@ public class Degree : BaseEntity<Degree>, IDegree
 
     public override void Configure(EntityTypeBuilder<Degree> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.Id });
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.School)
             .WithMany(x => x.Degrees)
-            .HasForeignKey(x => new { x.OrganizationId, x.SchoolId })
-            .HasPrincipalKey(x => new { x.OrganizationId, x.Id });
+            .HasForeignKey(x => new {x.OrganizationId, x.SchoolId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id});
     }
 }

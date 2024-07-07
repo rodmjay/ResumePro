@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -41,9 +40,10 @@ public class SchoolService : BaseService<School>, ISchoolService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<SchoolDetails, Result>> CreateSchool(int organizationId, int personId, SchoolOptions options)
+    public async Task<OneOf<SchoolDetails, Result>> CreateSchool(int organizationId, int personId,
+        SchoolOptions options)
     {
-        var school = new School()
+        var school = new School
         {
             Id = await GetNextSchoolId(organizationId),
             ObjectState = ObjectState.Added,
@@ -55,15 +55,13 @@ public class SchoolService : BaseService<School>, ISchoolService
         };
 
         var results = Repository.InsertOrUpdateGraph(school, true);
-        if (results > 0)
-        {
-            return await GetSchool<SchoolDetails>(organizationId, personId, school.Id);
-        }
+        if (results > 0) return await GetSchool<SchoolDetails>(organizationId, personId, school.Id);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<SchoolDetails, Result>> UpdateSchool(int organizationId, int personId, int schoolId, SchoolOptions options)
+    public async Task<OneOf<SchoolDetails, Result>> UpdateSchool(int organizationId, int personId, int schoolId,
+        SchoolOptions options)
     {
         var school = await Schools
             .Where(x => x.OrganizationId == organizationId && x.Id == schoolId)
@@ -78,10 +76,7 @@ public class SchoolService : BaseService<School>, ISchoolService
         school.ObjectState = ObjectState.Modified;
 
         var result = Repository.InsertOrUpdateGraph(school, true);
-        if (result > 0)
-        {
-            return await GetSchool<SchoolDetails>(organizationId, personId, schoolId);
-        }
+        if (result > 0) return await GetSchool<SchoolDetails>(organizationId, personId, schoolId);
 
         return Result.Failed();
     }
@@ -97,16 +92,10 @@ public class SchoolService : BaseService<School>, ISchoolService
 
         school.ObjectState = ObjectState.Deleted;
 
-        foreach (var degree in school.Degrees)
-        {
-            degree.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var degree in school.Degrees) degree.ObjectState = ObjectState.Deleted;
 
         var results = Repository.InsertOrUpdateGraph(school, true);
-        if (results > 0)
-        {
-            return Result.Success();
-        }
+        if (results > 0) return Result.Success();
 
         return Result.Failed();
     }
@@ -119,10 +108,7 @@ public class SchoolService : BaseService<School>, ISchoolService
             .OrderByDescending(x => x.Id)
             .FirstOrDefaultAsync();
 
-        if (school == null)
-        {
-            return 1;
-        }
+        if (school == null) return 1;
 
         return school.Id + 1;
     }

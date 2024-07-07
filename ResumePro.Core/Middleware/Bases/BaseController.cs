@@ -32,15 +32,9 @@ public class BaseController : ControllerBase
             var organizationIdClaim = User.Claims.FirstOrDefault(c => c.Type == "organizationId")?.Value;
 
             // Try parsing the claim value to an integer
-            if (int.TryParse(organizationIdClaim, out int organizationId))
-            {
+            if (int.TryParse(organizationIdClaim, out var organizationId))
                 return organizationId;
-            }
-            else
-            {
-                // Handle the case where the claim is missing or not an integer
-                throw new Exception("The organizationId claim is missing or not a valid integer.");
-            }
+            throw new Exception("The organizationId claim is missing or not a valid integer.");
         }
     }
 }

@@ -10,6 +10,10 @@ namespace ResumePro.Shared;
 
 public class PersonaDto : IPersona
 {
+    public string State { get; set; }
+    public int Skills { get; set; }
+    public int Resumes { get; set; }
+    public string Country { get; set; }
     public int Id { get; set; }
 
     public string FirstName { get; set; }
@@ -19,9 +23,5 @@ public class PersonaDto : IPersona
     public string LinkedIn { get; set; }
     public string GitHub { get; set; }
     public string City { get; set; }
-    public string State { get; set; }
     public int OrganizationId { get; set; }
-    public int Skills { get; set; }
-    public int Resumes { get; set; }
-    public string Country { get; set; }
 }

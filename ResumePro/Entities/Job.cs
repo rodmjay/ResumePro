@@ -30,12 +30,12 @@ public class Job : BaseEntity<Job>, IJob
 
     public override void Configure(EntityTypeBuilder<Job> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.Id });
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Jobs)
-            .HasForeignKey(x => new { x.OrganizationId, x.PersonaId })
-            .HasPrincipalKey(x => new { x.OrganizationId, x.Id })
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

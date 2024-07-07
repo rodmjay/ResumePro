@@ -1,7 +1,11 @@
-﻿namespace ResumePro.Users
-{
-    public class Class1
-    {
+﻿#region Header Info
 
-    }
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Users;
+
+public class Class1
+{
 }

@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -12,13 +9,12 @@ using ResumePro.Geography.Entities;
 using ResumePro.Geography.Models;
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Interfaces
-{
-    public interface ICountryStore
-    {
-        Task<T> GetCountry<T>(string iso2) where T : CountryOutput;
+namespace ResumePro.Geography.Interfaces;
 
-        Task<PagedList<T>> GetCountries<T>(Expression<Func<Country, bool>> predicate, PagingQuery paging)
-            where T : CountryOutput;
-    }
+public interface ICountryStore
+{
+    Task<T> GetCountry<T>(string iso2) where T : CountryOutput;
+
+    Task<PagedList<T>> GetCountries<T>(Expression<Func<Country, bool>> predicate, PagingQuery paging)
+        where T : CountryOutput;
 }

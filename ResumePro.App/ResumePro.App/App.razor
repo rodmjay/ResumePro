@@ -1,24 +1,24 @@
 ﻿@using ResumePro.App.Layouts
 <Blazorise.ThemeProvider Theme="@theme">
-    
+
     <CascadingAuthenticationState>
-        
+
         <Router AppAssembly="typeof(App).Assembly">
             <Found Context="routeData">
-                
+
                 <AuthorizeRouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)">
-                    
+
                     <NotAuthorized>
                         @if (!context.User.Identity.IsAuthenticated)
                         {
-                            <RedirectToLogin />
+                            <RedirectToLogin/>
                         }
                         else
                         {
                             <p>You do not have permission to view this page.</p>
                         }
                     </NotAuthorized>
-                    
+
                     <Authorizing>
                         <div>Authenticating...</div>
                     </Authorizing>
@@ -31,45 +31,46 @@
         </Router>
 
     </CascadingAuthenticationState>
-    
 
-   
-    
+
     <MessageProvider/>
     <PageProgressProvider/>
 </Blazorise.ThemeProvider>
+
 @code {
-    private Theme theme = new()
+
+    private readonly Theme theme = new()
+    {
+        BarOptions = new ThemeBarOptions
         {
-            BarOptions = new()
-            {
-                HorizontalHeight = "72px"
-            },
-            ColorOptions = new()
-            {
-                Primary = "#0288D1",
-                Secondary = "#A65529",
-                Success = "#23C02E",
-                Info = "#9BD8FE",
-                Warning = "#F8B86C",
-                Danger = "#F95741",
-                Light = "#F0F0F0",
-                Dark = "#535353",
-            },
-            BackgroundOptions = new()
-            {
-                Primary = "#0288D1",
-                Secondary = "#A65529",
-                Success = "#23C02E",
-                Info = "#9BD8FE",
-                Warning = "#F8B86C",
-                Danger = "#F95741",
-                Light = "#F0F0F0",
-                Dark = "#535353",
-            },
-            InputOptions = new()
-            {
-                CheckColor = "#0288D1",
-            }
-        };
+            HorizontalHeight = "72px"
+        },
+        ColorOptions = new ThemeColorOptions
+        {
+            Primary = "#0288D1",
+            Secondary = "#A65529",
+            Success = "#23C02E",
+            Info = "#9BD8FE",
+            Warning = "#F8B86C",
+            Danger = "#F95741",
+            Light = "#F0F0F0",
+            Dark = "#535353"
+        },
+        BackgroundOptions = new ThemeBackgroundOptions
+        {
+            Primary = "#0288D1",
+            Secondary = "#A65529",
+            Success = "#23C02E",
+            Info = "#9BD8FE",
+            Warning = "#F8B86C",
+            Danger = "#F95741",
+            Light = "#F0F0F0",
+            Dark = "#535353"
+        },
+        InputOptions = new ThemeInputOptions
+        {
+            CheckColor = "#0288D1"
+        }
+    };
+
 }

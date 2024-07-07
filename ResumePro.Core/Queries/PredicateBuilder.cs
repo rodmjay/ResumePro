@@ -44,27 +44,23 @@ public static class PredicateBuilder
     public static Expression<Func<T, bool>> BuildLikeExpression<T>(string[] keywords,
         Expression<Func<T, string>> action)
     {
-        MemberExpression body = (MemberExpression) action.Body;
-        string name = body.Member.Name;
+        var body = (MemberExpression) action.Body;
+        var name = body.Member.Name;
 
         Expression expression = null!;
-        ParameterExpression parameterExpression = Expression.Parameter(typeof(T), "x");
-        MemberExpression property = Expression.Property(parameterExpression, name);
+        var parameterExpression = Expression.Parameter(typeof(T), "x");
+        var property = Expression.Property(parameterExpression, name);
         foreach (var keyword in keywords)
         {
-            string normalized = $"%{keyword}";
-            ConstantExpression constant = Expression.Constant(normalized);
-            MethodCallExpression methodCallExpression = Expression.Call(typeof(DbFunctionsExtensions),
+            var normalized = $"%{keyword}";
+            var constant = Expression.Constant(normalized);
+            var methodCallExpression = Expression.Call(typeof(DbFunctionsExtensions),
                 nameof(DbFunctionsExtensions.Like), null, Expression.Constant(EF.Functions), property, constant);
 
             if (expression == null)
-            {
                 expression = methodCallExpression;
-            }
             else
-            {
                 expression = Expression.OrElse(expression, methodCallExpression);
-            }
         }
 
         return Expression.Lambda<Func<T, bool>>(expression, parameterExpression);

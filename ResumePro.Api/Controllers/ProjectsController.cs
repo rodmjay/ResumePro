@@ -23,7 +23,8 @@ public class ProjectsController : BaseController
     }
 
     [HttpGet("{projectId}")]
-    public async Task<ProjectDetails> GetProject([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int projectId)
+    public async Task<ProjectDetails> GetProject([FromRoute] int personId, [FromRoute] int jobId,
+        [FromRoute] int projectId)
     {
         return await _projectService.GetProject<ProjectDetails>(OrganizationId, projectId)
             .ConfigureAwait(false);
@@ -42,24 +43,18 @@ public class ProjectsController : BaseController
     {
         var result = await _projectService.CreateProject(OrganizationId, jobId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
 
     [HttpPut("{projectId}")]
     public async Task<ActionResult<ProjectDetails>> Update([FromRoute] int personId, [FromRoute] int jobId,
-        [FromRoute]int projectId, [FromBody] ProjectOptions options)
+        [FromRoute] int projectId, [FromBody] ProjectOptions options)
     {
         var result = await _projectService.UpdateProject(OrganizationId, jobId, projectId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

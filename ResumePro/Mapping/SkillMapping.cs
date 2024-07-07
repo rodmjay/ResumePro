@@ -12,12 +12,9 @@ namespace ResumePro.Mapping;
 
 public class SkillMapping : Profile
 {
-    
-
     public SkillMapping()
     {
         CreateMap<Skill, SkillDto>()
             .IncludeAllDerived();
-
     }
 }

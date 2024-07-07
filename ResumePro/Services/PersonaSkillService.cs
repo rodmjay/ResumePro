@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Services.Bases;
@@ -41,13 +40,13 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonalSkillsSer
 
         if (personalSkill == null)
         {
-            personalSkill = new PersonaSkill()
+            personalSkill = new PersonaSkill
             {
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId,
                 PersonaId = personId,
                 SkillId = options.SkillId,
-                Rating = options.Rating,
+                Rating = options.Rating
             };
         }
         else
@@ -57,10 +56,7 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonalSkillsSer
         }
 
         var changes = Repository.InsertOrUpdateGraph(personalSkill, true);
-        if (changes > 0)
-        {
-            return Result.Success();
-        }
+        if (changes > 0) return Result.Success();
 
         return Result.Failed();
     }

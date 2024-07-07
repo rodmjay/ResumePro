@@ -36,15 +36,15 @@ $(document).ready(function() {
 
     function applyPasswordCheck() {
 
-        var txt = $checkPassword.val();
+        const txt = $checkPassword.val();
 
-        var containsLowercase = $("#contains-lowercase");
-        var containsUppercase = $("#contains-uppercase");
-        var containsNonAlphaNumeric = $("#contains-nonalphanum");
-        var containsNumber = $("#contains-number");
-        var containsMinLength = $("#contains-min-length");
+        const containsLowercase = $("#contains-lowercase");
+        const containsUppercase = $("#contains-uppercase");
+        const containsNonAlphaNumeric = $("#contains-nonalphanum");
+        const containsNumber = $("#contains-number");
+        const containsMinLength = $("#contains-min-length");
 
-        var requirementMet = "requirement-met";
+        const requirementMet = "requirement-met";
 
         if (/[a-z]/.test(txt)) {
 

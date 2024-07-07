@@ -13,4 +13,6 @@ public interface IReference
     string Text { get; set; }
     string Name { get; set; }
     string PhoneNumber { get; set; }
+    int Order { get; set; }
+    int OrganizationId { get; set; }
 }

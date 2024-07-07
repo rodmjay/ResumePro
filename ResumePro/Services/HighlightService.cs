@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -22,7 +21,8 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
 {
     private readonly IRepositoryAsync<Job> _jobRepository;
 
-    public HighlightService(IServiceProvider serviceProvider, IRepositoryAsync<Job> jobRepository) : base(serviceProvider)
+    public HighlightService(IServiceProvider serviceProvider, IRepositoryAsync<Job> jobRepository) : base(
+        serviceProvider)
     {
         _jobRepository = jobRepository;
     }
@@ -35,7 +35,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         return Highlights
             .AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
-            .OrderBy(x=>x.Order)
+            .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -49,53 +49,49 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId, CreateHighlightOptions options)
+    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
+        int? projectId, CreateHighlightOptions options)
     {
         var lastHighlight = await
             Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
-            .AsNoTracking()
-            .OrderByDescending(x => x.Order)
-            .FirstOrDefaultAsync();
+                .AsNoTracking()
+                .OrderByDescending(x => x.Order)
+                .FirstOrDefaultAsync();
 
         var highlight = new Highlight
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
             Text = options.Text,
+            ProjectId = projectId,
             JobId = jobId,
             Id = await GetNextHighlightId(organizationId)
         };
 
         if (lastHighlight == null)
-        {
             highlight.Order = 1;
-        }
         else
-        {
             highlight.Order = lastHighlight.Order + 1;
-        }
 
         var results = Repository.InsertOrUpdateGraph(highlight, true);
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, null);
+            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, projectId);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int highlightId, HighlightOptions options)
+    public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId,
+        int highlightId, HighlightOptions options)
     {
         var highlight = await Highlights
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId)
             .FirstOrDefaultAsync();
 
-        if (highlight == null)
-        {
-            return Result.Failed();
-        }
+        if (highlight == null) return Result.Failed();
 
         var highlights = await Highlights
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
-            .OrderBy(x=>x.Order)
+            .OrderBy(x => x.Order)
             .ToListAsync();
 
         highlights.Remove(highlight);
@@ -103,25 +99,19 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         highlight.Text = options.Text;
         highlight.ObjectState = ObjectState.Modified;
 
-        int index = options.Order - 1;
+        var index = options.Order - 1;
 
-        if (index < 0)
-        {
-            index = 0;
-        }
-        if (index > highlights.Count)
-        {
-            index = highlights.Count;
-        }
+        if (index < 0) index = 0;
+        if (index > highlights.Count) index = highlights.Count;
 
         highlights.Insert(index, highlight);
 
-        for (int i = 0; i < highlights.Count; i++)
+        for (var i = 0; i < highlights.Count; i++)
         {
             highlights[i].Order = i + 1;
             highlights[i].ObjectState = ObjectState.Modified;
 
-            Repository.InsertOrUpdateGraph(highlights[0], false);
+            Repository.InsertOrUpdateGraph(highlights[0]);
         }
 
         var results = Repository.Commit();
@@ -131,20 +121,35 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         return Result.Failed();
     }
 
-    public async Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int highlightId)
+    public async Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId,
+        int highlightId)
     {
         var highlight = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
+                        x.ProjectId == projectId)
             .FirstOrDefaultAsync();
 
-        if (highlight == null)
+        if (highlight == null) return Result.Failed();
+
+        var highlights = await Highlights
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
+            .OrderBy(x => x.Order)
+            .ToListAsync();
+
+        highlights.Remove(highlight);
+
+        for (var i = 0; i < highlights.Count; i++)
         {
-            return Result.Failed();
+            highlights[i].Order = i + 1;
+            highlights[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(highlights[i]);
         }
 
         highlight.ObjectState = ObjectState.Deleted;
+        Repository.InsertOrUpdateGraph(highlight);
 
-        var results = Repository.InsertOrUpdateGraph(highlight, true);
+        var results = Repository.Commit();
         if (results > 0)
             return Result.Success();
 

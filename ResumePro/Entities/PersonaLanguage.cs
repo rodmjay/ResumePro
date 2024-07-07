@@ -1,4 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;

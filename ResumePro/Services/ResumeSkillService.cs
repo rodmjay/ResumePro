@@ -10,7 +10,6 @@ using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
 
@@ -29,12 +28,9 @@ public class ResumeSkillService : BaseService<ResumeSkill>, IResumeSkillService
                                                         && x.PersonaId == personId && x.SkillId == skillId)
             .FirstOrDefaultAsync();
 
-        if (resumeSkill != null)
-        {
-           return Result.Failed();
-        }
+        if (resumeSkill != null) return Result.Failed();
 
-        resumeSkill = new ResumeSkill()
+        resumeSkill = new ResumeSkill
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
@@ -43,10 +39,7 @@ public class ResumeSkillService : BaseService<ResumeSkill>, IResumeSkillService
         };
 
         var changes = Repository.InsertOrUpdateGraph(resumeSkill, true);
-        if (changes > 0)
-        {
-            return Result.Success();
-        }
+        if (changes > 0) return Result.Success();
 
         return Result.Failed();
     }

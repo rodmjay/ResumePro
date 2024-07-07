@@ -26,18 +26,18 @@ public class Highlight : BaseEntity<Highlight>, IHighlight
 
     public override void Configure(EntityTypeBuilder<Highlight> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.Id });
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new{x.OrganizationId, x.JobId})
-            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
+            .HasForeignKey(x => new {x.OrganizationId, x.JobId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Project)
             .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new { x.ProjectId, x.JobId })
-            .HasPrincipalKey(x => new { x.Id, x.JobId })
+            .HasForeignKey(x => new {x.ProjectId, x.JobId})
+            .HasPrincipalKey(x => new {x.Id, x.JobId})
             .IsRequired(false);
     }
 }

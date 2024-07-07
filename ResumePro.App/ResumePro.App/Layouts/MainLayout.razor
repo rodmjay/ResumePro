@@ -1,21 +1,21 @@
 ﻿@using ResumePro.App.Components.Layout
 @inherits LayoutComponentBase
 
-@if ( layoutType == "fixed-header" )
+@if (layoutType == "fixed-header")
 {
     <Layout Sider>
         <LayoutSider>
             <LayoutSiderContent>
-                <SideMenu />
+                <SideMenu/>
             </LayoutSiderContent>
         </LayoutSider>
         <Layout>
             <LayoutHeader Fixed>
                 <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                     ThemeGradientChanged="@OnThemeGradientChanged"
-                     ThemeRoundedChanged="@OnThemeRoundedChanged"
-                     ThemeColorChanged="@OnThemeColorChanged"
-                     @bind-LayoutType="@layoutType" />
+                         ThemeGradientChanged="@OnThemeGradientChanged"
+                         ThemeRoundedChanged="@OnThemeRoundedChanged"
+                         ThemeColorChanged="@OnThemeColorChanged"
+                         @bind-LayoutType="@layoutType"/>
             </LayoutHeader>
             <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
                 @Body
@@ -23,15 +23,15 @@
         </Layout>
     </Layout>
 }
-else if ( layoutType == "fixed-header-footer-only" )
+else if (layoutType == "fixed-header-footer-only")
 {
     <Layout>
         <LayoutHeader Fixed>
             <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                 ThemeGradientChanged="@OnThemeGradientChanged"
-                 ThemeRoundedChanged="@OnThemeRoundedChanged"
-                 ThemeColorChanged="@OnThemeColorChanged"
-                 @bind-LayoutType="@layoutType" />
+                     ThemeGradientChanged="@OnThemeGradientChanged"
+                     ThemeRoundedChanged="@OnThemeRoundedChanged"
+                     ThemeColorChanged="@OnThemeColorChanged"
+                     @bind-LayoutType="@layoutType"/>
         </LayoutHeader>
         <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
             @Body
@@ -41,20 +41,20 @@ else if ( layoutType == "fixed-header-footer-only" )
         </LayoutFooter>
     </Layout>
 }
-else if ( layoutType == "sider-with-header-on-top" )
+else if (layoutType == "sider-with-header-on-top")
 {
     <Layout>
         <LayoutHeader Fixed>
             <TopMenu ThemeEnabledChanged="@OnThemeEnabledChanged"
-                 ThemeGradientChanged="@OnThemeGradientChanged"
-                 ThemeRoundedChanged="@OnThemeRoundedChanged"
-                 ThemeColorChanged="@OnThemeColorChanged"
-                 @bind-LayoutType="@layoutType" />
+                     ThemeGradientChanged="@OnThemeGradientChanged"
+                     ThemeRoundedChanged="@OnThemeRoundedChanged"
+                     ThemeColorChanged="@OnThemeColorChanged"
+                     @bind-LayoutType="@layoutType"/>
         </LayoutHeader>
         <Layout Sider>
             <LayoutSider>
                 <LayoutSiderContent>
-                    <SideMenu />
+                    <SideMenu/>
                 </LayoutSiderContent>
             </LayoutSider>
             <Layout>

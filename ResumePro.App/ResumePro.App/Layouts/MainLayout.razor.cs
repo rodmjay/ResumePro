@@ -1,89 +1,89 @@
-﻿using Blazorise;
-using Blazorise.Localization;
+﻿#region Header Info
 
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Blazorise.Localization;
 using Microsoft.AspNetCore.Components;
 
-namespace ResumePro.App.Layouts
+namespace ResumePro.App.Layouts;
+
+public partial class MainLayout
 {
-    public partial class MainLayout
+    protected string layoutType = "fixed-header";
+    [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
+
+    [CascadingParameter] protected Theme? Theme { get; set; }
+
+    protected override async Task OnInitializedAsync()
     {
-        [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
+        await SelectCulture("en-US");
 
-        [CascadingParameter] protected Theme? Theme { get; set; }
+        await base.OnInitializedAsync();
+    }
 
-        protected string layoutType = "fixed-header";
+    private Task SelectCulture(string name)
+    {
+        LocalizationService!.ChangeLanguage(name);
 
-        protected override async Task OnInitializedAsync()
-        {
-            await SelectCulture("en-US");
+        return Task.CompletedTask;
+    }
 
-            await base.OnInitializedAsync();
-        }
-
-        private Task SelectCulture(string name)
-        {
-            LocalizationService!.ChangeLanguage(name);
-
+    private Task OnThemeEnabledChanged(bool value)
+    {
+        if (Theme is null)
             return Task.CompletedTask;
-        }
 
-        Task OnThemeEnabledChanged(bool value)
-        {
-            if (Theme is null)
-                return Task.CompletedTask;
+        Theme.Enabled = value;
 
-            Theme.Enabled = value;
+        return InvokeAsync(Theme.ThemeHasChanged);
+    }
 
-            return InvokeAsync(Theme.ThemeHasChanged);
-        }
+    private Task OnThemeGradientChanged(bool value)
+    {
+        if (Theme is null)
+            return Task.CompletedTask;
 
-        Task OnThemeGradientChanged(bool value)
-        {
-            if (Theme is null)
-                return Task.CompletedTask;
+        Theme.IsGradient = value;
 
-            Theme.IsGradient = value;
+        return InvokeAsync(Theme.ThemeHasChanged);
+    }
 
-            return InvokeAsync(Theme.ThemeHasChanged);
-        }
+    private Task OnThemeRoundedChanged(bool value)
+    {
+        if (Theme is null)
+            return Task.CompletedTask;
 
-        Task OnThemeRoundedChanged(bool value)
-        {
-            if (Theme is null)
-                return Task.CompletedTask;
+        Theme.IsRounded = value;
 
-            Theme.IsRounded = value;
+        return InvokeAsync(Theme.ThemeHasChanged);
+    }
 
-            return InvokeAsync(Theme.ThemeHasChanged);
-        }
+    private Task OnThemeColorChanged(string value)
+    {
+        if (Theme is null)
+            return Task.CompletedTask;
 
-        Task OnThemeColorChanged(string value)
-        {
-            if (Theme is null)
-                return Task.CompletedTask;
+        Theme.ColorOptions ??= new ThemeColorOptions();
 
-            Theme.ColorOptions ??= new();
+        Theme.BackgroundOptions ??= new ThemeBackgroundOptions();
 
-            Theme.BackgroundOptions ??= new();
+        Theme.TextColorOptions ??= new ThemeTextColorOptions();
 
-            Theme.TextColorOptions ??= new();
+        Theme.ColorOptions.Primary = value;
+        Theme.BackgroundOptions.Primary = value;
+        Theme.TextColorOptions.Primary = value;
 
-            Theme.ColorOptions.Primary = value;
-            Theme.BackgroundOptions.Primary = value;
-            Theme.TextColorOptions.Primary = value;
+        Theme.InputOptions ??= new ThemeInputOptions();
 
-            Theme.InputOptions ??= new();
+        Theme.InputOptions.CheckColor = value;
+        Theme.InputOptions.SliderColor = value;
 
-            Theme.InputOptions.CheckColor = value;
-            Theme.InputOptions.SliderColor = value;
+        Theme.SpinKitOptions ??= new ThemeSpinKitOptions();
 
-            Theme.SpinKitOptions ??= new();
+        Theme.SpinKitOptions.Color = value;
 
-            Theme.SpinKitOptions.Color = value;
-
-            return InvokeAsync(Theme.ThemeHasChanged);
-        }
-
-
+        return InvokeAsync(Theme.ThemeHasChanged);
     }
 }

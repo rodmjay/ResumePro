@@ -22,8 +22,9 @@ public class ResumeParser
         resume.LinkedIn = Regex.Match(text, @"LinkedIn: (\S+)").Groups[1].Value;
         resume.PhoneNumber = Regex.Match(text, @"Phone: (\S+)").Groups[1].Value;
 
-        var education = Regex.Match(text, @"Education\s+(.*?)(?=\n\w+)", RegexOptions.Singleline).Groups[1].Value.Trim();
-        
+        var education = Regex.Match(text, @"Education\s+(.*?)(?=\n\w+)", RegexOptions.Singleline).Groups[1].Value
+            .Trim();
+
 
         return resume;
     }

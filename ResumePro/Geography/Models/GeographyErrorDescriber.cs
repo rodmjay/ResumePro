@@ -1,52 +1,48 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Models
+namespace ResumePro.Geography.Models;
+
+public class GeographyErrorDescriber
 {
-    public class GeographyErrorDescriber
+    public virtual Error EnableCountryError()
     {
-        public virtual Error EnableCountryError()
+        return new Error
         {
-            return new()
-            {
-                Code = nameof(EnableCountryError),
-                Description = "Unable to enable country"
-            };
-        }
+            Code = nameof(EnableCountryError),
+            Description = "Unable to enable country"
+        };
+    }
 
-        public virtual Error DisableCountryError()
+    public virtual Error DisableCountryError()
+    {
+        return new Error
         {
-            return new()
-            {
-                Code = nameof(DisableCountryError),
-                Description = "Unable to disable country"
-            };
-        }
+            Code = nameof(DisableCountryError),
+            Description = "Unable to disable country"
+        };
+    }
 
-        public virtual Error CountryAlreadyEnabled()
+    public virtual Error CountryAlreadyEnabled()
+    {
+        return new Error
         {
-            return new()
-            {
-                Code = nameof(CountryAlreadyEnabled),
-                Description = "country already enabled"
-            };
-        }
+            Code = nameof(CountryAlreadyEnabled),
+            Description = "country already enabled"
+        };
+    }
 
-        public virtual Error CountryAlreadyDisabled()
+    public virtual Error CountryAlreadyDisabled()
+    {
+        return new Error
         {
-            return new()
-            {
-                Code = nameof(CountryAlreadyDisabled),
-                Description = "country already disabled"
-            };
-        }
+            Code = nameof(CountryAlreadyDisabled),
+            Description = "country already disabled"
+        };
     }
 }

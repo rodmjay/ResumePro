@@ -14,8 +14,6 @@ namespace ResumePro.Generator.Strategies;
 
 public class PdfResumeStrategy : IResumeStrategy
 {
-    private readonly PdfSettings _settings;
-
     public enum ResumeSectionType
     {
         Title,
@@ -24,7 +22,9 @@ public class PdfResumeStrategy : IResumeStrategy
         BoldText,
         ItalicText
     }
-    
+
+    private readonly PdfSettings _settings;
+
 
     public PdfResumeStrategy(PdfSettings settings)
     {
@@ -34,11 +34,11 @@ public class PdfResumeStrategy : IResumeStrategy
 
     public void ExecuteOperation(ResumeDetails resumeDetails)
     {
-        PdfDocument document = BuildResumePdf(resumeDetails);
+        var document = BuildResumePdf(resumeDetails);
 
         if (_settings.CreateUpdatePdf)
         {
-            string fileName = SaveResume(document, resumeDetails);
+            var fileName = SaveResume(document, resumeDetails);
             if (_settings.DisplayInExplorer) Process.Start("explorer", fileName);
         }
     }
@@ -60,7 +60,7 @@ public class PdfResumeStrategy : IResumeStrategy
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
 
 
-        string languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
+        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
             .Select(language => $"{language.LanguageName}").ToList());
 
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Languages: {languages}"};
@@ -69,7 +69,7 @@ public class PdfResumeStrategy : IResumeStrategy
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = resumeDetails.Description};
 
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Skills"};
-        foreach (ResumeSkillDto? skill in resumeDetails.Skills)
+        foreach (var skill in resumeDetails.Skills)
             yield return new ResumeSection
             {
                 SectionType = ResumeSectionType.Text,
@@ -78,7 +78,7 @@ public class PdfResumeStrategy : IResumeStrategy
             };
 
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Experience"};
-        foreach (JobDetails? job in resumeDetails.Jobs)
+        foreach (var job in resumeDetails.Jobs)
         {
             yield return new ResumeSection
                 {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10};
@@ -92,19 +92,19 @@ public class PdfResumeStrategy : IResumeStrategy
             yield return new ResumeSection
                 {SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20};
 
-            foreach (HighlightDto? highlight in job.Highlights)
+            foreach (var highlight in job.Highlights)
                 yield return new ResumeSection
                     {SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30};
 
             if (job.Projects.Any())
-                foreach (ProjectDetails? project in job.Projects)
+                foreach (var project in job.Projects)
                 {
                     yield return new ResumeSection
                         {SectionType = ResumeSectionType.BoldText, Text = $"Project: {project.Name}", Indentation = 30};
                     yield return new ResumeSection
                         {SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40};
 
-                    foreach (HighlightDto? projectHighlight in project.Highlights)
+                    foreach (var projectHighlight in project.Highlights)
                         yield return new ResumeSection
                         {
                             SectionType = ResumeSectionType.Text,
@@ -115,7 +115,7 @@ public class PdfResumeStrategy : IResumeStrategy
 
             if (job.Skills != null && job.Skills.Any())
             {
-                string skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
+                var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
                 yield return new ResumeSection
                     {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
             }
@@ -126,7 +126,7 @@ public class PdfResumeStrategy : IResumeStrategy
         }
 
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Education"};
-        foreach (SchoolDetails? school in resumeDetails.Education)
+        foreach (var school in resumeDetails.Education)
         {
             yield return new ResumeSection
                 {SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10};
@@ -137,13 +137,13 @@ public class PdfResumeStrategy : IResumeStrategy
                     $"{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}",
                 Indentation = 20
             };
-            foreach (DegreeDto? degree in school.Degrees)
+            foreach (var degree in school.Degrees)
                 yield return new ResumeSection
                     {SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20};
         }
 
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "References"};
-        foreach (ReferenceDto? reference in resumeDetails.References)
+        foreach (var reference in resumeDetails.References)
         {
             yield return new ResumeSection
                 {SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10};
@@ -161,7 +161,7 @@ public class PdfResumeStrategy : IResumeStrategy
 
     private PdfDocument BuildResumePdf(ResumeDetails resumeDetails)
     {
-        PdfDocument document = new PdfDocument();
+        var document = new PdfDocument();
         document.Info.Title = $"Resume - {resumeDetails.FirstName} {resumeDetails.LastName}";
 
         const double margin = 40;
@@ -169,18 +169,18 @@ public class PdfResumeStrategy : IResumeStrategy
         const double pageHeight = 842; // A4 size height
         const double bottomMargin = 60;
 
-        XFont titleFont = new XFont(_settings.FontFamily, 20, XFontStyleEx.Bold);
-        XFont headerFont = new XFont(_settings.FontFamily, 14, XFontStyleEx.Bold);
-        XFont regularFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Regular);
-        XFont italicFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Italic);
-        XFont boldFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Bold);
+        var titleFont = new XFont(_settings.FontFamily, 20, XFontStyleEx.Bold);
+        var headerFont = new XFont(_settings.FontFamily, 14, XFontStyleEx.Bold);
+        var regularFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Regular);
+        var italicFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Italic);
+        var boldFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Bold);
 
-        double currentY = margin;
+        var currentY = margin;
         XGraphics gfx = null;
 
         PdfPage AddNewPage()
         {
-            PdfPage page = document.AddPage();
+            var page = document.AddPage();
             gfx = XGraphics.FromPdfPage(page);
             currentY = margin;
             return page;
@@ -197,7 +197,7 @@ public class PdfResumeStrategy : IResumeStrategy
         void DrawTitle(string title)
         {
             EnsureSpaceForText(titleFont.Height + 10);
-            XRect rect = new XRect(0, currentY, pageWidth, 100);
+            var rect = new XRect(0, currentY, pageWidth, 100);
             gfx.DrawString(title, titleFont, XBrushes.Black, rect, XStringFormats.TopCenter);
             currentY += titleFont.Height + 10; // Adjust spacing after title
         }
@@ -206,7 +206,7 @@ public class PdfResumeStrategy : IResumeStrategy
         {
             EnsureSpaceForText(headerFont.Height + 15);
             currentY += 20; // Add space before header
-            XRect rect = new XRect(margin, currentY, pageWidth - margin * 2, 100);
+            var rect = new XRect(margin, currentY, pageWidth - margin * 2, 100);
             gfx.DrawString(header, headerFont, XBrushes.Black, rect, XStringFormats.TopLeft);
             currentY += headerFont.Height + 5; // Adjust spacing after header
         }
@@ -220,12 +220,12 @@ public class PdfResumeStrategy : IResumeStrategy
             const double lineSpacing = 5; // Adjust as needed for line spacing
             currentY += 10; // Add space before header
 
-            List<string> lines = SplitTextToFit(gfx, text, boldFont, pageWidth - margin * 2 - indentation);
+            var lines = SplitTextToFit(gfx, text, boldFont, pageWidth - margin * 2 - indentation);
 
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
                 EnsureSpaceForText(lineHeight + lineSpacing);
-                XRect rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
+                var rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
                 gfx.DrawString(line, boldFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 currentY += lineHeight + lineSpacing;
             }
@@ -239,12 +239,12 @@ public class PdfResumeStrategy : IResumeStrategy
             const double lineHeight = 12; // Adjust as needed for line height
             const double lineSpacing = 5; // Adjust as needed for line spacing
 
-            List<string> lines = SplitTextToFit(gfx, text, regularFont, pageWidth - margin * 2 - indentation);
+            var lines = SplitTextToFit(gfx, text, regularFont, pageWidth - margin * 2 - indentation);
 
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
                 EnsureSpaceForText(lineHeight + lineSpacing);
-                XRect rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
+                var rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
                 gfx.DrawString(line, regularFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 currentY += lineHeight + lineSpacing;
             }
@@ -259,12 +259,12 @@ public class PdfResumeStrategy : IResumeStrategy
             const double lineSpacing = 5; // Adjust as needed for line spacing
             currentY += 10;
 
-            List<string> lines = SplitTextToFit(gfx, text, italicFont, pageWidth - margin * 2 - indentation);
+            var lines = SplitTextToFit(gfx, text, italicFont, pageWidth - margin * 2 - indentation);
 
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
                 EnsureSpaceForText(lineHeight + lineSpacing);
-                XRect rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
+                var rect = new XRect(margin + indentation, currentY, pageWidth - margin * 2 - indentation, lineHeight);
                 gfx.DrawString(line, italicFont, XBrushes.Black, rect, XStringFormats.TopLeft);
                 currentY += lineHeight + lineSpacing;
             }
@@ -272,11 +272,11 @@ public class PdfResumeStrategy : IResumeStrategy
 
         List<string> SplitTextToFit(XGraphics gfx, string text, XFont font, double maxWidth)
         {
-            List<string> lines = new List<string>();
-            StringBuilder currentLine = new StringBuilder();
-            string[] words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            var lines = new List<string>();
+            var currentLine = new StringBuilder();
+            var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (string word in words)
+            foreach (var word in words)
                 if (gfx.MeasureString(currentLine + " " + word, font).Width <= maxWidth)
                 {
                     if (currentLine.Length > 0)
@@ -296,7 +296,7 @@ public class PdfResumeStrategy : IResumeStrategy
         }
 
         // Add sections
-        foreach (ResumeSection section in GetResumeSections(resumeDetails))
+        foreach (var section in GetResumeSections(resumeDetails))
             switch (section.SectionType)
             {
                 case ResumeSectionType.Title:
@@ -322,9 +322,9 @@ public class PdfResumeStrategy : IResumeStrategy
 
     private string SaveResume(PdfDocument document, ResumeDetails resumeDetails)
     {
-        string fileName = $"{resumeDetails.FirstName} {resumeDetails.LastName}-{resumeDetails.JobTitle}.pdf";
-        string relativePath = $@"..\..\..\..\{fileName}";
-        string absolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath));
+        var fileName = $"{resumeDetails.FirstName} {resumeDetails.LastName}-{resumeDetails.JobTitle}.pdf";
+        var relativePath = $@"..\..\..\..\{fileName}";
+        var absolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath));
 
         document.Save(absolutePath);
 

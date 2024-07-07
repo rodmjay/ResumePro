@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -19,8 +19,8 @@ namespace ResumePro.IdentityServer.Pages.Account;
 [AllowAnonymous]
 public class ConfirmEmailModel : PageModel
 {
-    private readonly UserManager _userManager;
     private readonly IOptions<AppSettings> _appSettings;
+    private readonly UserManager _userManager;
 
     public ConfirmEmailModel(UserManager userManager, IOptions<AppSettings> appSettings)
     {

@@ -20,7 +20,8 @@ public class DegreeService : BaseService<Degree>, IDegreeService
     {
     }
 
-    public Task<OneOf<DegreeDto, Result>> CreateDegree(int organizationId, int personId, int schoolId, DegreeOptions options)
+    public Task<OneOf<DegreeDto, Result>> CreateDegree(int organizationId, int personId, int schoolId,
+        DegreeOptions options)
     {
         throw new NotImplementedException();
     }

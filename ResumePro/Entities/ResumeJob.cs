@@ -30,8 +30,8 @@ public class ResumeJob : BaseEntity<ResumeJob>
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Resumes)
-            .HasForeignKey(x =>  new{x.OrganizationId, x.JobId})
-            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
+            .HasForeignKey(x => new {x.OrganizationId, x.JobId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

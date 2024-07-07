@@ -41,7 +41,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
     {
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
-    
+
     protected override void SeedDatabase(ModelBuilder builder)
     {
         // these should be placed in the Seeding/csv folder for it to work
@@ -64,6 +64,5 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
         builder.Entity<Language>().Seed("languages.csv");
         builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
-
     }
 }

@@ -12,6 +12,5 @@ public class PersonaSkillsOptions
 {
     public int SkillId { get; set; }
 
-    [Range(0,10)]
-    public int Rating { get; set; }
+    [Range(0, 10)] public int Rating { get; set; }
 }

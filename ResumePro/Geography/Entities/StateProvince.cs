@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -12,27 +9,26 @@ using ResumePro.Core.Data.Bases;
 using ResumePro.Entities;
 using ResumePro.Geography.Interfaces;
 
-namespace ResumePro.Geography.Entities
+namespace ResumePro.Geography.Entities;
+
+public class StateProvince : BaseEntity<StateProvince>, IStateProvince
 {
-    public class StateProvince : BaseEntity<StateProvince>, IStateProvince
+    public int Id { get; set; }
+    public Country Country { get; set; }
+    public string Iso2 { get; set; }
+
+    public ICollection<Persona> People { get; set; } = new List<Persona>();
+
+    public string Name { get; set; }
+    public string Abbrev { get; set; }
+    public string Code { get; set; }
+
+    public override void Configure(EntityTypeBuilder<StateProvince> builder)
     {
-        public int Id { get; set; }
-        public Country Country { get; set; }
-        public string Iso2 { get; set; }
+        builder.HasKey(x => x.Id);
 
-        public string Name { get; set; }
-        public string Abbrev { get; set; }
-        public string Code { get; set; }
-
-        public ICollection<Persona> People { get; set; } = new List<Persona>();
-
-        public override void Configure(EntityTypeBuilder<StateProvince> builder)
-        {
-            builder.HasKey(x => x.Id);
-
-            builder.HasOne(x => x.Country)
-                .WithMany(x => x.StateProvinces)
-                .HasForeignKey(x => x.Iso2);
-        }
+        builder.HasOne(x => x.Country)
+            .WithMany(x => x.StateProvinces)
+            .HasForeignKey(x => x.Iso2);
     }
 }

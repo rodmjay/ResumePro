@@ -1,22 +1,23 @@
-﻿// Copyright (c) Brock Allen & Dominick Baier. All rights reserved.
-// Licensed under the Apache License, Version 2.0. See LICENSE in the project root for license information.
+﻿#region Header Info
 
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
 
 using Duende.IdentityServer.Models;
 
-namespace ResumePro.IdentityServer.Home
+namespace ResumePro.IdentityServer.Home;
+
+public class ErrorViewModel
 {
-    public class ErrorViewModel
+    public ErrorViewModel()
     {
-        public ErrorViewModel()
-        {
-        }
-
-        public ErrorViewModel(string error)
-        {
-            Error = new ErrorMessage { Error = error };
-        }
-
-        public ErrorMessage Error { get; set; }
     }
+
+    public ErrorViewModel(string error)
+    {
+        Error = new ErrorMessage {Error = error};
+    }
+
+    public ErrorMessage Error { get; set; }
 }

@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -12,20 +9,16 @@ using ResumePro.Core.Queries;
 using ResumePro.Languages.Entities;
 using ResumePro.Languages.Models;
 
-namespace ResumePro.Languages.Extensions
+namespace ResumePro.Languages.Extensions;
+
+public static class LanguageFilterExtensions
 {
-    public static class LanguageFilterExtensions
+    public static Expression<Func<Language, bool>> GetExpression(this LanguageFilters filters)
     {
-        public static Expression<Func<Language, bool>> GetExpression(this LanguageFilters filters)
-        {
-            var expr = PredicateBuilder.True<Language>();
+        var expr = PredicateBuilder.True<Language>();
 
-            if (filters.Name != null)
-            {
-                expr.And(x => x.Name.Contains(filters.Name));
-            }
+        if (filters.Name != null) expr.And(x => x.Name.Contains(filters.Name));
 
-            return expr;
-        }
+        return expr;
     }
 }

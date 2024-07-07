@@ -17,7 +17,8 @@ public class PersonSkillsController : BaseController
 {
     private readonly IPersonalSkillsService _skillService;
 
-    public PersonSkillsController(IServiceProvider serviceProvider, IPersonalSkillsService skillService) : base(serviceProvider)
+    public PersonSkillsController(IServiceProvider serviceProvider, IPersonalSkillsService skillService) : base(
+        serviceProvider)
     {
         _skillService = skillService;
     }

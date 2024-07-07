@@ -28,7 +28,7 @@ public class School : BaseEntity<School>, ISchool
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Schools)
-            .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})
-            .HasPrincipalKey(x=>new{x.OrganizationId, x.Id});
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id});
     }
 }

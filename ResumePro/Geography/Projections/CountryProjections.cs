@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -12,25 +9,24 @@ using ResumePro.Geography.Entities;
 using ResumePro.Geography.Models;
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Projections
+namespace ResumePro.Geography.Projections;
+
+public class CountryProjections : Profile
 {
-    public class CountryProjections : Profile
+    public CountryProjections()
     {
-        public CountryProjections()
-        {
-            CreateMap<Country, CountryOutput>()
-                .IncludeAllDerived();
+        CreateMap<Country, CountryOutput>()
+            .IncludeAllDerived();
 
-            CreateMap<Country, CountryDetails>()
-                .IncludeAllDerived();
+        CreateMap<Country, CountryDetails>()
+            .IncludeAllDerived();
 
-            CreateMap<Country, CountryWithStateProvincesOutput>()
-                .ForMember(x => x.StateProvinces, opt => opt.MapFrom(x => x.StateProvinces))
-                .IncludeAllDerived();
+        CreateMap<Country, CountryWithStateProvincesOutput>()
+            .ForMember(x => x.StateProvinces, opt => opt.MapFrom(x => x.StateProvinces))
+            .IncludeAllDerived();
 
-            CreateMap<Country, DropdownItem>()
-                .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
-                .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Iso2));
-        }
+        CreateMap<Country, DropdownItem>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
+            .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Iso2));
     }
 }

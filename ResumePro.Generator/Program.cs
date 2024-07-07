@@ -18,7 +18,7 @@ namespace ResumePro.Generator;
 internal class Program
 {
     private static readonly IServiceProvider ServiceProvider;
-    
+
     static Program()
     {
         IConfiguration configuration = new ConfigurationBuilder()
@@ -26,7 +26,7 @@ internal class Program
             .AddJsonFile("appsettings.json", false, true)
             .Build();
 
-        ServiceCollection services = new ServiceCollection();
+        var services = new ServiceCollection();
 
         ServiceProvider = services!.ConfigureApp(configuration)
             .AddDatabase<ApplicationContext>()
@@ -37,24 +37,24 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        int organizationId = args.Length > 0 && int.TryParse(args[1], out int parsedOrgValue) ? parsedOrgValue : 1;
-        int personaId = args.Length > 1 && int.TryParse(args[1], out int passedPersonId) ? passedPersonId : 1;
-        int resumeId = args.Length > 2 && int.TryParse(args[2], out int parsedResumeId) ? parsedResumeId : 1;
+        var organizationId = args.Length > 0 && int.TryParse(args[1], out var parsedOrgValue) ? parsedOrgValue : 1;
+        var personaId = args.Length > 1 && int.TryParse(args[1], out var passedPersonId) ? passedPersonId : 1;
+        var resumeId = args.Length > 2 && int.TryParse(args[2], out var parsedResumeId) ? parsedResumeId : 1;
 
-        IResumeService resumeService = ServiceProvider.GetRequiredService<IResumeService>();
+        var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        ResumeDetails? resume = resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId).Result;
+        var resume = resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId).Result;
 
         if (resume != null)
         {
             List<IResumeStrategy> strategies = new()
             {
-                new MarkupResumeStrategy(new MarkupSettings()
+                new MarkupResumeStrategy(new MarkupSettings
                 {
                     OutputToConsole = true,
                     UpdateReadme = true
                 }),
-                new PdfResumeStrategy(new PdfSettings()
+                new PdfResumeStrategy(new PdfSettings
                 {
                     CreateUpdatePdf = true,
                     DisplayInExplorer = true,
@@ -62,10 +62,9 @@ internal class Program
                 })
             };
 
-            foreach (IResumeStrategy strategy in strategies) strategy.ExecuteOperation(resume);
+            foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
         }
 
-        
 
         Console.ReadLine();
     }

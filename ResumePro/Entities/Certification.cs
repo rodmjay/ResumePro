@@ -19,6 +19,7 @@ public class Certification : BaseEntity<Certification>
     public Persona Persona { get; set; }
     public int PersonaId { get; set; }
     public int Id { get; set; }
+
     public override void Configure(EntityTypeBuilder<Certification> builder)
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});

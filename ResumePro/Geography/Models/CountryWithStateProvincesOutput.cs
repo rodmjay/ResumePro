@@ -1,21 +1,17 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
-namespace ResumePro.Geography.Models
-{
-    public class CountryWithStateProvincesOutput : CountryDetails
-    {
-        public CountryWithStateProvincesOutput()
-        {
-            StateProvinces = new List<StateProvinceOutput>();
-        }
+namespace ResumePro.Geography.Models;
 
-        public List<StateProvinceOutput> StateProvinces { get; set; }
+public class CountryWithStateProvincesOutput : CountryDetails
+{
+    public CountryWithStateProvincesOutput()
+    {
+        StateProvinces = new List<StateProvinceOutput>();
     }
+
+    public List<StateProvinceOutput> StateProvinces { get; set; }
 }

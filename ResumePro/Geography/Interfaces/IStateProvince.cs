@@ -1,19 +1,14 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
+namespace ResumePro.Geography.Interfaces;
 
-namespace ResumePro.Geography.Interfaces
+public interface IStateProvince
 {
-    public interface IStateProvince
-    {
-        string Name { get; set; }
-        string Abbrev { get; set; }
-        string Code { get; set; }
-    }
+    string Name { get; set; }
+    string Abbrev { get; set; }
+    string Code { get; set; }
 }

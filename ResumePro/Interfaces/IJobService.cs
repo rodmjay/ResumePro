@@ -20,5 +20,4 @@ public interface IJobService : IService<Job>
     Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options);
     Task<OneOf<JobDetails, Result>> UpdateJob(int organizationId, int personId, int jobId, JobOptions options);
     Task<Result> DeleteJob(int organizationId, int personId, int jobId);
-
 }

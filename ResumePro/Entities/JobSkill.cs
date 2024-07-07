@@ -13,11 +13,11 @@ namespace ResumePro.Entities;
 
 public class JobSkill : BaseEntity<JobSkill>, IJobSkill
 {
+    public Job Job { get; set; }
+    public PersonaSkill Skill { get; set; }
     public int OrganizationId { get; set; }
     public int JobId { get; set; }
     public int PersonaId { get; set; }
-    public Job Job { get; set; }
-    public PersonaSkill Skill { get; set; }
     public int SkillId { get; set; }
 
     public override void Configure(EntityTypeBuilder<JobSkill> builder)

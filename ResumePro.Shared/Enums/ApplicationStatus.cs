@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Header Info
 
-namespace ResumePro.Shared.Enums
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Shared.Enums;
+
+public enum ApplicationStatus
 {
-    public enum ApplicationStatus : int
-    {
-        Applied = 0,
-        InReview = 1,
-        Interviewing = 2,
-        Offered = 3,
-        Rejected = 4
-    }
+    Applied = 0,
+    InReview = 1,
+    Interviewing = 2,
+    Offered = 3,
+    Rejected = 4
 }

@@ -18,24 +18,15 @@ public static class PersonaExtensions
         var predicate = PredicateBuilder.True<Persona>();
 
         if (!string.IsNullOrWhiteSpace(filters.FirstName))
-        {
             predicate = predicate.And(x => x.FirstName == filters.FirstName);
-        }
 
         if (!string.IsNullOrWhiteSpace(filters.LastName))
-        {
             predicate = predicate.And(x => x.FirstName == filters.LastName);
-        }
 
-        if (!string.IsNullOrWhiteSpace(filters.State))
-        {
-            predicate = predicate.And(x => x.State.Code == filters.State);
-        }
+        if (!string.IsNullOrWhiteSpace(filters.State)) predicate = predicate.And(x => x.State.Code == filters.State);
 
         if (filters.Skills.Any())
-        {
             predicate = predicate.And(x => filters.Skills.Intersect(x.Skills.Select(a => a.SkillId)).Any());
-        }
 
         return predicate;
     }

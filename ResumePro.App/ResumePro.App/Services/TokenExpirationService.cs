@@ -1,56 +1,61 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Newtonsoft.Json.Linq;
 using TranslationPro.Blazor.Services;
 
-namespace ResumePro.App.Services
+namespace ResumePro.App.Services;
+
+public class TokenExpirationService
 {
-    public class TokenExpirationService
+    private readonly NavigationManager _navigationManager;
+    private readonly SessionStorageInterop _sessionStorage;
+
+    private readonly string AuthSessionKey = "";
+    private readonly SignOutSessionStateManager SignOutManager;
+    private Timer _timer;
+
+    public TokenExpirationService(
+        SignOutSessionStateManager signOutSessionStateManager,
+        SessionStorageInterop sessionStorage,
+        IConfiguration configuration,
+        NavigationManager navigationManager)
     {
-        private readonly SignOutSessionStateManager SignOutManager;
-        private readonly SessionStorageInterop _sessionStorage;
-        private readonly NavigationManager _navigationManager;
-        private Timer _timer;
+        SignOutManager = signOutSessionStateManager;
+        AuthSessionKey = configuration["AuthSessionKey"];
+        _sessionStorage = sessionStorage;
+        _navigationManager = navigationManager;
+    }
 
-        private readonly string AuthSessionKey = "";
+    public void StartTokenExpirationTimer()
+    {
+        // Set the timer interval to check for token expiration
+        _timer = new Timer(CheckExpiration, null, 0, 10000);
+    }
 
-        public TokenExpirationService(
-            SignOutSessionStateManager signOutSessionStateManager,
-            SessionStorageInterop sessionStorage,
-            IConfiguration configuration,
-            NavigationManager navigationManager)
+    private async void CheckExpiration(object state)
+    {
+        var authValue = await _sessionStorage.LoadFromSessionStorage<string>(AuthSessionKey);
+        if (authValue != null)
         {
-            SignOutManager = signOutSessionStateManager;
-            AuthSessionKey = configuration["AuthSessionKey"];
-            _sessionStorage = sessionStorage;
-            _navigationManager = navigationManager;
-        }
+            var obj = JObject.Parse(authValue);
 
-        public void StartTokenExpirationTimer()
-        {
-            // Set the timer interval to check for token expiration
-            _timer = new Timer(CheckExpiration, null, 0, 10000);
-        }
+            var expiration = obj["expires_at"].Value<string>();
 
-        private async void CheckExpiration(object state)
-        {
-            var authValue = await _sessionStorage.LoadFromSessionStorage<string>(AuthSessionKey);
-            if (authValue != null)
+            if (expiration != null && long.TryParse(expiration, out var expirationTime))
             {
-                var obj = JObject.Parse(authValue);
+                var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                var timeUntilExpiration = expirationTime - currentTime;
 
-                var expiration = obj["expires_at"].Value<string>();
-
-                if (expiration != null && long.TryParse(expiration, out var expirationTime))
+                if (timeUntilExpiration <= 300)
                 {
-                    var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                    var timeUntilExpiration = expirationTime - currentTime;
-
-                    if (timeUntilExpiration <= 300)
-                    {
-                        await SignOutManager.SetSignOutState();
-                        _navigationManager.NavigateTo("authentication/logout");
-                    }
+                    await SignOutManager.SetSignOutState();
+                    _navigationManager.NavigateTo("authentication/logout");
                 }
             }
         }

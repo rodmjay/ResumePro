@@ -18,6 +18,7 @@ public class ResumeDto : IResume
     public string GitHub { get; set; }
     public string City { get; set; }
     public string State { get; set; }
+    public string Country { get; set; }
 
     [JsonIgnore] public int PersonaId { get; set; }
 
@@ -25,5 +26,4 @@ public class ResumeDto : IResume
 
     public string JobTitle { get; set; }
     public string Description { get; set; }
-    public string Country { get; set; }
 }

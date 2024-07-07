@@ -1,14 +1,20 @@
-﻿using ResumePro.Shared.Interfaces;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Shared;
 
 public class PersonaSkillDto : IPersonaSkill
 {
-    [JsonIgnore]
-    public virtual int PersonaId { get; set; }
-    
-    public virtual int SkillId { get; set; }
     public string Name { get; set; }
+
+    [JsonIgnore] public virtual int PersonaId { get; set; }
+
+    public virtual int SkillId { get; set; }
 
     public virtual int Rating { get; set; }
 }

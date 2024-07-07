@@ -1,10 +1,9 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
-using System.Linq.Expressions;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -13,7 +12,7 @@ using ResumePro.Core.Middleware.Builders;
 
 namespace ResumePro.Core.Extensions;
 
-public static  class QueryableExtensions
+public static class QueryableExtensions
 {
     public static IQueryable<TDestination> ProjectTo<TDestination>(this IQueryable source, IMapper mapper)
     {

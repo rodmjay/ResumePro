@@ -13,8 +13,6 @@ using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Core.Settings;
 using ResumePro.Extensions;
-using ResumePro.Geography.Extensions;
-using ResumePro.Languages.Extensions;
 
 namespace ResumePro.Api;
 
@@ -42,17 +40,12 @@ public class Startup
         var webAppBuilder = builder.ConfigureWebApp(Environment);
 
         var restBuilder = webAppBuilder.ConfigureRest()
-            .AddAuthorization(policy=>
+            .AddAuthorization(policy =>
             {
                 policy.RequireAuthenticatedUser();
 
                 var scopes = builder.AppSettings.Audience.Split(" ");
-                foreach (var scope in scopes)
-                {
-                    policy.RequireClaim("scope", scope);
-                }
-
-
+                foreach (var scope in scopes) policy.RequireClaim("scope", scope);
             })
             .AddBearerAuthentication(options =>
             {

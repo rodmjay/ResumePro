@@ -39,7 +39,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
         var resume = await Resumes.Where(x => x.Id == resumeId && x.PersonaId == personId
-                                  && x.OrganizationId == organizationId)
+                                                               && x.OrganizationId == organizationId)
             .AsNoTracking()
             .AsSplitQuery()
             .ProjectTo<T>(Mapper)
@@ -61,7 +61,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     public async Task<OneOf<ResumeDetails, Result>> CreateResume(
         int organizationId, int personaId, CreateResumeOptions options)
     {
-        var resume = new Resume()
+        var resume = new Resume
         {
             Id = await GetNextResumeId(organizationId),
             ObjectState = ObjectState.Added,
@@ -79,13 +79,11 @@ public class ResumeService : BaseService<Resume>, IResumeService
                 .ToListAsync();
 
             foreach (var job in jobs)
-            {
-                resume.Jobs.Add(new ResumeJob()
+                resume.Jobs.Add(new ResumeJob
                 {
                     ObjectState = ObjectState.Added,
                     JobId = job.Id
                 });
-            }
         }
 
         if (options.AttachAllSkills)
@@ -96,13 +94,11 @@ public class ResumeService : BaseService<Resume>, IResumeService
                 .ToListAsync();
 
             foreach (var skill in skills)
-            {
-                resume.Skills.Add(new ResumeSkill()
+                resume.Skills.Add(new ResumeSkill
                 {
                     ObjectState = ObjectState.Added,
-                    SkillId = skill.SkillId,
+                    SkillId = skill.SkillId
                 });
-            }
         }
 
 
@@ -113,7 +109,8 @@ public class ResumeService : BaseService<Resume>, IResumeService
         return Result.Failed();
     }
 
-    public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId, CreateResumeOptions options)
+    public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId,
+        CreateResumeOptions options)
     {
         var resume = await Resumes
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
@@ -127,10 +124,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
         resume.Description = options.Description;
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
-        if (records > 0)
-        {
-            return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
-        }
+        if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
         return Result.Failed();
     }
@@ -148,21 +142,12 @@ public class ResumeService : BaseService<Resume>, IResumeService
 
         resume.ObjectState = ObjectState.Deleted;
 
-        foreach (var job in resume.Jobs)
-        {
-            job.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var job in resume.Jobs) job.ObjectState = ObjectState.Deleted;
 
-        foreach (var skill in resume.Skills)
-        {
-            skill.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var skill in resume.Skills) skill.ObjectState = ObjectState.Deleted;
 
         var results = Repository.InsertOrUpdateGraph(resume, true);
-        if (results > 0)
-        {
-            return Result.Success();
-        }
+        if (results > 0) return Result.Success();
 
         return Result.Failed();
     }

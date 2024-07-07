@@ -4,7 +4,6 @@
 
 #endregion
 
-using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;

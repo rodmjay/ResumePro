@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -25,5 +25,5 @@ public class UserClaim : IdentityUserClaim<int>, IEntityTypeConfiguration<UserCl
             .HasForeignKey(x => x.UserId);
     }
 
-    [NotMapped][IgnoreDataMember] public ObjectState ObjectState { get; set; }
+    [NotMapped] [IgnoreDataMember] public ObjectState ObjectState { get; set; }
 }

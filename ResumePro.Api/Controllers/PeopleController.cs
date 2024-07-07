@@ -25,7 +25,8 @@ public class PeopleController : BaseController
 
     [HttpPost("Search")]
     public async Task<PagedList<PersonaDto>> GetPeople(
-        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] PersonaFilters? filters, [FromQuery] PagingQuery paging)
+        [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
+        PersonaFilters? filters, [FromQuery] PagingQuery paging)
     {
         return await _peopleService.GetPeople<PersonaDto>(OrganizationId, filters, paging)
             .ConfigureAwait(false);

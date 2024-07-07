@@ -1,16 +1,16 @@
 ﻿.demo-theme-color-item {
-    display: table-cell;
-    width: 36px;
-    height: 36px;
-    vertical-align: top;
-    text-align: center;
     color: white;
     cursor: pointer;
+    display: table-cell;
+    height: 36px;
+    text-align: center;
+    vertical-align: top;
+    width: 36px;
 }
 
-    .demo-theme-color-item .material-icons {
-        display: flex;
-        height: 100%;
-        align-items: center;
-        justify-content: center;
-    }
+.demo-theme-color-item .material-icons {
+    align-items: center;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+}

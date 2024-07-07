@@ -12,7 +12,6 @@ namespace ResumePro.Extensions;
 
 public static class AppBuilderExtensions
 {
-
     public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
     {
         var typesWithInterfaces = assembly.GetTypes()
@@ -26,12 +25,8 @@ public static class AppBuilderExtensions
 
 
         foreach (var type in typesWithInterfaces)
-        {
-            foreach (var service in type.Services)
-            {
-                builder.Services.AddScoped(service, type.Implementation);
-            }
-        }
+        foreach (var service in type.Services)
+            builder.Services.AddScoped(service, type.Implementation);
         return builder;
     }
 }

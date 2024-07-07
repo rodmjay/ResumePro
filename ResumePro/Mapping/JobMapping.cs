@@ -5,7 +5,6 @@
 #endregion
 
 using AutoMapper;
-using NWebsec.AspNetCore.Middleware.Middleware;
 using ResumePro.Entities;
 using ResumePro.Shared;
 
@@ -20,6 +19,5 @@ public class JobMapping : Profile
 
         CreateMap<Job, JobDetails>()
             .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlights));
-
     }
 }

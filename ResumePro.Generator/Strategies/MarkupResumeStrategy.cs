@@ -11,9 +11,9 @@ namespace ResumePro.Generator.Strategies;
 
 public class MarkupResumeStrategy : IResumeStrategy
 {
-    private readonly MarkupSettings _settings;
     private const string ReadMePath = @"..\..\..\..\readme.md";
-    
+    private readonly MarkupSettings _settings;
+
 
     public MarkupResumeStrategy(MarkupSettings settings)
     {
@@ -22,9 +22,9 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     public void ExecuteOperation(ResumeDetails resumeDetails)
     {
-        string resumeText = BuildResumeMarkdown(resumeDetails);
+        var resumeText = BuildResumeMarkdown(resumeDetails);
 
-        if(_settings.UpdateReadme)
+        if (_settings.UpdateReadme)
             UpdateReadMe(resumeText);
 
         if (_settings.OutputToConsole)
@@ -33,7 +33,7 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     private string BuildResumeMarkdown(ResumeDetails resumeDetails)
     {
-        StringBuilder sb = new StringBuilder();
+        var sb = new StringBuilder();
 
         // Title
         sb.AppendLine($"# {resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}");
@@ -45,8 +45,8 @@ public class MarkupResumeStrategy : IResumeStrategy
         sb.AppendLine($"- **Phone:** {resumeDetails.PhoneNumber}");
         sb.AppendLine($"- **LinkedIn:** {resumeDetails.LinkedIn}");
         sb.AppendLine($"- **GitHub:** {resumeDetails.GitHub}");
-        
-        string languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a=>a.Proficiency)
+
+        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
             .Select(language => $"{language.LanguageName}").ToList());
 
         sb.AppendLine($"- **Languages:** {languages}");
@@ -61,12 +61,12 @@ public class MarkupResumeStrategy : IResumeStrategy
 
         // Skills
         sb.AppendLine("## Skills");
-        foreach (ResumeSkillDto? skill in resumeDetails.Skills) sb.AppendLine($"- {skill.Title} (Rating: {skill.Rating})");
+        foreach (var skill in resumeDetails.Skills) sb.AppendLine($"- {skill.Title} (Rating: {skill.Rating})");
         sb.AppendLine();
 
         // Experience
         sb.AppendLine("## Experience");
-        foreach (JobDetails? job in resumeDetails.Jobs)
+        foreach (var job in resumeDetails.Jobs)
         {
             sb.AppendLine($"### {job.Company} - {job.Title}");
             sb.AppendLine(
@@ -74,19 +74,19 @@ public class MarkupResumeStrategy : IResumeStrategy
             sb.AppendLine(job.Description);
             sb.AppendLine();
 
-            foreach (HighlightDto? highlight in job.Highlights)
+            foreach (var highlight in job.Highlights)
             {
                 sb.AppendLine($"- {highlight.Text}");
                 sb.AppendLine();
             }
 
             if (job.Projects.Any())
-                foreach (ProjectDetails? project in job.Projects)
+                foreach (var project in job.Projects)
                 {
                     sb.AppendLine($"#### Project: {project.Name}");
                     sb.AppendLine(project.Description);
 
-                    foreach (HighlightDto? projectHighlight in project.Highlights) sb.AppendLine($"- {projectHighlight.Text}");
+                    foreach (var projectHighlight in project.Highlights) sb.AppendLine($"- {projectHighlight.Text}");
                     sb.AppendLine();
                 }
 
@@ -98,18 +98,18 @@ public class MarkupResumeStrategy : IResumeStrategy
 
         // Education
         sb.AppendLine("## Education");
-        foreach (SchoolDetails? school in resumeDetails.Education)
+        foreach (var school in resumeDetails.Education)
         {
             sb.AppendLine($"### {school.Name}");
             sb.AppendLine(
                 $"*{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}*");
-            foreach (DegreeDto? degree in school.Degrees) sb.AppendLine($"- Degree: {degree.Name}");
+            foreach (var degree in school.Degrees) sb.AppendLine($"- Degree: {degree.Name}");
             sb.AppendLine();
         }
 
         // References
         sb.AppendLine("## References");
-        foreach (ReferenceDto? reference in resumeDetails.References)
+        foreach (var reference in resumeDetails.References)
         {
             sb.AppendLine($"### {reference.Name}");
             sb.AppendLine(reference.Text);
@@ -121,7 +121,7 @@ public class MarkupResumeStrategy : IResumeStrategy
 
     private void UpdateReadMe(string resumeText)
     {
-        string fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ReadMePath));
+        var fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ReadMePath));
 
         if (File.Exists(fullPath))
         {

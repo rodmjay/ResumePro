@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -13,7 +13,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Users.Entities;
 
-public partial class User : IdentityUser<int>, IEntityTypeConfiguration<User>, IObjectState,
+public class User : IdentityUser<int>, IEntityTypeConfiguration<User>, IObjectState,
     IUser
 {
     public User()
@@ -37,6 +37,7 @@ public partial class User : IdentityUser<int>, IEntityTypeConfiguration<User>, I
     public int OrganizationId { get; set; }
 
     public Guid? CurrentApplication { get; set; }
+
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);
@@ -69,8 +70,7 @@ public partial class User : IdentityUser<int>, IEntityTypeConfiguration<User>, I
             .WithMany(x => x.Users)
             .HasForeignKey(x => x.OrganizationId)
             .OnDelete(DeleteBehavior.Cascade);
-
     }
 
-    [NotMapped][IgnoreDataMember] public ObjectState ObjectState { get; set; }
+    [NotMapped] [IgnoreDataMember] public ObjectState ObjectState { get; set; }
 }

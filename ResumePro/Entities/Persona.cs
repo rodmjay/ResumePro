@@ -4,7 +4,6 @@
 
 #endregion
 
-using System.Runtime.ConstrainedExecution;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
@@ -21,6 +20,11 @@ public class Persona : BaseEntity<Persona>, IPersona
     public ICollection<School> Schools { get; set; }
     public ICollection<Certification> Certifications { get; set; }
     public ICollection<PersonaLanguage> Languages { get; set; }
+    public StateProvince State { get; set; }
+    public int StateId { get; set; }
+    public bool IsDeleted { get; set; }
+
+    public ICollection<Reference> References { get; set; } = new List<Reference>();
 
     public int OrganizationId { get; set; }
     public int Id { get; set; }
@@ -31,21 +35,16 @@ public class Persona : BaseEntity<Persona>, IPersona
     public string LinkedIn { get; set; }
     public string GitHub { get; set; }
     public string City { get; set; }
-    public StateProvince State { get; set; }
-    public int StateId { get; set; }
-    public bool IsDeleted { get; set; }
-
-    public ICollection<Reference> References { get; set; } = new List<Reference>();
 
     public override void Configure(EntityTypeBuilder<Persona> builder)
     {
-        builder.HasKey(x => new{ x.OrganizationId, x.Id});
+        builder.HasKey(x => new {x.OrganizationId, x.Id});
 
         builder.HasOne(x => x.State)
             .WithMany(x => x.People)
             .HasForeignKey(x => x.StateId)
             .OnDelete(DeleteBehavior.NoAction);
-        
+
         builder.HasQueryFilter(x => x.IsDeleted == false);
     }
 }

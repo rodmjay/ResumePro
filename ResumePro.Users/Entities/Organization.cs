@@ -15,6 +15,7 @@ public class Organization : BaseEntity<Organization>
     public string Name { get; set; }
 
     public ICollection<User> Users { get; set; } = new List<User>();
+
     public override void Configure(EntityTypeBuilder<Organization> builder)
     {
         builder.HasKey(x => x.Id);

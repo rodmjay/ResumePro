@@ -1,9 +1,6 @@
-﻿#region Header
+﻿#region Header Info
 
-// /*
-
-// Author: Rod Johnson, Architect, rodmjay@gmail.com
-// */
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -13,16 +10,15 @@ using ResumePro.Geography.Interfaces;
 using ResumePro.Geography.Models;
 using ResumePro.Geography.Services;
 
-namespace ResumePro.Geography.Extensions
-{
-    public static class AppBuilderExtensions
-    {
-        public static AppBuilder AddGeographyDependencies(this AppBuilder builder)
-        {
-            builder.Services.TryAddTransient<GeographyErrorDescriber>();
-            builder.Services.TryAddScoped<ICountryService, CountryService>();
+namespace ResumePro.Geography.Extensions;
 
-            return builder;
-        }
+public static class AppBuilderExtensions
+{
+    public static AppBuilder AddGeographyDependencies(this AppBuilder builder)
+    {
+        builder.Services.TryAddTransient<GeographyErrorDescriber>();
+        builder.Services.TryAddScoped<ICountryService, CountryService>();
+
+        return builder;
     }
 }

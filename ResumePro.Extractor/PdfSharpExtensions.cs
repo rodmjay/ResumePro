@@ -26,11 +26,9 @@ public static class PdfSharpExtensions
             var cOperator = cObject as COperator;
             if (cOperator.OpCode.Name == OpCodeName.Tj.ToString() ||
                 cOperator.OpCode.Name == OpCodeName.TJ.ToString())
-            {
                 foreach (var cOperand in cOperator.Operands)
                 foreach (var txt in ExtractText(cOperand))
                     yield return txt;
-            }
         }
         else if (cObject is CSequence)
         {
