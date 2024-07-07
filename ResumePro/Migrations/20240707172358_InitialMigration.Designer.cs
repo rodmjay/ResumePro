@@ -12,7 +12,7 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240707052613_InitialMigration")]
+    [Migration("20240707172358_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -3324,6 +3324,37 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 5,
                             SkillId = 99
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Template", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Format")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Template");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Format = ".hb",
+                            Name = "markdown",
+                            Source = "# {{firstName}} {{lastName}}, {{jobTitle}}\n## Contact Information\n- **Email:** {{email}}\n- **Phone:** {{phoneNumber}}\n- **LinkedIn:** {{linkedIn}}\n- **GitHub:** {{gitHub}}\n\n## Description\n{{description}}\n\n## Skills\n{{#each skills}} \n- {{title}} (Rating: {{rating}})\n{{/each}}\n\n## Experience\n{{#each jobs}}\n### {{company}} - {{title}}\n*{{formatDate startDate}} - {{displayEndDate}}*\n{{#each projects}}\n#### Project: {{name}}\n{{description}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n{{/each}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n\n{{#if Skills}}\n  **Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\n{{/if}}\n{{/each}}\n\n## Education\n{{#each education}}\n### {{name}}\n*{{formatDate startDate}} - {{displayEndDate}}*\n{{#each degrees}}\n- Degree: {{this}}\n{{/each}}\n{{/each}}\n\n## References\n{{#each references}}\n### {{name}}\n{{text}}\n{{/each}}"
                         });
                 });
 

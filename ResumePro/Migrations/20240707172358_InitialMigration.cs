@@ -71,6 +71,21 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Template",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Format = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Template", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StateProvince",
                 columns: table => new
                 {
@@ -1005,6 +1020,11 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Template",
+                columns: new[] { "Id", "Format", "Name", "Source" },
+                values: new object[] { 1, ".hb", "markdown", "# {{firstName}} {{lastName}}, {{jobTitle}}\n## Contact Information\n- **Email:** {{email}}\n- **Phone:** {{phoneNumber}}\n- **LinkedIn:** {{linkedIn}}\n- **GitHub:** {{gitHub}}\n\n## Description\n{{description}}\n\n## Skills\n{{#each skills}} \n- {{title}} (Rating: {{rating}})\n{{/each}}\n\n## Experience\n{{#each jobs}}\n### {{company}} - {{title}}\n*{{formatDate startDate}} - {{displayEndDate}}*\n{{#each projects}}\n#### Project: {{name}}\n{{description}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n{{/each}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n\n{{#if Skills}}\n  **Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\n{{/if}}\n{{/each}}\n\n## Education\n{{#each education}}\n### {{name}}\n*{{formatDate startDate}} - {{displayEndDate}}*\n{{#each degrees}}\n- Degree: {{this}}\n{{/each}}\n{{/each}}\n\n## References\n{{#each references}}\n### {{name}}\n{{text}}\n{{/each}}" });
+
+            migrationBuilder.InsertData(
                 table: "SkillCategorySkill",
                 columns: new[] { "SkillCategoryId", "SkillId" },
                 values: new object[,]
@@ -1605,6 +1625,9 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "SkillCategorySkill");
+
+            migrationBuilder.DropTable(
+                name: "Template");
 
             migrationBuilder.DropTable(
                 name: "School");

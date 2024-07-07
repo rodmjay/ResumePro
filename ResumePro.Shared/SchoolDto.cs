@@ -16,5 +16,19 @@ public class SchoolDto : ISchool
 
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
+
+    public string DisplayEndDate
+    {
+        get
+        {
+            if (EndDate == null)
+            {
+                return "Present";
+            }
+
+            return EndDate.Value.ToShortDateString();
+        }
+    }
+
     public string Name { get; set; }
 }

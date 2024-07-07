@@ -27,7 +27,15 @@
 		<None Remove="Seeding\csv\skills.csv" />
 		<None Remove="Seeding\csv\skill_categories.csv" />
 		<None Remove="Seeding\csv\state_provinces.csv" />
+		<None Remove="Seeding\csv\templates.csv" />
+		<None Remove="Seeding\templates\markdown.hb" />
 		<None Remove="sharedSettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Seeding\templates\markdown.hb">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -45,6 +53,9 @@
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\persona_language.csv">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Seeding\csv\templates.csv">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\schools.csv">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -97,6 +108,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Handlebars.Net" Version="2.1.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -108,6 +120,10 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ResumePro.Core\ResumePro.Core.csproj" />
 		<ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Templates\" />
 	</ItemGroup>
 
 </Project>

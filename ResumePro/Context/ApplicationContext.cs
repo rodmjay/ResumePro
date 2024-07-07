@@ -65,5 +65,9 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
         builder.Entity<SkillCategory>().Seed("skill_categories.csv");
         builder.Entity<SkillCategorySkill>().Seed("category_skills.csv");
+        builder.Entity<Template>().SeedTemplates("./seeding/templates");
+
+
+
     }
 }

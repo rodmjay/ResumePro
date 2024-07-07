@@ -5,6 +5,7 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Net.Mime;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -75,6 +76,7 @@ public static class RestApiBuilderExtensions
                 o.SerializerSettings.Formatting = Formatting.Indented;
                 o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 o.SerializerSettings.NullValueHandling = NullValueHandling.Include;
+                o.SerializerSettings.DateFormatString = "yyyy-MM-dd";
             })
             .ConfigureApiBehaviorOptions(o =>
             {
@@ -112,6 +114,13 @@ public static class RestApiBuilderExtensions
         var appSettings = settings.Value;
 
         IdentityModelEventSource.ShowPII = true;
+
+        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+        {
+            DateFormatString = "yyyy-MM-dd",
+            Formatting = Formatting.Indented
+        };
+
 
         app.UseMiddleware<ExceptionMiddleware>();
 

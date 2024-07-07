@@ -45,25 +45,11 @@ internal class Program
 
         var resume = resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId).Result;
 
-        if (resume != null)
-        {
-            List<IResumeGenerator> strategies = new()
-            {
-                new MarkupResumeGenerator(new MarkupSettings
-                {
-                    UpdateReadme = true
-                }),
-                new PdfResumeGenerator(new PdfSettings
-                {
-                    CreateUpdatePdf = true,
-                    DisplayInExplorer = true,
-                    FontFamily = "Verdana"
-                })
-            };
+        var generator = new HandlebarsGenerator();
 
-            foreach (var strategy in strategies) strategy.ExecuteOperation(resume);
-        }
+        var output = generator.ExecuteOperation(resume);
 
+        Console.WriteLine(output);
 
         Console.ReadLine();
     }
