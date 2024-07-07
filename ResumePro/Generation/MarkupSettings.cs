@@ -4,10 +4,9 @@
 
 #endregion
 
-namespace ResumePro.Generator.Strategies;
+namespace ResumePro.Generation;
 
 public class MarkupSettings
 {
-    public bool OutputToConsole { get; set; } = true;
     public bool UpdateReadme { get; set; } = false;
 }

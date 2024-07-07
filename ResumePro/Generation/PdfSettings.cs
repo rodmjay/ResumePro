@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Generator.Strategies;
+namespace ResumePro.Generation;
 
 public class PdfSettings
 {

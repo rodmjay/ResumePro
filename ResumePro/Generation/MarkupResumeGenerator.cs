@@ -5,30 +5,30 @@
 #endregion
 
 using System.Text;
+using ResumePro.Extensions;
 using ResumePro.Shared;
 
-namespace ResumePro.Generator.Strategies;
+namespace ResumePro.Generation;
 
-public class MarkupResumeStrategy : IResumeStrategy
+public class MarkupResumeGenerator : IResumeGenerator
 {
     private const string ReadMePath = @"..\..\..\..\readme.md";
     private readonly MarkupSettings _settings;
 
-
-    public MarkupResumeStrategy(MarkupSettings settings)
+    public MarkupResumeGenerator(MarkupSettings settings)
     {
         _settings = settings;
     }
 
-    public void ExecuteOperation(ResumeDetails resumeDetails)
+    public string ExecuteOperation(ResumeDetails resumeDetails)
     {
         var resumeText = BuildResumeMarkdown(resumeDetails);
-
         if (_settings.UpdateReadme)
             UpdateReadMe(resumeText);
 
-        if (_settings.OutputToConsole)
-            Console.WriteLine(resumeText);
+        Console.Write(resumeText);
+
+        return resumeText;
     }
 
     private string BuildResumeMarkdown(ResumeDetails resumeDetails)
@@ -46,11 +46,10 @@ public class MarkupResumeStrategy : IResumeStrategy
         sb.AppendLine($"- **LinkedIn:** {resumeDetails.LinkedIn}");
         sb.AppendLine($"- **GitHub:** {resumeDetails.GitHub}");
 
-        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
-            .Select(language => $"{language.LanguageName}").ToList());
+        var languages = resumeDetails.GetLanguageString();
 
-        sb.AppendLine($"- **Languages:** {languages}");
-
+        if(!string.IsNullOrWhiteSpace(languages))
+            sb.AppendLine($"- **Languages:** {languages}");
 
         sb.AppendLine();
 

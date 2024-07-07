@@ -8,11 +8,12 @@ using System.Diagnostics;
 using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using ResumePro.Extensions;
 using ResumePro.Shared;
 
-namespace ResumePro.Generator.Strategies;
+namespace ResumePro.Generation;
 
-public class PdfResumeStrategy : IResumeStrategy
+public class PdfResumeGenerator : IResumeGenerator
 {
     public enum ResumeSectionType
     {
@@ -26,21 +27,23 @@ public class PdfResumeStrategy : IResumeStrategy
     private readonly PdfSettings _settings;
 
 
-    public PdfResumeStrategy(PdfSettings settings)
+    public PdfResumeGenerator(PdfSettings settings)
     {
         _settings = settings;
     }
 
 
-    public void ExecuteOperation(ResumeDetails resumeDetails)
+    public string ExecuteOperation(ResumeDetails resumeDetails)
     {
         var document = BuildResumePdf(resumeDetails);
+        var fileName = SaveResume(document, resumeDetails);
 
         if (_settings.CreateUpdatePdf)
         {
-            var fileName = SaveResume(document, resumeDetails);
             if (_settings.DisplayInExplorer) Process.Start("explorer", fileName);
         }
+
+        return fileName;
     }
 
     private static IEnumerable<ResumeSection> GetResumeSections(ResumeDetails resumeDetails)
@@ -51,104 +54,134 @@ public class PdfResumeStrategy : IResumeStrategy
             Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}"
         };
 
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Contact Information"};
-        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
+        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Contact Information" };
+        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
+
         yield return new ResumeSection
-            {SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}"};
-        yield return new ResumeSection
-            {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
-        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
+        { SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}" };
 
-
-        var languages = string.Join(", ", resumeDetails.Languages.OrderByDescending(a => a.Proficiency)
-            .Select(language => $"{language.LanguageName}").ToList());
-
-        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Languages: {languages}"};
-
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Description"};
-        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = resumeDetails.Description};
-
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Skills"};
-        foreach (var skill in resumeDetails.Skills)
-            yield return new ResumeSection
-            {
-                SectionType = ResumeSectionType.Text,
-                Text = $"- {skill.Title} (Rating: {skill.Rating})",
-                Indentation = 10
-            };
-
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Experience"};
-        foreach (var job in resumeDetails.Jobs)
+        if (!string.IsNullOrWhiteSpace(resumeDetails.LinkedIn))
         {
             yield return new ResumeSection
-                {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10};
-            yield return new ResumeSection
-            {
-                SectionType = ResumeSectionType.Text,
-                Text =
-                    $"{job.StartDate.ToShortDateString()} - {(job.EndDate.HasValue ? job.EndDate.Value.ToShortDateString() : "Present")}",
-                Indentation = 20
-            };
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20};
+            { SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}" };
+        }
 
-            foreach (var highlight in job.Highlights)
+        if (!string.IsNullOrWhiteSpace(resumeDetails.GitHub))
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}" };
+        }
+
+        if (resumeDetails.Languages != null && resumeDetails.Languages.Any())
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Languages: {resumeDetails.GetLanguageString()}" };
+        }
+
+        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Description" };
+        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = resumeDetails.Description };
+
+        if (resumeDetails.Skills.Any())
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Skills" };
+            foreach (var skill in resumeDetails.Skills)
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30};
-
-            if (job.Projects.Any())
-                foreach (var project in job.Projects)
                 {
-                    yield return new ResumeSection
-                        {SectionType = ResumeSectionType.BoldText, Text = $"Project: {project.Name}", Indentation = 30};
-                    yield return new ResumeSection
-                        {SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40};
+                    SectionType = ResumeSectionType.Text,
+                    Text = $"- {skill.Title} (Rating: {skill.Rating})",
+                    Indentation = 10
+                };
+        }
 
-                    foreach (var projectHighlight in project.Highlights)
+        if (resumeDetails.Jobs != null && resumeDetails.Jobs.Any())
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Experience" };
+            foreach (var job in resumeDetails.Jobs)
+            {
+                yield return new ResumeSection
+                { SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10 };
+                yield return new ResumeSection
+                {
+                    SectionType = ResumeSectionType.Text,
+                    Text =
+                        $"{job.StartDate.ToShortDateString()} - {(job.EndDate.HasValue ? job.EndDate.Value.ToShortDateString() : "Present")}",
+                    Indentation = 20
+                };
+                yield return new ResumeSection
+                { SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20 };
+
+                foreach (var highlight in job.Highlights)
+                    yield return new ResumeSection
+                    { SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30 };
+
+                if (job.Projects.Any())
+                    foreach (var project in job.Projects)
+                    {
                         yield return new ResumeSection
-                        {
-                            SectionType = ResumeSectionType.Text,
-                            Text = $"- {projectHighlight.Text}",
-                            Indentation = 50
-                        };
+                        { SectionType = ResumeSectionType.BoldText, Text = $"Project: {project.Name}", Indentation = 30 };
+                        yield return new ResumeSection
+                        { SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40 };
+
+                        foreach (var projectHighlight in project.Highlights)
+                            yield return new ResumeSection
+                            {
+                                SectionType = ResumeSectionType.Text,
+                                Text = $"- {projectHighlight.Text}",
+                                Indentation = 50
+                            };
+                    }
+
+                if (job.Skills != null && job.Skills.Any())
+                {
+                    var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
+                    yield return new ResumeSection
+                    { SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10 };
                 }
 
-            if (job.Skills != null && job.Skills.Any())
-            {
-                var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
+                // Add space between jobs
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
+                { SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10 };
             }
-
-            // Add space between jobs
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10};
         }
 
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Education"};
-        foreach (var school in resumeDetails.Education)
+        if (resumeDetails.Education != null && resumeDetails.Education.Any())
         {
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10};
-            yield return new ResumeSection
+            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Education" };
+            foreach (var school in resumeDetails.Education)
             {
-                SectionType = ResumeSectionType.Text,
-                Text =
-                    $"{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}",
-                Indentation = 20
-            };
-            foreach (var degree in school.Degrees)
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20};
+                    { SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10 };
+                yield return new ResumeSection
+                {
+                    SectionType = ResumeSectionType.Text,
+                    Text =
+                        $"{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}",
+                    Indentation = 20
+                };
+                foreach (var degree in school.Degrees)
+                    yield return new ResumeSection
+                        { SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20 };
+            }
         }
 
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "References"};
-        foreach (var reference in resumeDetails.References)
+        if (resumeDetails.Certifications != null && resumeDetails.Certifications.Any())
         {
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10};
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20};
+            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Certifications" };
+            foreach (var certification in resumeDetails.Certifications)
+            {
+                yield return new ResumeSection
+                    { SectionType = ResumeSectionType.Text, Text = $"- {certification.Name}: {certification.Body}, {certification.Date.Year}", Indentation = 10 };
+            }
+        }
+
+        if (resumeDetails.References != null && resumeDetails.References.Any())
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "References" };
+            foreach (var reference in resumeDetails.References)
+            {
+                yield return new ResumeSection
+                    { SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10 };
+                yield return new ResumeSection
+                    { SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20 };
+            }
         }
 
         yield return new ResumeSection
@@ -274,7 +307,7 @@ public class PdfResumeStrategy : IResumeStrategy
         {
             var lines = new List<string>();
             var currentLine = new StringBuilder();
-            var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var word in words)
                 if (gfx.MeasureString(currentLine + " " + word, font).Width <= maxWidth)
@@ -322,7 +355,9 @@ public class PdfResumeStrategy : IResumeStrategy
 
     private string SaveResume(PdfDocument document, ResumeDetails resumeDetails)
     {
-        var fileName = $"{resumeDetails.FirstName} {resumeDetails.LastName}-{resumeDetails.JobTitle}.pdf";
+        var fileName = resumeDetails.GetFileName();
+
+        // todo: move this to settings
         var relativePath = $@"..\..\..\..\{fileName}";
         var absolutePath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath));
 

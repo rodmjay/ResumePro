@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Net.Http.Headers;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 
@@ -26,6 +27,32 @@ public class ResumeController : BaseController
             .ConfigureAwait(false);
     }
 
+    [HttpGet("{resumeId}/Download")]
+    public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId)
+    {
+        var filePath = await _resumeService.SaveResumeAsPdf(OrganizationId, personId, resumeId);
+        var fileName = Path.GetFileName(filePath);
+
+        if (!System.IO.File.Exists(filePath))
+        {
+            return NotFound();
+        }
+
+        var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
+        var fileStream = new MemoryStream(fileBytes);
+
+        var contentType = "application/pdf";
+
+        var contentDisposition = new ContentDispositionHeaderValue("attachment")
+        {
+            FileName = fileName
+        };
+
+        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
+
+        return File(fileStream, contentType, fileName);
+    }
+
     [HttpGet]
     public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId, [FromRoute] int resumeId)
     {
@@ -35,7 +62,7 @@ public class ResumeController : BaseController
 
     [HttpPost]
     public async Task<ActionResult<ResumeDetails>> CreateResume([FromRoute] int personId,
-        [FromBody] CreateResumeOptions options)
+        [FromBody] ResumeOptions options)
     {
         var result = await _resumeService.CreateResume(OrganizationId, personId, options)
             .ConfigureAwait(false);
@@ -47,7 +74,7 @@ public class ResumeController : BaseController
     [HttpPut("{resumeId}")]
     public async Task<ActionResult<ResumeDetails>> UpdateResume([FromRoute] int personId,
         [FromRoute] int resumeId,
-        [FromBody] CreateResumeOptions options)
+        [FromBody] ResumeOptions options)
     {
         var result = await _resumeService.UpdateResume(OrganizationId, personId, resumeId, options)
             .ConfigureAwait(false);

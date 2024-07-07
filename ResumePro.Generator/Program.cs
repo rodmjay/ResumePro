@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Extensions;
-using ResumePro.Generator.Strategies;
+using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
 
@@ -47,14 +47,13 @@ internal class Program
 
         if (resume != null)
         {
-            List<IResumeStrategy> strategies = new()
+            List<IResumeGenerator> strategies = new()
             {
-                new MarkupResumeStrategy(new MarkupSettings
+                new MarkupResumeGenerator(new MarkupSettings
                 {
-                    OutputToConsole = true,
                     UpdateReadme = true
                 }),
-                new PdfResumeStrategy(new PdfSettings
+                new PdfResumeGenerator(new PdfSettings
                 {
                     CreateUpdatePdf = true,
                     DisplayInExplorer = true,

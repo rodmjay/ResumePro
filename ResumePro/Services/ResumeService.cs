@@ -10,6 +10,7 @@ using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
+using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
@@ -59,7 +60,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     }
 
     public async Task<OneOf<ResumeDetails, Result>> CreateResume(
-        int organizationId, int personaId, CreateResumeOptions options)
+        int organizationId, int personaId, ResumeOptions options)
     {
         var resume = new Resume
         {
@@ -110,7 +111,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     }
 
     public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId,
-        CreateResumeOptions options)
+        ResumeOptions options)
     {
         var resume = await Resumes
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
@@ -127,6 +128,20 @@ public class ResumeService : BaseService<Resume>, IResumeService
         if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
         return Result.Failed();
+    }
+
+    public async Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId)
+    {
+        var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+
+        var resumeGenerator = new PdfResumeGenerator(new PdfSettings()
+        {
+            DisplayInExplorer = false,
+            CreateUpdatePdf = true,
+            FontFamily = "Verdana"
+        });
+
+        return resumeGenerator.ExecuteOperation(resume);
     }
 
     public async Task<Result> DeleteResume(int organizationId, int personaId, int resumeId)
