@@ -4,6 +4,7 @@
 - **Phone:** (385) 352-6026
 - **LinkedIn:** https://www.linkedin.com/in/rodmjay
 - **GitHub:** https://www.github.com/rodmjay
+- **Languages:** English, Spanish
 
 ## Description
 Rod is an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience
