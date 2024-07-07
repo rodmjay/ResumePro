@@ -1906,6 +1906,13 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             SkillId = 47,
                             Rating = 5
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonaId = 1,
+                            SkillId = 95,
+                            Rating = 9
                         });
                 });
 
@@ -2631,6 +2638,689 @@ namespace ResumePro.Migrations
                         {
                             Id = 47,
                             Title = "XAML"
+                        },
+                        new
+                        {
+                            Id = 48,
+                            Title = "Java"
+                        },
+                        new
+                        {
+                            Id = 49,
+                            Title = "C++"
+                        },
+                        new
+                        {
+                            Id = 50,
+                            Title = "PHP"
+                        },
+                        new
+                        {
+                            Id = 51,
+                            Title = "Swift"
+                        },
+                        new
+                        {
+                            Id = 52,
+                            Title = "Ruby"
+                        },
+                        new
+                        {
+                            Id = 53,
+                            Title = "C"
+                        },
+                        new
+                        {
+                            Id = 54,
+                            Title = "Kotlin"
+                        },
+                        new
+                        {
+                            Id = 55,
+                            Title = "R"
+                        },
+                        new
+                        {
+                            Id = 56,
+                            Title = "Go"
+                        },
+                        new
+                        {
+                            Id = 57,
+                            Title = "Scala"
+                        },
+                        new
+                        {
+                            Id = 58,
+                            Title = "Perl"
+                        },
+                        new
+                        {
+                            Id = 59,
+                            Title = "Rust"
+                        },
+                        new
+                        {
+                            Id = 60,
+                            Title = "Dart"
+                        },
+                        new
+                        {
+                            Id = 61,
+                            Title = "Elixir"
+                        },
+                        new
+                        {
+                            Id = 62,
+                            Title = "Haskell"
+                        },
+                        new
+                        {
+                            Id = 63,
+                            Title = "MySQL"
+                        },
+                        new
+                        {
+                            Id = 64,
+                            Title = "PostgreSQL"
+                        },
+                        new
+                        {
+                            Id = 65,
+                            Title = "MongoDB"
+                        },
+                        new
+                        {
+                            Id = 66,
+                            Title = "Oracle Database"
+                        },
+                        new
+                        {
+                            Id = 67,
+                            Title = "Spring"
+                        },
+                        new
+                        {
+                            Id = 68,
+                            Title = "Django"
+                        },
+                        new
+                        {
+                            Id = 69,
+                            Title = "Ruby on Rails"
+                        },
+                        new
+                        {
+                            Id = 70,
+                            Title = "React"
+                        },
+                        new
+                        {
+                            Id = 71,
+                            Title = "Vue.js"
+                        },
+                        new
+                        {
+                            Id = 72,
+                            Title = "Laravel"
+                        },
+                        new
+                        {
+                            Id = 73,
+                            Title = "Express.js"
+                        },
+                        new
+                        {
+                            Id = 74,
+                            Title = "Flask"
+                        },
+                        new
+                        {
+                            Id = 75,
+                            Title = "Symfony"
+                        },
+                        new
+                        {
+                            Id = 76,
+                            Title = "Meteor"
+                        },
+                        new
+                        {
+                            Id = 77,
+                            Title = "Svelte"
+                        },
+                        new
+                        {
+                            Id = 78,
+                            Title = "Next.js"
+                        },
+                        new
+                        {
+                            Id = 79,
+                            Title = "Gatsby"
+                        },
+                        new
+                        {
+                            Id = 80,
+                            Title = "Play Framework"
+                        },
+                        new
+                        {
+                            Id = 81,
+                            Title = "CodeIgniter"
+                        },
+                        new
+                        {
+                            Id = 82,
+                            Title = "CakePHP"
+                        },
+                        new
+                        {
+                            Id = 83,
+                            Title = "Phoenix"
+                        },
+                        new
+                        {
+                            Id = 84,
+                            Title = "NestJS"
+                        },
+                        new
+                        {
+                            Id = 85,
+                            Title = "Jenkins"
+                        },
+                        new
+                        {
+                            Id = 86,
+                            Title = "Docker"
+                        },
+                        new
+                        {
+                            Id = 87,
+                            Title = "Kubernetes"
+                        },
+                        new
+                        {
+                            Id = 88,
+                            Title = "Ansible"
+                        },
+                        new
+                        {
+                            Id = 89,
+                            Title = "Terraform"
+                        },
+                        new
+                        {
+                            Id = 90,
+                            Title = "GitLab"
+                        },
+                        new
+                        {
+                            Id = 91,
+                            Title = "Prometheus"
+                        },
+                        new
+                        {
+                            Id = 92,
+                            Title = "Nagios"
+                        },
+                        new
+                        {
+                            Id = 93,
+                            Title = "Puppet"
+                        },
+                        new
+                        {
+                            Id = 94,
+                            Title = "Chef"
+                        },
+                        new
+                        {
+                            Id = 95,
+                            Title = "Azure Devops"
+                        },
+                        new
+                        {
+                            Id = 96,
+                            Title = "Amazon Web Services (AWS)"
+                        },
+                        new
+                        {
+                            Id = 97,
+                            Title = "Google Cloud Platform"
+                        },
+                        new
+                        {
+                            Id = 98,
+                            Title = "Oracle Cloud"
+                        },
+                        new
+                        {
+                            Id = 99,
+                            Title = "IBM Cloud"
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.SkillCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SkillCategory");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Languages used for programming",
+                            Name = "Programming Languages"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Database management systems",
+                            Name = "Databases"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Software frameworks",
+                            Name = "Frameworks"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Tools for DevOps and CI/CD",
+                            Name = "DevOps Tools"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Description = "Platforms for cloud computing",
+                            Name = "Cloud Platforms"
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.SkillCategorySkill", b =>
+                {
+                    b.Property<int>("SkillCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SkillCategoryId", "SkillId");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("SkillCategorySkill");
+
+                    b.HasData(
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 46
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 44
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 48
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 49
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 50
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 51
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 52
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 53
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 54
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 55
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 56
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 57
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 58
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 59
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 60
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 61
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 62
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 27
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 33
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 36
+                        },
+                        new
+                        {
+                            SkillCategoryId = 1,
+                            SkillId = 45
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
+                            SkillId = 63
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
+                            SkillId = 64
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
+                            SkillId = 65
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
+                            SkillId = 66
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 34
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 67
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 68
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 69
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 70
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 71
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 72
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 73
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 74
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 75
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 76
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 77
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 78
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 79
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 80
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 81
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 82
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 83
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 84
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 26
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 7
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 85
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 86
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 87
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 88
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 89
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 90
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 91
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 92
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 93
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 94
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 24
+                        },
+                        new
+                        {
+                            SkillCategoryId = 4,
+                            SkillId = 95
+                        },
+                        new
+                        {
+                            SkillCategoryId = 5,
+                            SkillId = 96
+                        },
+                        new
+                        {
+                            SkillCategoryId = 5,
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            SkillCategoryId = 5,
+                            SkillId = 97
+                        },
+                        new
+                        {
+                            SkillCategoryId = 5,
+                            SkillId = 98
+                        },
+                        new
+                        {
+                            SkillCategoryId = 5,
+                            SkillId = 99
                         });
                 });
 
@@ -6762,6 +7452,25 @@ namespace ResumePro.Migrations
                     b.Navigation("Persona");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.SkillCategorySkill", b =>
+                {
+                    b.HasOne("ResumePro.Entities.SkillCategory", "SkillCategory")
+                        .WithMany("Skills")
+                        .HasForeignKey("SkillCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Skill", "Skill")
+                        .WithMany("Categories")
+                        .HasForeignKey("SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Skill");
+
+                    b.Navigation("SkillCategory");
+                });
+
             modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
                 {
                     b.HasOne("ResumePro.Geography.Entities.Country", "Country")
@@ -6825,7 +7534,14 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>
                 {
+                    b.Navigation("Categories");
+
                     b.Navigation("Personas");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.SkillCategory", b =>
+                {
+                    b.Navigation("Skills");
                 });
 
             modelBuilder.Entity("ResumePro.Geography.Entities.Country", b =>

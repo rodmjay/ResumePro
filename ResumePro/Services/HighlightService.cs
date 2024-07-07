@@ -80,7 +80,8 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         int highlightId, HighlightOptions options)
     {
         var highlight = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId && x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
+                        x.ProjectId == projectId)
             .FirstOrDefaultAsync();
 
         if (highlight == null) return Result.Failed();

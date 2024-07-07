@@ -47,7 +47,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         // these should be placed in the Seeding/csv folder for it to work
         // make sure files are marked as "EmbeddedResource => Copy if newer"
         builder.Entity<Country>().Seed("countries.csv");
-        builder.Entity<StateProvince>().Seed("stateProvinces.csv");
+        builder.Entity<StateProvince>().Seed("state_provinces.csv");
         builder.Entity<Persona>().Seed("personas.csv");
         builder.Entity<Skill>().Seed("skills.csv");
         builder.Entity<PersonaSkill>().Seed("persona_skills.csv");
@@ -60,9 +60,10 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<Reference>().Seed("references.csv");
         builder.Entity<School>().Seed("schools.csv");
         builder.Entity<Degree>().Seed("degrees.csv");
-
         builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
         builder.Entity<Language>().Seed("languages.csv");
         builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
+        builder.Entity<SkillCategory>().Seed("skill_categories.csv");
+        builder.Entity<SkillCategorySkill>().Seed("category_skills.csv");
     }
 }

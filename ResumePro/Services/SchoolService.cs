@@ -92,8 +92,6 @@ public class SchoolService : BaseService<School>, ISchoolService
 
         school.ObjectState = ObjectState.Deleted;
 
-        foreach (var degree in school.Degrees) degree.ObjectState = ObjectState.Deleted;
-
         var results = Repository.InsertOrUpdateGraph(school, true);
         if (results > 0) return Result.Success();
 

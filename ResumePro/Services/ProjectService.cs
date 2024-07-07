@@ -145,7 +145,7 @@ public class ProjectService : BaseService<Project>, IProjectService
 
         project.ObjectState = ObjectState.Deleted;
 
-        foreach (var highlight in project.Highlights) 
+        foreach (var highlight in project.Highlights)
             highlight.ObjectState = ObjectState.Deleted;
 
         Repository.InsertOrUpdateGraph(project);

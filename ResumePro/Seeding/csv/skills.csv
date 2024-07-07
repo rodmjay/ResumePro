@@ -46,3 +46,55 @@
 45,Powershell
 46,Python
 47,XAML
+48,Java
+49,C++
+50,PHP
+51,Swift
+52,Ruby
+53,C
+54,Kotlin
+55,R
+56,Go
+57,Scala
+58,Perl
+59,Rust
+60,Dart
+61,Elixir
+62,Haskell
+63,MySQL
+64,PostgreSQL
+65,MongoDB
+66,Oracle Database
+67,Spring
+68,Django
+69,Ruby on Rails
+70,React
+71,Vue.js
+72,Laravel
+73,Express.js
+74,Flask
+75,Symfony
+76,Meteor
+77,Svelte
+78,Next.js
+79,Gatsby
+80,Play Framework
+81,CodeIgniter
+82,CakePHP
+83,Phoenix
+84,NestJS
+85,Jenkins
+86,Docker
+87,Kubernetes
+88,Ansible
+89,Terraform
+90,GitLab
+91,Prometheus
+92,Nagios
+93,Puppet
+94,Chef
+95,Azure Devops
+96,Amazon Web Services (AWS)
+97,Google Cloud Platform
+98,Oracle Cloud
+99,IBM Cloud

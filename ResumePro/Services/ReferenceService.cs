@@ -118,7 +118,7 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
             .FirstOrDefaultAsync();
 
-        if(reference == null)
+        if (reference == null)
             return Result.Failed();
 
         var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
@@ -142,7 +142,6 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
             return Result.Success();
 
         return Result.Failed();
-
     }
 
     private async Task<int> GetNextReferenceId(int organizationId, int personId)

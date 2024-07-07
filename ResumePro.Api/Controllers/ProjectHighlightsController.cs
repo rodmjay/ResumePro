@@ -56,7 +56,8 @@ public class ProjectHighlightsController : BaseController
         [FromRoute] int highlightId,
         [FromBody] HighlightOptions options)
     {
-        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, projectId, highlightId, options)
+        var result = await _highlightService
+            .UpdateHighlight(OrganizationId, personId, jobId, projectId, highlightId, options)
             .ConfigureAwait(false);
 
         if (result.IsT0) return Ok(result.AsT0);

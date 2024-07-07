@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared.Interfaces;
@@ -25,6 +26,7 @@ public class Degree : BaseEntity<Degree>, IDegree
         builder.HasOne(x => x.School)
             .WithMany(x => x.Degrees)
             .HasForeignKey(x => new {x.OrganizationId, x.SchoolId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.Id});
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

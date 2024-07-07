@@ -13,6 +13,8 @@ namespace ResumePro.Entities;
 public class Skill : BaseEntity<Skill>, ISkill
 {
     public ICollection<PersonaSkill> Personas { get; set; }
+    public ICollection<SkillCategorySkill> Categories { get; set; }
+
     public int Id { get; set; }
     public string Title { get; set; }
 

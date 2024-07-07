@@ -34,8 +34,8 @@ namespace ResumePro.Migrations
                 columns: table => new
                 {
                     Code3 = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     NativeName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Code2 = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -54,6 +54,20 @@ namespace ResumePro.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skill", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SkillCategory",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillCategory", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -78,20 +92,44 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SkillCategorySkill",
+                columns: table => new
+                {
+                    SkillId = table.Column<int>(type: "int", nullable: false),
+                    SkillCategoryId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SkillCategorySkill", x => new { x.SkillCategoryId, x.SkillId });
+                    table.ForeignKey(
+                        name: "FK_SkillCategorySkill_SkillCategory_SkillCategoryId",
+                        column: x => x.SkillCategoryId,
+                        principalTable: "SkillCategory",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SkillCategorySkill_Skill_SkillId",
+                        column: x => x.SkillId,
+                        principalTable: "Skill",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Persona",
                 columns: table => new
                 {
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
+                    StateId = table.Column<int>(type: "int", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LinkedIn = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     GitHub = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    StateId = table.Column<int>(type: "int", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -899,7 +937,149 @@ namespace ResumePro.Migrations
                     { 44, "JavaScript" },
                     { 45, "Powershell" },
                     { 46, "Python" },
-                    { 47, "XAML" }
+                    { 47, "XAML" },
+                    { 48, "Java" },
+                    { 49, "C++" },
+                    { 50, "PHP" },
+                    { 51, "Swift" },
+                    { 52, "Ruby" },
+                    { 53, "C" },
+                    { 54, "Kotlin" },
+                    { 55, "R" },
+                    { 56, "Go" },
+                    { 57, "Scala" },
+                    { 58, "Perl" },
+                    { 59, "Rust" },
+                    { 60, "Dart" },
+                    { 61, "Elixir" },
+                    { 62, "Haskell" },
+                    { 63, "MySQL" },
+                    { 64, "PostgreSQL" },
+                    { 65, "MongoDB" },
+                    { 66, "Oracle Database" },
+                    { 67, "Spring" },
+                    { 68, "Django" },
+                    { 69, "Ruby on Rails" },
+                    { 70, "React" },
+                    { 71, "Vue.js" },
+                    { 72, "Laravel" },
+                    { 73, "Express.js" },
+                    { 74, "Flask" },
+                    { 75, "Symfony" },
+                    { 76, "Meteor" },
+                    { 77, "Svelte" },
+                    { 78, "Next.js" },
+                    { 79, "Gatsby" },
+                    { 80, "Play Framework" },
+                    { 81, "CodeIgniter" },
+                    { 82, "CakePHP" },
+                    { 83, "Phoenix" },
+                    { 84, "NestJS" },
+                    { 85, "Jenkins" },
+                    { 86, "Docker" },
+                    { 87, "Kubernetes" },
+                    { 88, "Ansible" },
+                    { 89, "Terraform" },
+                    { 90, "GitLab" },
+                    { 91, "Prometheus" },
+                    { 92, "Nagios" },
+                    { 93, "Puppet" },
+                    { 94, "Chef" },
+                    { 95, "Azure Devops" },
+                    { 96, "Amazon Web Services (AWS)" },
+                    { 97, "Google Cloud Platform" },
+                    { 98, "Oracle Cloud" },
+                    { 99, "IBM Cloud" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SkillCategory",
+                columns: new[] { "Id", "Description", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Languages used for programming", "Programming Languages" },
+                    { 2, "Database management systems", "Databases" },
+                    { 3, "Software frameworks", "Frameworks" },
+                    { 4, "Tools for DevOps and CI/CD", "DevOps Tools" },
+                    { 5, "Platforms for cloud computing", "Cloud Platforms" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SkillCategorySkill",
+                columns: new[] { "SkillCategoryId", "SkillId" },
+                values: new object[,]
+                {
+                    { 1, 1 },
+                    { 1, 6 },
+                    { 1, 27 },
+                    { 1, 33 },
+                    { 1, 36 },
+                    { 1, 44 },
+                    { 1, 45 },
+                    { 1, 46 },
+                    { 1, 48 },
+                    { 1, 49 },
+                    { 1, 50 },
+                    { 1, 51 },
+                    { 1, 52 },
+                    { 1, 53 },
+                    { 1, 54 },
+                    { 1, 55 },
+                    { 1, 56 },
+                    { 1, 57 },
+                    { 1, 58 },
+                    { 1, 59 },
+                    { 1, 60 },
+                    { 1, 61 },
+                    { 1, 62 },
+                    { 2, 3 },
+                    { 2, 63 },
+                    { 2, 64 },
+                    { 2, 65 },
+                    { 2, 66 },
+                    { 3, 4 },
+                    { 3, 5 },
+                    { 3, 13 },
+                    { 3, 14 },
+                    { 3, 17 },
+                    { 3, 26 },
+                    { 3, 34 },
+                    { 3, 67 },
+                    { 3, 68 },
+                    { 3, 69 },
+                    { 3, 70 },
+                    { 3, 71 },
+                    { 3, 72 },
+                    { 3, 73 },
+                    { 3, 74 },
+                    { 3, 75 },
+                    { 3, 76 },
+                    { 3, 77 },
+                    { 3, 78 },
+                    { 3, 79 },
+                    { 3, 80 },
+                    { 3, 81 },
+                    { 3, 82 },
+                    { 3, 83 },
+                    { 3, 84 },
+                    { 4, 7 },
+                    { 4, 24 },
+                    { 4, 85 },
+                    { 4, 86 },
+                    { 4, 87 },
+                    { 4, 88 },
+                    { 4, 89 },
+                    { 4, 90 },
+                    { 4, 91 },
+                    { 4, 92 },
+                    { 4, 93 },
+                    { 4, 94 },
+                    { 4, 95 },
+                    { 5, 2 },
+                    { 5, 96 },
+                    { 5, 97 },
+                    { 5, 98 },
+                    { 5, 99 }
                 });
 
             migrationBuilder.InsertData(
@@ -1041,7 +1221,8 @@ namespace ResumePro.Migrations
                     { 1, 1, 44, 10 },
                     { 1, 1, 45, 8 },
                     { 1, 1, 46, 5 },
-                    { 1, 1, 47, 5 }
+                    { 1, 1, 47, 5 },
+                    { 1, 1, 95, 9 }
                 });
 
             migrationBuilder.InsertData(
@@ -1078,10 +1259,10 @@ namespace ResumePro.Migrations
                 columns: new[] { "Id", "OrganizationId", "JobId", "Order", "ProjectId", "Text" },
                 values: new object[,]
                 {
-                    { 6, 1, 2, 1, null, "Company-wide leader for .NET initiatives." },
-                    { 7, 1, 2, 2, null, "Developed the technical screening process and conducted numerous technical interviews." },
-                    { 8, 1, 2, 3, null, "Developed the common codebase utilized for all .NET projects." },
-                    { 9, 1, 2, 4, null, "Received the award for highest-producing developer in 2021." },
+                    { 6, 1, 2, 1, null, "Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies." },
+                    { 7, 1, 2, 2, null, "Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality." },
+                    { 8, 1, 2, 3, null, "Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency." },
+                    { 9, 1, 2, 4, null, "Awarded 'Top Developer of 2021' for exceptional productivity and innovation." },
                     { 17, 1, 5, 1, null, "Managed four developers directly using Agile Scrum methodologies." },
                     { 18, 1, 5, 2, null, "Responsible for the architecture and development of components within a banking platform." },
                     { 19, 1, 5, 3, null, "Developed Fingerprint Login and Friends and Family Shared Banking components." },
@@ -1270,18 +1451,17 @@ namespace ResumePro.Migrations
                 columns: new[] { "Id", "OrganizationId", "JobId", "Order", "ProjectId", "Text" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, 2, "Oversaw the development and deployment of mission-critical workflows to enhance software reliability" },
-                    { 2, 1, 1, 2, 2, "Developed the Geneva logging library utilized by the Site Reliability Engineering (SRE) department." },
-                    { 3, 1, 1, 3, 2, "Developed dashboards utilizing Geneva to display real-time data from millions of records." },
-                    { 4, 1, 1, 4, 2, "Utilized Bicep to deploy complex Synapse workspaces across multiple environments." },
+                    { 1, 1, 1, 1, 2, "Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly." },
+                    { 2, 1, 1, 2, 2, "Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department." },
+                    { 3, 1, 1, 3, 2, "Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights." },
+                    { 4, 1, 1, 4, 2, "Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes." },
                     { 5, 1, 1, 5, 2, "Responsible for implementing integration testing patterns across multiple applications." },
-                    { 10, 1, 1, 1, 1, "Responsible for the development and architecture of a new MicroService that served as a model for subsequent microservices." },
-                    { 11, 1, 1, 2, 1, "Conducted technical screenings for hundreds of C# and Angular developers." },
-                    { 12, 1, 2, 1, 5, "Responsible for the re-architecture and development of an antiquated system using the latest .NET technologies." },
-                    { 13, 1, 2, 2, 5, "Integrated an existing SQL Server database with EF Core." },
-                    { 14, 1, 2, 3, 5, "Developed a gRPC-based messaging system using C# WebAPI." },
-                    { 15, 1, 1, 5, 1, "Introduced enhanced patterns for unit and integration testing frameworks." },
-                    { 16, 1, 1, 6, 1, "Maintaned 90% code coverage." },
+                    { 10, 1, 1, 1, 1, "Spearheaded the architecture of a model MicroService, setting new standards for future developments." },
+                    { 11, 1, 1, 2, 1, "Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities." },
+                    { 12, 1, 2, 1, 5, "Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability." },
+                    { 13, 1, 2, 2, 5, "Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency." },
+                    { 14, 1, 2, 3, 5, "Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication." },
+                    { 15, 1, 1, 5, 1, "Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability." },
                     { 20, 1, 2, 4, 3, "Responsible for the architecture and development of the .NET Core backend." },
                     { 21, 1, 2, 2, 3, "Developed complex medication and recurring activity scheduling systems." },
                     { 22, 1, 2, 3, 3, "Made key technology decisions to ensure the project remained on schedule and within budget." },
@@ -1386,6 +1566,11 @@ namespace ResumePro.Migrations
                 columns: new[] { "OrganizationId", "PersonaId" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_SkillCategorySkill_SkillId",
+                table: "SkillCategorySkill",
+                column: "SkillId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StateProvince_Iso2",
                 table: "StateProvince",
                 column: "Iso2");
@@ -1419,6 +1604,9 @@ namespace ResumePro.Migrations
                 name: "ResumeSkill");
 
             migrationBuilder.DropTable(
+                name: "SkillCategorySkill");
+
+            migrationBuilder.DropTable(
                 name: "School");
 
             migrationBuilder.DropTable(
@@ -1432,6 +1620,9 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "Resume");
+
+            migrationBuilder.DropTable(
+                name: "SkillCategory");
 
             migrationBuilder.DropTable(
                 name: "Job");
