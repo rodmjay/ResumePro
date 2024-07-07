@@ -13,4 +13,5 @@ public class ResumeDetails : ResumeDto
     public List<ReferenceDto> References { get; set; }
     public List<SchoolDetails> Education { get; set; }
     public List<PersonaLanguageDto> Languages { get; set; }
+    public List<CertificationDto> Certifications { get; set; }
 }

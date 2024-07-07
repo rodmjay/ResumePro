@@ -10,11 +10,11 @@ using ResumePro.Shared;
 
 namespace ResumePro.Mapping;
 
-public class DegreeMapping : Profile
+public class CertificationMapping : Profile
 {
-    public DegreeMapping()
+    public CertificationMapping()
     {
-        CreateMap<Degree, DegreeDto>()
+        CreateMap<Certification, CertificationDto>()
             .IncludeAllDerived();
     }
 }

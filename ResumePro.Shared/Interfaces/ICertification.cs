@@ -6,11 +6,12 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface ICompany
+public interface ICertification
 {
     int OrganizationId { get; set; }
     string Name { get; set; }
-    string Headquarters { get; set; }
-    string Description { get; set; }
+    string Body { get; set; }
+    int PersonaId { get; set; }
     int Id { get; set; }
+    DateTime Date { get; set; }
 }

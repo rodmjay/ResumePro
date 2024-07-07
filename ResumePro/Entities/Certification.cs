@@ -7,10 +7,11 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Certification : BaseEntity<Certification>
+public class Certification : BaseEntity<Certification>, ICertification
 {
     public int OrganizationId { get; set; }
     public string Name { get; set; }

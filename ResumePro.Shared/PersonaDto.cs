@@ -11,11 +11,12 @@ namespace ResumePro.Shared;
 public class PersonaDto : IPersona
 {
     public string State { get; set; }
-    public int Skills { get; set; }
-    public int Resumes { get; set; }
+    public int SkillCount { get; set; }
+    public int ResumeCount { get; set; }
+    public int JobCount { get; set; }
+    public int CertificationCount { get; set; }
     public string Country { get; set; }
     public int Id { get; set; }
-
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }

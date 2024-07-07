@@ -28,14 +28,11 @@ public class ResumeMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Resume, ResumeDetails>()
-            .ForMember(x => x.Jobs, opt => opt
-                .MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
-            .ForMember(x => x.References, opt => opt
-                .MapFrom(x => x.Persona.References.OrderBy(a => a.Order)))
-            .ForMember(x => x.Languages, opt => opt.MapFrom(x => x.Persona.Languages))
-            .ForMember(x => x.Education, opt => opt
-                .MapFrom(x => x.Persona.Schools))
-            .ForMember(x => x.Skills, opt => opt
-                .MapFrom(x => x.Skills.OrderByDescending(a => a.Skill.Rating)));
+            .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
+            .ForMember(x => x.References, opt => opt.MapFrom(x => x.Persona.References.OrderBy(a => a.Order)))
+            .ForMember(x => x.Languages, opt => opt.MapFrom(x => x.Persona.Languages.OrderByDescending(a=>a.Proficiency)))
+            .ForMember(x => x.Certifications, opt => opt.MapFrom(x => x.Persona.Certifications.OrderByDescending(a=>a.Date)))
+            .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Persona.Schools.OrderByDescending(a=>a.StartDate)))
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.OrderByDescending(a => a.Skill.Rating)));
     }
 }
