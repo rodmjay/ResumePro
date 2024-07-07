@@ -25,7 +25,7 @@ public class HighlightsController : BaseController
     [HttpGet("{highlightId}")]
     public async Task <HighlightDto> GetHighlight([FromRoute] int personId, [FromRoute] int jobId, [FromRoute]int highlightId)
     {
-        return await _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId)
+        return await _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId, null)
             .ConfigureAwait(false);
     }
 

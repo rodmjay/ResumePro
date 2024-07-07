@@ -7,6 +7,7 @@
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
+using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
@@ -25,6 +26,13 @@ public class ResumeController : BaseController
     public async Task<ResumeDetails> Get([FromRoute] int personId, [FromRoute] int resumeId)
     {
         return await _resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId)
+            .ConfigureAwait(false);
+    }
+
+    [HttpGet]
+    public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId, [FromRoute] int resumeId)
+    {
+        return await _resumeService.GetResumes<ResumeDto>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
@@ -55,5 +63,12 @@ public class ResumeController : BaseController
         }
 
         return BadRequest(result.AsT1);
+    }
+
+    [HttpDelete("{resumeId}")]
+    public Task<Result> DeleteResume([FromRoute] int personId,
+        [FromRoute] int resumeId)
+    {
+        return _resumeService.DeleteResume(OrganizationId, personId, resumeId);
     }
 }

@@ -17,7 +17,7 @@ public interface IHighlightService : IService<Highlight>
 {
     Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto;
 
-    Task<T> GetHighlight<T>(int organizationId, int highlightId) where T : HighlightDto;
+    Task<T> GetHighlight<T>(int organizationId, int highlightId, int? projectId) where T : HighlightDto;
 
     Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
         CreateHighlightOptions options);

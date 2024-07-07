@@ -21,17 +21,14 @@ public class ResumeService : BaseService<Resume>, IResumeService
 {
     private readonly IRepositoryAsync<Job> _jobRepository;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
-    private readonly IRepositoryAsync<Reference> _referencesRepo;
 
     public ResumeService(
         IRepositoryAsync<Job> jobRepository,
         IRepositoryAsync<PersonaSkill> personalSkillsRepo,
-        IRepositoryAsync<Reference> referencesRepo,
         IServiceProvider serviceProvider) : base(serviceProvider)
     {
         _jobRepository = jobRepository;
         _personalSkillsRepo = personalSkillsRepo;
-        _referencesRepo = referencesRepo;
     }
 
     private IQueryable<Resume> Resumes => Repository.Queryable();

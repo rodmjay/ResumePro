@@ -21,7 +21,7 @@ public class Persona : BaseEntity<Persona>, IPersona
     public ICollection<School> Schools { get; set; }
     public ICollection<Certification> Certifications { get; set; }
     public ICollection<PersonaLanguage> Languages { get; set; }
-    public ICollection<Application> Applications { get; set; }
+
     public int OrganizationId { get; set; }
     public int Id { get; set; }
     public string FirstName { get; set; }

@@ -31,8 +31,8 @@ public class ResumeMapping : Profile
             .ForMember(x => x.Jobs, opt => opt
                 .MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
             .ForMember(x => x.References, opt => opt
-                .MapFrom(x => x.References))
-            .ForMember(x=>x.Languages, opt=>opt.MapFrom(x=>x.Persona.Languages))
+                .MapFrom(x => x.Persona.References.OrderBy(a => a.Order)))
+            .ForMember(x => x.Languages, opt => opt.MapFrom(x => x.Persona.Languages))
             .ForMember(x => x.Education, opt => opt
                 .MapFrom(x => x.Persona.Schools))
             .ForMember(x => x.Skills, opt => opt

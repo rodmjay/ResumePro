@@ -40,7 +40,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
             .ToListAsync();
     }
 
-    public Task<T> GetHighlight<T>(int organizationId, int highlightId) where T : HighlightDto
+    public Task<T> GetHighlight<T>(int organizationId, int highlightId, int? projectId) where T : HighlightDto
     {
         return Highlights
             .AsNoTracking()
@@ -51,8 +51,6 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
 
     public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId, CreateHighlightOptions options)
     {
-        // todo: figure out ordering of other highlights
-
         var lastHighlight = await
             Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
             .AsNoTracking()
@@ -79,7 +77,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
 
         var results = Repository.InsertOrUpdateGraph(highlight, true);
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id);
+            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, null);
 
         return Result.Failed();
     }
@@ -106,9 +104,14 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
         highlight.ObjectState = ObjectState.Modified;
 
         int index = options.Order - 1;
-        if (index < 0 || index > highlights.Count)
+
+        if (index < 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(options.Order), "new order position is out of range");
+            index = 0;
+        }
+        if (index > highlights.Count)
+        {
+            index = highlights.Count;
         }
 
         highlights.Insert(index, highlight);
@@ -123,7 +126,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
 
         var results = Repository.Commit();
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id);
+            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, null);
 
         return Result.Failed();
     }

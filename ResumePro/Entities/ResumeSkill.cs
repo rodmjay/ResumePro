@@ -28,12 +28,12 @@ public class ResumeSkill : BaseEntity<ResumeSkill>, IResumeSkill
             .WithMany(x => x.Skills)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId, x.ResumeId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.PersonaId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Skill)
             .WithMany(x => x.Resumes)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId, x.SkillId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.PersonaId, x.SkillId})
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

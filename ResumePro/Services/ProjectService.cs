@@ -13,6 +13,7 @@ using ResumePro.Entities;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
@@ -29,6 +30,7 @@ public class ProjectService : BaseService<Project>, IProjectService
     {
         return Projects.AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .OrderBy(x=>x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -43,6 +45,12 @@ public class ProjectService : BaseService<Project>, IProjectService
 
     public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId, ProjectOptions options)
     {
+        var lastProject = await
+            Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+                .AsNoTracking()
+                .OrderByDescending(x => x.Order)
+                .FirstOrDefaultAsync();
+
         var project = new Project
         {
             Id = await GetNextProjectId(organizationId),
@@ -54,6 +62,16 @@ public class ProjectService : BaseService<Project>, IProjectService
             Name = options.Name,
             Order = options.Order
         };
+
+
+        if (lastProject == null)
+        {
+            project.Order = 1;
+        }
+        else
+        {
+            project.Order = lastProject.Order + 1;
+        }
 
         var results = Repository.InsertOrUpdateGraph(project, true);
         if (results > 0)
@@ -72,6 +90,13 @@ public class ProjectService : BaseService<Project>, IProjectService
         if (project == null)
             return Result.Failed();
 
+        var projects = await Projects
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .OrderBy(x => x.Order)
+            .ToListAsync();
+
+        projects.Remove(project);
+
         project.ObjectState = ObjectState.Modified;
         project.Budget = options.Budget;
         project.Description = options.Description;
@@ -79,7 +104,29 @@ public class ProjectService : BaseService<Project>, IProjectService
         project.Name = options.Name;
         project.Order = options.Order;
 
-        var results = Repository.InsertOrUpdateGraph(project, true);
+
+        int index = options.Order - 1;
+
+        if (index < 0)
+        {
+            index = 0;
+        }
+        if (index > projects.Count)
+        {
+            index = projects.Count;
+        }
+
+        projects.Insert(index, project);
+
+        for (int i = 0; i < projects.Count; i++)
+        {
+            projects[i].Order = i + 1;
+            projects[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(projects[0], false);
+        }
+
+        var results = Repository.Commit();
         if (results > 0)
         {
             return await GetProject<ProjectDetails>(organizationId, project.Id);

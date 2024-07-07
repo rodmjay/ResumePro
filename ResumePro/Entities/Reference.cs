@@ -22,8 +22,7 @@ public class Reference : BaseEntity<Reference>, IReference
     public string Text { get; set; }
     public string Name { get; set; }
     public string PhoneNumber { get; set; }
-
-    public ICollection<ResumeReference> Resumes { get; set; }
+    public int Order { get; set; }
 
     public override void Configure(EntityTypeBuilder<Reference> builder)
     {

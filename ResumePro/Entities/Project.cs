@@ -14,7 +14,6 @@ public class Project : BaseEntity<Project>, IProject
 {
     public int OrganizationId { get; set; }
     public Job Job { get; set; }
-
     public ICollection<Highlight> Highlights { get; set; }
     public int Id { get; set; }
     public int JobId { get; set; }

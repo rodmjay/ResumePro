@@ -12,8 +12,8 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240706031601_InitialMigration3")]
-    partial class InitialMigration3
+    [Migration("20240707011951_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,43 +24,6 @@ namespace ResumePro.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ResumePro.Entities.Application", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("ApplicationDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ApplicationStatus")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobPostingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrganizationId", "JobPostingId");
-
-                    b.HasIndex("OrganizationId", "PersonaId");
-
-                    b.HasIndex("OrganizationId", "ResumeId");
-
-                    b.ToTable("Application");
-                });
 
             modelBuilder.Entity("ResumePro.Entities.Certification", b =>
                 {
@@ -2100,6 +2063,9 @@ namespace ResumePro.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -2117,6 +2083,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 1,
                             Name = "Joseph Cotton",
+                            Order = 1,
                             Text = "I had the opportunity to work with Rod as a fellow solutions architect at Kahoa. Rod was leading a team of developers to meet client software needs. During my time there, Rod was not only an outstanding project architect and team lead, but an outstanding individual contributor as well. He was still able to contribute just as much as the rest of his team did despite his additional leadership responsibilities.  Rod was also a central contributing figure to company architectural principles as a whole. He was was a senior member of Kahoa's architecture community, and helped guide discussions around software standards and best practices for the company as a whole. Rod is an excellent architect and software engineer. He has the ability to lead teams and projects, and has the grit to get them over the line when it's needed. I very highly recommend him to anyone seeking an outstanding software architect or team lead."
                         },
                         new
@@ -2125,6 +2092,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 2,
                             Name = "Cameo Doran",
+                            Order = 2,
                             Text = "I worked with Rod when he was recruited as the lead architect for a complicated financial SaaS product for an important client.\\Rod quickly impressed me with his ability to put himself in the clients shoes and build creative solutions that were focused on bringing the most value for the smallest cost.\\He also understands how to leverage the chosen technology for great results. Many a time I was impressed with recommendations he made that were far beyond what anyone else had considered.\\Rod’s experience and skill as an architect and engineering leader allowed us to place him on critical client projects and trust that he would delight the client and lead the team successfully.\\It was a pleasure to work with such a talented mind. Rod will add experience and technical leadership to any company."
                         },
                         new
@@ -2133,6 +2101,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 5,
                             Name = "Rob Atlas",
+                            Order = 3,
                             Text = "Recently, my startup worked with Rod on the development of our MVP (Minimal Viable Product) offering. I have worked with 100's of software developers over my career. Rod is one of the most talented and efficient architects/developers with whom I have been associated. I highly recommend him as a designer and implementer of complex or sophisticated software."
                         },
                         new
@@ -2141,6 +2110,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 6,
                             Name = "Robert Clymer",
+                            Order = 4,
                             Text = "If you want someone who can have high bandwidth conversations about the best way to design something, and then have that person accurately implement the agreed upon ideas as 5X the speed of a typical developer, Rod is your guy."
                         },
                         new
@@ -2149,6 +2119,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 7,
                             Name = "Daniel Schulz",
+                            Order = 5,
                             Text = "Rod is a brilliant developer and a hard worker. He literally saved our project as I added him in the last hours as his expertise directed us to deliver. He certainly says up with the latest technologies, is a very fast learner, and was able to lead us in them. I highly recommend him."
                         },
                         new
@@ -2157,6 +2128,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 8,
                             Name = "Ryan Done",
+                            Order = 6,
                             Text = "I worked with Rod on a complex web project at Ancestry.com. Rod made a big difference in the success of our project by finding great solutions and sharing different ways of looking at problems. He is sharp, knowledgeable and a great team player."
                         },
                         new
@@ -2165,6 +2137,7 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             Id = 9,
                             Name = "Gregg B. Jensen",
+                            Order = 7,
                             Text = "Rod is a very skilled, and well rounded professional in web development. He is committed to success in all of his projects, and makes sure to deliver more than whats expected. His is a great asset to any team, and is an excellent team member."
                         });
                 });
@@ -2272,80 +2245,6 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 9
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ReferenceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ResumeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "ReferenceId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "ResumeId");
-
-                    b.HasIndex("OrganizationId", "PersonaId", "ReferenceId");
-
-                    b.ToTable("ResumeReference");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 1,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 2,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 5,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 6,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 7,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 8,
-                            ResumeId = 1,
-                            PersonaId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ReferenceId = 9,
-                            ResumeId = 1,
-                            PersonaId = 1
                         });
                 });
 
@@ -5357,198 +5256,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Jobs.Entities.HiringManager", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("OrganizationId", "Id");
-
-                    b.ToTable("HiringManager");
-                });
-
-            modelBuilder.Entity("ResumePro.Jobs.Entities.JobCategory", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("JobCategory");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Jobs related to developing and maintaining software applications.",
-                            Name = "Software Development"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Positions focused on promoting products and services.",
-                            Name = "Marketing"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Roles involved in selling products and services to customers.",
-                            Name = "Sales"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Jobs related to recruiting",
-                            Name = "Human Resources"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Positions focused on managing company finances and accounts.",
-                            Name = "Finance"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Roles involved in supporting and assisting customers.",
-                            Name = "Customer Service"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Jobs related to designing and building products or infrastructure.",
-                            Name = "Engineering"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Positions focused on overseeing product development and strategy.",
-                            Name = "Product Management"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            Description = "Roles involved in managing day-to-day business operations.",
-                            Name = "Operations"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            Description = "Jobs related to legal compliance and providing legal advice.",
-                            Name = "Legal"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            Description = "Positions focused on administrative and clerical tasks.",
-                            Name = "Administrative"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            Description = "Jobs related to providing technical support and managing IT systems.",
-                            Name = "IT Support"
-                        },
-                        new
-                        {
-                            Id = 13,
-                            Description = "Positions focused on innovating and developing new products.",
-                            Name = "Research and Development"
-                        },
-                        new
-                        {
-                            Id = 14,
-                            Description = "Roles involved in teaching and educational administration.",
-                            Name = "Education"
-                        },
-                        new
-                        {
-                            Id = 15,
-                            Description = "Jobs related to providing medical and healthcare services.",
-                            Name = "Healthcare"
-                        },
-                        new
-                        {
-                            Id = 16,
-                            Description = "Positions focused on managing supply chain and distribution.",
-                            Name = "Logistics"
-                        },
-                        new
-                        {
-                            Id = 17,
-                            Description = "Roles related to graphic design",
-                            Name = "Creative"
-                        },
-                        new
-                        {
-                            Id = 18,
-                            Description = "Jobs focused on ensuring product or service quality.",
-                            Name = "Quality Assurance"
-                        },
-                        new
-                        {
-                            Id = 19,
-                            Description = "Positions involved in the production of goods.",
-                            Name = "Manufacturing"
-                        },
-                        new
-                        {
-                            Id = 20,
-                            Description = "Roles related to planning and overseeing projects.",
-                            Name = "Project Management"
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Jobs.Entities.JobPosting", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("HiringManagerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobCategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "Id");
-
-                    b.HasIndex("JobCategoryId");
-
-                    b.HasIndex("OrganizationId", "HiringManagerId");
-
-                    b.ToTable("JobPosting");
-                });
-
             modelBuilder.Entity("ResumePro.Languages.Entities.Language", b =>
                 {
                     b.Property<string>("Code3")
@@ -6865,33 +6572,6 @@ namespace ResumePro.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Application", b =>
-                {
-                    b.HasOne("ResumePro.Jobs.Entities.JobPosting", "JobPosting")
-                        .WithMany("Applications")
-                        .HasForeignKey("OrganizationId", "JobPostingId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Applications")
-                        .HasForeignKey("OrganizationId", "PersonaId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Resume", "Resume")
-                        .WithMany("Applications")
-                        .HasForeignKey("OrganizationId", "ResumeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("JobPosting");
-
-                    b.Navigation("Persona");
-
-                    b.Navigation("Resume");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Certification", b =>
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
@@ -7049,35 +6729,16 @@ namespace ResumePro.Migrations
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Resumes")
                         .HasForeignKey("OrganizationId", "JobId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
                         .WithMany("Jobs")
                         .HasForeignKey("OrganizationId", "ResumeId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Job");
-
-                    b.Navigation("Resume");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.ResumeReference", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Resume", "Resume")
-                        .WithMany("References")
-                        .HasForeignKey("OrganizationId", "ResumeId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Entities.Reference", "Reference")
-                        .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "PersonaId", "ReferenceId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Reference");
 
                     b.Navigation("Resume");
                 });
@@ -7088,13 +6749,13 @@ namespace ResumePro.Migrations
                         .WithMany("Skills")
                         .HasForeignKey("OrganizationId", "PersonaId", "ResumeId")
                         .HasPrincipalKey("OrganizationId", "PersonaId", "Id")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
                         .WithMany("Resumes")
                         .HasForeignKey("OrganizationId", "PersonaId", "SkillId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Resume");
@@ -7122,25 +6783,6 @@ namespace ResumePro.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("ResumePro.Jobs.Entities.JobPosting", b =>
-                {
-                    b.HasOne("ResumePro.Jobs.Entities.JobCategory", "JobCategory")
-                        .WithMany("JobPostings")
-                        .HasForeignKey("JobCategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("ResumePro.Jobs.Entities.HiringManager", "HiringManager")
-                        .WithMany("JobPostings")
-                        .HasForeignKey("OrganizationId", "HiringManagerId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("HiringManager");
-
-                    b.Navigation("JobCategory");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Job", b =>
                 {
                     b.Navigation("Highlights");
@@ -7154,8 +6796,6 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
                 {
-                    b.Navigation("Applications");
-
                     b.Navigation("Certifications");
 
                     b.Navigation("Jobs");
@@ -7183,18 +6823,9 @@ namespace ResumePro.Migrations
                     b.Navigation("Highlights");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Reference", b =>
-                {
-                    b.Navigation("Resumes");
-                });
-
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
-                    b.Navigation("Applications");
-
                     b.Navigation("Jobs");
-
-                    b.Navigation("References");
 
                     b.Navigation("Skills");
                 });
@@ -7217,21 +6848,6 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Geography.Entities.StateProvince", b =>
                 {
                     b.Navigation("People");
-                });
-
-            modelBuilder.Entity("ResumePro.Jobs.Entities.HiringManager", b =>
-                {
-                    b.Navigation("JobPostings");
-                });
-
-            modelBuilder.Entity("ResumePro.Jobs.Entities.JobCategory", b =>
-                {
-                    b.Navigation("JobPostings");
-                });
-
-            modelBuilder.Entity("ResumePro.Jobs.Entities.JobPosting", b =>
-                {
-                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("ResumePro.Languages.Entities.Language", b =>
