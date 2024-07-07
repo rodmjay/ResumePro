@@ -1,20 +1,19 @@
 ﻿OrganizationId,Id,JobId,Order,Text,ProjectId
-1,1,1,1,"Oversaw the development and deployment of mission-critical workflows to enhance software reliability",2
-1,2,1,2,"Developed the Geneva logging library utilized by the Site Reliability Engineering (SRE) department.",2
-1,3,1,3,"Developed dashboards utilizing Geneva to display real-time data from millions of records.",2
-1,4,1,4,"Utilized Bicep to deploy complex Synapse workspaces across multiple environments.",2
+1,1,1,1,"Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly.",2
+1,2,1,2,"Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department.",2
+1,3,1,3,"Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights.",2
+1,4,1,4,"Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes.",2
 1,5,1,5,"Responsible for implementing integration testing patterns across multiple applications.",2
-1,6,2,1,"Company-wide leader for .NET initiatives.",NULL
-1,7,2,2,"Developed the technical screening process and conducted numerous technical interviews.",NULL
-1,8,2,3,"Developed the common codebase utilized for all .NET projects.",NULL
-1,9,2,4,"Received the award for highest-producing developer in 2021.",NULL
-1,10,1,1,"Responsible for the development and architecture of a new MicroService that served as a model for subsequent microservices.",1
-1,11,1,2,"Conducted technical screenings for hundreds of C# and Angular developers.",1
-1,12,2,1,"Responsible for the re-architecture and development of an antiquated system using the latest .NET technologies.",5
-1,13,2,2,"Integrated an existing SQL Server database with EF Core.",5
-1,14,2,3,"Developed a gRPC-based messaging system using C# WebAPI.",5
-1,15,1,5,"Introduced enhanced patterns for unit and integration testing frameworks.",1
-1,16,1,6,"Maintaned 90% code coverage.",1
+1,6,2,1,"Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies.",NULL
+1,7,2,2,"Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality.",NULL
+1,8,2,3,"Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency.",NULL
+1,9,2,4,"Awarded 'Top Developer of 2021' for exceptional productivity and innovation.",NULL
+1,10,1,1,"Spearheaded the architecture of a model MicroService, setting new standards for future developments.",1
+1,11,1,2,"Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities.",1
+1,12,2,1,"Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability.",5
+1,13,2,2,"Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency.",5
+1,14,2,3,"Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication.",5
+1,15,1,5,"Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability.",1
 1,17,5,1,"Managed four developers directly using Agile Scrum methodologies."
 1,18,5,2,"Responsible for the architecture and development of components within a banking platform."
 1,19,5,3,"Developed Fingerprint Login and Friends and Family Shared Banking components."
