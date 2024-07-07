@@ -6,9 +6,6 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Controllers;
 
@@ -54,7 +51,7 @@ public class HighlightsController : BaseController
         [FromRoute] int highlightId,
         [FromBody] HighlightOptions options)
     {
-        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, highlightId, options)
+        var result = await _highlightService.UpdateHighlight(OrganizationId, personId, jobId, null, highlightId, options)
             .ConfigureAwait(false);
 
         if (result.IsT0) return Ok(result.AsT0);

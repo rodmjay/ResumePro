@@ -114,10 +114,35 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
 
     public async Task<Result> DeleteReference(int organizationId, int personId, int referenceId)
     {
-        var success = await Repository.DeleteAsync(x =>
-            x.Id == referenceId && x.PersonaId == personId && x.OrganizationId == organizationId);
+        var reference = await References.Where(x =>
+                x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
+            .FirstOrDefaultAsync();
 
-        return success ? Result.Success() : Result.Failed();
+        if(reference == null)
+            return Result.Failed();
+
+        var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .OrderBy(x => x.Order).ToListAsync();
+
+        references.Remove(reference);
+
+        reference.ObjectState = ObjectState.Deleted;
+        Repository.InsertOrUpdateGraph(reference);
+
+        for (var i = 0; i < references.Count; i++)
+        {
+            references[i].Order = i + 1;
+            references[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(references[i]);
+        }
+
+        var results = Repository.Commit();
+        if (results > 0)
+            return Result.Success();
+
+        return Result.Failed();
+
     }
 
     private async Task<int> GetNextReferenceId(int organizationId, int personId)

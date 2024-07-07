@@ -7,7 +7,6 @@
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
 using ResumePro.Interfaces;
@@ -19,22 +18,18 @@ namespace ResumePro.Services;
 
 public class HighlightService : BaseService<Highlight>, IHighlightService
 {
-    private readonly IRepositoryAsync<Job> _jobRepository;
-
-    public HighlightService(IServiceProvider serviceProvider, IRepositoryAsync<Job> jobRepository) : base(
+    public HighlightService(IServiceProvider serviceProvider) : base(
         serviceProvider)
     {
-        _jobRepository = jobRepository;
     }
 
     private IQueryable<Highlight> Highlights => Repository.Queryable();
-    private IQueryable<Job> Jobs => _jobRepository.Queryable();
 
     public Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto
     {
         return Highlights
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
             .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
@@ -44,7 +39,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
     {
         return Highlights
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.Id == highlightId)
+            .Where(x => x.OrganizationId == organizationId && x.Id == highlightId && x.ProjectId == projectId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
@@ -81,16 +76,17 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
     }
 
     public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId,
+        int? projectId,
         int highlightId, HighlightOptions options)
     {
         var highlight = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId && x.ProjectId == projectId)
             .FirstOrDefaultAsync();
 
         if (highlight == null) return Result.Failed();
 
         var highlights = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == null)
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
             .OrderBy(x => x.Order)
             .ToListAsync();
 
@@ -116,7 +112,7 @@ public class HighlightService : BaseService<Highlight>, IHighlightService
 
         var results = Repository.Commit();
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, null);
+            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, projectId);
 
         return Result.Failed();
     }

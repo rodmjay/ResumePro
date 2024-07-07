@@ -129,11 +129,28 @@ public class ProjectService : BaseService<Project>, IProjectService
         if (project == null)
             return Result.Failed();
 
+        var projects = await Projects
+            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .OrderBy(x => x.Order).ToListAsync();
+
+        projects.Remove(project);
+
+        for (var i = 0; i < projects.Count; i++)
+        {
+            projects[i].Order = i + 1;
+            projects[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(projects[i]);
+        }
+
         project.ObjectState = ObjectState.Deleted;
 
-        foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
+        foreach (var highlight in project.Highlights) 
+            highlight.ObjectState = ObjectState.Deleted;
 
-        var changes = Repository.InsertOrUpdateGraph(project, true);
+        Repository.InsertOrUpdateGraph(project);
+
+        var changes = Repository.Commit();
         if (changes > 0) return Result.Success();
 
         return Result.Failed();

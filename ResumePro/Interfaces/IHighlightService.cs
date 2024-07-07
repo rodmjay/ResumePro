@@ -23,7 +23,7 @@ public interface IHighlightService : IService<Highlight>
         int? projectId,
         CreateHighlightOptions options);
 
-    Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int highlightId,
+    Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int? projectId, int highlightId,
         HighlightOptions options);
 
     Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId, int highlightId);

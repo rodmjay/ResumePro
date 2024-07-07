@@ -17,7 +17,6 @@ public class PersonaSkill : BaseEntity<PersonaSkill>, IPersonaSkill
     public Persona Persona { get; set; }
     public Skill Skill { get; set; }
     public ICollection<JobSkill> Jobs { get; set; }
-
     public ICollection<ResumeSkill> Resumes { get; set; }
     public int PersonaId { get; set; }
     public int SkillId { get; set; }

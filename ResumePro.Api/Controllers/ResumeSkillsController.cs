@@ -6,7 +6,6 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
-using ResumePro.Shared.Common;
 
 namespace ResumePro.Api.Controllers;
 
