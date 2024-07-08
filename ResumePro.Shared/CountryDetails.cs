@@ -4,8 +4,8 @@
 
 #endregion
 
-namespace ResumePro.Geography.Models;
+namespace ResumePro.Shared;
 
-public class CountryDetails : CountryOutput
+public class CountryDetails : CountryDto
 {
 }

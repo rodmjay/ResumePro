@@ -6,7 +6,7 @@
 
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Models;
+namespace ResumePro.Services;
 
 public class GeographyErrorDescriber
 {

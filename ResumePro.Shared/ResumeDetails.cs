@@ -17,5 +17,29 @@ public class ResumeDetails : ResumeDto
     public List<PersonaLanguageDto> Languages { get; set; }
     public List<CertificationDto> Certifications { get; set; }
 
+    public List<CategorySkillRating> SkillDictionary
+    {
+        get
+        {
+            List<CategorySkillRating> list = new();
+
+            var categories = Skills.SelectMany(a => a.Categories).Distinct();
+
+            foreach (var category in categories)
+            {
+                var skills = Skills.Where(x => x.Categories.Contains(category));
+
+                list.Add(new()
+                {
+                    Category = category,
+                    Skills = skills.OrderByDescending(a => a.Rating)
+                        .Select(x => new { x.Title, x.Rating }).ToList()
+                });
+            }
+
+            return list;
+        }
+    }
+
     public string LanguageString => this.GetLanguageString();
 }

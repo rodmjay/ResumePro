@@ -1,5 +1,5 @@
 ﻿# {{firstName}} {{lastName}}, {{jobTitle}}
-## Contact Information
+
 - **Email:** {{email}}
 - **Phone:** {{phoneNumber}}
 - **LinkedIn:** {{linkedIn}}
@@ -10,8 +10,10 @@
 {{description}}
 
 ## Skills
-{{#each skills}} 
-- {{title}} (Rating: {{rating}})
+| Category               | Skills & Ratings                                       |
+|------------------------|--------------------------------------------------------|
+{{#each skillDictionary}}
+| **{{category}}**       | {{#each skills}}{{title}} ({{rating}}) {{#unless @last}}, {{/unless}}{{/each}} |
 {{/each}}
 
 ## Experience

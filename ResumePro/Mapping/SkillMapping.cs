@@ -15,6 +15,7 @@ public class SkillMapping : Profile
     public SkillMapping()
     {
         CreateMap<Skill, SkillDto>()
+            .ForMember(x => x.Categories, opt => opt.MapFrom(x => x.Categories.Select(a => a.SkillCategory.Name)))
             .IncludeAllDerived();
     }
 }

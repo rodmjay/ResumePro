@@ -4,11 +4,11 @@
 
 #endregion
 
-using ResumePro.Geography.Interfaces;
+using ResumePro.Shared.Interfaces;
 
-namespace ResumePro.Geography.Models;
+namespace ResumePro.Shared;
 
-public class CountryOutput : ICountry
+public class CountryDto : ICountry
 {
     public string Name { get; set; }
 

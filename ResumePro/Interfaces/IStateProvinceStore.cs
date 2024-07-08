@@ -4,9 +4,9 @@
 
 #endregion
 
-using ResumePro.Geography.Models;
+using ResumePro.Shared;
 
-namespace ResumePro.Geography.Interfaces;
+namespace ResumePro.Interfaces;
 
 public interface IStateProvinceStore
 {

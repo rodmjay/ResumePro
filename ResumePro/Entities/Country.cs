@@ -6,9 +6,9 @@
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Geography.Interfaces;
+using ResumePro.Shared.Interfaces;
 
-namespace ResumePro.Geography.Entities;
+namespace ResumePro.Entities;
 
 public class Country : BaseEntity<Country>, ICountry
 {

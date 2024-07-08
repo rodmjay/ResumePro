@@ -5,16 +5,16 @@
 #endregion
 
 using System.Linq.Expressions;
-using ResumePro.Geography.Entities;
-using ResumePro.Geography.Models;
+using ResumePro.Entities;
+using ResumePro.Shared;
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Interfaces;
+namespace ResumePro.Interfaces;
 
 public interface ICountryStore
 {
-    Task<T> GetCountry<T>(string iso2) where T : CountryOutput;
+    Task<T> GetCountry<T>(string iso2) where T : CountryDto;
 
     Task<PagedList<T>> GetCountries<T>(Expression<Func<Country, bool>> predicate, PagingQuery paging)
-        where T : CountryOutput;
+        where T : CountryDto;
 }

@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Entities;
-using ResumePro.Geography.Entities;
 using ResumePro.Languages.Entities;
 using ResumePro.Seeding.Extensions;
 

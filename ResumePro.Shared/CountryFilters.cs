@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Geography.Models;
+namespace ResumePro.Shared;
 
 public class CountryFilters
 {

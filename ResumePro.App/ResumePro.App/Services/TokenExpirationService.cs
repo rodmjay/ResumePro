@@ -7,7 +7,6 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Newtonsoft.Json.Linq;
-using TranslationPro.Blazor.Services;
 
 namespace ResumePro.App.Services;
 

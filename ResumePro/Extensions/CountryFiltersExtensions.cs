@@ -6,10 +6,10 @@
 
 using System.Linq.Expressions;
 using ResumePro.Core.Queries;
-using ResumePro.Geography.Entities;
-using ResumePro.Geography.Models;
+using ResumePro.Entities;
+using ResumePro.Shared;
 
-namespace ResumePro.Geography.Extensions;
+namespace ResumePro.Extensions;
 
 public static class CountryFiltersExtensions
 {

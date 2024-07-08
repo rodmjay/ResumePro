@@ -8,16 +8,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
+using ResumePro.Entities;
 using ResumePro.Extensions;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
+using System.Reflection.Emit;
 
 namespace ResumePro.Generator;
 
 internal class Program
 {
     private static readonly IServiceProvider ServiceProvider;
+    private const string ReadMePath = @"..\..\..\..\readme.md";
 
     static Program()
     {
@@ -43,14 +46,32 @@ internal class Program
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        var resume = resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId).Result;
-
-        var generator = new HandlebarsGenerator();
-
-        var output = generator.ExecuteOperation(resume);
-
-        Console.WriteLine(output);
+        var result = resumeService.Generate(organizationId, personaId, resumeId, 2).Result;
+        if (result.IsT0)
+        {
+            UpdateReadMe(result.AsT0.Body);
+            Console.WriteLine(result.AsT0.Body);
+        }
+        else
+        {
+            Console.Write(result.AsT1);
+        }
 
         Console.ReadLine();
+    }
+
+    private static void UpdateReadMe(string resumeText)
+    {
+        var fullPath = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ReadMePath));
+
+        if (File.Exists(fullPath))
+        {
+            File.WriteAllText(fullPath, resumeText);
+            Console.WriteLine("readme file updated successfully.");
+        }
+        else
+        {
+            Console.WriteLine("File not found.");
+        }
     }
 }

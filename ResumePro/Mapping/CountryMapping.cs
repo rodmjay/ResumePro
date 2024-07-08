@@ -5,17 +5,17 @@
 #endregion
 
 using AutoMapper;
-using ResumePro.Geography.Entities;
-using ResumePro.Geography.Models;
+using ResumePro.Entities;
+using ResumePro.Shared;
 using ResumePro.Shared.Common;
 
-namespace ResumePro.Geography.Projections;
+namespace ResumePro.Mapping;
 
-public class CountryProjections : Profile
+public class CountryMapping : Profile
 {
-    public CountryProjections()
+    public CountryMapping()
     {
-        CreateMap<Country, CountryOutput>()
+        CreateMap<Country, CountryDto>()
             .IncludeAllDerived();
 
         CreateMap<Country, CountryDetails>()

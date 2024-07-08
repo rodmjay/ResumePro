@@ -17,4 +17,7 @@ public class PersonaSkillDto : IPersonaSkill
     public virtual int SkillId { get; set; }
 
     public virtual int Rating { get; set; }
+
+    public string[] Categories { get; set; }
+
 }

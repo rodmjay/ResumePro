@@ -6,7 +6,7 @@
 
 using Microsoft.JSInterop;
 
-namespace TranslationPro.Blazor.Services;
+namespace ResumePro.App.Services;
 
 public class FormResponse
 {

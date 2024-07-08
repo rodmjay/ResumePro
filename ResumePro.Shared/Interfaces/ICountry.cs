@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Geography.Interfaces;
+namespace ResumePro.Shared.Interfaces;
 
 public interface ICountry
 {

@@ -18,10 +18,10 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using ResumePro.Core.Middleware.Builders;
 using ResumePro.Core.Middleware.Swagger;
 using ResumePro.Core.Settings;
+using ResumePro.Shared.Interfaces;
 using Serilog;
 
 namespace ResumePro.Core.Middleware.Extensions;
@@ -72,11 +72,12 @@ public static class RestApiBuilderExtensions
         builder.Services.AddControllers(x => { x.EnableEndpointRouting = true; })
             .AddNewtonsoftJson(o =>
             {
-                o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                o.SerializerSettings.Formatting = Formatting.Indented;
-                o.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                o.SerializerSettings.NullValueHandling = NullValueHandling.Include;
-                o.SerializerSettings.DateFormatString = "yyyy-MM-dd";
+                o.SerializerSettings.Formatting = JsonSettings.Settings.Formatting;
+                o.SerializerSettings.NullValueHandling = JsonSettings.Settings.NullValueHandling;
+                o.SerializerSettings.Converters = JsonSettings.Settings.Converters;
+                o.SerializerSettings.NullValueHandling = JsonSettings.Settings.NullValueHandling;
+                o.SerializerSettings.DateFormatString = JsonSettings.Settings.DateFormatString;
+                o.SerializerSettings.ReferenceLoopHandling = JsonSettings.Settings.ReferenceLoopHandling;
             })
             .ConfigureApiBehaviorOptions(o =>
             {
@@ -114,13 +115,6 @@ public static class RestApiBuilderExtensions
         var appSettings = settings.Value;
 
         IdentityModelEventSource.ShowPII = true;
-
-        JsonConvert.DefaultSettings = () => new JsonSerializerSettings
-        {
-            DateFormatString = "yyyy-MM-dd",
-            Formatting = Formatting.Indented
-        };
-
 
         app.UseMiddleware<ExceptionMiddleware>();
 

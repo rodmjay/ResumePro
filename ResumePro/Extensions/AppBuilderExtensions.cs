@@ -6,12 +6,20 @@
 
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.Core.Middleware.Builders;
+using ResumePro.Services;
 
 namespace ResumePro.Extensions;
 
 public static class AppBuilderExtensions
 {
+    public static AppBuilder AddGeographyDependencies(this AppBuilder builder)
+    {
+        builder.Services.TryAddTransient<GeographyErrorDescriber>();
+
+        return builder;
+    }
     public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
     {
         var typesWithInterfaces = assembly.GetTypes()

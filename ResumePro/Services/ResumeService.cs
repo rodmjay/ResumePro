@@ -17,6 +17,9 @@ using ResumePro.Shared;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 using System.Globalization;
+using Newtonsoft.Json;
+using ResumePro.Core.Middleware.Extensions;
+using ResumePro.Core.Settings;
 
 namespace ResumePro.Services;
 

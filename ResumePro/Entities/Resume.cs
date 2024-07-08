@@ -22,6 +22,7 @@ public class Resume : BaseEntity<Resume>, IResume
     public string JobTitle { get; set; }
     public string Description { get; set; }
 
+
     public override void Configure(EntityTypeBuilder<Resume> builder)
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});

@@ -17,10 +17,10 @@
 1,17,5,1,"Managed four developers directly using Agile Scrum methodologies."
 1,18,5,2,"Responsible for the architecture and development of components within a banking platform."
 1,19,5,3,"Developed Fingerprint Login and Friends and Family Shared Banking components."
-1,20,2,4,"Responsible for the architecture and development of the .NET Core backend.",3
-1,21,2,2,"Developed complex medication and recurring activity scheduling systems.",3
-1,22,2,3,"Made key technology decisions to ensure the project remained on schedule and within budget.",3
-1,23,2,4,"Maintained 90% code coverage.",3
+1,20,2,1,"Responsible for the architecture and development of the .NET Core backend.",3
+1,21,2,2,"Developed advanced medication and activity scheduling systems to accommodate complex care requirements.",3
+1,22,2,3,"Made critical technology decisions that kept the project on track and within budgetary constraints.",3
+1,23,2,4,"Maintained a code coverage of 90%, ensuring high reliability and quality of the software.",3
 1,24,2,1,"Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend.",4
 1,25,2,2,"Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow.",4
 1,26,2,4,"Maintained 75% code coverage.",4

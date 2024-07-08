@@ -7,7 +7,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Geography.Entities;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
