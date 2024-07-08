@@ -16,8 +16,8 @@
 
 ## Experience
 {{#each jobs}}
-### {{company}} - {{title}}
-*{{formatDate startDate}} - {{displayEndDate}}*
+### {{title}} - {{company}}
+*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*
 {{#each projects}}
 #### Project: {{name}}
 {{description}}
@@ -30,16 +30,16 @@
 {{/each}}
 
 {{#if Skills}}
-  **Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}
+**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}
 {{/if}}
 {{/each}}
 
 ## Education
 {{#each education}}
 ### {{name}}
-*{{formatDate startDate}} - {{displayEndDate}}*
+*{{formatDate startDate}}-{{displayEndDate}}*
 {{#each degrees}}
-- Degree: {{this}}
+- Degree: {{name}}
 {{/each}}
 {{/each}}
 
