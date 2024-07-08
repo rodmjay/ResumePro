@@ -40,7 +40,7 @@ The SRE Team oversees the quality assurance and monitoring of Microsoft's intern
 - Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes.
 - Responsible for implementing integration testing patterns across multiple applications.
 
-  **Technology Used:** C# Development, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps, Kusto, Bicep
+**Technology Used:** C# Development, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps, Kusto, Bicep
 ### Sr. Software Architect - Solution Stream
 *American Fork, UT - 11/01/2020-3/1/2022*
 #### Project: Elder Care Management Platform
