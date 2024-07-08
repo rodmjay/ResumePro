@@ -45,10 +45,10 @@ The SRE Team oversees the quality assurance and monitoring of Microsoft's intern
 *American Fork, UT - 11/01/2020-3/1/2022*
 #### Project: Elder Care Management Platform
 ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.
+- Responsible for the architecture and development of the .NET Core backend.
 - Developed advanced medication and activity scheduling systems to accommodate complex care requirements.
 - Made critical technology decisions that kept the project on track and within budgetary constraints.
 - Maintained a code coverage of 90%, ensuring high reliability and quality of the software.
-- Responsible for the architecture and development of the .NET Core backend.
 #### Project: Real Estate Accounting Platform
 Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.
 - Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend.
