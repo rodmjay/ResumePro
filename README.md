@@ -15,10 +15,11 @@ the ground up.
 ## Skills
 | Category | Skills & Ratings |
 |------------------------|--------------------------------------------------------|
-| **Programming Languages** | C# Development (10) , JavaScript (10) , Html/CSS (9) |
+| **Programming Languages** | C# (10) , JavaScript (10) , Html/CSS (9) , TypeScript (8) |
 | **Frameworks** | Entity Framework (10) , ASP.NET (10) , Angular (9) , Blazor (8) |
 | **Cloud Platforms** | Azure (9) |
 | **Databases** | Sql Server (9) |
+| **DevOps Tools** | CI/CD (9) , Azure Devops (9) |
 
 ## Experience
 ### Technical Architect - Infosys
@@ -41,9 +42,9 @@ department.
 processes.
 - Responsible for implementing integration testing patterns across multiple applications.
 
-**Technology Used:** C# Development, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core,
-Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function
-Apps, Kusto, Bicep
+**Technology Used:** C#, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial
+Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps,
+Kusto, Bicep
 ### Sr. Software Architect - Solution Stream
 *American Fork, UT - 11/01/2020-3/1/2022*
 #### Project: Elder Care Management Platform
@@ -72,9 +73,9 @@ independent grocery stores.
 - Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency.
 - Awarded 'Top Developer of 2021' for exceptional productivity and innovation.
 
-**Technology Used:** AppInsights, Entity Framework, Visual Studio, C# Development, .Net Core, ASP.NET, jQuery,
-JavaScript, Angular, Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor,
-TypeScript, Identity Server, oAuth2
+**Technology Used:** AppInsights, Entity Framework, Visual Studio, C#, .Net Core, ASP.NET, jQuery, JavaScript, Angular,
+Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor, TypeScript, Identity
+Server, oAuth2
 ### Founder/Architect - IdeaFortune
 *American Fork, UT - 11/01/2017-11/1/2020*
 #### Project: Professional Services Management Platform
@@ -85,9 +86,9 @@ TypeScript, Identity Server, oAuth2
 - Raised startup capital to fund company operations for three years.
 - Managed a team of five developers to implement the flagship product.
 
-**Technology Used:** Visual Studio, Entity Framework, C# Development, AppInsights, JavaScript, ASP.NET, Stripe,
-WebHooks, Microsoft Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2,
-Material Design, SignalR, Postman
+**Technology Used:** Visual Studio, Entity Framework, C#, AppInsights, JavaScript, ASP.NET, Stripe, WebHooks, Microsoft
+Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2, Material Design, SignalR,
+Postman
 ### Architect - Agile Software and Marketing
 *Cameron Park, CA - 01/01/2016-10/1/2017*
 #### Project: Family Entertainment Center Platform
@@ -101,16 +102,15 @@ improve scalability.
 - Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team.
 - Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
 
-**Technology Used:** .NET Framework, C# Development, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2,
-Identity Server
+**Technology Used:** .NET Framework, C#, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2, Identity Server
 ### Sr. Engineer Dev Lead - Access Softek
 *West Jordan, UT - 01/01/2014-1/1/2015*
 - Managed four developers directly using Agile Scrum methodologies.
 - Responsible for the architecture and development of components within a banking platform.
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
 
-**Technology Used:** C# Development, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy
-(BLE), oAuth2
+**Technology Used:** C#, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE),
+oAuth2
 ### Architect Consultant - Netchex
 *Mandeville, LA - 05/01/2012-12/1/2013*
 - Redesigned the flagship product by integrating advanced technology to enhance performance and functionality.
@@ -119,7 +119,7 @@ Identity Server
 experience.
 - Specialized expertise in PCI Compliance and payment processing systems.
 
-**Technology Used:** C# Development, ASP.NET, JavaScript, jQuery, Sql Server, Html/CSS
+**Technology Used:** C#, ASP.NET, JavaScript, jQuery, Sql Server, Html/CSS
 ### Sr. Engineer - Ancestry.com
 *Provo, UT - 08/01/2010-5/1/2012*
 #### Project: Small Collections Self-Management Platform
@@ -129,7 +129,7 @@ experience.
 - Maintained 100% code coverage.
 - Spearheaded companywide adoption and training of jQuery.
 
-**Technology Used:** C# Development, jQuery, JavaScript, ASP.NET, Html/CSS
+**Technology Used:** C#, jQuery, JavaScript, ASP.NET, Html/CSS
 ### Architect/Dev Manager - Cathexis
 *Provo, UT - 01/01/2008-8/1/2010*
 #### Project: Affiliate Marketing Platform
@@ -142,13 +142,13 @@ Monaco Classroom is a virtual learning environment that offers access to digital
 - Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies.
 - Oversaw the architecture, development, and deployment of a comprehensive e-learning platform.
 
-**Technology Used:** C# Development, ASP.NET, Sql Server, Html/CSS, Classic ASP, Python
+**Technology Used:** C#, ASP.NET, Sql Server, Html/CSS, Classic ASP, Python
 ### Engineer - Motorola Public Safety
 *Salt Lake City, UT - 01/01/2007-1/1/2008*
 - Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department.
 - Received extensive training in .NET, JavaScript, and WCF directly from Microsoft.
 
-**Technology Used:** JavaScript, ASP.NET, C# Development, Html/CSS, WPF, WCF, IIS, Classic ASP, XAML
+**Technology Used:** JavaScript, ASP.NET, C#, Html/CSS, WPF, WCF, IIS, Classic ASP, XAML
 
 ## Education
 ### Portland Community College
