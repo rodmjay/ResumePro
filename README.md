@@ -42,11 +42,16 @@ department.
 processes.
 - Responsible for implementing integration testing patterns across multiple applications.
 
+
 **Technology Used:** C#, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial
 Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps,
 Kusto, Bicep
 ### Sr. Software Architect - Solution Stream
 *American Fork, UT - 11/01/2020-3/1/2022*
+- Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies.
+- Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality.
+- Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency.
+- Awarded 'Top Developer of 2021' for exceptional productivity and innovation.
 #### Project: Elder Care Management Platform
 ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.
 - Responsible for the architecture and development of the .NET Core backend.
@@ -68,39 +73,38 @@ independent grocery stores.
 - Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability.
 - Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency.
 - Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication.
-- Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies.
-- Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality.
-- Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency.
-- Awarded 'Top Developer of 2021' for exceptional productivity and innovation.
+
 
 **Technology Used:** AppInsights, Entity Framework, Visual Studio, C#, .Net Core, ASP.NET, jQuery, JavaScript, Angular,
 Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor, TypeScript, Identity
 Server, oAuth2
 ### Founder/Architect - IdeaFortune
 *American Fork, UT - 11/01/2017-11/1/2020*
+- Responsible for the ideation, design, and delivery of a comprehensive professional services platform.
+- Raised startup capital to fund company operations for three years.
+- Managed a team of five developers to implement the flagship product.
 #### Project: Professional Services Management Platform
 
 - Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed.
 - Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs.
-- Responsible for the ideation, design, and delivery of a comprehensive professional services platform.
-- Raised startup capital to fund company operations for three years.
-- Managed a team of five developers to implement the flagship product.
+
 
 **Technology Used:** Visual Studio, Entity Framework, C#, AppInsights, JavaScript, ASP.NET, Stripe, WebHooks, Microsoft
 Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2, Material Design, SignalR,
 Postman
 ### Architect - Agile Software and Marketing
 *Cameron Park, CA - 01/01/2016-10/1/2017*
-#### Project: Family Entertainment Center Platform
-Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.
-- Oversaw and managed the complete backend development process.
-- Integrated with multiple bowling and card-reading systems to enhance overall system functionality.
-- Developed a fully-featured order and scheduling system.
 - Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and
 improve scalability.
 - Developed a comprehensive order and scheduling system with full functionality.
 - Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team.
 - Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
+#### Project: Family Entertainment Center Platform
+Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.
+- Oversaw and managed the complete backend development process.
+- Integrated with multiple bowling and card-reading systems to enhance overall system functionality.
+- Developed a fully-featured order and scheduling system.
+
 
 **Technology Used:** .NET Framework, C#, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2, Identity Server
 ### Sr. Engineer Dev Lead - Access Softek
@@ -108,6 +112,7 @@ improve scalability.
 - Managed four developers directly using Agile Scrum methodologies.
 - Responsible for the architecture and development of components within a banking platform.
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
+
 
 **Technology Used:** C#, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE),
 oAuth2
@@ -119,15 +124,17 @@ oAuth2
 experience.
 - Specialized expertise in PCI Compliance and payment processing systems.
 
+
 **Technology Used:** C#, ASP.NET, JavaScript, jQuery, Sql Server, Html/CSS
 ### Sr. Engineer - Ancestry.com
 *Provo, UT - 08/01/2010-5/1/2012*
+- Spearheaded companywide adoption and training of jQuery.
 #### Project: Small Collections Self-Management Platform
 
 - Developed tools to facilitate the indexing of library archives.
 - Collaborated as a member of an 8-person development team utilizing Agile/Scrum methodologies.
 - Maintained 100% code coverage.
-- Spearheaded companywide adoption and training of jQuery.
+
 
 **Technology Used:** C#, jQuery, JavaScript, ASP.NET, Html/CSS
 ### Architect/Dev Manager - Cathexis
@@ -142,11 +149,13 @@ Monaco Classroom is a virtual learning environment that offers access to digital
 - Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies.
 - Oversaw the architecture, development, and deployment of a comprehensive e-learning platform.
 
+
 **Technology Used:** C#, ASP.NET, Sql Server, Html/CSS, Classic ASP, Python
 ### Engineer - Motorola Public Safety
 *Salt Lake City, UT - 01/01/2007-1/1/2008*
 - Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department.
 - Received extensive training in .NET, JavaScript, and WCF directly from Microsoft.
+
 
 **Technology Used:** JavaScript, ASP.NET, C#, Html/CSS, WPF, WCF, IIS, Classic ASP, XAML
 
