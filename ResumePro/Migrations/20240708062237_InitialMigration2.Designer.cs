@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240708062237_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -4554,14 +4557,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonaId = 1,
                             ResumeId = 1,
-                            SkillId = 95
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            ResumeId = 1,
-                            SkillId = 7
+                            SkillId = 96
                         });
                 });
 
@@ -5326,11 +5322,6 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 3,
                             SkillId = 34
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 38
                         },
                         new
                         {
