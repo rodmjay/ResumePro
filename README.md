@@ -16,7 +16,7 @@ the ground up.
 | Category | Skills & Ratings |
 |------------------------|--------------------------------------------------------|
 | **Programming Languages** | C# (10) , JavaScript (10) , Html/CSS (9) , TypeScript (8) |
-| **Frameworks** | Entity Framework (10) , ASP.NET (10) , Angular (9) , Blazor (8) |
+| **Frameworks** | Entity Framework (10) , ASP.NET (10) , .Net Core (10) , Angular (9) , Blazor (8) |
 | **Cloud Platforms** | Azure (9) |
 | **Databases** | Sql Server (9) |
 | **DevOps Tools** | CI/CD (9) , Azure Devops (9) |
