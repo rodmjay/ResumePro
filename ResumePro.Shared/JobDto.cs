@@ -15,6 +15,19 @@ public class JobDto : IJob
 
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
+
+    public string DisplayEndDate{
+        get
+        {
+            if (EndDate == null)
+            {
+                return "Present";
+            }
+
+            return EndDate.Value.ToShortDateString();
+        }
+    }
+
     public string Title { get; set; }
     public string Company { get; set; }
     public string Location { get; set; }

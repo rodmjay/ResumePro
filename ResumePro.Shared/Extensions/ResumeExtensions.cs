@@ -4,14 +4,24 @@
 
 #endregion
 
+
+#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
 using ResumePro.Shared;
 
-namespace ResumePro.Extensions;
+namespace ResumePro.Shared.Extensions;
 
 public static class ResumeExtensions
 {
     public static string GetLanguageString(this ResumeDetails details)
     {
+        if (details.Languages == null || !details.Languages.Any())
+            return null;
+
         return string.Join(", ", details.Languages.OrderByDescending(a => a.Proficiency)
             .Select(language => $"{language.LanguageName}").ToList());
     }

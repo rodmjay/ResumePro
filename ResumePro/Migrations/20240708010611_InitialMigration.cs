@@ -71,6 +71,21 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Template",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Source = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Format = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Template", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "StateProvince",
                 columns: table => new
                 {
@@ -1005,6 +1020,15 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Template",
+                columns: new[] { "Id", "Format", "Name", "Source" },
+                values: new object[,]
+                {
+                    { 1, ".hb", "html", "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>{{FirstName}} {{LastName}} - Resume</title>\r\n    <style>\r\n        body { font-family: Arial, sans-serif; margin: 20px; }\r\n        h1 { font-size: 24px; }\r\n        h2 { font-size: 20px; margin-top: 20px; }\r\n        p { margin: 5px 0; }\r\n        ul { list-style-type: none; padding: 0; }\r\n        ul li { margin: 5px 0; }\r\n        .contact-info { margin-bottom: 20px; }\r\n        .section { margin-bottom: 20px; }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>{{FirstName}} {{LastName}}</h1>\r\n    <div class=\"contact-info\">\r\n        <p>Email: <a href=\"mailto:{{Email}}\">{{Email}}</a></p>\r\n        <p>Phone: {{PhoneNumber}}</p>\r\n        <p>LinkedIn: <a href=\"{{LinkedIn}}\">{{LinkedIn}}</a></p>\r\n        <p>GitHub: <a href=\"{{GitHub}}\">{{GitHub}}</a></p>\r\n        <p>Location: {{City}}, {{State}}, {{Country}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Job Title</h2>\r\n        <p>{{JobTitle}}</p>\r\n        <p>{{Description}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Skills</h2>\r\n        <ul>\r\n            {{#each Skills}}\r\n            <li>{{Title}} - {{Rating}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Experience</h2>\r\n        {{#each Jobs}}\r\n        <div class=\"job\">\r\n            <h3>{{Title}} at {{Company}}</h3>\r\n            <p>{{Location}} | {{StartDate}} - {{EndDate}}</p>\r\n            <p>{{Description}}</p>\r\n            <ul>\r\n                {{#each Highlights}}\r\n                <li>{{Text}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <ul>\r\n                {{#each Skills}}\r\n                <li>{{Name}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <div>\r\n                <h4>Projects:</h4>\r\n                {{#each Projects}}\r\n                <div class=\"project\">\r\n                    <h5>{{Name}}</h5>\r\n                    <p>{{Description}}</p>\r\n                    <ul>\r\n                        {{#each Highlights}}\r\n                        <li>{{Text}}</li>\r\n                        {{/each}}\r\n                    </ul>\r\n                </div>\r\n                {{/each}}\r\n            </div>\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Education</h2>\r\n        {{#each Education}}\r\n        <div class=\"education\">\r\n            <h3>{{Name}}</h3>\r\n            {{#each Degrees}}\r\n            <p>{{Degree}} | {{StartDate}} - {{EndDate}}</p>\r\n            {{/each}}\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Languages</h2>\r\n        <ul>\r\n            {{#each Languages}}\r\n            <li>{{LanguageName}} - {{Proficiency}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Certifications</h2>\r\n        <ul>\r\n            {{#each Certifications}}\r\n            <li>{{Name}} - {{OrganizationId}} ({{Date}})</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>References</h2>\r\n        <ul>\r\n            {{#each References}}\r\n            <li>{{Name}} - {{PhoneNumber}} | {{Text}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n</body>\r\n</html>\r\n" },
+                    { 2, ".hb", "markdown", "# {{firstName}} {{lastName}}, {{jobTitle}}\n## Contact Information\n- **Email:** {{email}}\n- **Phone:** {{phoneNumber}}\n- **LinkedIn:** {{linkedIn}}\n- **GitHub:** {{gitHub}}\n- **Languages:** {{languageString}}\n\n## Description\n{{description}}\n\n## Skills\n{{#each skills}} \n- {{title}} (Rating: {{rating}})\n{{/each}}\n\n## Experience\n{{#each jobs}}\n### {{title}} - {{company}}\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*\n{{#each projects}}\n#### Project: {{name}}\n{{description}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n{{/each}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n\n{{#if Skills}}\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\n{{/if}}\n{{/each}}\n\n## Education\n{{#each education}}\n### {{name}}\n*{{formatDate startDate}}-{{displayEndDate}}*\n{{#each degrees}}\n- Degree: {{name}}\n{{/each}}\n{{/each}}\n\n## References\n{{#each references}}\n### {{name}}\n{{text}}\n{{/each}}" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "SkillCategorySkill",
                 columns: new[] { "SkillCategoryId", "SkillId" },
                 values: new object[,]
@@ -1150,15 +1174,15 @@ namespace ResumePro.Migrations
                 columns: new[] { "Id", "OrganizationId", "Company", "Description", "EndDate", "Location", "PersonaId", "StartDate", "Title" },
                 values: new object[,]
                 {
-                    { 1, 1, "Infosys", null, null, "Salt Lake City,UT", 1, new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Technical Architect" },
-                    { 2, 1, "Solution Stream", null, new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork,UT", 1, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Software Architect" },
-                    { 3, 1, "IdeaFortune", null, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork,UT", 1, new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Founder/Architect" },
-                    { 4, 1, "Agile Software and Marketing", null, new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cameron Park,CA", 1, new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect" },
-                    { 5, 1, "Access Softek", null, new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "West Jordan,UT", 1, new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer Dev Lead" },
-                    { 6, 1, "NETCHEX", null, new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Louisiana", 1, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect Consultant" },
-                    { 7, 1, "Ancestry.com", null, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo,UT", 1, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer" },
-                    { 8, 1, "Cathexis", null, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo,UT", 1, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect/Dev Manager" },
-                    { 9, 1, "Motorola Public Safety", null, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Salt Lake City,UT", 1, new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Engineer" }
+                    { 1, 1, "Infosys", null, null, "Salt Lake City, UT", 1, new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Technical Architect" },
+                    { 2, 1, "Solution Stream", null, new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork, UT", 1, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Software Architect" },
+                    { 3, 1, "IdeaFortune", null, new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "American Fork, UT", 1, new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Founder/Architect" },
+                    { 4, 1, "Agile Software and Marketing", null, new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cameron Park, CA", 1, new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect" },
+                    { 5, 1, "Access Softek", null, new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "West Jordan, UT", 1, new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer Dev Lead" },
+                    { 6, 1, "Netchex", null, new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mandeville, LA", 1, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect Consultant" },
+                    { 7, 1, "Ancestry.com", null, new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo, UT", 1, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sr. Engineer" },
+                    { 8, 1, "Cathexis", null, new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Provo, UT", 1, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Architect/Dev Manager" },
+                    { 9, 1, "Motorola Public Safety", null, new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Salt Lake City, UT", 1, new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Engineer" }
                 });
 
             migrationBuilder.InsertData(
@@ -1605,6 +1629,9 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "SkillCategorySkill");
+
+            migrationBuilder.DropTable(
+                name: "Template");
 
             migrationBuilder.DropTable(
                 name: "School");

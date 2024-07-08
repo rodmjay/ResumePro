@@ -4,6 +4,7 @@
 
 #endregion
 
+using HandlebarsDotNet;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
 using ResumePro.Core.Data.Enums;
@@ -15,27 +16,52 @@ using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
+using System.Globalization;
 
 namespace ResumePro.Services;
 
 public class ResumeService : BaseService<Resume>, IResumeService
 {
+    static ResumeService()
+    {
+
+        Handlebars.RegisterHelper("formatDate", (writer, context, parameters) =>
+        {
+            if (parameters[0] is DateTime dateTime)
+            {
+                writer.WriteSafeString(dateTime.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+            }
+            else if (DateTime.TryParse(parameters[0]?.ToString(), out DateTime parsedDate))
+            {
+                writer.WriteSafeString(parsedDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+            }
+            else
+            {
+                writer.WriteSafeString(parameters[0]?.ToString());
+            }
+        });
+    }
+
+
     private readonly IRepositoryAsync<Job> _jobRepository;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
+    private readonly IRepositoryAsync<Template> _templateRepo;
 
     public ResumeService(
         IRepositoryAsync<Job> jobRepository,
         IRepositoryAsync<PersonaSkill> personalSkillsRepo,
+        IRepositoryAsync<Template> templateRepo,
         IServiceProvider serviceProvider) : base(serviceProvider)
     {
         _jobRepository = jobRepository;
         _personalSkillsRepo = personalSkillsRepo;
+        _templateRepo = templateRepo;
     }
 
     private IQueryable<Resume> Resumes => Repository.Queryable();
     private IQueryable<Job> Jobs => _jobRepository.Queryable();
-
     private IQueryable<PersonaSkill> PersonalSkills => _personalSkillsRepo.Queryable();
+    private IQueryable<Template> Templates => _templateRepo.Queryable();
 
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
@@ -142,6 +168,28 @@ public class ResumeService : BaseService<Resume>, IResumeService
         });
 
         return resumeGenerator.ExecuteOperation(resume);
+    }
+
+    public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId, int templateId)
+    {
+        var generatedResume = new GeneratedResume();
+
+        var template = await Templates.Where(x => x.Id == templateId)
+            .FirstOrDefaultAsync();
+
+        if (template == null || template.Source == null)
+            return Result.Failed();
+
+        var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+
+        if (resume == null)
+            return Result.Failed();
+
+        var engine = Handlebars.Compile(template.Source);
+
+        generatedResume.Body = engine(resume);
+
+        return generatedResume;
     }
 
     public async Task<Result> DeleteResume(int organizationId, int personaId, int resumeId)

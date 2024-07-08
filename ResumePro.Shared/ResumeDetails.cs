@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Extensions;
+
 namespace ResumePro.Shared;
 
 public class ResumeDetails : ResumeDto
@@ -14,4 +16,6 @@ public class ResumeDetails : ResumeDto
     public List<SchoolDetails> Education { get; set; }
     public List<PersonaLanguageDto> Languages { get; set; }
     public List<CertificationDto> Certifications { get; set; }
+
+    public string LanguageString => this.GetLanguageString();
 }

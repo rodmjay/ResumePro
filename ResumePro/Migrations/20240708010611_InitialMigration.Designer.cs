@@ -12,7 +12,7 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240707052613_InitialMigration")]
+    [Migration("20240708010611_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -610,7 +610,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             Id = 1,
                             Company = "Infosys",
-                            Location = "Salt Lake City,UT",
+                            Location = "Salt Lake City, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Technical Architect"
@@ -621,7 +621,7 @@ namespace ResumePro.Migrations
                             Id = 2,
                             Company = "Solution Stream",
                             EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "American Fork,UT",
+                            Location = "American Fork, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sr. Software Architect"
@@ -632,7 +632,7 @@ namespace ResumePro.Migrations
                             Id = 3,
                             Company = "IdeaFortune",
                             EndDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "American Fork,UT",
+                            Location = "American Fork, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Founder/Architect"
@@ -643,7 +643,7 @@ namespace ResumePro.Migrations
                             Id = 4,
                             Company = "Agile Software and Marketing",
                             EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Cameron Park,CA",
+                            Location = "Cameron Park, CA",
                             PersonaId = 1,
                             StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect"
@@ -654,7 +654,7 @@ namespace ResumePro.Migrations
                             Id = 5,
                             Company = "Access Softek",
                             EndDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "West Jordan,UT",
+                            Location = "West Jordan, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sr. Engineer Dev Lead"
@@ -663,9 +663,9 @@ namespace ResumePro.Migrations
                         {
                             OrganizationId = 1,
                             Id = 6,
-                            Company = "NETCHEX",
+                            Company = "Netchex",
                             EndDate = new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Louisiana",
+                            Location = "Mandeville, LA",
                             PersonaId = 1,
                             StartDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect Consultant"
@@ -676,7 +676,7 @@ namespace ResumePro.Migrations
                             Id = 7,
                             Company = "Ancestry.com",
                             EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
+                            Location = "Provo, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Sr. Engineer"
@@ -687,7 +687,7 @@ namespace ResumePro.Migrations
                             Id = 8,
                             Company = "Cathexis",
                             EndDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Provo,UT",
+                            Location = "Provo, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Architect/Dev Manager"
@@ -698,7 +698,7 @@ namespace ResumePro.Migrations
                             Id = 9,
                             Company = "Motorola Public Safety",
                             EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Location = "Salt Lake City,UT",
+                            Location = "Salt Lake City, UT",
                             PersonaId = 1,
                             StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Engineer"
@@ -3324,6 +3324,44 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 5,
                             SkillId = 99
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Template", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Format")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Source")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Template");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Format = ".hb",
+                            Name = "html",
+                            Source = "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>{{FirstName}} {{LastName}} - Resume</title>\r\n    <style>\r\n        body { font-family: Arial, sans-serif; margin: 20px; }\r\n        h1 { font-size: 24px; }\r\n        h2 { font-size: 20px; margin-top: 20px; }\r\n        p { margin: 5px 0; }\r\n        ul { list-style-type: none; padding: 0; }\r\n        ul li { margin: 5px 0; }\r\n        .contact-info { margin-bottom: 20px; }\r\n        .section { margin-bottom: 20px; }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>{{FirstName}} {{LastName}}</h1>\r\n    <div class=\"contact-info\">\r\n        <p>Email: <a href=\"mailto:{{Email}}\">{{Email}}</a></p>\r\n        <p>Phone: {{PhoneNumber}}</p>\r\n        <p>LinkedIn: <a href=\"{{LinkedIn}}\">{{LinkedIn}}</a></p>\r\n        <p>GitHub: <a href=\"{{GitHub}}\">{{GitHub}}</a></p>\r\n        <p>Location: {{City}}, {{State}}, {{Country}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Job Title</h2>\r\n        <p>{{JobTitle}}</p>\r\n        <p>{{Description}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Skills</h2>\r\n        <ul>\r\n            {{#each Skills}}\r\n            <li>{{Title}} - {{Rating}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Experience</h2>\r\n        {{#each Jobs}}\r\n        <div class=\"job\">\r\n            <h3>{{Title}} at {{Company}}</h3>\r\n            <p>{{Location}} | {{StartDate}} - {{EndDate}}</p>\r\n            <p>{{Description}}</p>\r\n            <ul>\r\n                {{#each Highlights}}\r\n                <li>{{Text}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <ul>\r\n                {{#each Skills}}\r\n                <li>{{Name}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <div>\r\n                <h4>Projects:</h4>\r\n                {{#each Projects}}\r\n                <div class=\"project\">\r\n                    <h5>{{Name}}</h5>\r\n                    <p>{{Description}}</p>\r\n                    <ul>\r\n                        {{#each Highlights}}\r\n                        <li>{{Text}}</li>\r\n                        {{/each}}\r\n                    </ul>\r\n                </div>\r\n                {{/each}}\r\n            </div>\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Education</h2>\r\n        {{#each Education}}\r\n        <div class=\"education\">\r\n            <h3>{{Name}}</h3>\r\n            {{#each Degrees}}\r\n            <p>{{Degree}} | {{StartDate}} - {{EndDate}}</p>\r\n            {{/each}}\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Languages</h2>\r\n        <ul>\r\n            {{#each Languages}}\r\n            <li>{{LanguageName}} - {{Proficiency}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Certifications</h2>\r\n        <ul>\r\n            {{#each Certifications}}\r\n            <li>{{Name}} - {{OrganizationId}} ({{Date}})</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>References</h2>\r\n        <ul>\r\n            {{#each References}}\r\n            <li>{{Name}} - {{PhoneNumber}} | {{Text}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n</body>\r\n</html>\r\n"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Format = ".hb",
+                            Name = "markdown",
+                            Source = "# {{firstName}} {{lastName}}, {{jobTitle}}\n## Contact Information\n- **Email:** {{email}}\n- **Phone:** {{phoneNumber}}\n- **LinkedIn:** {{linkedIn}}\n- **GitHub:** {{gitHub}}\n- **Languages:** {{languageString}}\n\n## Description\n{{description}}\n\n## Skills\n{{#each skills}} \n- {{title}} (Rating: {{rating}})\n{{/each}}\n\n## Experience\n{{#each jobs}}\n### {{title}} - {{company}}\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*\n{{#each projects}}\n#### Project: {{name}}\n{{description}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n{{/each}}\n{{#each highlights}}\n- {{text}}\n{{/each}}\n\n{{#if Skills}}\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\n{{/if}}\n{{/each}}\n\n## Education\n{{#each education}}\n### {{name}}\n*{{formatDate startDate}}-{{displayEndDate}}*\n{{#each degrees}}\n- Degree: {{name}}\n{{/each}}\n{{/each}}\n\n## References\n{{#each references}}\n### {{name}}\n{{text}}\n{{/each}}"
                         });
                 });
 

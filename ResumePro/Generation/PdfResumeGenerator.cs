@@ -8,8 +8,8 @@ using System.Diagnostics;
 using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using ResumePro.Extensions;
 using ResumePro.Shared;
+using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Generation;
 

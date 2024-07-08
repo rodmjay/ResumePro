@@ -7,10 +7,12 @@
 using System.Globalization;
 using System.Reflection;
 using System.Text;
+using AutoMapper.QueryableExtensions.Impl;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Context;
+using ResumePro.Entities;
 
 namespace ResumePro.Seeding.Extensions;
 
@@ -51,6 +53,36 @@ public static class SeedingExtensions
         csvReader.Context.TypeConverterOptionsCache.GetOptions<bool>().BooleanTrueValues.Add("1");
 
         return csvReader;
+    }
+
+    public static void SeedTemplates(this EntityTypeBuilder<Template> builder, string folder)
+    {
+        string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
+
+        if (!Directory.Exists(directoryPath))
+        {
+            throw new Exception("Folder does not exist");
+        }
+
+        List<Template> templates = new List<Template>();
+
+        string[] files = Directory.GetFiles(directoryPath);
+
+        for (var index = 0; index < files.Length; index++)
+        {
+            var filePath = files[index];
+            string fileContent = File.ReadAllText(filePath);
+
+            templates.Add(new Template()
+            {
+                Id = index + 1,
+                Name = Path.GetFileNameWithoutExtension(filePath),
+                Source = fileContent,
+                Format = Path.GetExtension(filePath)
+            });
+        }
+
+        builder.HasData(templates);
     }
 
     public static void Seed<TEntity>(this EntityTypeBuilder<TEntity> builder, string fileName)
