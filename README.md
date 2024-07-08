@@ -24,8 +24,8 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 - Blazor (Rating: 8)
 
 ## Experience
-### Infosys - Technical Architect
-*04/01/2022 - Present*
+### Technical Architect - Infosys
+*Salt Lake City, UT - 04/01/2022-Present*
 #### Project: BASF-Refinity
 Refinity is a digital platform that manages inventory, color, learning, and business management for body shops
 - Spearheaded the architecture of a model MicroService, setting new standards for future developments.
@@ -41,8 +41,8 @@ The SRE Team oversees the quality assurance and monitoring of Microsoft's intern
 - Responsible for implementing integration testing patterns across multiple applications.
 
   **Technology Used:** C# Development, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps, Kusto, Bicep
-### Solution Stream - Sr. Software Architect
-*11/01/2020 - 3/1/2022*
+### Sr. Software Architect - Solution Stream
+*American Fork, UT - 11/01/2020-3/1/2022*
 #### Project: Elder Care Management Platform
 ElderKey is a platform that manages the health and wellness of senior citizens
 - Developed complex medication and recurring activity scheduling systems.
@@ -66,8 +66,8 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Awarded 'Top Developer of 2021' for exceptional productivity and innovation.
 
   **Technology Used:** AppInsights, Entity Framework, Visual Studio, C# Development, .Net Core, ASP.NET, jQuery, JavaScript, Angular, Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor, TypeScript, Identity Server, oAuth2
-### IdeaFortune - Founder/Architect
-*11/01/2017 - 11/1/2020*
+### Founder/Architect - IdeaFortune
+*American Fork, UT - 11/01/2017-11/1/2020*
 #### Project: Professional Services Management Platform
 
 - Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed.
@@ -77,8 +77,8 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Managed a team of five developers to implement the flagship product.
 
   **Technology Used:** Visual Studio, Entity Framework, C# Development, AppInsights, JavaScript, ASP.NET, Stripe, WebHooks, Microsoft Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2, Material Design, SignalR, Postman
-### Agile Software and Marketing - Architect
-*01/01/2016 - 10/1/2017*
+### Architect - Agile Software and Marketing
+*Cameron Park, CA - 01/01/2016-10/1/2017*
 #### Project: Family Entertainment Center Platform
 Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.
 - Oversaw and managed the complete backend development process.
@@ -90,23 +90,23 @@ Party Center Software is the number 1 online booking and facility management too
 - Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
 
   **Technology Used:** .NET Framework, C# Development, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2, Identity Server
-### Access Softek - Sr. Engineer Dev Lead
-*01/01/2014 - 1/1/2015*
+### Sr. Engineer Dev Lead - Access Softek
+*West Jordan, UT - 01/01/2014-1/1/2015*
 - Managed four developers directly using Agile Scrum methodologies.
 - Responsible for the architecture and development of components within a banking platform.
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
 
   **Technology Used:** C# Development, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE), oAuth2
-### NETCHEX - Architect Consultant
-*05/01/2012 - 12/1/2013*
+### Architect Consultant - Netchex
+*Mandeville, LA - 05/01/2012-12/1/2013*
 - Redesigned the flagship product by integrating advanced technology to enhance performance and functionality.
 - Collaborated directly with the onsite team, providing mentorship to enhance skills and foster professional growth.
 - Engineered numerous innovative features into the existing platform, significantly enhancing its capabilities and user experience.
 - Specialized expertise in PCI Compliance and payment processing systems.
 
   **Technology Used:** C# Development, ASP.NET, JavaScript, jQuery, Sql Server, Html/CSS
-### Ancestry.com - Sr. Engineer
-*08/01/2010 - 5/1/2012*
+### Sr. Engineer - Ancestry.com
+*Provo, UT - 08/01/2010-5/1/2012*
 #### Project: Small Collections Self-Management Platform
 
 - Developed tools to facilitate the indexing of library archives.
@@ -115,8 +115,8 @@ Party Center Software is the number 1 online booking and facility management too
 - Spearheaded companywide adoption and training of jQuery.
 
   **Technology Used:** C# Development, jQuery, JavaScript, ASP.NET, Html/CSS
-### Cathexis - Architect/Dev Manager
-*01/01/2008 - 8/1/2010*
+### Architect/Dev Manager - Cathexis
+*Provo, UT - 01/01/2008-8/1/2010*
 #### Project: Affiliate Marketing Platform
 Cathexis is a platform that hosts extensive affiliate marketing campaigns, tracking clicks and conversions to inform business decisions.
 - Oversaw the architecture, development, and deployment of a comprehensive affiliate marketing platform.
@@ -127,8 +127,8 @@ Monaco Classroom is a virtual learning environment that offers access to digital
 - Oversaw the architecture, development, and deployment of a comprehensive e-learning platform.
 
   **Technology Used:** C# Development, ASP.NET, Sql Server, Html/CSS, Classic ASP, Python
-### Motorola Public Safety - Engineer
-*01/01/2007 - 1/1/2008*
+### Engineer - Motorola Public Safety
+*Salt Lake City, UT - 01/01/2007-1/1/2008*
 - Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department.
 - Received extensive training in .NET, JavaScript, and WCF directly from Microsoft.
 
@@ -136,7 +136,7 @@ Monaco Classroom is a virtual learning environment that offers access to digital
 
 ## Education
 ### Portland Community College
-*01/01/2004 - 5/1/2005*
+*01/01/2004-5/1/2005*
 - Degree: AAS Computer and Information Systems
 
 ## References
