@@ -40,10 +40,10 @@ internal class Program
 
     static async Task Main(string[] args)
     {
-        var organizationId = args.Length > 0 && int.TryParse(args[1], out var parsedOrgValue) ? parsedOrgValue : 1;
+        var organizationId = args.Length > 0 && int.TryParse(args[0], out var parsedOrgValue) ? parsedOrgValue : 1;
         var personaId = args.Length > 1 && int.TryParse(args[1], out var passedPersonId) ? passedPersonId : 1;
         var resumeId = args.Length > 2 && int.TryParse(args[2], out var parsedResumeId) ? parsedResumeId : 1;
-        var templateId = args.Length > 2 && int.TryParse(args[2], out var parsedTemplateId) ? parsedTemplateId : 2;
+        var templateId = args.Length > 3 && int.TryParse(args[3], out var parsedTemplateId) ? parsedTemplateId : 2;
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
