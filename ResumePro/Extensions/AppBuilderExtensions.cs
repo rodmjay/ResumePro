@@ -20,6 +20,7 @@ public static class AppBuilderExtensions
 
         return builder;
     }
+
     public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
     {
         var typesWithInterfaces = assembly.GetTypes()

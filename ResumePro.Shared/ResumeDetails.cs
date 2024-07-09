@@ -29,11 +29,11 @@ public class ResumeDetails : ResumeDto
             {
                 var skills = Skills.Where(x => x.Categories.Contains(category));
 
-                list.Add(new()
+                list.Add(new CategorySkillRating
                 {
                     Category = category,
                     Skills = skills.OrderByDescending(a => a.Rating)
-                        .Select(x => new { x.Title, x.Rating }).ToList()
+                        .Select(x => new {x.Title, x.Rating}).ToList()
                 });
             }
 

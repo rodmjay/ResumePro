@@ -14,7 +14,8 @@ public class CertificationsController : BaseController
 {
     private readonly ICertificationService _certificationService;
 
-    public CertificationsController(IServiceProvider serviceProvider, ICertificationService certificationService) : base(serviceProvider)
+    public CertificationsController(IServiceProvider serviceProvider, ICertificationService certificationService) :
+        base(serviceProvider)
     {
         _certificationService = certificationService;
     }
@@ -35,26 +36,22 @@ public class CertificationsController : BaseController
     }
 
     [HttpPost]
-    public async Task<ActionResult<CertificationDto>> Create([FromRoute] int personId, [FromBody]CertificationOptions options)
+    public async Task<ActionResult<CertificationDto>> Create([FromRoute] int personId,
+        [FromBody] CertificationOptions options)
     {
         var result = await _certificationService.CreateCertification(OrganizationId, personId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
         return BadRequest(result.AsT1);
     }
 
     [HttpPut("{certificationId}")]
-    public async Task<ActionResult<CertificationDto>> Update([FromRoute] int personId, [FromRoute]int certificationId, [FromBody] CertificationOptions options)
+    public async Task<ActionResult<CertificationDto>> Update([FromRoute] int personId, [FromRoute] int certificationId,
+        [FromBody] CertificationOptions options)
     {
         var result = await _certificationService.UpdateCertification(OrganizationId, personId, certificationId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
         return BadRequest(result.AsT1);
     }
 

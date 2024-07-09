@@ -10,9 +10,8 @@ namespace ResumePro.Shared;
 
 public class SkillDto : ISkill
 {
+    public string[] Categories { get; set; }
     public int Id { get; set; }
 
     public string Title { get; set; }
-
-    public string[] Categories { get; set; }
 }

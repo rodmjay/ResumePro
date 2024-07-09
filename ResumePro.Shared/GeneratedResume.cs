@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿#region Header Info
 
-namespace ResumePro.Shared
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.Shared;
+
+public class GeneratedResume
 {
-    public class GeneratedResume
-    {
-        public string Name { get; set; }
-        public string Body { get; set; }
-        public string ContentType { get; set; }
-    }
+    public string Name { get; set; }
+    public string Body { get; set; }
+    public string ContentType { get; set; }
 }

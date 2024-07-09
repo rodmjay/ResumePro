@@ -48,7 +48,7 @@ public class MarkupResumeGenerator : IResumeGenerator
 
         var languages = resumeDetails.GetLanguageString();
 
-        if(!string.IsNullOrWhiteSpace(languages))
+        if (!string.IsNullOrWhiteSpace(languages))
             sb.AppendLine($"- **Languages:** {languages}");
 
         sb.AppendLine();

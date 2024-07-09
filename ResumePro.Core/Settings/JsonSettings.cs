@@ -11,7 +11,7 @@ namespace ResumePro.Core.Settings;
 
 public static class JsonSettings
 {
-    public static JsonSerializerSettings Settings => new JsonSerializerSettings
+    public static JsonSerializerSettings Settings => new()
     {
         ContractResolver = new CamelCasePropertyNamesContractResolver(),
         Formatting = Formatting.Indented,

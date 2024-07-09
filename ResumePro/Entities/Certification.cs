@@ -13,11 +13,11 @@ namespace ResumePro.Entities;
 
 public class Certification : BaseEntity<Certification>, ICertification
 {
+    public Persona Persona { get; set; }
     public int OrganizationId { get; set; }
     public string Name { get; set; }
     public string Body { get; set; }
     public DateTime Date { get; set; }
-    public Persona Persona { get; set; }
     public int PersonaId { get; set; }
     public int Id { get; set; }
 

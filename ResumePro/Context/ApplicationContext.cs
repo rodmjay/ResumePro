@@ -65,8 +65,5 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<SkillCategory>().Seed("skill_categories.csv");
         builder.Entity<SkillCategorySkill>().Seed("category_skills.csv");
         builder.Entity<Template>().SeedTemplates("./seeding/templates");
-
-
-
     }
 }

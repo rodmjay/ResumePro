@@ -12,12 +12,11 @@ public class PersonaSkillDto : IPersonaSkill
 {
     public string Name { get; set; }
 
+    public string[] Categories { get; set; }
+
     [JsonIgnore] public virtual int PersonaId { get; set; }
 
     public virtual int SkillId { get; set; }
 
     public virtual int Rating { get; set; }
-
-    public string[] Categories { get; set; }
-
 }

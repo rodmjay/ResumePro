@@ -40,9 +40,10 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<CertificationDto, Result>> CreateCertification(int organizationId, int personId, CertificationOptions options)
+    public async Task<OneOf<CertificationDto, Result>> CreateCertification(int organizationId, int personId,
+        CertificationOptions options)
     {
-        var certification = new Certification()
+        var certification = new Certification
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
@@ -54,15 +55,13 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
         };
 
         var records = Repository.InsertOrUpdateGraph(certification, true);
-        if (records > 0)
-        {
-            return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
-        }
+        if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<CertificationDto, Result>> UpdateCertification(int organizationId, int personId, int certificationId, CertificationOptions options)
+    public async Task<OneOf<CertificationDto, Result>> UpdateCertification(int organizationId, int personId,
+        int certificationId, CertificationOptions options)
     {
         var certification = await Certifications.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
@@ -77,10 +76,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
         certification.Name = options.Name;
 
         var records = Repository.InsertOrUpdateGraph(certification, true);
-        if (records > 0)
-        {
-            return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
-        }
+        if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
         return Result.Failed();
     }
@@ -97,10 +93,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
         certification.ObjectState = ObjectState.Deleted;
 
         var records = Repository.InsertOrUpdateGraph(certification, true);
-        if (records > 0)
-        {
-            return Result.Success();
-        }
+        if (records > 0) return Result.Success();
 
         return Result.Failed();
     }
@@ -113,10 +106,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
             .IgnoreQueryFilters()
             .FirstOrDefaultAsync();
 
-        if (certification == null)
-        {
-            return 1;
-        }
+        if (certification == null) return 1;
 
         return certification.Id + 1;
     }

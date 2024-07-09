@@ -11,22 +11,20 @@ namespace ResumePro.Shared;
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]
 public class JobDto : IJob
 {
-    public int Id { get; set; }
-
-    public DateTime StartDate { get; set; }
-    public DateTime? EndDate { get; set; }
-
-    public string DisplayEndDate{
+    public string DisplayEndDate
+    {
         get
         {
-            if (EndDate == null)
-            {
-                return "Present";
-            }
+            if (EndDate == null) return "Present";
 
             return EndDate.Value.ToShortDateString();
         }
     }
+
+    public int Id { get; set; }
+
+    public DateTime StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public string Title { get; set; }
     public string Company { get; set; }

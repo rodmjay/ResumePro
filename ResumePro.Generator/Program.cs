@@ -6,21 +6,21 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OneOf;
 using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Entities;
 using ResumePro.Extensions;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
-using System.Reflection.Emit;
+using ResumePro.Shared.Common;
 
 namespace ResumePro.Generator;
 
 internal class Program
 {
-    private static readonly IServiceProvider ServiceProvider;
     private const string ReadMePath = @"..\..\..\..\readme.md";
+    private static readonly IServiceProvider ServiceProvider;
 
     static Program()
     {
@@ -38,26 +38,28 @@ internal class Program
             .Build();
     }
 
-    static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
-        var organizationId = args.Length > 0 && int.TryParse(args[0], out var parsedOrgValue) ? parsedOrgValue : 1;
-        var personaId = args.Length > 1 && int.TryParse(args[1], out var passedPersonId) ? passedPersonId : 1;
-        var resumeId = args.Length > 2 && int.TryParse(args[2], out var parsedResumeId) ? parsedResumeId : 1;
-        var templateId = args.Length > 3 && int.TryParse(args[3], out var parsedTemplateId) ? parsedTemplateId : 2;
+        int GetArgValue(int position, int defaultValue)
+        {
+            var index = position - 1;
+            return args.Length > index && int.TryParse(args[index], out var parsedValue) ? parsedValue : defaultValue;
+        }
+
+        var organizationId = GetArgValue(1, 1);
+        var personaId = GetArgValue(2, 1);
+        var resumeId = GetArgValue(3, 1);
+        var templateId = GetArgValue(4, 2);
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
         var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId);
-        
-        // generate with service
-        var generatedResume = await resumeService.Generate(resume, templateId);
 
-        if (generatedResume.IsT0)
-        {
-            UpdateReadMe(generatedResume.AsT0.Body);
-        }
+        OneOf<GeneratedResume, Result> generatedResume = await resumeService.Generate(resume, templateId);
 
-        var pdfGenerator = new PdfResumeGenerator(new PdfSettings()
+        if (generatedResume.IsT0) UpdateReadMe(generatedResume.AsT0.Body);
+
+        var pdfGenerator = new PdfResumeGenerator(new PdfSettings
         {
             CreateUpdatePdf = true,
             DisplayInExplorer = true,
@@ -65,7 +67,6 @@ internal class Program
         });
 
         pdfGenerator.ExecuteOperation(resume);
-
 
         Console.ReadLine();
     }

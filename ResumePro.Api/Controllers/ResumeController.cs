@@ -4,10 +4,8 @@
 
 #endregion
 
-using Microsoft.Extensions.Azure;
 using Microsoft.Net.Http.Headers;
 using ResumePro.Core.Middleware.Bases;
-using ResumePro.Generation;
 using ResumePro.Interfaces;
 
 namespace ResumePro.Api.Controllers;
@@ -31,31 +29,28 @@ public class ResumeController : BaseController
 
 
     [HttpGet("{resumeId}/Generate")]
-    public async Task<IActionResult> Generate([FromRoute] int personId, [FromRoute] int resumeId, [FromQuery] int templateId)
+    public async Task<IActionResult> Generate([FromRoute] int personId, [FromRoute] int resumeId,
+        [FromQuery] int templateId)
     {
         var result = await _resumeService.Generate(OrganizationId, personId, resumeId, templateId);
         if (result.IsT0)
-        {
-            return new ContentResult()
+            return new ContentResult
             {
                 Content = result.AsT0.Body,
                 ContentType = "text/html"
             };
-        }
 
         return BadRequest(result.IsT1);
     }
 
     [HttpGet("{resumeId}/Download")]
-    public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId, [FromQuery]int templateId)
+    public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId,
+        [FromQuery] int templateId)
     {
         var filePath = await _resumeService.SaveResumeAsPdf(OrganizationId, personId, resumeId);
         var fileName = Path.GetFileName(filePath);
 
-        if (!System.IO.File.Exists(filePath))
-        {
-            return NotFound();
-        }
+        if (!System.IO.File.Exists(filePath)) return NotFound();
 
         var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
         var fileStream = new MemoryStream(fileBytes);

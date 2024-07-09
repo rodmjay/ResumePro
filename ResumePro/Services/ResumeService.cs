@@ -4,6 +4,7 @@
 
 #endregion
 
+using System.Globalization;
 using HandlebarsDotNet;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
@@ -16,39 +17,27 @@ using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
-using System.Globalization;
-using Newtonsoft.Json;
-using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Core.Settings;
 
 namespace ResumePro.Services;
 
 public class ResumeService : BaseService<Resume>, IResumeService
 {
-    static ResumeService()
-    {
-
-        Handlebars.RegisterHelper("formatDate", (writer, context, parameters) =>
-        {
-            if (parameters[0] is DateTime dateTime)
-            {
-                writer.WriteSafeString(dateTime.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
-            }
-            else if (DateTime.TryParse(parameters[0]?.ToString(), out DateTime parsedDate))
-            {
-                writer.WriteSafeString(parsedDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
-            }
-            else
-            {
-                writer.WriteSafeString(parameters[0]?.ToString());
-            }
-        });
-    }
-
-
     private readonly IRepositoryAsync<Job> _jobRepository;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
     private readonly IRepositoryAsync<Template> _templateRepo;
+
+    static ResumeService()
+    {
+        Handlebars.RegisterHelper("formatDate", (writer, context, parameters) =>
+        {
+            if (parameters[0] is DateTime dateTime)
+                writer.WriteSafeString(dateTime.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+            else if (DateTime.TryParse(parameters[0]?.ToString(), out var parsedDate))
+                writer.WriteSafeString(parsedDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
+            else
+                writer.WriteSafeString(parameters[0]?.ToString());
+        });
+    }
 
     public ResumeService(
         IRepositoryAsync<Job> jobRepository,
@@ -163,7 +152,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     {
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
-        var resumeGenerator = new PdfResumeGenerator(new PdfSettings()
+        var resumeGenerator = new PdfResumeGenerator(new PdfSettings
         {
             DisplayInExplorer = false,
             CreateUpdatePdf = true,
@@ -173,7 +162,8 @@ public class ResumeService : BaseService<Resume>, IResumeService
         return resumeGenerator.ExecuteOperation(resume);
     }
 
-    public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId, int templateId)
+    public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId,
+        int templateId)
     {
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 

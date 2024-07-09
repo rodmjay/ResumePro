@@ -56,23 +56,20 @@ public static class SeedingExtensions
 
     public static void SeedTemplates(this EntityTypeBuilder<Template> builder, string folder)
     {
-        string directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
+        var directoryPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, folder);
 
-        if (!Directory.Exists(directoryPath))
-        {
-            throw new Exception("Folder does not exist");
-        }
+        if (!Directory.Exists(directoryPath)) throw new Exception("Folder does not exist");
 
-        List<Template> templates = new List<Template>();
+        var templates = new List<Template>();
 
-        string[] files = Directory.GetFiles(directoryPath);
+        var files = Directory.GetFiles(directoryPath);
 
         for (var index = 0; index < files.Length; index++)
         {
             var filePath = files[index];
-            string fileContent = File.ReadAllText(filePath);
+            var fileContent = File.ReadAllText(filePath);
 
-            templates.Add(new Template()
+            templates.Add(new Template
             {
                 Id = index + 1,
                 Name = Path.GetFileNameWithoutExtension(filePath),

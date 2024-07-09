@@ -25,5 +25,4 @@ public interface ICertificationService : IService<Certification>
         CertificationOptions options);
 
     Task<Result> DeleteCertification(int organizationId, int personId, int certificationId);
-
 }

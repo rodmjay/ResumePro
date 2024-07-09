@@ -5,7 +5,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Net.Mime;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -17,11 +16,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 using ResumePro.Core.Middleware.Builders;
 using ResumePro.Core.Middleware.Swagger;
 using ResumePro.Core.Settings;
-using ResumePro.Shared.Interfaces;
 using Serilog;
 
 namespace ResumePro.Core.Middleware.Extensions;
