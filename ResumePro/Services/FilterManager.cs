@@ -1,22 +1,32 @@
 ﻿using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
+using ResumePro.Interfaces;
 using ResumePro.Shared;
 
 namespace ResumePro.Services;
 
 public class FilterManager : BaseService, IFilterManager
 {
-    private readonly IRepositoryAsync<StateProvince> _stateRepository;
+    private readonly ISkillService _skillService;
+    private readonly IStateService _stateService;
 
     public FilterManager(IServiceProvider serviceProvider, 
-        IRepositoryAsync<StateProvince> stateRepository) : base(serviceProvider)
+        ISkillService skillService,
+        IStateService stateService) : base(serviceProvider)
     {
-        _stateRepository = stateRepository;
+        _skillService = skillService;
+        _stateService = stateService;
     }
 
-    public Task<FilterContainer> GetFilters(int organizationId)
+    public async Task<FilterContainer> GetFilters(int organizationId)
     {
-        return Task.FromResult(new FilterContainer());
+        var retVal = new FilterContainer
+        {
+            States = await _stateService.GetStatesDropdown("US"),
+            Skills = await _skillService.GetSkillsDropdown()
+        };
+
+        return retVal;
     }
 }

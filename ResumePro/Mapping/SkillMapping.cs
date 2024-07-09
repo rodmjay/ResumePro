@@ -7,6 +7,7 @@
 using AutoMapper;
 using ResumePro.Entities;
 using ResumePro.Shared;
+using ResumePro.Shared.Common;
 
 namespace ResumePro.Mapping;
 
@@ -17,5 +18,9 @@ public class SkillMapping : Profile
         CreateMap<Skill, SkillDto>()
             .ForMember(x => x.Categories, opt => opt.MapFrom(x => x.Categories.Select(a => a.SkillCategory.Name)))
             .IncludeAllDerived();
+
+        CreateMap<Skill, DropdownItem>()
+            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Title))
+            .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Id));
     }
 }

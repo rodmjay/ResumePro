@@ -26,4 +26,5 @@ public interface IResumeService : IService<Resume>
 
     Task<Result> DeleteResume(int organizationId, int personaId, int resumeId);
     Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId, int templateId);
+    Task<OneOf<GeneratedResume, Result>> Generate(ResumeDetails resumeDetails, int templateId);
 }

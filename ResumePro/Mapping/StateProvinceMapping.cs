@@ -20,6 +20,6 @@ public class StateProvinceMapping : Profile
 
         CreateMap<StateProvince, DropdownItem>()
             .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
-            .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Id));
+            .ForMember(x => x.Value, opt => opt.MapFrom(x => x.Code));
     }
 }

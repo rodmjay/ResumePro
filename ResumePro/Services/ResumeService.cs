@@ -175,17 +175,22 @@ public class ResumeService : BaseService<Resume>, IResumeService
 
     public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId, int templateId)
     {
+        var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+
+        if (resume == null)
+            return Result.Failed();
+
+        return await Generate(resume, templateId);
+    }
+
+    public async Task<OneOf<GeneratedResume, Result>> Generate(ResumeDetails resume, int templateId)
+    {
         var generatedResume = new GeneratedResume();
 
         var template = await Templates.Where(x => x.Id == templateId)
             .FirstOrDefaultAsync();
 
         if (template == null || template.Source == null)
-            return Result.Failed();
-
-        var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
-
-        if (resume == null)
             return Result.Failed();
 
         var engine = Handlebars.Compile(template.Source);

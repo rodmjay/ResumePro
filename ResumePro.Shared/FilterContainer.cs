@@ -11,4 +11,5 @@ namespace ResumePro.Shared;
 public class FilterContainer
 {
     public List<DropdownItem> Skills { get; set; }
+    public List<DropdownItem> States { get; set; }
 }

@@ -7,10 +7,12 @@
 using ResumePro.Core.Services.Interfaces;
 using ResumePro.Entities;
 using ResumePro.Shared;
+using ResumePro.Shared.Common;
 
 namespace ResumePro.Interfaces;
 
 public interface ISkillService : IService<Skill>
 {
     Task<List<T>> GetSkills<T>() where T : SkillDto;
+    Task<List<DropdownItem>> GetSkillsDropdown();
 }

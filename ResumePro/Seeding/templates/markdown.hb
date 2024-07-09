@@ -20,6 +20,9 @@
 {{#each jobs}}
 ### {{title}} - {{company}}
 *{{location}} - {{formatDate startDate}}-{{displayEndDate}}*
+{{#each highlights}}
+- {{text}}
+{{/each}}
 {{#each projects}}
 #### Project: {{name}}
 {{description}}
@@ -27,9 +30,7 @@
 - {{text}}
 {{/each}}
 {{/each}}
-{{#each highlights}}
-- {{text}}
-{{/each}}
+
 
 {{#if Skills}}
 **Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}

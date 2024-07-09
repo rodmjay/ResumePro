@@ -7,6 +7,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Templates\**" />
+	  <EmbeddedResource Remove="Templates\**" />
+	  <None Remove="Templates\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<None Remove="Seeding\csv\category_skills.csv" />
 		<None Remove="Seeding\csv\countries.csv" />
 		<None Remove="Seeding\csv\degrees.csv" />
@@ -124,10 +130,6 @@
 	<ItemGroup>
 		<ProjectReference Include="..\ResumePro.Core\ResumePro.Core.csproj" />
 		<ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Templates\" />
 	</ItemGroup>
 
 </Project>

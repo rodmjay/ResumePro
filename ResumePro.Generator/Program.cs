@@ -38,24 +38,34 @@ internal class Program
             .Build();
     }
 
-    private static void Main(string[] args)
+    static async Task Main(string[] args)
     {
         var organizationId = args.Length > 0 && int.TryParse(args[1], out var parsedOrgValue) ? parsedOrgValue : 1;
         var personaId = args.Length > 1 && int.TryParse(args[1], out var passedPersonId) ? passedPersonId : 1;
         var resumeId = args.Length > 2 && int.TryParse(args[2], out var parsedResumeId) ? parsedResumeId : 1;
+        var templateId = args.Length > 2 && int.TryParse(args[2], out var parsedTemplateId) ? parsedTemplateId : 1;
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        var result = resumeService.Generate(organizationId, personaId, resumeId, 2).Result;
-        if (result.IsT0)
+        var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId);
+        
+        // generate with service
+        var generatedResume = await resumeService.Generate(resume, templateId);
+
+        if (generatedResume.IsT0)
         {
-            UpdateReadMe(result.AsT0.Body);
-            Console.WriteLine(result.AsT0.Body);
+            UpdateReadMe(generatedResume.AsT0.Body);
         }
-        else
+
+        var pdfGenerator = new PdfResumeGenerator(new PdfSettings()
         {
-            Console.Write(result.AsT1);
-        }
+            CreateUpdatePdf = true,
+            DisplayInExplorer = true,
+            FontFamily = "Verdana"
+        });
+
+        pdfGenerator.ExecuteOperation(resume);
+
 
         Console.ReadLine();
     }
