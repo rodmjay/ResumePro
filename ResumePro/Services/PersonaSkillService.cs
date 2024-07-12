@@ -5,7 +5,9 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using ResumePro.Core.Data.Enums;
+using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
 using ResumePro.Interfaces;
@@ -15,13 +17,17 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
 
-public class PersonaSkillService : BaseService<PersonaSkill>, IPersonalSkillsService
+public class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillService
 {
-    public PersonaSkillService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly IRepositoryAsync<Resume> _resumeRepo;
+
+    public PersonaSkillService(IServiceProvider serviceProvider, IRepositoryAsync<Resume> resumeRepo) : base(serviceProvider)
     {
+        _resumeRepo = resumeRepo;
     }
 
     private IQueryable<PersonaSkill> PersonalSkills => Repository.Queryable();
+    private IQueryable<Resume> Resumes => _resumeRepo.Queryable();
 
     public Task<List<T>> GetPersonaSkills<T>(int organizationId, int personId) where T : PersonaSkillDto
     {
@@ -55,8 +61,41 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonalSkillsSer
             personalSkill.Rating = options.Rating;
         }
 
+        bool isAdd = personalSkill.ObjectState == ObjectState.Added;
+
         var changes = Repository.InsertOrUpdateGraph(personalSkill, true);
-        if (changes > 0) return Result.Success();
+        if (changes > 0)
+        {
+            if (isAdd)
+            {
+                List<Resume> resumes = await Resumes.Include(x => x.ResumeSettings)
+                    .Include(x => x.Skills)
+                    .ThenInclude(x => x.Skill)
+                    .Where(x => x.PersonaId == personId && x.OrganizationId == organizationId)
+                    .ToListAsync();
+
+                foreach (Resume resume in resumes)
+                {
+                    if (resume.ResumeSettings is { AttachAllSkills: true })
+                    {
+                        resume.ObjectState = ObjectState.Modified;
+                        resume.Skills.Add(new ResumeSkill()
+                        {
+                            SkillId = personalSkill.SkillId,
+                            PersonaId = personalSkill.PersonaId,
+                            ResumeId = resume.Id,
+                            OrganizationId = organizationId,
+                            ObjectState = ObjectState.Added
+                        });
+                    }
+                    _resumeRepo.InsertOrUpdateGraph(resume, false);
+                }
+
+                _resumeRepo.Commit();
+            }
+
+            return Result.Success();
+        }
 
         return Result.Failed();
     }

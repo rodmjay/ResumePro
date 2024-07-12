@@ -15,6 +15,7 @@ public class ResumeJobMapping : Profile
     public ResumeJobMapping()
     {
         CreateMap<ResumeJob, JobDetails>()
+            .ForMember(x => x.ShowTechnology, opt => opt.MapFrom(x => x.Resume.ResumeSettings.ShowTechnologyPerJob))
             .ForMember(x => x.Company, opt => opt.MapFrom(x => x.Job.Company))
             .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Job.Description))
             .ForMember(x => x.Location, opt => opt.MapFrom(x => x.Job.Location))

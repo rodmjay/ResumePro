@@ -12,9 +12,9 @@ namespace ResumePro.Api.Controllers;
 [Route("v1.0/people/{personId}/skills")]
 public class PersonSkillsController : BaseController
 {
-    private readonly IPersonalSkillsService _skillService;
+    private readonly IPersonaSkillService _skillService;
 
-    public PersonSkillsController(IServiceProvider serviceProvider, IPersonalSkillsService skillService) : base(
+    public PersonSkillsController(IServiceProvider serviceProvider, IPersonaSkillService skillService) : base(
         serviceProvider)
     {
         _skillService = skillService;

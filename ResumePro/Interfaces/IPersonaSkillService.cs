@@ -12,7 +12,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Interfaces;
 
-public interface IPersonalSkillsService : IService<PersonaSkill>
+public interface IPersonaSkillService : IService<PersonaSkill>
 {
     Task<List<T>> GetPersonaSkills<T>(int organizationId, int personId) where T : PersonaSkillDto;
 
