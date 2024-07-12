@@ -5,6 +5,7 @@
 #endregion
 
 using Microsoft.Net.Http.Headers;
+using OneOf;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 
@@ -78,7 +79,7 @@ public class ResumeController : BaseController
     public async Task<ActionResult<ResumeDetails>> CreateResume([FromRoute] int personId,
         [FromBody] ResumeOptions options)
     {
-        var result = await _resumeService.CreateResume(OrganizationId, personId, options)
+        OneOf<ResumeDetails, Result> result = await _resumeService.CreateResume(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 

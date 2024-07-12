@@ -16,6 +16,8 @@ public class Template : BaseEntity<Template>
     public string Source { get; set; }
     public string Format { get; set; }
 
+    public ICollection<ResumeSettings> Resumes { get; set; }
+
     public override void Configure(EntityTypeBuilder<Template> builder)
     {
         builder.HasKey(x => x.Id);

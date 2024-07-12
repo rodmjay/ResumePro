@@ -44,6 +44,20 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrganizationSettings",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ResumeYearHistory = table.Column<int>(type: "int", nullable: false),
+                    DefaultTemplate = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrganizationSettings", x => x.OrganizationId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Skill",
                 columns: table => new
                 {
@@ -388,6 +402,34 @@ namespace ResumePro.Migrations
                         principalTable: "Resume",
                         principalColumns: new[] { "OrganizationId", "Id" },
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ResumeSettings",
+                columns: table => new
+                {
+                    OrganizationId = table.Column<int>(type: "int", nullable: false),
+                    ResumeId = table.Column<int>(type: "int", nullable: false),
+                    AttachAllJobs = table.Column<bool>(type: "bit", nullable: false),
+                    AttachAllSkills = table.Column<bool>(type: "bit", nullable: false),
+                    ResumeYearHistory = table.Column<int>(type: "int", nullable: false),
+                    DefaultTemplateId = table.Column<int>(type: "int", nullable: true),
+                    ShowTechnologyPerJob = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ResumeSettings", x => new { x.OrganizationId, x.ResumeId });
+                    table.ForeignKey(
+                        name: "FK_ResumeSettings_Resume_OrganizationId_ResumeId",
+                        columns: x => new { x.OrganizationId, x.ResumeId },
+                        principalTable: "Resume",
+                        principalColumns: new[] { "OrganizationId", "Id" },
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ResumeSettings_Template_DefaultTemplateId",
+                        column: x => x.DefaultTemplateId,
+                        principalTable: "Template",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -906,7 +948,7 @@ namespace ResumePro.Migrations
                 columns: new[] { "Id", "Title" },
                 values: new object[,]
                 {
-                    { 1, "C# Development" },
+                    { 1, "C#" },
                     { 2, "Azure" },
                     { 3, "Sql Server" },
                     { 4, "Angular" },
@@ -1025,7 +1067,7 @@ namespace ResumePro.Migrations
                 values: new object[,]
                 {
                     { 1, ".hb", "html", "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>{{FirstName}} {{LastName}} - Resume</title>\r\n    <style>\r\n        body { font-family: Arial, sans-serif; margin: 20px; }\r\n        h1 { font-size: 24px; }\r\n        h2 { font-size: 20px; margin-top: 20px; }\r\n        p { margin: 5px 0; }\r\n        ul { list-style-type: none; padding: 0; }\r\n        ul li { margin: 5px 0; }\r\n        .contact-info { margin-bottom: 20px; }\r\n        .section { margin-bottom: 20px; }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>{{FirstName}} {{LastName}}</h1>\r\n    <div class=\"contact-info\">\r\n        <p>Email: <a href=\"mailto:{{Email}}\">{{Email}}</a></p>\r\n        <p>Phone: {{PhoneNumber}}</p>\r\n        <p>LinkedIn: <a href=\"{{LinkedIn}}\">{{LinkedIn}}</a></p>\r\n        <p>GitHub: <a href=\"{{GitHub}}\">{{GitHub}}</a></p>\r\n        <p>Location: {{City}}, {{State}}, {{Country}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Job Title</h2>\r\n        <p>{{JobTitle}}</p>\r\n        <p>{{Description}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Skills</h2>\r\n        <ul>\r\n            {{#each Skills}}\r\n            <li>{{Title}} - {{Rating}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Experience</h2>\r\n        {{#each Jobs}}\r\n        <div class=\"job\">\r\n            <h3>{{Title}} at {{Company}}</h3>\r\n            <p>{{Location}} | {{StartDate}} - {{EndDate}}</p>\r\n            <p>{{Description}}</p>\r\n            <ul>\r\n                {{#each Highlights}}\r\n                <li>{{Text}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <ul>\r\n                {{#each Skills}}\r\n                <li>{{Name}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <div>\r\n                <h4>Projects:</h4>\r\n                {{#each Projects}}\r\n                <div class=\"project\">\r\n                    <h5>{{Name}}</h5>\r\n                    <p>{{Description}}</p>\r\n                    <ul>\r\n                        {{#each Highlights}}\r\n                        <li>{{Text}}</li>\r\n                        {{/each}}\r\n                    </ul>\r\n                </div>\r\n                {{/each}}\r\n            </div>\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Education</h2>\r\n        {{#each Education}}\r\n        <div class=\"education\">\r\n            <h3>{{Name}}</h3>\r\n            {{#each Degrees}}\r\n            <p>{{Degree}} | {{StartDate}} - {{EndDate}}</p>\r\n            {{/each}}\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Languages</h2>\r\n        <ul>\r\n            {{#each Languages}}\r\n            <li>{{LanguageName}} - {{Proficiency}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Certifications</h2>\r\n        <ul>\r\n            {{#each Certifications}}\r\n            <li>{{Name}} - {{OrganizationId}} ({{Date}})</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>References</h2>\r\n        <ul>\r\n            {{#each References}}\r\n            <li>{{Name}} - {{PhoneNumber}} | {{Text}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n</body>\r\n</html>\r\n" },
-                    { 2, ".hb", "markdown", "# {{firstName}} {{lastName}}, {{jobTitle}}\r\n\r\n- **Email:** {{email}}\r\n- **Phone:** {{phoneNumber}}\r\n- **LinkedIn:** {{linkedIn}}\r\n- **GitHub:** {{gitHub}}\r\n- **Languages:** {{languageString}}\r\n\r\n## Description\r\n{{description}}\r\n\r\n## Skills\r\n| Category               | Skills & Ratings                                       |\r\n|------------------------|--------------------------------------------------------|\r\n{{#each skillDictionary}}\r\n| **{{category}}**       | {{#each skills}}{{title}} ({{rating}}) {{#unless @last}}, {{/unless}}{{/each}} |\r\n{{/each}}\r\n\r\n## Experience\r\n{{#each jobs}}\r\n### {{title}} - {{company}}\r\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each projects}}\r\n#### Project: {{name}}\r\n{{description}}\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{/each}}\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n\r\n{{#if Skills}}\r\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\r\n{{/if}}\r\n{{/each}}\r\n\r\n## Education\r\n{{#each education}}\r\n### {{name}}\r\n*{{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each degrees}}\r\n- Degree: {{name}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n## References\r\n{{#each references}}\r\n### {{name}}\r\n{{text}}\r\n{{/each}}" }
+                    { 2, ".hb", "markdown", "# {{firstName}} {{lastName}}, {{jobTitle}}\r\n\r\n- **Email:** {{email}}\r\n- **Phone:** {{phoneNumber}}\r\n- **LinkedIn:** {{linkedIn}}\r\n- **GitHub:** {{gitHub}}\r\n- **Languages:** {{languageString}}\r\n\r\n## Description\r\n{{description}}\r\n\r\n## Skills\r\n| Category               | Skills & Ratings                                       |\r\n|------------------------|--------------------------------------------------------|\r\n{{#each skillDictionary}}\r\n| **{{category}}**       | {{#each skills}}{{title}} ({{rating}}) {{#unless @last}}, {{/unless}}{{/each}} |\r\n{{/each}}\r\n\r\n## Experience\r\n{{#each jobs}}\r\n### {{title}} - {{company}}\r\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{#each projects}}\r\n#### Project: {{name}}\r\n{{description}}\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n\r\n{{#if Skills}}\r\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\r\n{{/if}}\r\n{{/each}}\r\n\r\n## Education\r\n{{#each education}}\r\n### {{name}}\r\n*{{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each degrees}}\r\n- Degree: {{name}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n## References\r\n{{#each references}}\r\n### {{name}}\r\n{{text}}\r\n{{/each}}" }
                 });
 
             migrationBuilder.InsertData(
@@ -1068,6 +1110,7 @@ namespace ResumePro.Migrations
                     { 3, 17 },
                     { 3, 26 },
                     { 3, 34 },
+                    { 3, 38 },
                     { 3, 67 },
                     { 3, 68 },
                     { 3, 69 },
@@ -1246,7 +1289,8 @@ namespace ResumePro.Migrations
                     { 1, 1, 45, 8 },
                     { 1, 1, 46, 5 },
                     { 1, 1, 47, 5 },
-                    { 1, 1, 95, 9 }
+                    { 1, 1, 95, 9 },
+                    { 1, 1, 96, 9 }
                 });
 
             migrationBuilder.InsertData(
@@ -1452,6 +1496,11 @@ namespace ResumePro.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "ResumeSettings",
+                columns: new[] { "OrganizationId", "ResumeId", "AttachAllJobs", "AttachAllSkills", "DefaultTemplateId", "ResumeYearHistory", "ShowTechnologyPerJob" },
+                values: new object[] { 1, 1, true, true, null, 10, true });
+
+            migrationBuilder.InsertData(
                 table: "ResumeSkill",
                 columns: new[] { "OrganizationId", "PersonaId", "ResumeId", "SkillId" },
                 values: new object[,]
@@ -1461,13 +1510,18 @@ namespace ResumePro.Migrations
                     { 1, 1, 1, 3 },
                     { 1, 1, 1, 4 },
                     { 1, 1, 1, 5 },
+                    { 1, 1, 1, 6 },
+                    { 1, 1, 1, 7 },
+                    { 1, 1, 1, 10 },
                     { 1, 1, 1, 17 },
                     { 1, 1, 1, 34 },
                     { 1, 1, 1, 35 },
                     { 1, 1, 1, 36 },
                     { 1, 1, 1, 37 },
                     { 1, 1, 1, 38 },
-                    { 1, 1, 1, 44 }
+                    { 1, 1, 1, 39 },
+                    { 1, 1, 1, 44 },
+                    { 1, 1, 1, 95 }
                 });
 
             migrationBuilder.InsertData(
@@ -1580,6 +1634,11 @@ namespace ResumePro.Migrations
                 columns: new[] { "OrganizationId", "JobId" });
 
             migrationBuilder.CreateIndex(
+                name: "IX_ResumeSettings_DefaultTemplateId",
+                table: "ResumeSettings",
+                column: "DefaultTemplateId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ResumeSkill_OrganizationId_PersonaId_SkillId",
                 table: "ResumeSkill",
                 columns: new[] { "OrganizationId", "PersonaId", "SkillId" });
@@ -1616,6 +1675,9 @@ namespace ResumePro.Migrations
                 name: "JobSkill");
 
             migrationBuilder.DropTable(
+                name: "OrganizationSettings");
+
+            migrationBuilder.DropTable(
                 name: "PersonaLanguage");
 
             migrationBuilder.DropTable(
@@ -1625,13 +1687,13 @@ namespace ResumePro.Migrations
                 name: "ResumeJob");
 
             migrationBuilder.DropTable(
+                name: "ResumeSettings");
+
+            migrationBuilder.DropTable(
                 name: "ResumeSkill");
 
             migrationBuilder.DropTable(
                 name: "SkillCategorySkill");
-
-            migrationBuilder.DropTable(
-                name: "Template");
 
             migrationBuilder.DropTable(
                 name: "School");
@@ -1641,6 +1703,9 @@ namespace ResumePro.Migrations
 
             migrationBuilder.DropTable(
                 name: "Language");
+
+            migrationBuilder.DropTable(
+                name: "Template");
 
             migrationBuilder.DropTable(
                 name: "PersonaSkill");

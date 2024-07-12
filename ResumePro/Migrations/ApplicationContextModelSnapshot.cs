@@ -3635,6 +3635,25 @@ namespace ResumePro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.OrganizationSettings", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationId"));
+
+                    b.Property<int>("DefaultTemplate")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeYearHistory")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrganizationId");
+
+                    b.ToTable("OrganizationSettings");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
                 {
                     b.Property<int>("OrganizationId")
@@ -4420,6 +4439,47 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             ResumeId = 1,
                             JobId = 9
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.ResumeSettings", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("AttachAllJobs")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("AttachAllSkills")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("DefaultTemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeYearHistory")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ShowTechnologyPerJob")
+                        .HasColumnType("bit");
+
+                    b.HasKey("OrganizationId", "ResumeId");
+
+                    b.HasIndex("DefaultTemplateId");
+
+                    b.ToTable("ResumeSettings");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            ResumeId = 1,
+                            AttachAllJobs = true,
+                            AttachAllSkills = true,
+                            ResumeYearHistory = 10,
+                            ShowTechnologyPerJob = true
                         });
                 });
 
@@ -7506,6 +7566,23 @@ namespace ResumePro.Migrations
                     b.Navigation("Resume");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.ResumeSettings", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Template", "Template")
+                        .WithMany("Resumes")
+                        .HasForeignKey("DefaultTemplateId");
+
+                    b.HasOne("ResumePro.Entities.Resume", "Resume")
+                        .WithOne("ResumeSettings")
+                        .HasForeignKey("ResumePro.Entities.ResumeSettings", "OrganizationId", "ResumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resume");
+
+                    b.Navigation("Template");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.ResumeSkill", b =>
                 {
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
@@ -7614,6 +7691,8 @@ namespace ResumePro.Migrations
                 {
                     b.Navigation("Jobs");
 
+                    b.Navigation("ResumeSettings");
+
                     b.Navigation("Skills");
                 });
 
@@ -7637,6 +7716,11 @@ namespace ResumePro.Migrations
             modelBuilder.Entity("ResumePro.Entities.StateProvince", b =>
                 {
                     b.Navigation("People");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Template", b =>
+                {
+                    b.Navigation("Resumes");
                 });
 
             modelBuilder.Entity("ResumePro.Languages.Entities.Language", b =>

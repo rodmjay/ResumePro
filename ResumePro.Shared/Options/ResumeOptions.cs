@@ -14,6 +14,6 @@ public class ResumeOptions
 
     [NotNull] public string Description { get; set; }
 
-    public bool AttachAllJobs { get; set; } = true;
-    public bool AttachAllSkills { get; set; } = true;
+
+    public ResumeSettingsOptions Settings { get; set; } = new ResumeSettingsOptions();
 }

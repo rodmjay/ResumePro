@@ -10,6 +10,8 @@ namespace ResumePro.Shared;
 
 public class ResumeDto : IResume
 {
+    public ResumeSettingsDto Settings { get; set; }
+
     public string FirstName { get; set; }
     public string LastName { get; set; }
     public string Email { get; set; }
@@ -26,4 +28,7 @@ public class ResumeDto : IResume
 
     public string JobTitle { get; set; }
     public string Description { get; set; }
+
+    [JsonIgnore]
+    public int OrganizationId { get; set; }
 }

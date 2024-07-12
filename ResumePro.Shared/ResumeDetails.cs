@@ -10,7 +10,19 @@ namespace ResumePro.Shared;
 
 public class ResumeDetails : ResumeDto
 {
-    public List<JobDetails> Jobs { get; set; }
+    private List<JobDetails> _jobs;
+    public int ResumeYears { get; set; }
+
+    public List<JobDetails> Jobs
+    {
+        get
+        {
+            return _jobs.Where(x=>x.StartDate.Year > DateTime.Now.Year - Settings.ResumeYearHistory)
+                .ToList();
+        }
+        set => _jobs = value;
+    }
+
     public List<ResumeSkillDto> Skills { get; set; }
     public List<ReferenceDto> References { get; set; }
     public List<SchoolDetails> Education { get; set; }

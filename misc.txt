@@ -1,1 +1,15 @@
 https://www.markdowntopdf.com/
+
+Process One: Intake
+- Intake raw resumes in various formats
+- Resume data is parsed and stored in common format
+
+Process Two: Enhancement
+- Enahce resume with Artificial Intelligence
+
+Process Three: Generation
+- Generate resume in a number of formats
+- Resumes can be downloaded in a number of formats
+
+Process Four: Candidate Finder
+- Search resumes with advanced keyword searching

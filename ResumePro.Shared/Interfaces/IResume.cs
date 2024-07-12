@@ -12,4 +12,5 @@ public interface IResume
     int Id { get; set; }
     string JobTitle { get; set; }
     string Description { get; set; }
+    int OrganizationId { get; set; }
 }
