@@ -21,6 +21,7 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public int ResumeYearHistory { get; set; }
     public string DefaultTemplateId { get; set; }
     public bool ShowTechnologyPerJob { get; set; }
+    public bool ShowDuration { get; set; }
     public bool ShowRatings { get; set; }
     public Template Template { get; set; }
 

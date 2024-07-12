@@ -21,4 +21,5 @@ public class ResumeSettingsDto : IResumeSettings
     public bool AttachAllJobs { get; set; }
     public bool AttachAllSkills { get; set; }
     public bool ShowRatings { get; set; }
+    public bool ShowDuration { get; set; }
 }

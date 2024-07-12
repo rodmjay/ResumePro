@@ -15,14 +15,32 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 | Category               | Skills & Ratings                                       |
 |------------------------|--------------------------------------------------------|
 | **Programming Languages**       | C#, JavaScript, Html/CSS, TypeScript |
-| **Frameworks**       | Entity Framework, ASP.NET, .Net Core, Symfony, Angular, Blazor |
+| **Frameworks**       | Entity Framework, ASP.NET, .Net Core, Angular, Blazor |
 | **Cloud Platforms**       | Azure |
 | **Databases**       | Sql Server |
 | **DevOps Tools**       | CI/CD, Azure Devops |
 
 ## Experience
+### Technical Architect - Infosys
+*Salt Lake City, UT - 04/01/2022-Present (2 years, 3 months)*
+#### Project: BASF-Refinity
+Refinity is a digital platform that manages inventory, color, learning, and business management for body shops
+- Spearheaded the architecture of a model MicroService, setting new standards for future developments.
+- Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team&#8217;s capabilities.
+- Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability.
+#### Project: Microsoft
+The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.
+- Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly.
+- Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department.
+- Optimized ChatGPT training models to meet internal business needs.
+- Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights.
+- Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes.
+- Responsible for implementing integration testing patterns across multiple applications.
+
+
+**Technology Used:** C#, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps, Kusto, Bicep
 ### Sr. Software Architect - Solution Stream
-*American Fork, UT - 11/01/2020-3/1/2022*
+*American Fork, UT - 11/01/2020-3/1/2022 (1 year, 4 months)*
 - Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies.
 - Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality.
 - Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency.
@@ -46,8 +64,9 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication.
 
 
+**Technology Used:** AppInsights, Entity Framework, Visual Studio, C#, .Net Core, ASP.NET, jQuery, JavaScript, Angular, Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor, TypeScript, Identity Server, oAuth2
 ### Founder/Architect - IdeaFortune
-*American Fork, UT - 11/01/2017-11/1/2020*
+*American Fork, UT - 11/01/2017-11/1/2020 (3 years)*
 - Responsible for the ideation, design, and delivery of a comprehensive professional services platform.
 - Raised startup capital to fund company operations for three years.
 - Managed a team of five developers to implement the flagship product.
@@ -57,8 +76,9 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs.
 
 
+**Technology Used:** Visual Studio, Entity Framework, C#, AppInsights, JavaScript, ASP.NET, Stripe, WebHooks, Microsoft Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2, Material Design, SignalR, Postman
 ### Architect - Agile Software and Marketing
-*Cameron Park, CA - 01/01/2016-10/1/2017*
+*Cameron Park, CA - 01/01/2016-10/1/2017 (1 year, 9 months)*
 - Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and improve scalability.
 - Developed a comprehensive order and scheduling system with full functionality.
 - Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team.
@@ -70,13 +90,15 @@ Party Center Software is the number 1 online booking and facility management too
 - Developed a fully-featured order and scheduling system.
 
 
+**Technology Used:** .NET Framework, C#, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2, Identity Server
 ### Sr. Engineer Dev Lead - Access Softek
-*West Jordan, UT - 01/01/2014-1/1/2015*
+*West Jordan, UT - 01/01/2014-1/1/2015 (1 year)*
 - Managed four developers directly using Agile Scrum methodologies.
 - Responsible for the architecture and development of components within a banking platform.
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
 
 
+**Technology Used:** C#, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE), oAuth2
 
 ## Education
 ### Portland Community College

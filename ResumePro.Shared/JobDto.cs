@@ -26,6 +26,41 @@ public class JobDto : IJob
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
 
+    public string Duration
+    {
+        get
+        {
+            DateTime effectiveEndDate = EndDate ?? DateTime.Now;
+            int years = effectiveEndDate.Year - StartDate.Year;
+            int months = effectiveEndDate.Month - StartDate.Month;
+
+            if (effectiveEndDate.Day < StartDate.Day)
+            {
+                months--;
+            }
+
+            if (months < 0)
+            {
+                years--;
+                months += 12;
+            }
+
+            // Building the duration string
+            string duration = "";
+            if (years > 0)
+            {
+                duration += $"{years} year" + (years > 1 ? "s" : "");
+            }
+            if (months > 0)
+            {
+                if (!string.IsNullOrEmpty(duration))
+                    duration += ", ";
+                duration += $"{months} month" + (months > 1 ? "s" : "");
+            }
+            return duration;
+        }
+    }
+
     public string Title { get; set; }
     public string Company { get; set; }
     public string Location { get; set; }

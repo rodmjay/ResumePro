@@ -21,7 +21,7 @@
 ## Experience
 {{#each jobs}}
 ### {{title}} - {{company}}
-*{{location}} - {{formatDate startDate}}-{{displayEndDate}}*
+*{{location}} - {{formatDate startDate}}-{{displayEndDate}} {{#if ../settings.showDuration}}({{duration}}){{/if}}*
 {{#each highlights}}
 - {{text}}
 {{/each}}
