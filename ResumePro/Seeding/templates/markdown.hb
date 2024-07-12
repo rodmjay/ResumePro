@@ -9,8 +9,6 @@
 ## Description
 {{description}}
 
-
-
 ## Skills
 | Category               | Skills & Ratings                                       |
 |------------------------|--------------------------------------------------------|
@@ -32,7 +30,6 @@
 - {{text}}
 {{/each}}
 {{/each}}
-
 
 {{#if Skills}}
 **Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}

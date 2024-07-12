@@ -88,7 +88,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
             PersonaId = personaId,
             JobTitle = options.Title,
             Description = options.Description,
-            ResumeSettings = new ResumeSettings()
+            ResumeSettings = new ResumeSettings
             {
                 ObjectState = ObjectState.Added,
                 DefaultTemplateId = options.Settings.DefaultTemplateId,
@@ -142,7 +142,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
         ResumeOptions options)
     {
         var resume = await Resumes
-            .Include(x=>x.ResumeSettings)
+            .Include(x => x.ResumeSettings)
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
             .FirstOrDefaultAsync();
 
@@ -154,16 +154,12 @@ public class ResumeService : BaseService<Resume>, IResumeService
         resume.Description = options.Description;
 
         if (resume.ResumeSettings == null)
-        {
-            resume.ResumeSettings = new ResumeSettings()
+            resume.ResumeSettings = new ResumeSettings
             {
                 ObjectState = ObjectState.Added
             };
-        }
         else
-        {
             resume.ResumeSettings.ObjectState = ObjectState.Modified;
-        }
 
         resume.ResumeSettings.AttachAllJobs = options.Settings.AttachAllJobs;
         resume.ResumeSettings.AttachAllSkills = options.Settings.AttachAllSkills;

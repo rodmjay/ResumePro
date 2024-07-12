@@ -29,6 +29,5 @@ public class ResumeDto : IResume
     public string JobTitle { get; set; }
     public string Description { get; set; }
 
-    [JsonIgnore]
-    public int OrganizationId { get; set; }
+    [JsonIgnore] public int OrganizationId { get; set; }
 }

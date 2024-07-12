@@ -54,9 +54,9 @@
     --breakpoint-md: 768px;
     --breakpoint-lg: 992px;
     --breakpoint-xl: 1200px;
-    --font-family-sans-serif: "Roboto",    system-ui,    -apple-system,    "Segoe UI",    "Helvetica Neue",    "Arial",    "Noto Sans",    "Liberation Sans",    sans-serif,    "Apple Color Emoji",    "Segoe UI Emoji",    "Segoe UI Symbol",    "Noto Color Emoji";
-    --font-family-monospace: "Roboto Mono",    "SFMono-Regular",    "Menlo",    "Monaco",    "Consolas",    "Liberation Mono",    "Courier New",    monospace;
-    --font-family-material-icons: "Material Icons",    "Material Icons Outlined",    "Material Icons Two Tone",    "Material Icons Round",    "Material Icons Sharp";
+    --font-family-sans-serif: "Roboto",     system-ui,     -apple-system,     "Segoe UI",     "Helvetica Neue",     "Arial",     "Noto Sans",     "Liberation Sans",     sans-serif,     "Apple Color Emoji",     "Segoe UI Emoji",     "Segoe UI Symbol",     "Noto Color Emoji";
+    --font-family-monospace: "Roboto Mono",     "SFMono-Regular",     "Menlo",     "Monaco",     "Consolas",     "Liberation Mono",     "Courier New",     monospace;
+    --font-family-material-icons: "Material Icons",     "Material Icons Outlined",     "Material Icons Two Tone",     "Material Icons Round",     "Material Icons Sharp";
 }
 
 *,

@@ -13,9 +13,9 @@ namespace ResumePro.Entities;
 
 public class ResumeSkill : BaseEntity<ResumeSkill>, IResumeSkill
 {
-    public int OrganizationId { get; set; }
     public Resume Resume { get; set; }
     public PersonaSkill Skill { get; set; }
+    public int OrganizationId { get; set; }
     public int ResumeId { get; set; }
     public int SkillId { get; set; }
     public int PersonaId { get; set; }

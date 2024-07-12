@@ -13,9 +13,10 @@ namespace ResumePro.Entities;
 
 public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
 {
+    public Resume Resume { get; set; }
+    public Template Template { get; set; }
     public int OrganizationId { get; set; }
     public int ResumeId { get; set; }
-    public Resume Resume { get; set; }
     public bool AttachAllJobs { get; set; } = true;
     public bool AttachAllSkills { get; set; } = true;
     public int ResumeYearHistory { get; set; }
@@ -23,21 +24,20 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public bool ShowTechnologyPerJob { get; set; }
     public bool ShowDuration { get; set; }
     public bool ShowRatings { get; set; }
-    public Template Template { get; set; }
 
     public override void Configure(EntityTypeBuilder<ResumeSettings> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.ResumeId });
+        builder.HasKey(x => new {x.OrganizationId, x.ResumeId});
 
         builder.HasOne(x => x.Resume)
             .WithOne(x => x.ResumeSettings)
-            .HasForeignKey<ResumeSettings>(x => new { x.OrganizationId, x.ResumeId })
+            .HasForeignKey<ResumeSettings>(x => new {x.OrganizationId, x.ResumeId})
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Template)
             .WithMany(x => x.Resumes)
             .HasForeignKey(x => x.DefaultTemplateId)
-            .HasPrincipalKey(x=>x.Name)
+            .HasPrincipalKey(x => x.Name)
             .IsRequired(false);
     }
 }

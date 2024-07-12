@@ -6,7 +6,7 @@
 
 namespace ResumePro.Shared.Options;
 
-public class ResumeSettingsOptions 
+public class ResumeSettingsOptions
 {
     public int ResumeYearHistory { get; set; }
     public string DefaultTemplateId { get; set; }

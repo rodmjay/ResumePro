@@ -55,7 +55,7 @@ internal class Program
         var organizationId = GetArgValue(1, 1);
         var personaId = GetArgValue(2, 1);
         var resumeId = GetArgValue(3, 1);
-        string templateId = GetArgValueString(4, "markdown");
+        var templateId = GetArgValueString(4, "markdown");
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 

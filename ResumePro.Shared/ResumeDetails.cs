@@ -16,7 +16,7 @@ public class ResumeDetails : ResumeDto
     {
         get
         {
-            var jobs = _jobs.Where(x=>!x.EndDate.HasValue || x.EndDate.Value >= DateTime.Now.AddYears(-10))
+            var jobs = _jobs.Where(x => !x.EndDate.HasValue || x.EndDate.Value >= DateTime.Now.AddYears(-10))
                 .ToList();
 
             return jobs;

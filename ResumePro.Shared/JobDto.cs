@@ -21,23 +21,15 @@ public class JobDto : IJob
         }
     }
 
-    public int Id { get; set; }
-
-    public DateTime StartDate { get; set; }
-    public DateTime? EndDate { get; set; }
-
     public string Duration
     {
         get
         {
-            DateTime effectiveEndDate = EndDate ?? DateTime.Now;
-            int years = effectiveEndDate.Year - StartDate.Year;
-            int months = effectiveEndDate.Month - StartDate.Month;
+            var effectiveEndDate = EndDate ?? DateTime.Now;
+            var years = effectiveEndDate.Year - StartDate.Year;
+            var months = effectiveEndDate.Month - StartDate.Month;
 
-            if (effectiveEndDate.Day < StartDate.Day)
-            {
-                months--;
-            }
+            if (effectiveEndDate.Day < StartDate.Day) months--;
 
             if (months < 0)
             {
@@ -46,20 +38,23 @@ public class JobDto : IJob
             }
 
             // Building the duration string
-            string duration = "";
-            if (years > 0)
-            {
-                duration += $"{years} year" + (years > 1 ? "s" : "");
-            }
+            var duration = "";
+            if (years > 0) duration += $"{years} year" + (years > 1 ? "s" : "");
             if (months > 0)
             {
                 if (!string.IsNullOrEmpty(duration))
                     duration += ", ";
                 duration += $"{months} month" + (months > 1 ? "s" : "");
             }
+
             return duration;
         }
     }
+
+    public int Id { get; set; }
+
+    public DateTime StartDate { get; set; }
+    public DateTime? EndDate { get; set; }
 
     public string Title { get; set; }
     public string Company { get; set; }

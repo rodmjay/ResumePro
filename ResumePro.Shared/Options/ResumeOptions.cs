@@ -15,5 +15,5 @@ public class ResumeOptions
     [NotNull] public string Description { get; set; }
 
 
-    public ResumeSettingsOptions Settings { get; set; } = new ResumeSettingsOptions();
+    public ResumeSettingsOptions Settings { get; set; } = new();
 }

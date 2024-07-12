@@ -10,11 +10,10 @@ namespace ResumePro.Shared;
 
 public class ResumeSettingsDto : IResumeSettings
 {
-    [JsonIgnore]
-    public int OrganizationId { get; set; }
+    [JsonIgnore] public int OrganizationId { get; set; }
 
-    [JsonIgnore]
-    public int ResumeId { get; set; }
+    [JsonIgnore] public int ResumeId { get; set; }
+
     public int ResumeYearHistory { get; set; }
     public string DefaultTemplateId { get; set; }
     public bool ShowTechnologyPerJob { get; set; }

@@ -53,42 +53,39 @@ public class PdfResumeGenerator : IResumeGenerator
             Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}"
         };
 
-        var showTechnologyPerJob = resumeDetails.Settings is { ShowTechnologyPerJob: true };
-        var showRatings = resumeDetails.Settings is { ShowRatings: true };
-        var showDuration = resumeDetails.Settings is { ShowDuration: true };
+        var showTechnologyPerJob = resumeDetails.Settings is {ShowTechnologyPerJob: true};
+        var showRatings = resumeDetails.Settings is {ShowRatings: true};
+        var showDuration = resumeDetails.Settings is {ShowDuration: true};
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Contact Information" };
-        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Contact Information"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
 
         yield return new ResumeSection
-        { SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}" };
+            {SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}"};
 
         if (!string.IsNullOrWhiteSpace(resumeDetails.LinkedIn))
             yield return new ResumeSection
-            { SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}" };
+                {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
 
         if (!string.IsNullOrWhiteSpace(resumeDetails.GitHub))
             yield return new ResumeSection
-            { SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}" };
+                {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
 
         if (resumeDetails.Languages != null && resumeDetails.Languages.Any())
             yield return new ResumeSection
-            { SectionType = ResumeSectionType.Text, Text = $"Languages: {resumeDetails.GetLanguageString()}" };
+                {SectionType = ResumeSectionType.Text, Text = $"Languages: {resumeDetails.GetLanguageString()}"};
 
-        yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Description" };
-        yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = resumeDetails.Description };
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Description"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = resumeDetails.Description};
 
         if (resumeDetails.Skills.Any())
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Skills" };
+            yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Skills"};
             foreach (var skill in resumeDetails.Skills)
             {
                 var text = $"- {skill.Title}";
 
-                if (showRatings)
-                {
-                    text += $" (Rating: {skill.Rating})";
-                }
+                if (showRatings) text += $" (Rating: {skill.Rating})";
 
                 yield return new ResumeSection
                 {
@@ -97,24 +94,20 @@ public class PdfResumeGenerator : IResumeGenerator
                     Indentation = 10
                 };
             }
-
         }
 
         if (resumeDetails.Jobs != null && resumeDetails.Jobs.Any())
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Experience" };
+            yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Experience"};
             foreach (var job in resumeDetails.Jobs)
             {
+                var text =
+                    $"{job.StartDate.ToShortDateString()} - {(job.EndDate.HasValue ? job.EndDate.Value.ToShortDateString() : "Present")}";
 
-                var text = $"{job.StartDate.ToShortDateString()} - {(job.EndDate.HasValue ? job.EndDate.Value.ToShortDateString() : "Present")}";
-
-                if (showDuration)
-                {
-                    text += $" ({job.Duration})";
-                }
+                if (showDuration) text += $" ({job.Duration})";
 
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10 };
+                    {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10};
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,
@@ -122,11 +115,11 @@ public class PdfResumeGenerator : IResumeGenerator
                     Indentation = 20
                 };
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20 };
+                    {SectionType = ResumeSectionType.Text, Text = job.Description, Indentation = 20};
 
                 foreach (var highlight in job.Highlights)
                     yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30 };
+                        {SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30};
 
                 if (job.Projects.Any())
                     foreach (var project in job.Projects)
@@ -138,7 +131,7 @@ public class PdfResumeGenerator : IResumeGenerator
                             Indentation = 30
                         };
                         yield return new ResumeSection
-                        { SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40 };
+                            {SectionType = ResumeSectionType.Text, Text = project.Description, Indentation = 40};
 
                         foreach (var projectHighlight in project.Highlights)
                             yield return new ResumeSection
@@ -150,28 +143,26 @@ public class PdfResumeGenerator : IResumeGenerator
                     }
 
                 if (showTechnologyPerJob)
-                {
                     if (job.Skills != null && job.Skills.Any())
                     {
                         var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
                         yield return new ResumeSection
-                        { SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10 };
+                            {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
                     }
-                }
 
                 // Add space between jobs
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10 };
+                    {SectionType = ResumeSectionType.Text, Text = string.Empty, Indentation = 10};
             }
         }
 
         if (resumeDetails.Education != null && resumeDetails.Education.Any())
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Education" };
+            yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Education"};
             foreach (var school in resumeDetails.Education)
             {
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10 };
+                    {SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10};
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,
@@ -181,13 +172,13 @@ public class PdfResumeGenerator : IResumeGenerator
                 };
                 foreach (var degree in school.Degrees)
                     yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20 };
+                        {SectionType = ResumeSectionType.Text, Text = $"Degree: {degree.Name}", Indentation = 20};
             }
         }
 
         if (resumeDetails.Certifications != null && resumeDetails.Certifications.Any())
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "Certifications" };
+            yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Certifications"};
             foreach (var certification in resumeDetails.Certifications)
                 yield return new ResumeSection
                 {
@@ -199,13 +190,13 @@ public class PdfResumeGenerator : IResumeGenerator
 
         if (resumeDetails.References != null && resumeDetails.References.Any())
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Header, Text = "References" };
+            yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "References"};
             foreach (var reference in resumeDetails.References)
             {
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10 };
+                    {SectionType = ResumeSectionType.ItalicText, Text = $"{reference.Name}", Indentation = 10};
                 yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20 };
+                    {SectionType = ResumeSectionType.Text, Text = reference.Text, Indentation = 20};
             }
         }
 
@@ -332,7 +323,7 @@ public class PdfResumeGenerator : IResumeGenerator
         {
             var lines = new List<string>();
             var currentLine = new StringBuilder();
-            var words = text.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            var words = text.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
 
             foreach (var word in words)
                 if (gfx.MeasureString(currentLine + " " + word, font).Width <= maxWidth)

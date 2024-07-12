@@ -19,4 +19,6 @@ public class ResumeSkillDto : IResumeSkill
     [JsonIgnore] public int SkillId { get; set; }
 
     [JsonIgnore] public int PersonaId { get; set; }
+
+    [JsonIgnore] public int OrganizationId { get; set; }
 }
