@@ -11,6 +11,7 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 
 
 
+
 ## Skills
 | Category               | Skills & Ratings                                       |
 |------------------------|--------------------------------------------------------|
@@ -19,6 +20,7 @@ Rod is an enterprise architect with deep expertise in the latest .NET and web te
 | **Cloud Platforms**       | Azure |
 | **Databases**       | Sql Server |
 | **DevOps Tools**       | CI/CD, Azure Devops |
+
 
 ## Experience
 ### Technical Architect - Infosys
@@ -36,7 +38,6 @@ The SRE Team oversees the quality assurance and monitoring of Microsoft's intern
 - Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights.
 - Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes.
 - Responsible for implementing integration testing patterns across multiple applications.
-
 
 **Technology Used:** C#, Entity Framework, Visual Studio, AppInsights, .NET Framework, ASP.NET, .Net Core, Artificial Intelligence (AI), Html/CSS, CI/CD, Sql Server, Angular, TypeScript, Geneva, Data Explorer, Synapse, Function Apps, Kusto, Bicep
 ### Sr. Software Architect - Solution Stream
@@ -63,7 +64,6 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 - Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency.
 - Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication.
 
-
 **Technology Used:** AppInsights, Entity Framework, Visual Studio, C#, .Net Core, ASP.NET, jQuery, JavaScript, Angular, Sql Server, Azure, CI/CD, Html/CSS, Postman, SignalR, Material Design, Bootstrap, gRPC, Blazor, TypeScript, Identity Server, oAuth2
 ### Founder/Architect - IdeaFortune
 *American Fork, UT - 11/01/2017-11/1/2020 (3 years)*
@@ -74,7 +74,6 @@ Associated Foods is a cooperative network that provides food distribution, wareh
 
 - Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed.
 - Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs.
-
 
 **Technology Used:** Visual Studio, Entity Framework, C#, AppInsights, JavaScript, ASP.NET, Stripe, WebHooks, Microsoft Teams, Jira, Html/CSS, Sql Server, Angular, Azure, CI/CD, TypeScript, Identity Server, oAuth2, Material Design, SignalR, Postman
 ### Architect - Agile Software and Marketing
@@ -89,14 +88,12 @@ Party Center Software is the number 1 online booking and facility management too
 - Integrated with multiple bowling and card-reading systems to enhance overall system functionality.
 - Developed a fully-featured order and scheduling system.
 
-
 **Technology Used:** .NET Framework, C#, Jira, Angular, Sql Server, Html/CSS, Api Integrations, oAuth2, Identity Server
 ### Sr. Engineer Dev Lead - Access Softek
 *West Jordan, UT - 01/01/2014-1/1/2015 (1 year)*
 - Managed four developers directly using Agile Scrum methodologies.
 - Responsible for the architecture and development of components within a banking platform.
 - Developed Fingerprint Login and Friends and Family Shared Banking components.
-
 
 **Technology Used:** C#, Sql Server, Html/CSS, Api Integrations, Orchard, Objective-C, Bluetooth Low Energy (BLE), oAuth2
 

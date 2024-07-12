@@ -8,6 +8,12 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Shared;
 
+public enum SkillView : int
+{
+    List = 0,
+    Grouped = 1
+}
+
 public class ResumeSettingsDto : IResumeSettings
 {
     [JsonIgnore] public int OrganizationId { get; set; }
@@ -21,4 +27,5 @@ public class ResumeSettingsDto : IResumeSettings
     public bool AttachAllSkills { get; set; }
     public bool ShowRatings { get; set; }
     public bool ShowDuration { get; set; }
+    public SkillView SkillView { get; set; }
 }

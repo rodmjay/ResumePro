@@ -37,6 +37,27 @@ public class ResumeService : BaseService<Resume>, IResumeService
             else
                 writer.WriteSafeString(parameters[0]?.ToString());
         });
+
+        Handlebars.RegisterHelper("eq", (output, options, context, arguments) =>
+        {
+            if (arguments.Length != 2)
+            {
+                throw new HandlebarsException("eq helper must have exactly two arguments");
+            }
+
+            var left = arguments[0];
+            var right = arguments[1];
+
+            var isEqual = left?.ToString() == right?.ToString();
+            if (isEqual)
+            {
+                options.Template(output, context);  // Render the main block if true
+            }
+            else
+            {
+                options.Inverse(output, context);  // Render the inverse block if false
+            }
+        });
     }
 
     public ResumeService(

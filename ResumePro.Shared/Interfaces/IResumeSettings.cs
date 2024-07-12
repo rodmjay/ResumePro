@@ -17,4 +17,6 @@ public interface IResumeSettings
     bool AttachAllSkills { get; set; }
     bool ShowRatings { get; set; }
     bool ShowDuration { get; set; }
+
+    SkillView SkillView { get; set; }
 }

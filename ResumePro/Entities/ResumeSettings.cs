@@ -7,6 +7,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
+using ResumePro.Shared;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -23,6 +24,7 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public string DefaultTemplateId { get; set; }
     public bool ShowTechnologyPerJob { get; set; }
     public bool ShowDuration { get; set; }
+    public SkillView SkillView { get; set; }
     public bool ShowRatings { get; set; }
 
     public override void Configure(EntityTypeBuilder<ResumeSettings> builder)
