@@ -4,7 +4,6 @@
 
 #endregion
 
-using System.Globalization;
 using HandlebarsDotNet;
 using Microsoft.EntityFrameworkCore;
 using OneOf;
@@ -25,41 +24,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     private readonly IRepositoryAsync<Job> _jobRepository;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
     private readonly IRepositoryAsync<Template> _templateRepo;
-
-    static ResumeService()
-    {
-        Handlebars.RegisterHelper("formatDate", (writer, context, parameters) =>
-        {
-            if (parameters[0] is DateTime dateTime)
-                writer.WriteSafeString(dateTime.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
-            else if (DateTime.TryParse(parameters[0]?.ToString(), out var parsedDate))
-                writer.WriteSafeString(parsedDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture));
-            else
-                writer.WriteSafeString(parameters[0]?.ToString());
-        });
-
-        Handlebars.RegisterHelper("eq", (output, options, context, arguments) =>
-        {
-            if (arguments.Length != 2)
-            {
-                throw new HandlebarsException("eq helper must have exactly two arguments");
-            }
-
-            var left = arguments[0];
-            var right = arguments[1];
-
-            var isEqual = left?.ToString() == right?.ToString();
-            if (isEqual)
-            {
-                options.Template(output, context);  // Render the main block if true
-            }
-            else
-            {
-                options.Inverse(output, context);  // Render the inverse block if false
-            }
-        });
-    }
-
+    
     public ResumeService(
         IRepositoryAsync<Job> jobRepository,
         IRepositoryAsync<PersonaSkill> personalSkillsRepo,
@@ -117,44 +82,53 @@ public class ResumeService : BaseService<Resume>, IResumeService
                 ResumeYearHistory = options.Settings.ResumeYearHistory,
                 ShowTechnologyPerJob = options.Settings.ShowTechnologyPerJob,
                 AttachAllJobs = options.Settings.AttachAllJobs,
-                AttachAllSkills = options.Settings.AttachAllSkills
+                AttachAllSkills = options.Settings.AttachAllSkills,
+                ShowRatings = options.Settings.ShowRatings,
+                ShowContactInfo = options.Settings.ShowContactInfo,
+                ShowDuration = options.Settings.ShowDuration,
+                SkillView = options.Settings.SkillView
             }
         };
 
-        if (options.Settings.AttachAllJobs)
-        {
-            var jobs = await Jobs
-                .AsNoTracking()
-                .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
-                .ToListAsync();
-
-            foreach (var job in jobs)
-                resume.Jobs.Add(new ResumeJob
-                {
-                    ObjectState = ObjectState.Added,
-                    JobId = job.Id
-                });
-        }
-
-        if (options.Settings.AttachAllSkills)
-        {
-            var skills = await PersonalSkills
-                .AsNoTracking()
-                .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
-                .ToListAsync();
-
-            foreach (var skill in skills)
-                resume.Skills.Add(new ResumeSkill
-                {
-                    ObjectState = ObjectState.Added,
-                    SkillId = skill.SkillId
-                });
-        }
-
-
         var changes = Repository.InsertOrUpdateGraph(resume, true);
         if (changes > 0)
+        {
+            var resumeDto = await GetResume<ResumeDto>(organizationId, personaId, resume.Id);
+
+            if (resumeDto.Settings.AttachAllJobs.Value)
+            {
+                var jobs = await Jobs
+                    .AsNoTracking()
+                    .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
+                    .ToListAsync();
+
+                foreach (var job in jobs)
+                    resume.Jobs.Add(new ResumeJob
+                    {
+                        ObjectState = ObjectState.Added,
+                        JobId = job.Id
+                    });
+            }
+
+            if (resumeDto.Settings.AttachAllSkills.Value)
+            {
+                var skills = await PersonalSkills
+                    .AsNoTracking()
+                    .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
+                    .ToListAsync();
+
+                foreach (var skill in skills)
+                    resume.Skills.Add(new ResumeSkill
+                    {
+                        ObjectState = ObjectState.Added,
+                        SkillId = skill.SkillId
+                    });
+            }
+
+            Repository.InsertOrUpdateGraph(resume, true);
+
             return await GetResume<ResumeDetails>(organizationId, personaId, resume.Id);
+        }
 
         return Result.Failed();
     }
@@ -187,6 +161,10 @@ public class ResumeService : BaseService<Resume>, IResumeService
         resume.ResumeSettings.DefaultTemplateId = options.Settings.DefaultTemplateId;
         resume.ResumeSettings.ResumeYearHistory = options.Settings.ResumeYearHistory;
         resume.ResumeSettings.ShowTechnologyPerJob = options.Settings.ShowTechnologyPerJob;
+        resume.ResumeSettings.ShowRatings = options.Settings.ShowRatings;
+        resume.ResumeSettings.ShowContactInfo = options.Settings.ShowContactInfo;
+        resume.ResumeSettings.ShowDuration = options.Settings.ShowDuration;
+        resume.ResumeSettings.SkillView = options.Settings.SkillView;
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
         if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);

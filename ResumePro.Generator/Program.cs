@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OneOf;
 using ResumePro.Context;
+using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Extensions;
 using ResumePro.Generation;
@@ -33,6 +34,7 @@ internal class Program
 
         ServiceProvider = services!.ConfigureApp(configuration)
             .AddDatabase<ApplicationContext>()
+            .RegisterHandlebarsExtensions()
             .AddAutomapperProfilesFromAssemblies()
             .RegisterAllServices(typeof(ApplicationContext).Assembly)
             .Build();

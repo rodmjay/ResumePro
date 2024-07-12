@@ -12,6 +12,7 @@ using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Context;
 using ResumePro.Entities;
+using ResumePro.Shared.Enums;
 
 namespace ResumePro.Seeding.Extensions;
 
@@ -50,6 +51,10 @@ public static class SeedingExtensions
         csvReader.Context.TypeConverterOptionsCache.GetOptions<decimal?>().NullValues.Add("NULL");
         csvReader.Context.TypeConverterOptionsCache.GetOptions<bool>().BooleanFalseValues.Add("0");
         csvReader.Context.TypeConverterOptionsCache.GetOptions<bool>().BooleanTrueValues.Add("1");
+        csvReader.Context.TypeConverterOptionsCache.GetOptions<bool?>().NullValues.Add("NULL");
+        csvReader.Context.TypeConverterOptionsCache.GetOptions<bool?>().BooleanFalseValues.Add("0");
+        csvReader.Context.TypeConverterOptionsCache.GetOptions<bool?>().BooleanTrueValues.Add("1");
+        csvReader.Context.TypeConverterOptionsCache.GetOptions<SkillView?>().NullValues.Add("NULL");
 
         return csvReader;
     }

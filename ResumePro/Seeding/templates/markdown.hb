@@ -1,16 +1,15 @@
 ﻿# {{firstName}} {{lastName}}, {{jobTitle}}
 
+{{#if settings.showContactInfo}}
 - **Email:** {{email}}
 - **Phone:** {{phoneNumber}}
 - **LinkedIn:** {{linkedIn}}
 - **GitHub:** {{gitHub}}
+{{/if}}
 - **Languages:** {{languageString}}
 
 ## Description
 {{description}}
-
-
-
 
 {{#eq settings.skillView 'Grouped'}}
 ## Skills

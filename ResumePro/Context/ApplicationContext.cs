@@ -52,6 +52,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<PersonaSkill>().Seed("persona_skills.csv");
         builder.Entity<Resume>().Seed("resumes.csv");
         builder.Entity<ResumeSettings>().Seed("resume_settings.csv");
+        builder.Entity<OrganizationSettings>().Seed("organization_settings.csv");
         builder.Entity<ResumeSkill>().Seed("resume_skills.csv");
         builder.Entity<Job>().Seed("jobs.csv");
         builder.Entity<Highlight>().Seed("highlights.csv");

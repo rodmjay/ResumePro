@@ -7,7 +7,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Shared;
+using ResumePro.Shared.Enums;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -18,14 +18,16 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public Template Template { get; set; }
     public int OrganizationId { get; set; }
     public int ResumeId { get; set; }
-    public bool AttachAllJobs { get; set; } = true;
-    public bool AttachAllSkills { get; set; } = true;
-    public int ResumeYearHistory { get; set; }
+    public bool? AttachAllJobs { get; set; } = true;
+    public bool? AttachAllSkills { get; set; } = true;
+    public int? ResumeYearHistory { get; set; }
     public string DefaultTemplateId { get; set; }
-    public bool ShowTechnologyPerJob { get; set; }
-    public bool ShowDuration { get; set; }
-    public SkillView SkillView { get; set; }
-    public bool ShowRatings { get; set; }
+    public bool? ShowTechnologyPerJob { get; set; }
+    public bool? ShowDuration { get; set; }
+    public bool? ShowContactInfo { get; set; }
+    public SkillView? SkillView { get; set; }
+    public bool? ShowRatings { get; set; }
+    public OrganizationSettings OrganizationSettings { get; set; }
 
     public override void Configure(EntityTypeBuilder<ResumeSettings> builder)
     {
@@ -41,5 +43,9 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
             .HasForeignKey(x => x.DefaultTemplateId)
             .HasPrincipalKey(x => x.Name)
             .IsRequired(false);
+
+        builder.HasOne(x => x.OrganizationSettings)
+            .WithMany(x => x.ResumeSettings)
+            .HasForeignKey(x => x.OrganizationId);
     }
 }

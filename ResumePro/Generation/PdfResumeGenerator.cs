@@ -56,20 +56,26 @@ public class PdfResumeGenerator : IResumeGenerator
         var showTechnologyPerJob = resumeDetails.Settings is {ShowTechnologyPerJob: true};
         var showRatings = resumeDetails.Settings is {ShowRatings: true};
         var showDuration = resumeDetails.Settings is {ShowDuration: true};
+        var showContactInfo = resumeDetails.Settings is {ShowContactInfo: true};
 
-        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Contact Information"};
-        yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
+        yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Basic Information"};
 
-        yield return new ResumeSection
-            {SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}"};
+        if (showContactInfo)
+        {
+            yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
 
-        if (!string.IsNullOrWhiteSpace(resumeDetails.LinkedIn))
             yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
+                { SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}" };
 
-        if (!string.IsNullOrWhiteSpace(resumeDetails.GitHub))
-            yield return new ResumeSection
-                {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
+            if (!string.IsNullOrWhiteSpace(resumeDetails.LinkedIn))
+                yield return new ResumeSection
+                    { SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}" };
+
+            if (!string.IsNullOrWhiteSpace(resumeDetails.GitHub))
+                yield return new ResumeSection
+                    { SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}" };
+
+        }
 
         if (resumeDetails.Languages != null && resumeDetails.Languages.Any())
             yield return new ResumeSection

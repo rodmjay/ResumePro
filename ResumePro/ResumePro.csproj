@@ -21,6 +21,7 @@
 		<None Remove="Seeding\csv\job_categories.csv" />
 		<None Remove="Seeding\csv\job_skills.csv" />
 		<None Remove="Seeding\csv\languages.csv" />
+		<None Remove="Seeding\csv\organization_settings.csv" />
 		<None Remove="Seeding\csv\personas.csv" />
 		<None Remove="Seeding\csv\persona_language.csv" />
 		<None Remove="Seeding\csv\persona_skills.csv" />
@@ -63,6 +64,9 @@
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\persona_language.csv">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</EmbeddedResource>
+		<EmbeddedResource Include="Seeding\csv\organization_settings.csv">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\resume_settings.csv">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -118,7 +122,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Handlebars.Net" Version="2.1.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.6">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

@@ -35,6 +35,7 @@ public class Startup
     {
         var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
+            .RegisterHandlebarsExtensions()
             .RegisterAllServices(typeof(ApplicationContext).Assembly);
 
         var webAppBuilder = builder.ConfigureWebApp(Environment);

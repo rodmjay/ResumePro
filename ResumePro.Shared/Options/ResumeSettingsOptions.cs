@@ -4,14 +4,20 @@
 
 #endregion
 
+using ResumePro.Shared.Enums;
+using ResumePro.Shared.Interfaces;
+
 namespace ResumePro.Shared.Options;
 
 public class ResumeSettingsOptions
 {
-    public int ResumeYearHistory { get; set; }
+    public int? ResumeYearHistory { get; set; }
     public string DefaultTemplateId { get; set; }
-    public bool ShowTechnologyPerJob { get; set; }
-
-    public bool AttachAllJobs { get; set; } = true;
-    public bool AttachAllSkills { get; set; } = true;
+    public bool? ShowTechnologyPerJob { get; set; }
+    public bool? AttachAllJobs { get; set; }
+    public bool? AttachAllSkills { get; set; }
+    public bool? ShowRatings { get; set; }
+    public bool? ShowDuration { get; set; }
+    public bool? ShowContactInfo { get; set; }
+    public SkillView? SkillView { get; set; }
 }
