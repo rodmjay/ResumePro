@@ -11,14 +11,12 @@ namespace ResumePro.Shared;
 public class ResumeDetails : ResumeDto
 {
     private List<JobDetails> _jobs;
-    public int ResumeYears { get; set; }
 
     public List<JobDetails> Jobs
     {
         get
         {
-            return _jobs.Where(x=>x.EndDate != null && (x.StartDate.Year > DateTime.Now.Year - Settings.ResumeYearHistory ||
-                                                        x.EndDate.Value.Year > DateTime.Now.Year - Settings.ResumeYearHistory))
+            return _jobs.Where(x=>!x.EndDate.HasValue || x.EndDate.Value >= DateTime.Now.AddYears(10))
                 .ToList();
         }
         set => _jobs = value;
@@ -34,23 +32,17 @@ public class ResumeDetails : ResumeDto
     {
         get
         {
-            List<CategorySkillRating> list = new();
-
             var categories = Skills.SelectMany(a => a.Categories).Distinct();
 
-            foreach (var category in categories)
-            {
-                var skills = Skills.Where(x => x.Categories.Contains(category));
-
-                list.Add(new CategorySkillRating
+            return (from category in categories
+                let skills = Skills.Where(x => x.Categories.Contains(category))
+                select new CategorySkillRating
                 {
                     Category = category,
                     Skills = skills.OrderByDescending(a => a.Rating)
-                        .Select(x => new {x.Title, x.Rating}).ToList()
-                });
-            }
-
-            return list;
+                        .Select(x => new {x.Title, x.Rating})
+                        .ToList()
+                }).ToList();
         }
     }
 

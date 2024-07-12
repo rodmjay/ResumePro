@@ -46,10 +46,16 @@ internal class Program
             return args.Length > index && int.TryParse(args[index], out var parsedValue) ? parsedValue : defaultValue;
         }
 
+        string GetArgValueString(int position, string defaultValue)
+        {
+            var index = position - 1;
+            return args.Length > index ? args[index] : defaultValue;
+        }
+
         var organizationId = GetArgValue(1, 1);
         var personaId = GetArgValue(2, 1);
         var resumeId = GetArgValue(3, 1);
-        var templateId = GetArgValue(4, 2);
+        string templateId = GetArgValueString(4, "markdown");
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 

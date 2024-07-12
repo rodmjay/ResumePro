@@ -11,7 +11,6 @@ namespace ResumePro.Entities;
 
 public class Template : BaseEntity<Template>
 {
-    public int Id { get; set; }
     public string Name { get; set; }
     public string Source { get; set; }
     public string Format { get; set; }
@@ -20,6 +19,6 @@ public class Template : BaseEntity<Template>
 
     public override void Configure(EntityTypeBuilder<Template> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.HasKey(x => x.Name);
     }
 }

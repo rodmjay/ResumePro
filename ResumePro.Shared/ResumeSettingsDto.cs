@@ -16,7 +16,7 @@ public class ResumeSettingsDto : IResumeSettings
     [JsonIgnore]
     public int ResumeId { get; set; }
     public int ResumeYearHistory { get; set; }
-    public int? DefaultTemplateId { get; set; }
+    public string DefaultTemplateId { get; set; }
     public bool ShowTechnologyPerJob { get; set; }
     public bool AttachAllJobs { get; set; }
     public bool AttachAllSkills { get; set; }

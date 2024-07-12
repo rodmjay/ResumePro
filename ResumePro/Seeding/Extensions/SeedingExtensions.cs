@@ -71,7 +71,6 @@ public static class SeedingExtensions
 
             templates.Add(new Template
             {
-                Id = index + 1,
                 Name = Path.GetFileNameWithoutExtension(filePath),
                 Source = fileContent,
                 Format = Path.GetExtension(filePath)

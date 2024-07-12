@@ -192,7 +192,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
     }
 
     public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId,
-        int templateId)
+        string templateId)
     {
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
@@ -202,11 +202,11 @@ public class ResumeService : BaseService<Resume>, IResumeService
         return await Generate(resume, templateId);
     }
 
-    public async Task<OneOf<GeneratedResume, Result>> Generate(ResumeDetails resume, int templateId)
+    public async Task<OneOf<GeneratedResume, Result>> Generate(ResumeDetails resume, string templateId)
     {
         var generatedResume = new GeneratedResume();
 
-        var template = await Templates.Where(x => x.Id == templateId)
+        var template = await Templates.Where(x => x.Name == templateId)
             .FirstOrDefaultAsync();
 
         if (template == null || template.Source == null)

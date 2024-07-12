@@ -19,7 +19,7 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public bool AttachAllJobs { get; set; } = true;
     public bool AttachAllSkills { get; set; } = true;
     public int ResumeYearHistory { get; set; }
-    public int? DefaultTemplateId { get; set; }
+    public string DefaultTemplateId { get; set; }
     public bool ShowTechnologyPerJob { get; set; }
     public bool ShowRatings { get; set; }
     public Template Template { get; set; }
@@ -36,6 +36,7 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
         builder.HasOne(x => x.Template)
             .WithMany(x => x.Resumes)
             .HasForeignKey(x => x.DefaultTemplateId)
+            .HasPrincipalKey(x=>x.Name)
             .IsRequired(false);
     }
 }

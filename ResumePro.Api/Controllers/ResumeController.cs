@@ -31,7 +31,7 @@ public class ResumeController : BaseController
 
     [HttpGet("{resumeId}/Generate")]
     public async Task<IActionResult> Generate([FromRoute] int personId, [FromRoute] int resumeId,
-        [FromQuery] int templateId)
+        [FromQuery] string templateId)
     {
         var result = await _resumeService.Generate(OrganizationId, personId, resumeId, templateId);
         if (result.IsT0)
