@@ -9,11 +9,13 @@
 ## Description
 {{description}}
 
+
+
 ## Skills
 | Category               | Skills & Ratings                                       |
 |------------------------|--------------------------------------------------------|
 {{#each skillDictionary}}
-| **{{category}}**       | {{#each skills}}{{title}} ({{rating}}) {{#unless @last}}, {{/unless}}{{/each}} |
+| **{{category}}**       | {{#each skills}}{{title}}{{#if settings.showRatings}}({{rating}}){{/if}}{{#unless @last}}, {{/unless}}{{/each}} |
 {{/each}}
 
 ## Experience

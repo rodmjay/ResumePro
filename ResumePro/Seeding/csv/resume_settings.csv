@@ -1,2 +1,2 @@
-﻿OrganizationId,ResumeId,ResumeYearHistory,DefaultTemplateId,ShowTechnologyPerJob,AttachAllSkills,AttachAllJobs
-1,1,10,NULL,true,true,true
+﻿OrganizationId,ResumeId,ResumeYearHistory,DefaultTemplateId,ShowTechnologyPerJob,AttachAllSkills,AttachAllJobs,ShowRatings
+1,1,10,NULL,true,true,true,false

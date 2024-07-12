@@ -53,6 +53,9 @@ public class PdfResumeGenerator : IResumeGenerator
             Text = $"{resumeDetails.FirstName} {resumeDetails.LastName}, {resumeDetails.JobTitle}"
         };
 
+        var showTechnologyPerJob = resumeDetails.Settings is {ShowTechnologyPerJob: true};
+        var showRatings = resumeDetails.Settings is {ShowRatings: true};
+
         yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Contact Information"};
         yield return new ResumeSection {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
 
@@ -78,12 +81,22 @@ public class PdfResumeGenerator : IResumeGenerator
         {
             yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Skills"};
             foreach (var skill in resumeDetails.Skills)
+            {
+                var text = $"- {skill.Title}";
+
+                if (showRatings)
+                {
+                    text += $" (Rating: {skill.Rating})";
+                }
+
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,
-                    Text = $"- {skill.Title} (Rating: {skill.Rating})",
+                    Text = text,
                     Indentation = 10
                 };
+            }
+              
         }
 
         if (resumeDetails.Jobs != null && resumeDetails.Jobs.Any())
@@ -106,7 +119,7 @@ public class PdfResumeGenerator : IResumeGenerator
                 foreach (var highlight in job.Highlights)
                     yield return new ResumeSection
                         {SectionType = ResumeSectionType.Text, Text = $"- {highlight.Text}", Indentation = 30};
-
+                
                 if (job.Projects.Any())
                     foreach (var project in job.Projects)
                     {
@@ -127,11 +140,14 @@ public class PdfResumeGenerator : IResumeGenerator
                             };
                     }
 
-                if (job.Skills != null && job.Skills.Any())
+                if (showTechnologyPerJob)
                 {
-                    var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
-                    yield return new ResumeSection
-                        {SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10};
+                    if (job.Skills != null && job.Skills.Any())
+                    {
+                        var skillsText = "Technology Used: " + string.Join(", ", job.Skills.Select(s => s.Name));
+                        yield return new ResumeSection
+                            { SectionType = ResumeSectionType.ItalicText, Text = skillsText, Indentation = 10 };
+                    }
                 }
 
                 // Add space between jobs

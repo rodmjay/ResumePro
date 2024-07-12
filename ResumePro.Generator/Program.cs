@@ -57,7 +57,11 @@ internal class Program
 
         OneOf<GeneratedResume, Result> generatedResume = await resumeService.Generate(resume, templateId);
 
-        if (generatedResume.IsT0) UpdateReadMe(generatedResume.AsT0.Body);
+        if (generatedResume.IsT0)
+        {
+            Console.WriteLine(generatedResume.AsT0.Body);
+            UpdateReadMe(generatedResume.AsT0.Body);
+        }
 
         var pdfGenerator = new PdfResumeGenerator(new PdfSettings
         {

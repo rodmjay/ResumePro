@@ -17,7 +17,8 @@ public class ResumeDetails : ResumeDto
     {
         get
         {
-            return _jobs.Where(x=>x.StartDate.Year > DateTime.Now.Year - Settings.ResumeYearHistory)
+            return _jobs.Where(x=>x.EndDate != null && (x.StartDate.Year > DateTime.Now.Year - Settings.ResumeYearHistory ||
+                                                        x.EndDate.Value.Year > DateTime.Now.Year - Settings.ResumeYearHistory))
                 .ToList();
         }
         set => _jobs = value;

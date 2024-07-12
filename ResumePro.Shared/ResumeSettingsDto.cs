@@ -20,4 +20,5 @@ public class ResumeSettingsDto : IResumeSettings
     public bool ShowTechnologyPerJob { get; set; }
     public bool AttachAllJobs { get; set; }
     public bool AttachAllSkills { get; set; }
+    public bool ShowRatings { get; set; }
 }

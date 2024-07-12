@@ -34,7 +34,6 @@
 		<None Remove="Seeding\csv\skills.csv" />
 		<None Remove="Seeding\csv\skill_categories.csv" />
 		<None Remove="Seeding\csv\state_provinces.csv" />
-		<None Remove="Seeding\csv\templates.csv" />
 		<None Remove="Seeding\templates\html.hb" />
 		<None Remove="Seeding\templates\markdown.hb" />
 		<None Remove="sharedSettings.json" />
@@ -66,9 +65,6 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\resume_settings.csv">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</EmbeddedResource>
-		<EmbeddedResource Include="Seeding\csv\templates.csv">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\schools.csv">
