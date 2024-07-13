@@ -10,6 +10,7 @@ using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Queries;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
+using ResumePro.ErrorDescribers;
 using ResumePro.Extensions;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
@@ -21,8 +22,11 @@ namespace ResumePro.Services;
 
 public class PeopleService : BaseService<Persona>, IPeopleService
 {
-    public PeopleService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly PersonErrorDescriber _personErrors;
+
+    public PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors) : base(serviceProvider)
     {
+        _personErrors = personErrors;
     }
 
     private IQueryable<Persona> People => Repository.Queryable();
@@ -30,7 +34,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
     public async Task<PagedList<T>> GetPeople<T>(int organizationId, PersonaFilters filters, PagingQuery paging)
         where T : PersonaDto
     {
-        if (filters == null) filters = new PersonaFilters();
+        filters ??= new PersonaFilters();
 
         var expr = filters.GetExpression()
             .And(x => x.OrganizationId == organizationId);
@@ -51,7 +55,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
             .FirstOrDefaultAsync();
 
         if (person == null)
-            return Result.Failed();
+            return Result.Failed(_personErrors.PersonNotFound(personId));
 
         person.IsDeleted = true;
         person.ObjectState = ObjectState.Modified;
@@ -60,7 +64,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         if (results > 0)
             return Result.Success();
 
-        return Result.Failed();
+        return Result.Failed(_personErrors.UnableToSavePerson());
     }
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
@@ -83,7 +87,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         var result = Repository.InsertOrUpdateGraph(person, true);
         if (result > 0) return await GetPerson<PersonaDetails>(organizationId, person.Id);
 
-        return Result.Failed();
+        return Result.Failed(_personErrors.UnableToSavePerson());
     }
 
     public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId,
@@ -93,7 +97,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
             .FirstOrDefaultAsync();
 
         if (person == null)
-            return Result.Failed();
+            return Result.Failed(_personErrors.PersonNotFound(personId));
 
         person.ObjectState = ObjectState.Modified;
         person.Email = options.Email;
@@ -107,7 +111,7 @@ public class PeopleService : BaseService<Persona>, IPeopleService
         if (results > 0)
             return await GetPerson<PersonaDetails>(organizationId, personId);
 
-        return Result.Failed();
+        return Result.Failed(_personErrors.UnableToSavePerson());
     }
 
     private async Task<int> GetNextPersonId(int organizationId)

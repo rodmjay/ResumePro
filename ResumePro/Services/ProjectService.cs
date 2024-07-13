@@ -9,6 +9,7 @@ using OneOf;
 using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
+using ResumePro.ErrorDescribers;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
 using ResumePro.Shared.Common;
@@ -18,8 +19,11 @@ namespace ResumePro.Services;
 
 public class ProjectService : BaseService<Project>, IProjectService
 {
-    public ProjectService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly ProjectErrorDescriber _projectErrors;
+
+    public ProjectService(IServiceProvider serviceProvider, ProjectErrorDescriber projectErrors) : base(serviceProvider)
     {
+        _projectErrors = projectErrors;
     }
 
     private IQueryable<Project> Projects => Repository.Queryable();
@@ -62,7 +66,6 @@ public class ProjectService : BaseService<Project>, IProjectService
             Order = options.Order
         };
 
-
         if (lastProject == null)
             project.Order = 1;
         else
@@ -71,7 +74,7 @@ public class ProjectService : BaseService<Project>, IProjectService
         var results = Repository.InsertOrUpdateGraph(project, true);
         if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
-        return Result.Failed();
+        return Result.Failed(_projectErrors.UnableToSaveProject());
     }
 
     public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
@@ -81,7 +84,7 @@ public class ProjectService : BaseService<Project>, IProjectService
             .FirstOrDefaultAsync();
 
         if (project == null)
-            return Result.Failed();
+            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
 
         var projects = await Projects
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
@@ -116,7 +119,7 @@ public class ProjectService : BaseService<Project>, IProjectService
         var results = Repository.Commit();
         if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
-        return Result.Failed();
+        return Result.Failed(_projectErrors.UnableToSaveProject());
     }
 
     public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
@@ -127,7 +130,7 @@ public class ProjectService : BaseService<Project>, IProjectService
             .FirstOrDefaultAsync();
 
         if (project == null)
-            return Result.Failed();
+            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
 
         var projects = await Projects
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
@@ -153,7 +156,7 @@ public class ProjectService : BaseService<Project>, IProjectService
         var changes = Repository.Commit();
         if (changes > 0) return Result.Success();
 
-        return Result.Failed();
+        return Result.Failed(_projectErrors.UnableToSaveProject());
     }
 
     private async Task<int> GetNextProjectId(int organizationId)

@@ -63,6 +63,7 @@ public class JobService : BaseService<Job>, IJobService
         if (results > 0)
         {
             var resumes = await Resumes.Include(x => x.ResumeSettings)
+                .ThenInclude(x => x.OrganizationSettings)
                 .Include(x => x.Jobs)
                 .ThenInclude(x => x.Job)
                 .Where(x => x.PersonaId == personId && x.OrganizationId == organizationId)
@@ -70,7 +71,8 @@ public class JobService : BaseService<Job>, IJobService
 
             foreach (var resume in resumes)
             {
-                if (resume.ResumeSettings is {AttachAllJobs: true})
+                var settings = Mapper.Map<ResumeSettings>(resume.ResumeSettings);
+                if (settings.AttachAllJobs.Value)
                 {
                     resume.ObjectState = ObjectState.Modified;
                     resume.Jobs.Add(new ResumeJob

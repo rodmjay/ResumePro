@@ -11,6 +11,7 @@ using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Bases;
 using ResumePro.Entities;
+using ResumePro.ErrorDescribers;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;
@@ -21,23 +22,29 @@ namespace ResumePro.Services;
 
 public class ResumeService : BaseService<Resume>, IResumeService
 {
-    private readonly IRepositoryAsync<Job> _jobRepository;
+    private readonly ResumeErrorDescriber _resumeErrors;
+    private readonly TemplateErrorDescriber _templateErrors;
+    private readonly IRepositoryAsync<Job> _jobRepo;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
     private readonly IRepositoryAsync<Template> _templateRepo;
     
     public ResumeService(
-        IRepositoryAsync<Job> jobRepository,
+        ResumeErrorDescriber resumeErrors,
+        TemplateErrorDescriber templateErrors,
+        IRepositoryAsync<Job> jobRepo,
         IRepositoryAsync<PersonaSkill> personalSkillsRepo,
         IRepositoryAsync<Template> templateRepo,
         IServiceProvider serviceProvider) : base(serviceProvider)
     {
-        _jobRepository = jobRepository;
+        _resumeErrors = resumeErrors;
+        _templateErrors = templateErrors;
+        _jobRepo = jobRepo;
         _personalSkillsRepo = personalSkillsRepo;
         _templateRepo = templateRepo;
     }
 
     private IQueryable<Resume> Resumes => Repository.Queryable();
-    private IQueryable<Job> Jobs => _jobRepository.Queryable();
+    private IQueryable<Job> Jobs => _jobRepo.Queryable();
     private IQueryable<PersonaSkill> PersonalSkills => _personalSkillsRepo.Queryable();
     private IQueryable<Template> Templates => _templateRepo.Queryable();
 
@@ -130,7 +137,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
             return await GetResume<ResumeDetails>(organizationId, personaId, resume.Id);
         }
 
-        return Result.Failed();
+        return Result.Failed(_resumeErrors.UnableToSaveResume());
     }
 
     public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId,
@@ -142,7 +149,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (resume == null)
-            return Result.Failed();
+            return Result.Failed(_resumeErrors.ResumeNotFound(resumeId));
 
         resume.ObjectState = ObjectState.Modified;
         resume.JobTitle = options.Title;
@@ -167,9 +174,10 @@ public class ResumeService : BaseService<Resume>, IResumeService
         resume.ResumeSettings.SkillView = options.Settings.SkillView;
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
-        if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
+        if (records > 0) 
+            return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
-        return Result.Failed();
+        return Result.Failed(_resumeErrors.UnableToSaveResume());
     }
 
     public async Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId)
@@ -205,7 +213,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (template == null || template.Source == null)
-            return Result.Failed();
+            return Result.Failed(_templateErrors.TemplateNotFound(templateId));
 
         var engine = Handlebars.Compile(template.Source);
 
@@ -223,7 +231,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (resume == null)
-            return Result.Failed();
+            return Result.Failed(_resumeErrors.ResumeNotFound(resumeId));
 
         resume.ObjectState = ObjectState.Deleted;
 

@@ -69,6 +69,7 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillServi
             if (isAdd)
             {
                 var resumes = await Resumes.Include(x => x.ResumeSettings)
+                    .ThenInclude(x => x.OrganizationSettings)
                     .Include(x => x.Skills)
                     .ThenInclude(x => x.Skill)
                     .Where(x => x.PersonaId == personId && x.OrganizationId == organizationId)
@@ -76,7 +77,8 @@ public class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillServi
 
                 foreach (var resume in resumes)
                 {
-                    if (resume.ResumeSettings is {AttachAllSkills: true})
+                    var settings = Mapper.Map<ResumeSettings>(resume.ResumeSettings);
+                    if (settings.AttachAllSkills.Value)
                     {
                         resume.ObjectState = ObjectState.Modified;
                         resume.Skills.Add(new ResumeSkill

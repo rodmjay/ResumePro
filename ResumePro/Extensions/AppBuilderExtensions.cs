@@ -6,22 +6,27 @@
 
 using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.Core.Middleware.Builders;
-using ResumePro.Services;
 
 namespace ResumePro.Extensions;
 
 public static class AppBuilderExtensions
 {
-    public static AppBuilder AddGeographyDependencies(this AppBuilder builder)
+    private static AppBuilder RegisterAllErrorDescribers(this AppBuilder builder, Assembly assembly)
     {
-        builder.Services.TryAddTransient<GeographyErrorDescriber>();
+        var typesWithErrorDescriberName = assembly.GetTypes()
+            .Where(x => x.Name.Contains("ErrorDescriber")).ToList();
+
+        foreach (var type in typesWithErrorDescriberName)
+        {
+            builder.Services.AddScoped(type);
+        }
 
         return builder;
     }
 
-    public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
+
+    private static AppBuilder RegisterServiceImplementations(this AppBuilder builder, Assembly assembly)
     {
         var typesWithInterfaces = assembly.GetTypes()
             .Where(x => x.IsClass && !x.IsAbstract && x.GetInterfaces().Any())
@@ -37,5 +42,12 @@ public static class AppBuilderExtensions
         foreach (var service in type.Services)
             builder.Services.AddScoped(service, type.Implementation);
         return builder;
+    }
+
+    public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
+    {
+        return builder
+            .RegisterServiceImplementations(assembly)
+            .RegisterAllErrorDescribers(assembly);
     }
 }

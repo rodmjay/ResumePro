@@ -41,6 +41,7 @@ public class Startup
         var webAppBuilder = builder.ConfigureWebApp(Environment);
 
         var restBuilder = webAppBuilder.ConfigureRest()
+            .AddCors()
             .AddAuthorization(policy =>
             {
                 policy.RequireAuthenticatedUser();
