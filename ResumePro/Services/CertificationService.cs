@@ -4,22 +4,17 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class CertificationService : BaseService<Certification>, ICertificationService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class CertificationService : BaseService<Certification>, ICertificationService
 {
-    public CertificationService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly CertificationErrorDescriber _errors;
+
+    public CertificationService(IServiceProvider serviceProvider, CertificationErrorDescriber errors) : base(
+        serviceProvider)
     {
+        _errors = errors;
     }
 
     private IQueryable<Certification> Certifications => Repository.Queryable();
@@ -57,7 +52,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
         var records = Repository.InsertOrUpdateGraph(certification, true);
         if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
-        return Result.Failed();
+        return Result.Failed(_errors.UnableToSaveCertification());
     }
 
     public async Task<OneOf<CertificationDto, Result>> UpdateCertification(int organizationId, int personId,
@@ -68,7 +63,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
             .FirstOrDefaultAsync();
 
         if (certification == null)
-            return Result.Failed();
+            return Result.Failed(_errors.CertificationNotFound(certificationId));
 
         certification.ObjectState = ObjectState.Modified;
         certification.Date = options.Date;
@@ -78,7 +73,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
         var records = Repository.InsertOrUpdateGraph(certification, true);
         if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
-        return Result.Failed();
+        return Result.Failed(_errors.UnableToSaveCertification());
     }
 
     public async Task<Result> DeleteCertification(int organizationId, int personId, int certificationId)
@@ -88,7 +83,7 @@ public class CertificationService : BaseService<Certification>, ICertificationSe
             .FirstOrDefaultAsync();
 
         if (certification == null)
-            return Result.Failed();
+            return Result.Failed(_errors.CertificationNotFound(certificationId));
 
         certification.ObjectState = ObjectState.Deleted;
 

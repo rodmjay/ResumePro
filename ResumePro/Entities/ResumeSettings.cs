@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared.Enums;
@@ -16,6 +15,7 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
 {
     public Resume Resume { get; set; }
     public Template Template { get; set; }
+    public OrganizationSettings OrganizationSettings { get; set; }
     public int OrganizationId { get; set; }
     public int ResumeId { get; set; }
     public bool? AttachAllJobs { get; set; } = true;
@@ -27,7 +27,6 @@ public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
     public bool? ShowContactInfo { get; set; }
     public SkillView? SkillView { get; set; }
     public bool? ShowRatings { get; set; }
-    public OrganizationSettings OrganizationSettings { get; set; }
 
     public override void Configure(EntityTypeBuilder<ResumeSettings> builder)
     {

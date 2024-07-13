@@ -11,7 +11,6 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Context;
-using ResumePro.Entities;
 using ResumePro.Shared.Enums;
 
 namespace ResumePro.Seeding.Extensions;

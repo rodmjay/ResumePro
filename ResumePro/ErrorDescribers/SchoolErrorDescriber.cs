@@ -6,21 +6,22 @@
 
 namespace ResumePro.ErrorDescribers;
 
-public class PersonErrorDescriber
+public class SchoolErrorDescriber
 {
-    public virtual Error PersonNotFound(int personId)
+    public virtual Error SchoolNotFound(int SchoolId)
     {
         return new Error
         {
-            Code = nameof(PersonNotFound)
+            Code = nameof(SchoolNotFound)
         };
     }
 
-    public virtual Error UnableToSavePerson()
+
+    public virtual Error UnableToSaveSchool()
     {
         return new Error
         {
-            Code = nameof(UnableToSavePerson)
+            Code = nameof(UnableToSaveSchool)
         };
     }
 }

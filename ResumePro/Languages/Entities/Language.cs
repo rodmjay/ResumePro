@@ -6,7 +6,6 @@
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
-using ResumePro.Entities;
 using ResumePro.Languages.Interfaces;
 
 namespace ResumePro.Languages.Entities;

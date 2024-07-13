@@ -4,15 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared.Common;
-
 namespace ResumePro.Services;
 
-public class StateService : BaseService<StateProvince>, IStateService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class StateService : BaseService<StateProvince>, IStateService
 {
     public StateService(IServiceProvider serviceProvider) : base(serviceProvider)
     {

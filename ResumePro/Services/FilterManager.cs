@@ -4,13 +4,10 @@
 
 #endregion
 
-using ResumePro.Core.Services.Bases;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-
 namespace ResumePro.Services;
 
-public class FilterManager : BaseService, IFilterManager
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class FilterManager : BaseService, IFilterManager
 {
     private readonly ISkillService _skillService;
     private readonly IStateService _stateService;
@@ -25,10 +22,16 @@ public class FilterManager : BaseService, IFilterManager
 
     public async Task<FilterContainer> GetFilters(int organizationId)
     {
+        var statesTask = _stateService.GetStatesDropdown("US");
+        var skillsTask = _skillService.GetSkillsDropdown();
+
+        await Task.WhenAll(statesTask, skillsTask);
+
+        // Use the results of the tasks
         var retVal = new FilterContainer
         {
-            States = await _stateService.GetStatesDropdown("US"),
-            Skills = await _skillService.GetSkillsDropdown()
+            States = statesTask.Result,
+            Skills = skillsTask.Result
         };
 
         return retVal;

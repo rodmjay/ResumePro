@@ -4,23 +4,14 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
 using ResumePro.Core.Queries;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.ErrorDescribers;
 using ResumePro.Extensions;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Filters;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
 
-public class PeopleService : BaseService<Persona>, IPeopleService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class PeopleService : BaseService<Persona>, IPeopleService
 {
     private readonly PersonErrorDescriber _personErrors;
 

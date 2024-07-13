@@ -4,19 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class HighlightService : BaseService<Highlight>, IHighlightService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class HighlightService : BaseService<Highlight>, IHighlightService
 {
     public HighlightService(IServiceProvider serviceProvider) : base(
         serviceProvider)

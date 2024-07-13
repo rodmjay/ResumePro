@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using ResumePro.Context;
 

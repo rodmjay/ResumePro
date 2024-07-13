@@ -4,13 +4,8 @@
 
 #endregion
 
-using OneOf;
 using ResumePro.Core.Services.Interfaces;
-using ResumePro.Entities;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Filters;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Interfaces;
 

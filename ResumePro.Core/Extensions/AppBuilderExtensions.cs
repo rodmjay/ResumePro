@@ -5,6 +5,7 @@
 #endregion
 
 using System.Globalization;
+using System.Reflection;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -29,23 +30,16 @@ public static class AppBuilderExtensions
 
         Handlebars.RegisterHelper("eq", (output, options, context, arguments) =>
         {
-            if (arguments.Length != 2)
-            {
-                throw new HandlebarsException("eq helper must have exactly two arguments");
-            }
+            if (arguments.Length != 2) throw new HandlebarsException("eq helper must have exactly two arguments");
 
             var left = arguments[0];
             var right = arguments[1];
 
             var isEqual = left?.ToString() == right?.ToString();
             if (isEqual)
-            {
-                options.Template(output, context);  // Render the main block if true
-            }
+                options.Template(output, context); // Render the main block if true
             else
-            {
-                options.Inverse(output, context);  // Render the inverse block if false
-            }
+                options.Inverse(output, context); // Render the inverse block if false
         });
 
         return builder;
@@ -67,5 +61,41 @@ public static class AppBuilderExtensions
             .AddJwtBearer("Bearer", action);
 
         return builder;
+    }
+
+    private static AppBuilder RegisterAllErrorDescribers(this AppBuilder builder, Assembly assembly)
+    {
+        var typesWithErrorDescriberName = assembly.GetTypes()
+            .Where(x => x.Name.Contains("ErrorDescriber")).ToList();
+
+        foreach (var type in typesWithErrorDescriberName) builder.Services.AddScoped(type);
+
+        return builder;
+    }
+
+
+    private static AppBuilder RegisterServiceImplementations(this AppBuilder builder, Assembly assembly)
+    {
+        var typesWithInterfaces = assembly.GetTypes()
+            .Where(x => x.IsClass && !x.IsAbstract && x.GetInterfaces().Any())
+            .Select(x => new
+            {
+                Implementation = x,
+                Services = x.GetInterfaces().Where(i => i.Name == $"I{x.Name}")
+            })
+            .Where(x => x.Services.Any());
+
+
+        foreach (var type in typesWithInterfaces)
+        foreach (var service in type.Services)
+            builder.Services.AddScoped(service, type.Implementation);
+        return builder;
+    }
+
+    public static AppBuilder RegisterAllServices(this AppBuilder builder, Assembly assembly)
+    {
+        return builder
+            .RegisterServiceImplementations(assembly)
+            .RegisterAllErrorDescribers(assembly);
     }
 }

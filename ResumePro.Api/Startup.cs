@@ -12,7 +12,6 @@ using ResumePro.Context;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Core.Settings;
-using ResumePro.Extensions;
 
 namespace ResumePro.Api;
 
@@ -33,10 +32,13 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
+        var thisAssembly = Assembly.GetAssembly(GetType());
+        var businessAssembly = typeof(ApplicationContext).Assembly;
+
         var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
             .RegisterHandlebarsExtensions()
-            .RegisterAllServices(typeof(ApplicationContext).Assembly);
+            .RegisterAllServices(businessAssembly);
 
         var webAppBuilder = builder.ConfigureWebApp(Environment);
 
@@ -83,7 +85,7 @@ public class Startup
                     }
                 };
             })
-            .AddSwagger(Assembly.GetAssembly(GetType()));
+            .AddSwagger(thisAssembly);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ApplicationContext context,

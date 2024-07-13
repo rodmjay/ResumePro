@@ -4,8 +4,6 @@
 
 #endregion
 
-using ResumePro.Shared;
-
 namespace ResumePro.Interfaces;
 
 public interface IStateProvinceStore

@@ -4,15 +4,13 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
-
 namespace ResumePro.ErrorDescribers;
 
 public class ProjectErrorDescriber
 {
     public virtual Error ProjectNotFound(int projectId)
     {
-        return new Error()
+        return new Error
         {
             Code = nameof(ProjectNotFound)
         };
@@ -21,7 +19,7 @@ public class ProjectErrorDescriber
 
     public virtual Error UnableToSaveProject()
     {
-        return new Error()
+        return new Error
         {
             Code = nameof(UnableToSaveProject)
         };

@@ -13,6 +13,7 @@ namespace ResumePro.Entities;
 
 public class OrganizationSettings : BaseEntity<OrganizationSettings>, IOrganizationSettings
 {
+    public ICollection<ResumeSettings> ResumeSettings { get; set; }
     public int OrganizationId { get; set; }
     public int ResumeYearHistory { get; set; }
     public int DefaultTemplate { get; set; }
@@ -24,8 +25,6 @@ public class OrganizationSettings : BaseEntity<OrganizationSettings>, IOrganizat
     public bool ShowContactInfo { get; set; }
     public SkillView SkillView { get; set; }
     public bool ShowRatings { get; set; }
-
-    public ICollection<ResumeSettings> ResumeSettings { get; set; }
 
     public override void Configure(EntityTypeBuilder<OrganizationSettings> builder)
     {

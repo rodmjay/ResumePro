@@ -4,17 +4,10 @@
 
 #endregion
 
-using OneOf;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class DegreeService : BaseService<Degree>, IDegreeService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class DegreeService : BaseService<Degree>, IDegreeService
 {
     public DegreeService(IServiceProvider serviceProvider) : base(serviceProvider)
     {

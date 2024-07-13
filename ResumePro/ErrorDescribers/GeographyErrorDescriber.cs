@@ -4,9 +4,7 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
-
-namespace ResumePro.Services;
+namespace ResumePro.ErrorDescribers;
 
 public class GeographyErrorDescriber
 {

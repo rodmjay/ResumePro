@@ -5,29 +5,19 @@
 #endregion
 
 using HandlebarsDotNet;
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Data.Interfaces;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.ErrorDescribers;
 using ResumePro.Generation;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Services;
 
-public class ResumeService : BaseService<Resume>, IResumeService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class ResumeService : BaseService<Resume>, IResumeService
 {
-    private readonly ResumeErrorDescriber _resumeErrors;
-    private readonly TemplateErrorDescriber _templateErrors;
     private readonly IRepositoryAsync<Job> _jobRepo;
     private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
+    private readonly ResumeErrorDescriber _resumeErrors;
+    private readonly TemplateErrorDescriber _templateErrors;
     private readonly IRepositoryAsync<Template> _templateRepo;
-    
+
     public ResumeService(
         ResumeErrorDescriber resumeErrors,
         TemplateErrorDescriber templateErrors,
@@ -174,7 +164,7 @@ public class ResumeService : BaseService<Resume>, IResumeService
         resume.ResumeSettings.SkillView = options.Settings.SkillView;
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
-        if (records > 0) 
+        if (records > 0)
             return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
         return Result.Failed(_resumeErrors.UnableToSaveResume());

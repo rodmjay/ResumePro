@@ -4,9 +4,7 @@
 
 #endregion
 
-using ResumePro.Shared;
-
-namespace ResumePro.Services;
+namespace ResumePro.Interfaces;
 
 public interface IFilterManager
 {

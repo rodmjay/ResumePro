@@ -4,22 +4,17 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class ReferenceService : BaseService<Reference>, IReferenceService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class ReferenceService : BaseService<Reference>, IReferenceService
 {
-    public ReferenceService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly ReferenceErrorDescriber _referenceErrors;
+
+    public ReferenceService(IServiceProvider serviceProvider, ReferenceErrorDescriber referenceErrors) : base(
+        serviceProvider)
     {
+        _referenceErrors = referenceErrors;
     }
 
     private IQueryable<Reference> References => Repository.Queryable();
@@ -70,7 +65,7 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
         if (results > 0)
             return await GetReference<ReferenceDto>(organizationId, personId, reference.Id);
 
-        return Result.Failed();
+        return Result.Failed(_referenceErrors.UnableToSaveReference());
     }
 
     public async Task<OneOf<ReferenceDto, Result>> UpdateReference(int organizationId, int personId, int referenceId,
@@ -81,9 +76,10 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
             .FirstOrDefaultAsync();
 
         if (reference == null)
-            return Result.Failed();
+            return Result.Failed(_referenceErrors.ReferenceNotFound(referenceId));
 
-        var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+        var references = await References
+            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .ToListAsync();
 
         references.Remove(reference);
@@ -109,7 +105,7 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
         if (results > 0)
             return await GetReference<ReferenceDto>(organizationId, personId, reference.Id);
 
-        return Result.Failed();
+        return Result.Failed(_referenceErrors.UnableToSaveReference());
     }
 
     public async Task<Result> DeleteReference(int organizationId, int personId, int referenceId)
@@ -119,7 +115,7 @@ public class ReferenceService : BaseService<Reference>, IReferenceService
             .FirstOrDefaultAsync();
 
         if (reference == null)
-            return Result.Failed();
+            return Result.Failed(_referenceErrors.ReferenceNotFound(referenceId));
 
         var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .OrderBy(x => x.Order).ToListAsync();

@@ -4,13 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Services.Bases;
 using ResumePro.Languages.Entities;
 using ResumePro.Languages.Extensions;
 using ResumePro.Languages.Interfaces;
 using ResumePro.Languages.Models;
-using ResumePro.Shared.Common;
 
 namespace ResumePro.Languages.Services;
 

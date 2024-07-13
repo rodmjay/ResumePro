@@ -4,16 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared.Common;
-
 namespace ResumePro.Services;
 
-public class ResumeSkillService : BaseService<ResumeSkill>, IResumeSkillService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class ResumeSkillService : BaseService<ResumeSkill>, IResumeSkillService
 {
     public ResumeSkillService(IServiceProvider serviceProvider) : base(serviceProvider)
     {

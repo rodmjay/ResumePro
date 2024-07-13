@@ -5,7 +5,6 @@
 #endregion
 
 using System.Text;
-using ResumePro.Shared;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Generation;

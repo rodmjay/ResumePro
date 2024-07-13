@@ -11,7 +11,6 @@ using Newtonsoft.Json;
 using PdfSharp.Pdf.IO;
 using ResumePro.Context;
 using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Extensions;
 
 namespace ResumePro.Extractor;
 

@@ -4,22 +4,16 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class SchoolService : BaseService<School>, ISchoolService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class SchoolService : BaseService<School>, ISchoolService
 {
-    public SchoolService(IServiceProvider serviceProvider) : base(serviceProvider)
+    private readonly SchoolErrorDescriber _schoolErrors;
+
+    public SchoolService(IServiceProvider serviceProvider, SchoolErrorDescriber schoolErrors) : base(serviceProvider)
     {
+        _schoolErrors = schoolErrors;
     }
 
     private IQueryable<School> Schools => Repository.Queryable();
@@ -57,7 +51,7 @@ public class SchoolService : BaseService<School>, ISchoolService
         var results = Repository.InsertOrUpdateGraph(school, true);
         if (results > 0) return await GetSchool<SchoolDetails>(organizationId, personId, school.Id);
 
-        return Result.Failed();
+        return Result.Failed(_schoolErrors.UnableToSaveSchool());
     }
 
     public async Task<OneOf<SchoolDetails, Result>> UpdateSchool(int organizationId, int personId, int schoolId,
@@ -68,7 +62,7 @@ public class SchoolService : BaseService<School>, ISchoolService
             .FirstOrDefaultAsync();
 
         if (school == null)
-            return Result.Failed();
+            return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
 
         school.Name = options.Name;
         school.EndDate = options.EndDate;
@@ -78,7 +72,7 @@ public class SchoolService : BaseService<School>, ISchoolService
         var result = Repository.InsertOrUpdateGraph(school, true);
         if (result > 0) return await GetSchool<SchoolDetails>(organizationId, personId, schoolId);
 
-        return Result.Failed();
+        return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
     }
 
     public async Task<Result> DeleteSchool(int organizationId, int personId, int schoolId)
@@ -88,7 +82,7 @@ public class SchoolService : BaseService<School>, ISchoolService
             .FirstOrDefaultAsync();
 
         if (school == null)
-            return Result.Failed();
+            return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
 
         school.ObjectState = ObjectState.Deleted;
 

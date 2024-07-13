@@ -4,20 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using OneOf;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.ErrorDescribers;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class ProjectService : BaseService<Project>, IProjectService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class ProjectService : BaseService<Project>, IProjectService
 {
     private readonly ProjectErrorDescriber _projectErrors;
 
@@ -80,16 +70,15 @@ public class ProjectService : BaseService<Project>, IProjectService
     public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
         ProjectOptions options)
     {
-        var project = await Projects.Where(x => x.OrganizationId == organizationId && x.Id == projectId)
-            .FirstOrDefaultAsync();
-
-        if (project == null)
-            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
-
         var projects = await Projects
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
             .OrderBy(x => x.Order)
             .ToListAsync();
+
+        var project = projects.FirstOrDefault(x => x.Id == projectId);
+
+        if (project == null)
+            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
 
         projects.Remove(project);
 
@@ -99,7 +88,6 @@ public class ProjectService : BaseService<Project>, IProjectService
         project.JobId = jobId;
         project.Name = options.Name;
         project.Order = options.Order;
-
 
         var index = options.Order - 1;
 

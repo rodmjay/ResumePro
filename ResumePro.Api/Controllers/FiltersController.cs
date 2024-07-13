@@ -5,7 +5,7 @@
 #endregion
 
 using ResumePro.Core.Middleware.Bases;
-using ResumePro.Services;
+using ResumePro.Interfaces;
 
 namespace ResumePro.Api.Controllers;
 

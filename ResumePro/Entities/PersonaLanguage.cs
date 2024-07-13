@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;

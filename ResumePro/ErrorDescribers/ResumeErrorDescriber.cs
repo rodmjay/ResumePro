@@ -1,23 +1,26 @@
-﻿using ResumePro.Shared.Common;
+﻿#region Header Info
 
-namespace ResumePro.ErrorDescribers
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+namespace ResumePro.ErrorDescribers;
+
+public class ResumeErrorDescriber
 {
-    public class ResumeErrorDescriber
+    public virtual Error ResumeNotFound(int resumeId)
     {
-        public virtual Error ResumeNotFound(int resumeId)
+        return new Error
         {
-            return new Error()
-            {
-                Code = nameof(ResumeNotFound)
-            };
-        }
+            Code = nameof(ResumeNotFound)
+        };
+    }
 
-        public virtual Error UnableToSaveResume()
+    public virtual Error UnableToSaveResume()
+    {
+        return new Error
         {
-            return new Error()
-            {
-                Code = nameof(UnableToSaveResume)
-            };
-        }
+            Code = nameof(UnableToSaveResume)
+        };
     }
 }

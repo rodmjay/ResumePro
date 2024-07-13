@@ -6,21 +6,21 @@
 
 namespace ResumePro.ErrorDescribers;
 
-public class PersonErrorDescriber
+public class HighlightErrorDescriber
 {
-    public virtual Error PersonNotFound(int personId)
+    public virtual Error HighlightNotFound(int resumeId)
     {
         return new Error
         {
-            Code = nameof(PersonNotFound)
+            Code = nameof(HighlightNotFound)
         };
     }
 
-    public virtual Error UnableToSavePerson()
+    public virtual Error UnableToSaveHighlight()
     {
         return new Error
         {
-            Code = nameof(UnableToSavePerson)
+            Code = nameof(UnableToSaveHighlight)
         };
     }
 }

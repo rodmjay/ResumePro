@@ -10,7 +10,6 @@ using OneOf;
 using ResumePro.Context;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Extensions;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared;

@@ -4,19 +4,10 @@
 
 #endregion
 
-using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Data.Enums;
-using ResumePro.Core.Data.Interfaces;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Services;
 
-public class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillService
 {
     private readonly IRepositoryAsync<Resume> _resumeRepo;
 

@@ -5,9 +5,6 @@
 #endregion
 
 using System.Linq.Expressions;
-using ResumePro.Entities;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
 
 namespace ResumePro.Interfaces;
 

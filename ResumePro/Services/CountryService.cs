@@ -6,17 +6,11 @@
 
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
-using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Data.Interfaces;
-using ResumePro.Core.Services.Bases;
-using ResumePro.Entities;
-using ResumePro.Interfaces;
-using ResumePro.Shared;
-using ResumePro.Shared.Common;
 
 namespace ResumePro.Services;
 
-public class CountryService : BaseService<Country>, ICountryService
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class CountryService : BaseService<Country>, ICountryService
 {
     private readonly IRepositoryAsync<StateProvince> _stateProvinceRepo;
 

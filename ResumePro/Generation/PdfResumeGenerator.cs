@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
-using ResumePro.Shared;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Generation;
@@ -62,19 +61,19 @@ public class PdfResumeGenerator : IResumeGenerator
 
         if (showContactInfo)
         {
-            yield return new ResumeSection { SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}" };
+            yield return new ResumeSection
+                {SectionType = ResumeSectionType.Text, Text = $"Email: {resumeDetails.Email}"};
 
             yield return new ResumeSection
-                { SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}" };
+                {SectionType = ResumeSectionType.Text, Text = $"Phone: {resumeDetails.PhoneNumber}"};
 
             if (!string.IsNullOrWhiteSpace(resumeDetails.LinkedIn))
                 yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}" };
+                    {SectionType = ResumeSectionType.Text, Text = $"LinkedIn: {resumeDetails.LinkedIn}"};
 
             if (!string.IsNullOrWhiteSpace(resumeDetails.GitHub))
                 yield return new ResumeSection
-                    { SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}" };
-
+                    {SectionType = ResumeSectionType.Text, Text = $"GitHub: {resumeDetails.GitHub}"};
         }
 
         if (resumeDetails.Languages != null && resumeDetails.Languages.Any())
