@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using PdfSharp.Pdf.IO;
 using ResumePro.Context;
+using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 
 namespace ResumePro.Extractor;
