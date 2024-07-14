@@ -28,6 +28,6 @@ public class Certification : BaseEntity<Certification>, ICertification
             .WithMany(x => x.Certifications)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

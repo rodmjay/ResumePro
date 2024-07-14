@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240713233451_InitialMigration2")]
+    partial class InitialMigration2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -3649,6 +3652,9 @@ namespace ResumePro.Migrations
                     b.Property<bool>("AttachAllSkills")
                         .HasColumnType("bit");
 
+                    b.Property<int>("DefaultTemplate")
+                        .HasColumnType("int");
+
                     b.Property<string>("DefaultTemplateId")
                         .HasColumnType("nvarchar(max)");
 
@@ -3680,6 +3686,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             AttachAllJobs = true,
                             AttachAllSkills = true,
+                            DefaultTemplate = 0,
                             DefaultTemplateId = "markdown",
                             ResumeYearHistory = 10,
                             ShowContactInfo = true,

@@ -14,7 +14,6 @@ public class School : BaseEntity<School>, ISchool
 {
     public int OrganizationId { get; set; }
     public Persona Persona { get; set; }
-
     public ICollection<Degree> Degrees { get; set; }
     public int Id { get; set; }
     public int PersonaId { get; set; }
@@ -29,6 +28,7 @@ public class School : BaseEntity<School>, ISchool
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Schools)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.Id});
+            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

@@ -11,7 +11,8 @@ using ResumePro.Seeding.Extensions;
 
 namespace ResumePro.Context;
 
-public class ApplicationContext : BaseContext<ApplicationContext>
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
+public sealed class ApplicationContext : BaseContext<ApplicationContext>
 {
     private readonly ILoggerFactory _loggerFactory;
 
@@ -28,7 +29,6 @@ public class ApplicationContext : BaseContext<ApplicationContext>
     {
     }
 
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (_loggerFactory != null) optionsBuilder.UseLoggerFactory(_loggerFactory);
@@ -39,7 +39,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
     }
 
-    protected override void SeedDatabase(ModelBuilder builder)
+    private void SeedEntities(ModelBuilder builder)
     {
         // these should be placed in the Seeding/csv folder for it to work
         // make sure files are marked as "EmbeddedResource => Copy if newer"
@@ -64,6 +64,16 @@ public class ApplicationContext : BaseContext<ApplicationContext>
         builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
         builder.Entity<SkillCategory>().Seed("skill_categories.csv");
         builder.Entity<SkillCategorySkill>().Seed("category_skills.csv");
+    }
+
+    private void SeedTemplates(ModelBuilder builder)
+    {
         builder.Entity<Template>().SeedTemplates("./seeding/templates");
+    }
+
+    protected override void SeedDatabase(ModelBuilder builder)
+    {
+        SeedEntities(builder);
+        SeedTemplates(builder);
     }
 }

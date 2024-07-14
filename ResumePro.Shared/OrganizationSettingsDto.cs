@@ -13,7 +13,6 @@ public class OrganizationSettingsDto : IOrganizationSettings
 {
     public int OrganizationId { get; set; }
     public int ResumeYearHistory { get; set; }
-    public int DefaultTemplate { get; set; }
     public bool AttachAllJobs { get; set; }
     public bool AttachAllSkills { get; set; }
     public string DefaultTemplateId { get; set; }

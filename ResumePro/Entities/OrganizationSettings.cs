@@ -15,16 +15,15 @@ public class OrganizationSettings : BaseEntity<OrganizationSettings>, IOrganizat
 {
     public ICollection<ResumeSettings> ResumeSettings { get; set; }
     public int OrganizationId { get; set; }
-    public int ResumeYearHistory { get; set; }
-    public int DefaultTemplate { get; set; }
+    public int ResumeYearHistory { get; set; } = 10;
     public bool AttachAllJobs { get; set; } = true;
     public bool AttachAllSkills { get; set; } = true;
-    public string DefaultTemplateId { get; set; }
-    public bool ShowTechnologyPerJob { get; set; }
-    public bool ShowDuration { get; set; }
-    public bool ShowContactInfo { get; set; }
-    public SkillView SkillView { get; set; }
-    public bool ShowRatings { get; set; }
+    public string DefaultTemplateId { get; set; } = "markdown";
+    public bool ShowTechnologyPerJob { get; set; } = false;
+    public bool ShowDuration { get; set; } = true;
+    public bool ShowContactInfo { get; set; } = true;
+    public SkillView SkillView { get; set; } = SkillView.Grouped;
+    public bool ShowRatings { get; set; } = false;
 
     public override void Configure(EntityTypeBuilder<OrganizationSettings> builder)
     {
