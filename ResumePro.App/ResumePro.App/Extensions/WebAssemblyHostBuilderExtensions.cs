@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using ResumePro.App.MessageHandlers;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.App.Extensions;
 
@@ -20,9 +21,9 @@ public static class WebAssemblyHostBuilderExtensions
 
         var url = new Uri(builder.Configuration["ApiBase"]);
 
-        //builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
+                client => client.BaseAddress = url)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
         //builder.Services.AddHttpClient<IApplicationLanguagesController, ApplicationLanguagesProxy>(
         //        client => client.BaseAddress = url)

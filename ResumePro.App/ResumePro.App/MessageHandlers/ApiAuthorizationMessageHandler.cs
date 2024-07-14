@@ -15,7 +15,9 @@ public class ApiAuthorizationMessageHandler : AuthorizationMessageHandler
         IAccessTokenProvider provider, NavigationManager navigation, IConfiguration config)
         : base(provider, navigation)
     {
+        var url = config["ApiBase"];
+
         ConfigureHandler(
-            new[] {config["ApiBase"]});
+            authorizedUrls: new[] { config["ApiBase"] });
     }
 }

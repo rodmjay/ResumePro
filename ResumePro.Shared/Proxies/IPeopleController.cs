@@ -4,10 +4,12 @@
 
 #endregion
 
-using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
+using ResumePro.Shared.Common;
 using ResumePro.Shared.Filters;
+using ResumePro.Shared.Options;
 
-namespace ResumePro.Api.Controllers;
+namespace ResumePro.Shared.Proxies;
 
 public interface IPeopleController
 {
