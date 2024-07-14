@@ -19,9 +19,8 @@ public static class WebAssemblyHostBuilderExtensions
             .AddTransient<ApiAuthorizationMessageHandler>();
 
         var url = new Uri(builder.Configuration["ApiBase"]);
-        //var translationsUrl = new Uri(builder.Configuration["TranslationsUrl"]);
 
-        //builder.Services.AddHttpClient<IApplicationsController, ApplicationsProxy>(
+        //builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
         //        client => client.BaseAddress = url)
         //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 

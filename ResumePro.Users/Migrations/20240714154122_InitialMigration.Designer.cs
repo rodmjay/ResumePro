@@ -12,8 +12,8 @@ using ResumePro.Users.Contexts;
 namespace ResumePro.Users.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240705024522_AddOrganizations")]
-    partial class AddOrganizations
+    [Migration("20240714154122_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1015,6 +1015,12 @@ namespace ResumePro.Users.Migrations
                             Id = 13,
                             ClientId = 5,
                             Scope = "openid"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ClientId = 1,
+                            Scope = "organization"
                         });
                 });
 
@@ -1246,6 +1252,18 @@ namespace ResumePro.Users.Migrations
                             NonEditable = false,
                             Required = true,
                             ShowInDiscoveryDocument = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Created = new DateTime(2021, 9, 17, 3, 58, 20, 185, DateTimeKind.Unspecified).AddTicks(7082),
+                            DisplayName = "Your organization identifier",
+                            Emphasize = false,
+                            Enabled = true,
+                            Name = "organization",
+                            NonEditable = false,
+                            Required = true,
+                            ShowInDiscoveryDocument = true
                         });
                 });
 
@@ -1362,6 +1380,12 @@ namespace ResumePro.Users.Migrations
                             Id = 15,
                             IdentityResourceId = 2,
                             Type = "sub"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            IdentityResourceId = 3,
+                            Type = "organizationId"
                         });
                 });
 

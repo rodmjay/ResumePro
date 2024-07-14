@@ -7,7 +7,10 @@
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using ResumePro.App.Extensions;
+using ResumePro.Shared.Policies;
 
 namespace ResumePro.App;
 
@@ -21,13 +24,21 @@ public class Program
 
         builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 
-        builder.Services.AddMsalAuthentication(options =>
+        builder.Services.AddOidcAuthentication(options =>
         {
-            builder.Configuration.Bind("Authentication", options.ProviderOptions);
-            options.ProviderOptions.DefaultAccessTokenScopes.Add("api1");
-            options.ProviderOptions.LoginMode = "redirect";
-        });
+            builder.Configuration.Bind("OidcConfiguration", options.ProviderOptions);
+            builder.Configuration.Bind("UserOptions", options.UserOptions);
+            builder.Configuration.Bind("AuthenticationPaths", options.AuthenticationPaths);
 
+        });
+        //builder.Services.AddAuthorizationCore(authorizationOptions =>
+        //{
+        //    authorizationOptions.AddPolicy(
+        //        Policies.CanAccessApis,
+        //        Policies.CanAccessApi());
+        //});
+
+        builder.AddProxies();
 
         AddBlazorise(builder.Services);
 

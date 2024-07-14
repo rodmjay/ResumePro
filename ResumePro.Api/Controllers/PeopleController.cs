@@ -11,7 +11,7 @@ using ResumePro.Shared.Filters;
 
 namespace ResumePro.Api.Controllers;
 
-public sealed class PeopleController : BaseController
+public sealed class PeopleController : BaseController, IPeopleController
 {
     private readonly IPeopleService _peopleService;
 

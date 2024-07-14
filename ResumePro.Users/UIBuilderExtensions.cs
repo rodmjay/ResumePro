@@ -90,7 +90,8 @@ public static class UIBuilderExtensions
     {
         builder.Services.Configure<CookiePolicyOptions>(options =>
         {
-            options.MinimumSameSitePolicy = SameSiteMode.Unspecified;
+            options.MinimumSameSitePolicy = SameSiteMode.None;
+            options.Secure = CookieSecurePolicy.Always;
             options.OnAppendCookie = cookieContext =>
                 CheckSameSite(cookieContext.Context, cookieContext.CookieOptions);
             options.OnDeleteCookie = cookieContext =>
