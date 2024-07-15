@@ -4,7 +4,6 @@
 
 #endregion
 
-using System.Net.Http.Json;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Shared.Proxies;

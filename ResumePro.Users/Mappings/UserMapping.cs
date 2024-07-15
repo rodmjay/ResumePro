@@ -8,11 +8,11 @@ using AutoMapper;
 using ResumePro.Shared;
 using ResumePro.Users.Entities;
 
-namespace ResumePro.Users.Projections;
+namespace ResumePro.Users.Mappings;
 
-public class UserProjections : Profile
+public class UserMapping : Profile
 {
-    public UserProjections()
+    public UserMapping()
     {
         CreateMap<User, UserOutput>()
             .IncludeAllDerived();

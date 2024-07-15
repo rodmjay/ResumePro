@@ -27,7 +27,7 @@ public class UserAccessor : BaseService<User>, IUserAccessor
         _userManager = userManager;
     }
 
-    public Task<IUser?> GetUser(ClaimsPrincipal principal)
+    public Task<IUser> GetUser(ClaimsPrincipal principal)
     {
         var id = _userManager.GetUserId(principal);
 

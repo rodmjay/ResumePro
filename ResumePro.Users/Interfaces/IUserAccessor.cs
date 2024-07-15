@@ -11,5 +11,5 @@ namespace ResumePro.Users.Interfaces;
 
 public interface IUserAccessor
 {
-    Task<IUser?> GetUser(ClaimsPrincipal principal);
+    Task<IUser> GetUser(ClaimsPrincipal principal);
 }
