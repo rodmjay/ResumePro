@@ -21,7 +21,7 @@ namespace ResumePro.Shared.Proxies
 
         public async Task<PersonaDetails> GetPerson(int personId)
         {
-            throw new NotImplementedException();
+            return await DoGet<PersonaDetails>($"v1.0/people/{personId}");
         }
 
         public async Task<ActionResult<PersonaDetails>> CreatePerson(PersonaOptions options)

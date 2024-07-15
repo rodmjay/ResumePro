@@ -7,37 +7,14 @@
 
 @inject IVersionProvider VersionProvider
 
-
 <Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom">Blazorise</Heading>
-
 
 <AuthorizeView>
     <Authorized>
-        You are authorized
-        
-        @if (People != null)
-        {
-            <span>@People.Items.Count</span> <p>People</p>
-        }
-
+        <PeopleList></PeopleList>
     </Authorized>
-    <NotAuthorized>
-        You are not authorized
-    </NotAuthorized>
 </AuthorizeView>
 
-@code
-{
-    [Inject] IPeopleController PeopleController { get; set; }
-    
-    public PagedList<PersonaDto> People { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {
-        this.People = await PeopleController.GetPeople(null, new PagingQuery());
-        await base.OnInitializedAsync();
-    }
-}
 
 @* 
 <Paragraph>

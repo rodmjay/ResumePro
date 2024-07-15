@@ -15,6 +15,8 @@ public class UserMapping : Profile
     public UserMapping()
     {
         CreateMap<User, UserOutput>()
+            .ForMember(x => x.OrganizationName, opt => opt.MapFrom(x => x.Organization.Name))
+            .ForMember(x => x.OrganizationId, opt => opt.MapFrom(x => x.Organization.Id))
             .IncludeAllDerived();
     }
 }

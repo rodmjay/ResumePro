@@ -7,11 +7,12 @@
 using Microsoft.Net.Http.Headers;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes")]
-public class ResumeController : BaseController
+public class ResumeController : BaseController, IResumeController
 {
     private readonly IResumeService _resumeService;
 

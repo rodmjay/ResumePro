@@ -36,6 +36,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
     public Task<T> GetPerson<T>(int organizationId, int personId) where T : PersonaDto
     {
         return People.AsNoTracking().Where(x => x.OrganizationId == organizationId && x.Id == personId)
+            .AsSplitQuery()
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }

@@ -27,7 +27,7 @@ public class UserAccessor : BaseService<User>, IUserAccessor
         _userManager = userManager;
     }
 
-    public Task<IUser> GetUser(ClaimsPrincipal principal)
+    public Task<UserOutput> GetUser(ClaimsPrincipal principal)
     {
         var id = _userManager.GetUserId(principal);
 
@@ -35,7 +35,6 @@ public class UserAccessor : BaseService<User>, IUserAccessor
 
         return _userManager.Users.Where(x => x.Id == userId)
             .ProjectTo<UserOutput>(ProjectionMapping)
-            .Cast<IUser>()
             .FirstOrDefaultAsync();
     }
 }

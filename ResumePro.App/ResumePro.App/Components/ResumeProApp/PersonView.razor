@@ -1,0 +1,22 @@
+﻿@using ResumePro.Shared
+<h3>PersonView</h3>
+
+@if (@Person != null)
+{
+
+    @Person.FirstName
+
+
+    <DataGrid TItem="JobDto" Data="@Person.Jobs" TotalItems="@Person.JobCount"
+              ShowPager="false"
+              Responsive>
+        
+        <DataGridColumns>
+            <DataGridColumn Field="@nameof(JobDto.Company)"></DataGridColumn>
+            <DataGridColumn Field="@nameof(JobDto.StartDate)"></DataGridColumn>
+            <DataGridColumn Field="@nameof(JobDto.DisplayEndDate)"></DataGridColumn>
+        </DataGridColumns>
+        
+    </DataGrid>
+
+}

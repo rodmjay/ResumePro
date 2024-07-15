@@ -34,7 +34,7 @@ public class UserController : BaseController, IUserController
     }
 
 
-    protected Task<IUser> GetCurrentUser()
+    protected Task<UserOutput> GetCurrentUser()
     {
         return _accessor.GetUser(User);
     }

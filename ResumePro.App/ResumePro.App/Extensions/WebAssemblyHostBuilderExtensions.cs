@@ -25,6 +25,10 @@ public static class WebAssemblyHostBuilderExtensions
                 client => client.BaseAddress = url)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
+        builder.Services.AddHttpClient<IResumeController, ResumeProxy>(
+                client => client.BaseAddress = url)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
         //builder.Services.AddHttpClient<IApplicationLanguagesController, ApplicationLanguagesProxy>(
         //        client => client.BaseAddress = url)
         //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();

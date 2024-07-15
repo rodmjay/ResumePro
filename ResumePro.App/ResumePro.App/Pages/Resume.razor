@@ -1,0 +1,63 @@
+﻿@page "/people/{PersonId:int}/resumes/{ResumeId:int}"
+@using ResumePro.Shared
+@using ResumePro.Shared.Proxies
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+
+@inject IResumeController ResumeController
+
+@code {
+    [Parameter]
+    public int ResumeId { get; set; }
+
+    [Parameter]
+    public int PersonId { get; set; }
+
+    private ResumeDetails ResumeDetails { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        ResumeDetails = await ResumeController.Get(PersonId, ResumeId);
+    }
+
+}
+
+@if (ResumeDetails != null)
+{
+    <div class="container mt-3">
+        <h2>Resume Details: @ResumeDetails.JobTitle</h2>
+
+        <!-- Bootstrap Nav Tabs -->
+        <ul class="nav nav-tabs" id="resumeTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="main-details-tab" data-bs-toggle="tab" data-bs-target="#mainDetails" type="button" role="tab" aria-controls="mainDetails" aria-selected="true">Main Details</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
+                <div class="p-4">
+                    <h5>Basic Information</h5>
+                    <p><strong>Name:</strong> @ResumeDetails.FirstName @ResumeDetails.LastName</p>
+                    <p><strong>Email:</strong> @ResumeDetails.Email</p>
+                    <p><strong>Phone:</strong> @ResumeDetails.PhoneNumber</p>
+                    <!-- Add more details as necessary -->
+                </div>
+            </div>
+            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                <div class="p-4">
+                    <h5>Settings</h5>
+                    <!-- Settings content goes here, you can display and edit settings related to the resume -->
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <p>Loading resume details...</p>
+}
