@@ -26,7 +26,7 @@ namespace ResumePro.Shared.Proxies
 
         public async Task<ActionResult<PersonaDetails>> CreatePerson(PersonaOptions options)
         {
-            return await DoPost<PersonaOptions, PersonaDetails>("v1.0/people", options);
+            return await DoPostActionResult<PersonaOptions, PersonaDetails>("v1.0/people", options);
         }
 
         public async Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonaOptions options)
