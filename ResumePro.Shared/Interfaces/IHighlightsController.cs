@@ -8,22 +8,22 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.Shared.Proxies;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IHighlightsController
 {
-    Task<HighlightDto> GetHighlight( int personId,  int jobId,
+    Task<HighlightDto> GetHighlight(int personId, int jobId,
          int highlightId);
 
-    Task<List<HighlightDto>> GetHighlights( int personId,  int jobId);
+    Task<List<HighlightDto>> GetHighlights(int personId, int jobId);
 
-    Task<ActionResult<HighlightDto>> CreateHighlight( int personId,  int jobId,
+    Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId,
          CreateHighlightOptions options);
 
-    Task<ActionResult<HighlightDto>> UpdateHighlight( int personId,  int jobId,
+    Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId,
          int highlightId,
          HighlightOptions options);
 
-    Task<Result> DeleteHighlight( int personId,  int jobId,
+    Task<Result> DeleteHighlight(int personId, int jobId,
          int highlightId);
 }

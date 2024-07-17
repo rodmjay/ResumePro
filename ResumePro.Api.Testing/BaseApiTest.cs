@@ -7,6 +7,7 @@
 using IdentityModel.Client;
 using NUnit.Framework;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Proxies;
 using ResumePro.Testing.Bases;
 

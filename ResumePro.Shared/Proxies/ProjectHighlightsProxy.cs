@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ProjectHighlightsProxy : BaseProxy, IProjectHighlightsController
+public class ProjectHighlightsProxy(HttpClient httpClient) : BaseProxy(httpClient), IProjectHighlightsController
 {
-    public ProjectHighlightsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<HighlightDto> GetHighlight(int personId, int jobId, int projectId, int highlightId)
     {
         throw new NotImplementedException();

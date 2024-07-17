@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.Shared.Proxies;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IOrganizationSettingsController
 {

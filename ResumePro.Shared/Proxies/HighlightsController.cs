@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class HighlightsController : BaseProxy, IHighlightsController
+public class HighlightsController(HttpClient httpClient) : BaseProxy(httpClient), IHighlightsController
 {
-    public HighlightsController(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<HighlightDto> GetHighlight(int personId, int jobId, int highlightId)
     {
         return await DoGet<HighlightDto>($"v1.0/people/{personId}/jobs/{jobId}/highlights/{highlightId}");

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.Shared.Proxies;
+namespace ResumePro.Shared.Interfaces;
 
 
 public interface IJobsController
@@ -17,7 +17,7 @@ public interface IJobsController
     Task<JobDetails> GetJob(int personId, int jobId);
     Task<ActionResult<JobDetails>> CreateJob(int personId, JobOptions options);
 
-    Task<ActionResult<JobDetails>> UpdateJob(int personId,  int jobId,
+    Task<ActionResult<JobDetails>> UpdateJob(int personId, int jobId,
         JobOptions options);
 
     Task<Result> DeleteJob(int personId, int jobId);

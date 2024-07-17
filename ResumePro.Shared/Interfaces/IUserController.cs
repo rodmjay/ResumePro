@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Shared.Proxies;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IUserController
 {

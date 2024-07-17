@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ResumeProxy : BaseProxy, IResumeController
+public class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeController
 {
-    public ResumeProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<ResumeDetails> Get(int personId, int resumeId)
     {
         return await DoGet<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}");

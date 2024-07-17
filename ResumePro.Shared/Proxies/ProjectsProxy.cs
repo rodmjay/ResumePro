@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ProjectsProxy : BaseProxy, IProjectsController
+public class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient), IProjectsController
 {
-    public ProjectsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<ProjectDetails> GetProject(int personId, int jobId, int projectId)
     {
         throw new NotImplementedException();

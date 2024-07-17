@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class JobsProxy : BaseProxy, IJobsController
+public class JobsProxy(HttpClient httpClient) : BaseProxy(httpClient), IJobsController
 {
-    public JobsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<List<JobDetails>> GetJobs(int personId)
     {
         throw new NotImplementedException();

@@ -8,20 +8,20 @@ using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.Shared.Proxies;
+namespace ResumePro.Shared.Interfaces;
 
 public interface IReferencesController
 {
-    Task<ReferenceDto> Get( int personId,  int referenceId);
-    Task<List<ReferenceDto>> GetReferences( int personId);
+    Task<ReferenceDto> Get(int personId, int referenceId);
+    Task<List<ReferenceDto>> GetReferences(int personId);
 
-    Task<ActionResult<ReferenceDto>> CreateReference( int personId,
+    Task<ActionResult<ReferenceDto>> CreateReference(int personId,
          CreateReferenceOptions options);
 
-    Task<ActionResult<ReferenceDto>> UpdateReference( int personId,
+    Task<ActionResult<ReferenceDto>> UpdateReference(int personId,
          int referenceId,
          ReferenceOptions options);
 
-    Task<Result> DeleteReference( int personId,
+    Task<Result> DeleteReference(int personId,
          int referenceId);
 }

@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Filters;
-using ResumePro.Shared.Proxies;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Api.Controllers;
 

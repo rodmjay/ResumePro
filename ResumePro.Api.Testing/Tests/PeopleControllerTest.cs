@@ -11,6 +11,24 @@ namespace ResumePro.Api.Testing.Tests
     public class PeopleControllerTest : BaseApiTest
     {
         [TestFixture]
+        public class TheUpdatePersonMethod : PeopleControllerTest
+        {
+            [TestCaseSource(typeof(PersonCreateOptionsTestData), nameof(PersonCreateOptionsTestData.ValidOptions))]
+            public async Task CanUpdatePerson(PersonaOptions options)
+            {
+                var createResponse = await PeopleProxy.CreatePerson(options);
+                Assert.That(createResponse.Result is OkObjectResult, Is.True);
+
+                var personId = createResponse.GetObject().Id;
+
+                Assert.That(personId, Is.GreaterThan(0));
+
+                var updateResponse = await PeopleProxy.UpdatePerson(personId, options);
+                Assert.That(updateResponse.Result is OkObjectResult, Is.True);
+            }
+        }
+
+        [TestFixture]
         public class TheDeletePersonMethod : PeopleControllerTest
         {
             [TestCaseSource(typeof(PersonCreateOptionsTestData), nameof(PersonCreateOptionsTestData.ValidOptions))]

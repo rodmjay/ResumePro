@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ReferencesProxy : BaseProxy, IReferencesController
+public class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IReferencesController
 {
-    public ReferencesProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<ReferenceDto> Get(int personId, int referenceId)
     {
         throw new NotImplementedException();

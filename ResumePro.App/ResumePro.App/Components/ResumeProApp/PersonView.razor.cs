@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ResumePro.Shared;
-using ResumePro.Shared.Proxies;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.App.Components.ResumeProApp
 {

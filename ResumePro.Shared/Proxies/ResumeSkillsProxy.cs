@@ -5,15 +5,12 @@
 #endregion
 
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ResumeSkillsProxy : BaseProxy, IResumeSkillsController
+public class ResumeSkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeSkillsController
 {
-    public ResumeSkillsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<Result> AddResumeSkill(int personId, int resumeId, int skillId)
     {
         throw new NotImplementedException();

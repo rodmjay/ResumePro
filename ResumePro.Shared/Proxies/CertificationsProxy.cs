@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class CertificationsProxy : BaseProxy, ICertificationsController
+public class CertificationsProxy(HttpClient httpClient) : BaseProxy(httpClient), ICertificationsController
 {
-    public CertificationsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<CertificationDto> Get(int personId, int certificationId)
     {
         throw new NotImplementedException();

@@ -11,13 +11,9 @@ using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Shared.Proxies;
 
-public abstract class BaseProxy
+public abstract class BaseProxy(HttpClient httpClient)
 {
-    protected readonly HttpClient HttpClient;
-    protected BaseProxy(HttpClient httpClient)
-    {
-        HttpClient = httpClient;
-    }
+    protected readonly HttpClient HttpClient = httpClient;
 
     protected async Task<TOutput> DoPost<TOutput>(string url)
     {

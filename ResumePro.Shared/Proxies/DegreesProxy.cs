@@ -6,16 +6,13 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class DegreesProxy : BaseProxy, IDegreesController
+public class DegreesProxy(HttpClient httpClient) : BaseProxy(httpClient), IDegreesController
 {
-    public DegreesProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<DegreeDto> GetDegree(int personId, int schoolId, int degreeId)
     {
         throw new NotImplementedException();

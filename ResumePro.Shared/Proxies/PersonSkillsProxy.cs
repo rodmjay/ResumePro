@@ -5,16 +5,13 @@
 #endregion
 
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class PersonSkillsProxy : BaseProxy, IPersonSkillsController
+public class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), IPersonSkillsController
 {
-    public PersonSkillsProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<List<PersonaSkillDto>> GetSkills(int personId)
     {
         throw new NotImplementedException();

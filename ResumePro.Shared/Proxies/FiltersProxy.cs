@@ -4,14 +4,12 @@
 
 #endregion
 
+using ResumePro.Shared.Interfaces;
+
 namespace ResumePro.Shared.Proxies;
 
-public class FiltersProxy : BaseProxy, IFiltersController
+public class FiltersProxy(HttpClient httpClient) : BaseProxy(httpClient), IFiltersController
 {
-    public FiltersProxy(HttpClient httpClient) : base(httpClient)
-    {
-    }
-
     public async Task<FilterContainer> GetFilters()
     {
         return await DoGet<FilterContainer>("v1.0/filters");
