@@ -16,14 +16,14 @@ public static class ActionResultExtensions
     {
         Assert.That(response.Result is OkObjectResult, Is.True);
 
-        T myResult = (((OkObjectResult)response.Result!)!.Value as T)!;
+        var myResult = (((OkObjectResult) response.Result!)!.Value as T)!;
         return myResult;
     }
 
     public static Result GetResult<TOrig>(this ActionResult<TOrig> response)
     {
         Assert.That(response.Result is BadRequestObjectResult, Is.True);
-        Result myResult = (((BadRequestObjectResult)response.Result!)!.Value as Result)!;
+        var myResult = (((BadRequestObjectResult) response.Result!)!.Value as Result)!;
         return myResult;
     }
 }

@@ -12,16 +12,18 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class JobsProxy(HttpClient httpClient) : BaseProxy(httpClient), IJobsController
+public sealed class JobsProxy(HttpClient httpClient) : BaseProxy(httpClient), IJobsController
 {
     public async Task<List<JobDetails>> GetJobs(int personId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<JobDetails>>($"v1.0/people/{personId}/jobs")
+            .ConfigureAwait(false);
     }
 
     public async Task<JobDetails> GetJob(int personId, int jobId)
     {
-        throw new NotImplementedException();
+        return await DoGet<JobDetails>($"v1.0/people/{personId}/jobs/{jobId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<JobDetails>> CreateJob(int personId, JobOptions options)
@@ -32,11 +34,13 @@ public class JobsProxy(HttpClient httpClient) : BaseProxy(httpClient), IJobsCont
 
     public async Task<ActionResult<JobDetails>> UpdateJob(int personId, int jobId, JobOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPutActionResult<JobOptions, JobDetails>($"v1.0/people/{personId}/jobs/{jobId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteJob(int personId, int jobId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/jobs/{jobId}")
+            .ConfigureAwait(false);
     }
 }

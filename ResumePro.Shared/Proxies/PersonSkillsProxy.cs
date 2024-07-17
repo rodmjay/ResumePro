@@ -11,20 +11,23 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), IPersonSkillsController
+public sealed class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), IPersonSkillsController
 {
     public async Task<List<PersonaSkillDto>> GetSkills(int personId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<PersonaSkillDto>>($"v1.0/people/{personId}/skills")
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> AddOrUpdateSkill(int personId, PersonaSkillsOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPatch<PersonaSkillsOptions, Result>($"v1.0/people/{personId}/skills", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> DeletePersonalSkill(int personId, int skillId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/skills/{skillId}")
+            .ConfigureAwait(false);
     }
 }

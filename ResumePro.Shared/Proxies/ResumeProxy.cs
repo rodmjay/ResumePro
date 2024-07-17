@@ -44,11 +44,12 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
 
     public async Task<ActionResult<ResumeDetails>> UpdateResume(int personId, int resumeId, ResumeOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPutActionResult<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteResume(int personId, int resumeId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/resumes/{resumeId}");
     }
 }

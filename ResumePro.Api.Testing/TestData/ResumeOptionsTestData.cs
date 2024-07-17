@@ -12,13 +12,13 @@ public class ResumeOptionsTestData
 {
     public static IEnumerable<ResumeOptions> ValidOptions()
     {
-        return new List<ResumeOptions>()
+        return new List<ResumeOptions>
         {
             new()
             {
                 Description = "test",
                 JobIds = null,
-                Settings = new ResumeSettingsOptions()
+                Settings = new ResumeSettingsOptions
                 {
                     AttachAllJobs = true,
                     AttachAllSkills = true

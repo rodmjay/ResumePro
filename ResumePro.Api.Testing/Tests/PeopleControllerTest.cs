@@ -1,86 +1,90 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using ResumePro.Api.Testing.Extensions;
 using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Common;
-using ResumePro.Shared.Filters;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.Api.Testing.Tests
+namespace ResumePro.Api.Testing.Tests;
+
+[TestFixture]
+public class PeopleControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class PeopleControllerTest : BaseApiTest
+    public class TheUpdatePersonMethod : PeopleControllerTest
     {
-        [TestFixture]
-        public class TheUpdatePersonMethod : PeopleControllerTest
+        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        public async Task CanUpdatePerson(PersonaOptions options)
         {
-            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
-            public async Task CanUpdatePerson(PersonaOptions options)
-            {
-                var createResponse = await PeopleProxy.CreatePerson(options);
-                Assert.That(createResponse.Result is OkObjectResult, Is.True);
+            var createResponse = await PeopleProxy.CreatePerson(options);
+            Assert.That(createResponse.Result is OkObjectResult, Is.True);
 
-                var personId = createResponse.GetObject().Id;
+            var personId = createResponse.GetObject().Id;
 
-                Assert.That(personId, Is.GreaterThan(0));
+            Assert.That(personId, Is.GreaterThan(0));
 
-                var updateResponse = await PeopleProxy.UpdatePerson(personId, options);
-                Assert.That(updateResponse.Result is OkObjectResult, Is.True);
-            }
+            var updateResponse = await PeopleProxy.UpdatePerson(personId, options);
+            Assert.That(updateResponse.Result is OkObjectResult, Is.True);
         }
+    }
 
-        [TestFixture]
-        public class TheDeletePersonMethod : PeopleControllerTest
+    [TestFixture]
+    public class TheDeletePersonMethod : PeopleControllerTest
+    {
+        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        public async Task DeletePerson(PersonaOptions options)
         {
-            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
-            public async Task DeletePerson(PersonaOptions options)
-            {
-                var createResponse = await PeopleProxy.CreatePerson(options);
-                Assert.That(createResponse.Result is OkObjectResult, Is.True);
+            var createResponse = await PeopleProxy.CreatePerson(options);
+            Assert.That(createResponse.Result is OkObjectResult, Is.True);
 
-                var personId = createResponse.GetObject().Id;
+            var personId = createResponse.GetObject().Id;
 
-                Assert.That(personId, Is.GreaterThan(0));
+            Assert.That(personId, Is.GreaterThan(0));
 
-                var deleteResponse = await PeopleProxy.DeletePerson(personId);
-                Assert.That(deleteResponse.Succeeded, Is.True);
-            }
+            var deleteResponse = await PeopleProxy.DeletePerson(personId);
+            Assert.That(deleteResponse.Succeeded, Is.True);
         }
+    }
 
-        [TestFixture]
-        public class TheCreatePersonMethod : PeopleControllerTest
+    [TestFixture]
+    public class TheCreatePersonMethod : PeopleControllerTest
+    {
+        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        public async Task CreatePerson(PersonaOptions options)
         {
-            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
-            public async Task CreatePerson(PersonaOptions options)
-            {
-                var result = await PeopleProxy.CreatePerson(options);
-                ClassicAssert.IsNotNull(result);
-            }
+            var result = await PeopleProxy.CreatePerson(options);
+            ClassicAssert.IsNotNull(result);
         }
+    }
 
-        [TestFixture]
-        public class TheGetPersonMethod : PeopleControllerTest
+    [TestFixture]
+    public class TheGetPersonMethod : PeopleControllerTest
+    {
+        [Test]
+        public async Task CanGetPerson()
         {
-            [Test]
-            public async Task CanGetPerson()
-            {
-                var result = await PeopleProxy.GetPerson(1);
-                ClassicAssert.IsNotNull(result);
-            }
+            var result = await PeopleProxy.GetPerson(1);
+            ClassicAssert.IsNotNull(result);
         }
+    }
 
-        [TestFixture]
-        public class TheGetPeopleMethod : PeopleControllerTest
+    [TestFixture]
+    public class TheGetPeopleMethod : PeopleControllerTest
+    {
+        [Test]
+        public async Task CanGetPeople()
         {
-            [Test]
-            public async Task CanGetPeople()
-            {
-                var result = await PeopleProxy.GetPeople(null, new PagingQuery());
-                ClassicAssert.IsNotNull(result);
+            var result = await PeopleProxy.GetPeople(null, new PagingQuery());
+            ClassicAssert.IsNotNull(result);
 
-                ClassicAssert.AreEqual(result.TotalItems, 1);
-            }
+            ClassicAssert.AreEqual(result.TotalItems, 1);
         }
     }
 }

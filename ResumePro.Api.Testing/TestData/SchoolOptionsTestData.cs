@@ -12,7 +12,7 @@ public class SchoolOptionsTestData
 {
     public static IEnumerable<SchoolOptions> ValidOptions()
     {
-        return new List<SchoolOptions>()
+        return new List<SchoolOptions>
         {
             new()
             {

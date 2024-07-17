@@ -17,7 +17,7 @@ public abstract class BaseProxy(HttpClient httpClient)
 
     protected async Task<TOutput> DoPost<TOutput>(string url)
     {
-        var response = await HttpClient.PostAsync(url, null);
+        var response = await HttpClient.PostAsync(url, null).ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
@@ -26,7 +26,8 @@ public abstract class BaseProxy(HttpClient httpClient)
     protected async Task<TOutput> DoPost<TInput, TOutput>(string url, TInput input)
     {
         var content = input.SerializeToUTF8Json();
-        var response = await HttpClient.PostAsync(url, content);
+        var response = await HttpClient.PostAsync(url, content)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
@@ -35,7 +36,8 @@ public abstract class BaseProxy(HttpClient httpClient)
     protected async Task<ActionResult<TOutput>> DoPostActionResult<TInput, TOutput>(string url, TInput input)
     {
         StringContent inputContent = input!.SerializeToUTF8Json();
-        HttpResponseMessage response = await HttpClient.PostAsync(url, inputContent);
+        HttpResponseMessage response = await HttpClient.PostAsync(url, inputContent)
+            .ConfigureAwait(false);
 
         if (response.IsSuccessStatusCode)
         {
@@ -56,7 +58,8 @@ public abstract class BaseProxy(HttpClient httpClient)
     protected async Task<ActionResult<TOutput>> DoPutActionResult<TInput, TOutput>(string url, TInput input)
     {
         StringContent inputContent = input!.SerializeToUTF8Json();
-        HttpResponseMessage response = await HttpClient.PutAsync(url, inputContent);
+        HttpResponseMessage response = await HttpClient.PutAsync(url, inputContent)
+            .ConfigureAwait(false);
 
         if (response.IsSuccessStatusCode)
         {
@@ -73,29 +76,10 @@ public abstract class BaseProxy(HttpClient httpClient)
         return new StatusCodeResult((int)response.StatusCode);
     }
 
-    //HttpResponseMessage response;
-
-    //try
-    //{
-    //    response = await HttpClient.PostAsJsonAsync(url, input);
-
-    //    if (response.IsSuccessStatusCode)
-    //    {
-    //        return await response.Content.ReadFromJsonAsync<TOutput>();
-    //    }
-    //    else
-    //    {
-    //    }
-    //}
-    //catch (Exception e)
-    //{
-
-    //}
-    //throw new HttpRequestException($"Error fetching");
-
     protected async Task<TOutput> DoGet<TOutput>(string url)
     {
-        var response = await HttpClient.GetAsync(url);
+        var response = await HttpClient.GetAsync(url)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
 
@@ -104,7 +88,18 @@ public abstract class BaseProxy(HttpClient httpClient)
 
     protected async Task<TOutput> DoPatch<TOutput>(string url)
     {
-        var response = await HttpClient.PatchAsync(url, null);
+        var response = await HttpClient.PatchAsync(url, null)
+            .ConfigureAwait(false);
+
+        var result = response.Content.DeserializeObject<TOutput>();
+        return result;
+    }
+
+    protected async Task<TOutput> DoPatch<TInput, TOutput>(string url, TInput input)
+    {
+        var content = input.SerializeToUTF8Json();
+        var response = await HttpClient.PatchAsync(url, content)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
@@ -112,7 +107,8 @@ public abstract class BaseProxy(HttpClient httpClient)
 
     protected async Task<TOutput> DoPut<TOutput>(string url)
     {
-        var response = await HttpClient.PutAsync(url, null);
+        var response = await HttpClient.PutAsync(url, null)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
@@ -120,7 +116,8 @@ public abstract class BaseProxy(HttpClient httpClient)
     protected async Task<TOutput> DoPut<TInput, TOutput>(string url, TInput input)
     {
         var content = input.SerializeToUTF8Json();
-        var response = await HttpClient.PutAsync(url, content);
+        var response = await HttpClient.PutAsync(url, content)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
@@ -128,7 +125,8 @@ public abstract class BaseProxy(HttpClient httpClient)
 
     protected async Task<TOutput> DoDelete<TOutput>(string url)
     {
-        var response = await HttpClient.DeleteAsync(url);
+        var response = await HttpClient.DeleteAsync(url)
+            .ConfigureAwait(false);
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;

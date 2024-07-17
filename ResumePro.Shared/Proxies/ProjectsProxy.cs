@@ -12,30 +12,36 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient), IProjectsController
+public sealed class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient), IProjectsController
 {
     public async Task<ProjectDetails> GetProject(int personId, int jobId, int projectId)
     {
-        throw new NotImplementedException();
+        return await DoGet<ProjectDetails>($"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<List<ProjectDetails>> GetList(int personId, int jobId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<ProjectDetails>>($"v1.0/people/{personId}/jobs/{jobId}/projects")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ProjectDetails>> Create(int personId, int jobId, ProjectOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPostActionResult<ProjectOptions, ProjectDetails>($"v1.0/people/{personId}/jobs/{jobId}/projects",
+            options).ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ProjectDetails>> Update(int personId, int jobId, int projectId, ProjectOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPutActionResult<ProjectOptions, ProjectDetails>(
+            $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> Delete(int personId, int jobId, int projectId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}")
+            .ConfigureAwait(false);
     }
 }

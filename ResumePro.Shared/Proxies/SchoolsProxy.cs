@@ -12,31 +12,35 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class SchoolsProxy(HttpClient httpClient) : BaseProxy(httpClient), ISchoolsController
+public sealed class SchoolsProxy(HttpClient httpClient) : BaseProxy(httpClient), ISchoolsController
 {
     public async Task<List<SchoolDetails>> GetSchools(int personId)
     {
-        return await DoGet<List<SchoolDetails>>($"v1.0/people/{personId}/schools");
+        return await DoGet<List<SchoolDetails>>($"v1.0/people/{personId}/schools")
+            .ConfigureAwait(false);
     }
 
     public async Task<SchoolDetails> GetSchool(int personId, int schoolId)
     {
-        return await DoGet<SchoolDetails>($"v1.0/people/{personId}/schools/{schoolId}");
+        return await DoGet<SchoolDetails>($"v1.0/people/{personId}/schools/{schoolId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<SchoolDetails>> UpdateSchool(int personId, int schoolId, SchoolOptions options)
     {
         return await DoPutActionResult<SchoolOptions, SchoolDetails>($"v1.0/people/{personId}/schools/{schoolId}",
-            options);
+            options).ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteSchool(int personId, int schoolId)
     {
-        return await DoDelete<Result>($"v1.0/people/{personId}/schools/{schoolId}");
+        return await DoDelete<Result>($"v1.0/people/{personId}/schools/{schoolId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<SchoolDetails>> CreateSchool(int personId, SchoolOptions options)
     {
-        return await DoPostActionResult<SchoolOptions, SchoolDetails>($"v1.0/people/{personId}/schools", options);
+        return await DoPostActionResult<SchoolOptions, SchoolDetails>($"v1.0/people/{personId}/schools", options)
+            .ConfigureAwait(false);
     }
 }

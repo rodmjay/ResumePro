@@ -16,26 +16,30 @@ public class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IRe
 {
     public async Task<ReferenceDto> Get(int personId, int referenceId)
     {
-        throw new NotImplementedException();
+        return await DoGet<ReferenceDto>($"v1.0/people/{personId}/references/{referenceId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<List<ReferenceDto>> GetReferences(int personId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<ReferenceDto>>($"v1.0/people/{personId}/references")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ReferenceDto>> CreateReference(int personId, CreateReferenceOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPostActionResult<CreateReferenceOptions, ReferenceDto>($"v1.0/people/{personId}/references",
+            options).ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ReferenceDto>> UpdateReference(int personId, int referenceId, ReferenceOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPostActionResult<ReferenceOptions, ReferenceDto>(
+            $"v1.0/people/{personId}/references/{referenceId}", options);
     }
 
     public async Task<Result> DeleteReference(int personId, int referenceId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/references/{referenceId}");
     }
 }

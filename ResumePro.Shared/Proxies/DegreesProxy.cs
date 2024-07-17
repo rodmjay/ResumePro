@@ -12,30 +12,37 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class DegreesProxy(HttpClient httpClient) : BaseProxy(httpClient), IDegreesController
+public sealed class DegreesProxy(HttpClient httpClient) : BaseProxy(httpClient), IDegreesController
 {
     public async Task<DegreeDto> GetDegree(int personId, int schoolId, int degreeId)
     {
-        throw new NotImplementedException();
+        return await DoGet<DegreeDto>($"v1.0/people/{personId}/schools/{schoolId}/degrees/{degreeId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<List<DegreeDto>> GetDegrees(int personId, int schoolId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<DegreeDto>>($"v1.0/people/{personId}/schools/{schoolId}/degrees")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<DegreeDto>> UpdateDegree(int personId, int schoolId, int degreeId, DegreeOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPutActionResult<DegreeOptions, DegreeDto>(
+            $"v1.0/people/{personId}/schools/{schoolId}/degrees/{degreeId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteDegree(int personId, int schoolId, int degreeId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/schools/{schoolId}/degrees/{degreeId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<DegreeDto>> CreateDegree(int personId, int schoolId, DegreeOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPostActionResult<DegreeOptions, DegreeDto>($"v1.0/people/{personId}/schools/{schoolId}/degrees",
+                options)
+            .ConfigureAwait(false);
     }
 }

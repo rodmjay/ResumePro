@@ -9,10 +9,11 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Proxies;
 
-public class FiltersProxy(HttpClient httpClient) : BaseProxy(httpClient), IFiltersController
+public sealed class FiltersProxy(HttpClient httpClient) : BaseProxy(httpClient), IFiltersController
 {
     public async Task<FilterContainer> GetFilters()
     {
-        return await DoGet<FilterContainer>("v1.0/filters");
+        return await DoGet<FilterContainer>("v1.0/filters")
+            .ConfigureAwait(false);
     }
 }

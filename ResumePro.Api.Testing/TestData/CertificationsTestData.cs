@@ -12,7 +12,7 @@ public class CertificationsTestData
 {
     public static IEnumerable<CertificationOptions> ValidOptions()
     {
-        return new List<CertificationOptions>()
+        return new List<CertificationOptions>
         {
             new()
             {

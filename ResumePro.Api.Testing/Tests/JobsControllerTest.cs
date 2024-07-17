@@ -22,7 +22,6 @@ public class JobsControllerTest : BaseApiTest
         {
             var response = await JobsProxy.CreateJob(1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
-
         }
     }
 }

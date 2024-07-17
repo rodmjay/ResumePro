@@ -12,7 +12,7 @@ public class JobOptionsTestData
 {
     public static IEnumerable<JobOptions> ValidOptions()
     {
-        return new List<JobOptions>()
+        return new List<JobOptions>
         {
             new()
             {

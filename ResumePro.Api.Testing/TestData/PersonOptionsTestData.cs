@@ -12,7 +12,7 @@ public class PersonOptionsTestData
 {
     public static IEnumerable<PersonaOptions> ValidOptions()
     {
-        return new List<PersonaOptions>()
+        return new List<PersonaOptions>
         {
             new()
             {

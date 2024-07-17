@@ -16,7 +16,6 @@ public class CertificationsControllerTest : BaseApiTest
     {
         public async Task CanCreateCertification()
         {
-
         }
     }
 }

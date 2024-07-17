@@ -12,30 +12,37 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class CertificationsProxy(HttpClient httpClient) : BaseProxy(httpClient), ICertificationsController
+public sealed class CertificationsProxy(HttpClient httpClient) : BaseProxy(httpClient), ICertificationsController
 {
     public async Task<CertificationDto> Get(int personId, int certificationId)
     {
-        throw new NotImplementedException();
+        return await DoGet<CertificationDto>($"v1.0/people/{personId}/certifications/{certificationId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<List<CertificationDto>> Get(int personId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<CertificationDto>>($"v1.0/people/{personId}/certifications")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<CertificationDto>> Create(int personId, CertificationOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPostActionResult<CertificationOptions, CertificationDto>(
+                $"v1.0/people/{personId}/certifications", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<CertificationDto>> Update(int personId, int certificationId, CertificationOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPutActionResult<CertificationOptions, CertificationDto>(
+                $"v1.0/people/{personId}/certifications/{certificationId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> Delete(int personId, int certificationId)
     {
-        throw new NotImplementedException();
+        return await DoDelete<Result>($"v1.0/people/{personId}/certifications/{certificationId}")
+            .ConfigureAwait(false);
     }
 }

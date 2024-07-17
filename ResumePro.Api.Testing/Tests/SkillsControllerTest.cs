@@ -18,7 +18,7 @@ public class SkillsControllerTest : BaseApiTest
         public async Task CanGetSkills()
         {
             var response = await SkillsProxy.GetSkills();
-            Assert.That(response ,Is.Not.Null);
+            Assert.That(response, Is.Not.Null);
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿@page "/create-resume/{PersonId:int}"
-@    using Microsoft.AspNetCore.Components
-@    using ResumePro.Shared.Options
-@    using ResumePro.Shared.Proxies
-@    using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Authorization
+@using ResumePro.Shared.Interfaces
+@using ResumePro.Shared.Options
 @attribute [Authorize]
 @inject NavigationManager Navigation
 

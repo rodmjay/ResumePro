@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.DiaSymReader;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.TestData;
@@ -13,7 +12,7 @@ public class HighlightOptionsTestData
 {
     public static IEnumerable<HighlightCreateOptions> ValidCreateOptions()
     {
-        return new List<HighlightCreateOptions>()
+        return new List<HighlightCreateOptions>
         {
             new()
             {
@@ -21,9 +20,10 @@ public class HighlightOptionsTestData
             }
         };
     }
+
     public static IEnumerable<HighlightUpdateOptions> ValidUpdateOptions()
     {
-        return new List<HighlightUpdateOptions>()
+        return new List<HighlightUpdateOptions>
         {
             new()
             {
