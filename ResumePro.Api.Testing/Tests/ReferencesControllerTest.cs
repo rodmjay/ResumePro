@@ -12,17 +12,16 @@ using ResumePro.Shared.Options;
 namespace ResumePro.Api.Testing.Tests;
 
 [TestFixture]
-public class CertificationsControllerTest : BaseApiTest
+public class ReferencesControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheCreateCertificationMethod : CertificationsControllerTest
+    public sealed class TheCreateReferenceMethod : ReferencesControllerTest
     {
-        [TestCaseSource(typeof(CertificationsTestData), nameof(CertificationsTestData.ValidOptions))]
-        public async Task CanCreateCertification(CertificationOptions options)
+        [TestCaseSource(typeof(ReferenceTestData), nameof(ReferenceTestData.ValidCreateOptions))]
+        public async Task CanCreateReference(ReferenceCreateOptions options)
         {
-            var response = await CertificationsProxy.Create(1, options);
+            var response = await ReferencesProxy.CreateReference(1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
-
         }
     }
 }

@@ -9,7 +9,7 @@ using ResumePro.Context;
 
 namespace ResumePro.Factories;
 
-public class OperationalContextFactory : IApplicationContextFactory
+public sealed class OperationalContextFactory : IApplicationContextFactory
 {
     public ApplicationContext CreateDbContext(string[] args)
     {

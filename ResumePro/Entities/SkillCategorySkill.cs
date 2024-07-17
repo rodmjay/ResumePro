@@ -9,7 +9,7 @@ using ResumePro.Core.Data.Bases;
 
 namespace ResumePro.Entities;
 
-public class SkillCategorySkill : BaseEntity<SkillCategorySkill>
+public sealed class SkillCategorySkill : BaseEntity<SkillCategorySkill>
 {
     public int SkillId { get; set; }
     public Skill Skill { get; set; }

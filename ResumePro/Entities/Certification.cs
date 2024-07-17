@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Certification : BaseEntity<Certification>, ICertification
+public sealed class Certification : BaseEntity<Certification>, ICertification
 {
     public Persona Persona { get; set; }
     public int OrganizationId { get; set; }

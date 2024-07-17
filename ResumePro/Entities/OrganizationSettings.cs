@@ -11,7 +11,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class OrganizationSettings : BaseEntity<OrganizationSettings>, IOrganizationSettings
+public sealed class OrganizationSettings : BaseEntity<OrganizationSettings>, IOrganizationSettings
 {
     public ICollection<ResumeSettings> ResumeSettings { get; set; }
     public int OrganizationId { get; set; }

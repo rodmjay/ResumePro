@@ -6,7 +6,7 @@
 
 namespace ResumePro.Shared.Options;
 
-public class CreateReferenceOptions
+public class ReferenceCreateOptions
 {
     public string Text { get; set; }
     public string Name { get; set; }

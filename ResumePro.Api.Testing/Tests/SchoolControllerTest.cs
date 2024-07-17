@@ -18,7 +18,7 @@ public class SchoolControllerTest : BaseApiTest
     [TestFixture]
     public class TheCreateSchoolMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(SchoolOptionsTestData), nameof(SchoolOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanCreateSchool(SchoolOptions options)
         {
             var response = await SchoolsProxy.CreateSchool(1, options);
@@ -29,7 +29,7 @@ public class SchoolControllerTest : BaseApiTest
     [TestFixture]
     public class TheUpdateSchoolMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(SchoolOptionsTestData), nameof(SchoolOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanUpdateSchool(SchoolOptions options)
         {
             var response = await SchoolsProxy.UpdateSchool(1,1, options);
@@ -40,7 +40,7 @@ public class SchoolControllerTest : BaseApiTest
     [TestFixture]
     public class TheGetSchoolMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(SchoolOptionsTestData), nameof(SchoolOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanGetSchool(SchoolOptions options)
         {
             var response = await SchoolsProxy.GetSchool(1, 1);
@@ -62,7 +62,7 @@ public class SchoolControllerTest : BaseApiTest
     [TestFixture]
     public class TheDeleteSchoolMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(SchoolOptionsTestData), nameof(SchoolOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanDeleteSchool(SchoolOptions options)
         {
             var response = await SchoolsProxy.CreateSchool(1, options);

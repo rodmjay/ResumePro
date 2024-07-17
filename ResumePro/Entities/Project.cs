@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Project : BaseEntity<Project>, IProject
+public sealed class Project : BaseEntity<Project>, IProject
 {
     public int OrganizationId { get; set; }
     public Job Job { get; set; }

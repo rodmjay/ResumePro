@@ -33,7 +33,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     }
 
     public async Task<OneOf<ReferenceDto, Result>> CreateReference(int organizationId, int personId,
-        CreateReferenceOptions options)
+        ReferenceCreateOptions options)
     {
         var lastReference = await
             References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)

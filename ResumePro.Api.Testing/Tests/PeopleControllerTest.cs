@@ -20,7 +20,7 @@ public class PeopleControllerTest : BaseApiTest
     [TestFixture]
     public class TheUpdatePersonMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task CanUpdatePerson(PersonaOptions options)
         {
             var createResponse = await PeopleProxy.CreatePerson(options);
@@ -38,7 +38,7 @@ public class PeopleControllerTest : BaseApiTest
     [TestFixture]
     public class TheDeletePersonMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task DeletePerson(PersonaOptions options)
         {
             var createResponse = await PeopleProxy.CreatePerson(options);
@@ -56,7 +56,7 @@ public class PeopleControllerTest : BaseApiTest
     [TestFixture]
     public class TheCreatePersonMethod : PeopleControllerTest
     {
-        [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task CreatePerson(PersonaOptions options)
         {
             var result = await PeopleProxy.CreatePerson(options);

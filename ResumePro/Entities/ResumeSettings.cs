@@ -11,7 +11,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
+public sealed class ResumeSettings : BaseEntity<ResumeSettings>, IResumeSettings
 {
     public Resume Resume { get; set; }
     public Template Template { get; set; }

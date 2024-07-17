@@ -9,7 +9,7 @@ using ResumePro.Core.Data.Bases;
 
 namespace ResumePro.Entities;
 
-public class ResumeJob : BaseEntity<ResumeJob>
+public sealed class ResumeJob : BaseEntity<ResumeJob>
 {
     public int OrganizationId { get; set; }
     public int ResumeId { get; set; }

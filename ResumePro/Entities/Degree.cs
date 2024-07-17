@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Degree : BaseEntity<Degree>, IDegree
+public sealed class Degree : BaseEntity<Degree>, IDegree
 {
     public int OrganizationId { get; set; }
     public School School { get; set; }

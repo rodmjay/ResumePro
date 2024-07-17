@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Resume : BaseEntity<Resume>, IResume
+public sealed class Resume : BaseEntity<Resume>, IResume
 {
     public Persona Persona { get; set; }
     public ICollection<ResumeJob> Jobs { get; set; } = new List<ResumeJob>();

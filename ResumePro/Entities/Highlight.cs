@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class Highlight : BaseEntity<Highlight>, IHighlight
+public sealed class Highlight : BaseEntity<Highlight>, IHighlight
 {
     public int OrganizationId { get; set; }
     public Job Job { get; set; }

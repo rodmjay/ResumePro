@@ -9,7 +9,7 @@ using ResumePro.Core.Data.Bases;
 
 namespace ResumePro.Entities;
 
-public class Template : BaseEntity<Template>
+public sealed class Template : BaseEntity<Template>
 {
     public string Name { get; set; }
     public string Source { get; set; }

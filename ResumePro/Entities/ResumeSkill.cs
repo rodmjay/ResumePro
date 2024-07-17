@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class ResumeSkill : BaseEntity<ResumeSkill>, IResumeSkill
+public sealed class ResumeSkill : BaseEntity<ResumeSkill>, IResumeSkill
 {
     public Resume Resume { get; set; }
     public PersonaSkill Skill { get; set; }

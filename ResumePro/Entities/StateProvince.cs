@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public class StateProvince : BaseEntity<StateProvince>, IStateProvince
+public sealed class StateProvince : BaseEntity<StateProvince>, IStateProvince
 {
     public int Id { get; set; }
     public Country Country { get; set; }

@@ -13,7 +13,7 @@ public interface IReferenceService : IService<Reference>
 {
     Task<List<T>> GetReferences<T>(int organizationId, int personId) where T : ReferenceDto;
     Task<T> GetReference<T>(int organizationId, int personId, int referenceId) where T : ReferenceDto;
-    Task<OneOf<ReferenceDto, Result>> CreateReference(int organizationId, int personId, CreateReferenceOptions options);
+    Task<OneOf<ReferenceDto, Result>> CreateReference(int organizationId, int personId, ReferenceCreateOptions options);
 
     Task<OneOf<ReferenceDto, Result>> UpdateReference(int organizationId, int personId, int referenceId,
         ReferenceOptions options);

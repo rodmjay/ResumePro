@@ -17,7 +17,7 @@ public class JobsControllerTest : BaseApiTest
     [TestFixture]
     public class TheCreateJobMethod : JobsControllerTest
     {
-        [TestCaseSource(typeof(JobOptionsTestData), nameof(JobOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(JobTestData), nameof(JobTestData.ValidOptions))]
         public async Task CanCreateJob(JobOptions options)
         {
             var response = await JobsProxy.CreateJob(1, options);

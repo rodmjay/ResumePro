@@ -8,7 +8,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.TestData;
 
-public class SchoolOptionsTestData
+public class SchoolTestData
 {
     public static IEnumerable<SchoolOptions> ValidOptions()
     {

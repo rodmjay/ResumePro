@@ -17,7 +17,7 @@ public interface IReferencesController
     Task<List<ReferenceDto>> GetReferences(int personId);
 
     Task<ActionResult<ReferenceDto>> CreateReference(int personId,
-         CreateReferenceOptions options);
+         ReferenceCreateOptions options);
 
     Task<ActionResult<ReferenceDto>> UpdateReference(int personId,
          int referenceId,

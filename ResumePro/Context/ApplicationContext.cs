@@ -12,18 +12,9 @@ using ResumePro.Seeding.Extensions;
 namespace ResumePro.Context;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class ApplicationContext : BaseContext<ApplicationContext>
+public sealed class ApplicationContext(DbContextOptions<ApplicationContext> options, ILoggerFactory loggerFactory)
+    : BaseContext<ApplicationContext>(options)
 {
-    private readonly ILoggerFactory _loggerFactory;
-
-    public ApplicationContext(
-        DbContextOptions<ApplicationContext> options, ILoggerFactory loggerFactory) :
-        base(options)
-    {
-        _loggerFactory = loggerFactory;
-    }
-
-
     public ApplicationContext(
         DbContextOptions<ApplicationContext> options) : this(options, null)
     {
@@ -31,7 +22,7 @@ public sealed class ApplicationContext : BaseContext<ApplicationContext>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (_loggerFactory != null) optionsBuilder.UseLoggerFactory(_loggerFactory);
+        if (loggerFactory != null) optionsBuilder.UseLoggerFactory(loggerFactory);
     }
 
     protected override void ConfigureDatabase(ModelBuilder builder)

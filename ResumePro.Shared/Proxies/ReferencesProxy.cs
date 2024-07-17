@@ -26,9 +26,9 @@ public class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IRe
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ReferenceDto>> CreateReference(int personId, CreateReferenceOptions options)
+    public async Task<ActionResult<ReferenceDto>> CreateReference(int personId, ReferenceCreateOptions options)
     {
-        return await DoPostActionResult<CreateReferenceOptions, ReferenceDto>($"v1.0/people/{personId}/references",
+        return await DoPostActionResult<ReferenceCreateOptions, ReferenceDto>($"v1.0/people/{personId}/references",
             options).ConfigureAwait(false);
     }
 

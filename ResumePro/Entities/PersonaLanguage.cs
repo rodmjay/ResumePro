@@ -10,7 +10,7 @@ using ResumePro.Languages.Entities;
 
 namespace ResumePro.Entities;
 
-public class PersonaLanguage : BaseEntity<PersonaLanguage>
+public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>
 {
     public int OrganizationId { get; set; }
     public int PersonaId { get; set; }

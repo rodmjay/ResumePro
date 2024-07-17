@@ -9,6 +9,7 @@ using NUnit.Framework;
 using ResumePro.Api.Testing.Extensions;
 using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Options;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Testing.Tests;
 
@@ -18,7 +19,7 @@ public class ResumesControllerTest : BaseApiTest
     [TestFixture]
     public sealed class TheCreateResumeMethod : ResumesControllerTest
     {
-        [TestCaseSource(typeof(ResumeOptionsTestData), nameof(ResumeOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(ResumeTestData), nameof(ResumeTestData.ValidOptions))]
         public async Task CanCreateResume(ResumeOptions options)
         {
             var response = await ResumeProxy.CreateResume(1, options);
@@ -29,7 +30,7 @@ public class ResumesControllerTest : BaseApiTest
     [TestFixture]
     public sealed class TheUpdateResumeMethod : ResumesControllerTest
     {
-        [TestCaseSource(typeof(ResumeOptionsTestData), nameof(ResumeOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(ResumeTestData), nameof(ResumeTestData.ValidOptions))]
         public async Task CanUpdateResume(ResumeOptions options)
         {
             var response = await ResumeProxy.UpdateResume(1, 1, options);
@@ -40,7 +41,7 @@ public class ResumesControllerTest : BaseApiTest
     [TestFixture]
     public sealed class TheDeleteResumeMethod : ResumesControllerTest
     {
-        [TestCaseSource(typeof(ResumeOptionsTestData), nameof(ResumeOptionsTestData.ValidOptions))]
+        [TestCaseSource(typeof(ResumeTestData), nameof(ResumeTestData.ValidOptions))]
         public async Task CanDeleteResume(ResumeOptions options)
         {
             var response = await ResumeProxy.CreateResume(1, options);
