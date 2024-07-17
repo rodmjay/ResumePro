@@ -10,33 +10,19 @@ using ResumePro.Generation;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class ResumeService : BaseService<Resume>, IResumeService
+public sealed class ResumeService(
+    ResumeErrorDescriber resumeErrors,
+    TemplateErrorDescriber templateErrors,
+    IRepositoryAsync<Job> jobRepo,
+    IRepositoryAsync<PersonaSkill> personalSkillsRepo,
+    IRepositoryAsync<Template> templateRepo,
+    IServiceProvider serviceProvider)
+    : BaseService<Resume>(serviceProvider), IResumeService
 {
-    private readonly IRepositoryAsync<Job> _jobRepo;
-    private readonly IRepositoryAsync<PersonaSkill> _personalSkillsRepo;
-    private readonly ResumeErrorDescriber _resumeErrors;
-    private readonly TemplateErrorDescriber _templateErrors;
-    private readonly IRepositoryAsync<Template> _templateRepo;
-
-    public ResumeService(
-        ResumeErrorDescriber resumeErrors,
-        TemplateErrorDescriber templateErrors,
-        IRepositoryAsync<Job> jobRepo,
-        IRepositoryAsync<PersonaSkill> personalSkillsRepo,
-        IRepositoryAsync<Template> templateRepo,
-        IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-        _resumeErrors = resumeErrors;
-        _templateErrors = templateErrors;
-        _jobRepo = jobRepo;
-        _personalSkillsRepo = personalSkillsRepo;
-        _templateRepo = templateRepo;
-    }
-
     private IQueryable<Resume> Resumes => Repository.Queryable();
-    private IQueryable<Job> Jobs => _jobRepo.Queryable();
-    private IQueryable<PersonaSkill> PersonalSkills => _personalSkillsRepo.Queryable();
-    private IQueryable<Template> Templates => _templateRepo.Queryable();
+    private IQueryable<Job> Jobs => jobRepo.Queryable();
+    private IQueryable<PersonaSkill> PersonalSkills => personalSkillsRepo.Queryable();
+    private IQueryable<Template> Templates => templateRepo.Queryable();
 
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
@@ -166,7 +152,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
             return await GetResume<ResumeDetails>(organizationId, personaId, resume.Id);
         }
 
-        return Result.Failed(_resumeErrors.UnableToSaveResume());
+        return Result.Failed(resumeErrors.UnableToSaveResume());
     }
 
     public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId,
@@ -178,7 +164,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (resume == null)
-            return Result.Failed(_resumeErrors.ResumeNotFound(resumeId));
+            return Result.Failed(resumeErrors.ResumeNotFound(resumeId));
 
         resume.ObjectState = ObjectState.Modified;
         resume.JobTitle = options.Title;
@@ -206,7 +192,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
         if (records > 0)
             return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
-        return Result.Failed(_resumeErrors.UnableToSaveResume());
+        return Result.Failed(resumeErrors.UnableToSaveResume());
     }
 
     public async Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId)
@@ -242,7 +228,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (template == null || template.Source == null)
-            return Result.Failed(_templateErrors.TemplateNotFound(templateId));
+            return Result.Failed(templateErrors.TemplateNotFound(templateId));
 
         var engine = Handlebars.Compile(template.Source);
 
@@ -260,7 +246,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
             .FirstOrDefaultAsync();
 
         if (resume == null)
-            return Result.Failed(_resumeErrors.ResumeNotFound(resumeId));
+            return Result.Failed(resumeErrors.ResumeNotFound(resumeId));
 
         resume.ObjectState = ObjectState.Deleted;
 

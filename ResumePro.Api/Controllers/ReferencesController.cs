@@ -11,28 +11,20 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/references")]
-public class ReferencesController : BaseController, IReferencesController
+public sealed class ReferencesController(IServiceProvider serviceProvider, IReferenceService referenceService)
+    : BaseController(serviceProvider), IReferencesController
 {
-    private readonly IReferenceService _referenceService;
-
-    public ReferencesController(IServiceProvider serviceProvider, IReferenceService referenceService) : base(
-        serviceProvider)
-    {
-        _referenceService = referenceService;
-    }
-
-
     [HttpGet("{referenceId}")]
     public async Task<ReferenceDto> Get([FromRoute] int personId, [FromRoute] int referenceId)
     {
-        return await _referenceService.GetReference<ReferenceDto>(OrganizationId, personId, referenceId)
+        return await referenceService.GetReference<ReferenceDto>(OrganizationId, personId, referenceId)
             .ConfigureAwait(false);
     }
 
     [HttpGet]
     public async Task<List<ReferenceDto>> GetReferences([FromRoute] int personId)
     {
-        return await _referenceService.GetReferences<ReferenceDto>(OrganizationId, personId)
+        return await referenceService.GetReferences<ReferenceDto>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
@@ -40,7 +32,7 @@ public class ReferencesController : BaseController, IReferencesController
     public async Task<ActionResult<ReferenceDto>> CreateReference([FromRoute] int personId,
         [FromBody] CreateReferenceOptions options)
     {
-        var result = await _referenceService.CreateReference(OrganizationId, personId, options)
+        var result = await referenceService.CreateReference(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -52,7 +44,7 @@ public class ReferencesController : BaseController, IReferencesController
         [FromRoute] int referenceId,
         [FromBody] ReferenceOptions options)
     {
-        var result = await _referenceService.UpdateReference(OrganizationId, personId, referenceId, options)
+        var result = await referenceService.UpdateReference(OrganizationId, personId, referenceId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -63,6 +55,6 @@ public class ReferencesController : BaseController, IReferencesController
     public Task<Result> DeleteReference([FromRoute] int personId,
         [FromRoute] int referenceId)
     {
-        return _referenceService.DeleteReference(OrganizationId, personId, referenceId);
+        return referenceService.DeleteReference(OrganizationId, personId, referenceId);
     }
 }

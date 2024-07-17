@@ -7,15 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class DegreeService : BaseService<Degree>, IDegreeService
+public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorDescriber errors)
+    : BaseService<Degree>(serviceProvider), IDegreeService
 {
-    private readonly DegreeErrorDescriber _errors;
-
-    public DegreeService(IServiceProvider serviceProvider, DegreeErrorDescriber errors) : base(serviceProvider)
-    {
-        _errors = errors;
-    }
-
     private IQueryable<Degree> Degrees => Repository.Queryable();
 
     public Task<T> GetDegree<T>(int organizationId, int personId, int schoolId, int degreeId) where T : DegreeDto
@@ -52,7 +46,7 @@ public sealed class DegreeService : BaseService<Degree>, IDegreeService
             return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
         }
 
-        return Result.Failed(_errors.UnableToSaveDegree());
+        return Result.Failed(errors.UnableToSaveDegree());
     }
 
     public async Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId, int degreeId, DegreeOptions options)
@@ -62,7 +56,7 @@ public sealed class DegreeService : BaseService<Degree>, IDegreeService
             .FirstOrDefaultAsync();
 
         if (degree == null)
-            return Result.Failed(_errors.DegreeNotFound(degreeId));
+            return Result.Failed(errors.DegreeNotFound(degreeId));
 
         degree.ObjectState = ObjectState.Modified;
         degree.Name = options.Name;
@@ -73,7 +67,7 @@ public sealed class DegreeService : BaseService<Degree>, IDegreeService
             return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
         }
 
-        return Result.Failed(_errors.UnableToSaveDegree());
+        return Result.Failed(errors.UnableToSaveDegree());
     }
 
     public async Task<Result> DeleteDegree(int organizationId, int personId, int schoolId, int degreeId)
@@ -83,7 +77,7 @@ public sealed class DegreeService : BaseService<Degree>, IDegreeService
             .FirstOrDefaultAsync();
 
         if (degree == null)
-            return Result.Failed(_errors.DegreeNotFound(degreeId));
+            return Result.Failed(errors.DegreeNotFound(degreeId));
 
         degree.ObjectState = ObjectState.Deleted;
 

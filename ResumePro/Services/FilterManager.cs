@@ -7,23 +7,16 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class FilterManager : BaseService, IFilterManager
+public sealed class FilterManager(
+    IServiceProvider serviceProvider,
+    ISkillService skillService,
+    IStateService stateService)
+    : BaseService(serviceProvider), IFilterManager
 {
-    private readonly ISkillService _skillService;
-    private readonly IStateService _stateService;
-
-    public FilterManager(IServiceProvider serviceProvider,
-        ISkillService skillService,
-        IStateService stateService) : base(serviceProvider)
-    {
-        _skillService = skillService;
-        _stateService = stateService;
-    }
-
     public async Task<FilterContainer> GetFilters(int organizationId)
     {
-        var statesTask = _stateService.GetStatesDropdown("US");
-        var skillsTask = _skillService.GetSkillsDropdown();
+        var statesTask = stateService.GetStatesDropdown("US");
+        var skillsTask = skillService.GetSkillsDropdown();
 
         await Task.WhenAll(statesTask, skillsTask);
 

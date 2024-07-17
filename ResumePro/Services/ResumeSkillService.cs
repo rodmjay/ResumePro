@@ -7,12 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class ResumeSkillService : BaseService<ResumeSkill>, IResumeSkillService
+public sealed class ResumeSkillService(IServiceProvider serviceProvider)
+    : BaseService<ResumeSkill>(serviceProvider), IResumeSkillService
 {
-    public ResumeSkillService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     private IQueryable<ResumeSkill> ResumeSkills => Repository.Queryable();
 
     public async Task<Result> AddResumeSkill(int organizationId, int personId, int resumeId,

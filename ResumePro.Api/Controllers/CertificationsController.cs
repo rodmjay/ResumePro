@@ -11,28 +11,20 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/certifications")]
-public class CertificationsController : BaseController, ICertificationsController
+public sealed class CertificationsController(IServiceProvider serviceProvider, ICertificationService certificationService)
+    : BaseController(serviceProvider), ICertificationsController
 {
-    private readonly ICertificationService _certificationService;
-
-    public CertificationsController(IServiceProvider serviceProvider, ICertificationService certificationService) :
-        base(serviceProvider)
-    {
-        _certificationService = certificationService;
-    }
-
-
     [HttpGet("{certificationId}")]
     public async Task<CertificationDto> Get([FromRoute] int personId, [FromRoute] int certificationId)
     {
-        return await _certificationService.GetCertification<CertificationDto>(OrganizationId, personId, certificationId)
+        return await certificationService.GetCertification<CertificationDto>(OrganizationId, personId, certificationId)
             .ConfigureAwait(false);
     }
 
     [HttpGet]
     public async Task<List<CertificationDto>> Get([FromRoute] int personId)
     {
-        return await _certificationService.GetCertifications<CertificationDto>(OrganizationId, personId)
+        return await certificationService.GetCertifications<CertificationDto>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
@@ -40,7 +32,7 @@ public class CertificationsController : BaseController, ICertificationsControlle
     public async Task<ActionResult<CertificationDto>> Create([FromRoute] int personId,
         [FromBody] CertificationOptions options)
     {
-        var result = await _certificationService.CreateCertification(OrganizationId, personId, options)
+        var result = await certificationService.CreateCertification(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
         return BadRequest(result.AsT1);
@@ -50,7 +42,7 @@ public class CertificationsController : BaseController, ICertificationsControlle
     public async Task<ActionResult<CertificationDto>> Update([FromRoute] int personId, [FromRoute] int certificationId,
         [FromBody] CertificationOptions options)
     {
-        var result = await _certificationService.UpdateCertification(OrganizationId, personId, certificationId, options)
+        var result = await certificationService.UpdateCertification(OrganizationId, personId, certificationId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
         return BadRequest(result.AsT1);
@@ -59,7 +51,7 @@ public class CertificationsController : BaseController, ICertificationsControlle
     [HttpDelete("{certificationId}")]
     public async Task<Result> Delete([FromRoute] int personId, [FromRoute] int certificationId)
     {
-        return await _certificationService.DeleteCertification(OrganizationId, personId, certificationId)
+        return await certificationService.DeleteCertification(OrganizationId, personId, certificationId)
             .ConfigureAwait(false);
     }
 }

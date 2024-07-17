@@ -12,19 +12,13 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes")]
-public class ResumeController : BaseController, IResumeController
+public sealed class ResumeController(IServiceProvider serviceProvider, IResumeService resumeService)
+    : BaseController(serviceProvider), IResumeController
 {
-    private readonly IResumeService _resumeService;
-
-    public ResumeController(IServiceProvider serviceProvider, IResumeService resumeService) : base(serviceProvider)
-    {
-        _resumeService = resumeService;
-    }
-
     [HttpGet("{resumeId}")]
     public async Task<ResumeDetails> Get([FromRoute] int personId, [FromRoute] int resumeId)
     {
-        return await _resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId)
+        return await resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId)
             .ConfigureAwait(false);
     }
 
@@ -33,7 +27,7 @@ public class ResumeController : BaseController, IResumeController
     public async Task<IActionResult> Generate([FromRoute] int personId, [FromRoute] int resumeId,
         [FromQuery] string templateId)
     {
-        var result = await _resumeService.Generate(OrganizationId, personId, resumeId, templateId);
+        var result = await resumeService.Generate(OrganizationId, personId, resumeId, templateId);
         if (result.IsT0)
             return new ContentResult
             {
@@ -48,7 +42,7 @@ public class ResumeController : BaseController, IResumeController
     public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId,
         [FromQuery] int templateId)
     {
-        var filePath = await _resumeService.SaveResumeAsPdf(OrganizationId, personId, resumeId);
+        var filePath = await resumeService.SaveResumeAsPdf(OrganizationId, personId, resumeId);
         var fileName = Path.GetFileName(filePath);
 
         if (!System.IO.File.Exists(filePath)) return NotFound();
@@ -71,7 +65,7 @@ public class ResumeController : BaseController, IResumeController
     [HttpGet]
     public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId, [FromRoute] int resumeId)
     {
-        return await _resumeService.GetResumes<ResumeDto>(OrganizationId, personId)
+        return await resumeService.GetResumes<ResumeDto>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
@@ -79,7 +73,7 @@ public class ResumeController : BaseController, IResumeController
     public async Task<ActionResult<ResumeDetails>> CreateResume([FromRoute] int personId,
         [FromBody] ResumeOptions options)
     {
-        var result = await _resumeService.CreateResume(OrganizationId, personId, options)
+        var result = await resumeService.CreateResume(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -91,7 +85,7 @@ public class ResumeController : BaseController, IResumeController
         [FromRoute] int resumeId,
         [FromBody] ResumeOptions options)
     {
-        var result = await _resumeService.UpdateResume(OrganizationId, personId, resumeId, options)
+        var result = await resumeService.UpdateResume(OrganizationId, personId, resumeId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -102,6 +96,6 @@ public class ResumeController : BaseController, IResumeController
     public Task<Result> DeleteResume([FromRoute] int personId,
         [FromRoute] int resumeId)
     {
-        return _resumeService.DeleteResume(OrganizationId, personId, resumeId);
+        return resumeService.DeleteResume(OrganizationId, personId, resumeId);
     }
 }

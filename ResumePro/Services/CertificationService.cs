@@ -7,16 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class CertificationService : BaseService<Certification>, ICertificationService
+public sealed class CertificationService(IServiceProvider serviceProvider, CertificationErrorDescriber errors)
+    : BaseService<Certification>(serviceProvider), ICertificationService
 {
-    private readonly CertificationErrorDescriber _errors;
-
-    public CertificationService(IServiceProvider serviceProvider, CertificationErrorDescriber errors) : base(
-        serviceProvider)
-    {
-        _errors = errors;
-    }
-
     private IQueryable<Certification> Certifications => Repository.Queryable();
 
     public Task<List<T>> GetCertifications<T>(int organizationId, int personId) where T : CertificationDto
@@ -52,7 +45,7 @@ public sealed class CertificationService : BaseService<Certification>, ICertific
         var records = Repository.InsertOrUpdateGraph(certification, true);
         if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
-        return Result.Failed(_errors.UnableToSaveCertification());
+        return Result.Failed(errors.UnableToSaveCertification());
     }
 
     public async Task<OneOf<CertificationDto, Result>> UpdateCertification(int organizationId, int personId,
@@ -63,7 +56,7 @@ public sealed class CertificationService : BaseService<Certification>, ICertific
             .FirstOrDefaultAsync();
 
         if (certification == null)
-            return Result.Failed(_errors.CertificationNotFound(certificationId));
+            return Result.Failed(errors.CertificationNotFound(certificationId));
 
         certification.ObjectState = ObjectState.Modified;
         certification.Date = options.Date;
@@ -73,7 +66,7 @@ public sealed class CertificationService : BaseService<Certification>, ICertific
         var records = Repository.InsertOrUpdateGraph(certification, true);
         if (records > 0) return await GetCertification<CertificationDto>(organizationId, personId, certification.Id);
 
-        return Result.Failed(_errors.UnableToSaveCertification());
+        return Result.Failed(errors.UnableToSaveCertification());
     }
 
     public async Task<Result> DeleteCertification(int organizationId, int personId, int certificationId)
@@ -83,7 +76,7 @@ public sealed class CertificationService : BaseService<Certification>, ICertific
             .FirstOrDefaultAsync();
 
         if (certification == null)
-            return Result.Failed(_errors.CertificationNotFound(certificationId));
+            return Result.Failed(errors.CertificationNotFound(certificationId));
 
         certification.ObjectState = ObjectState.Deleted;
 

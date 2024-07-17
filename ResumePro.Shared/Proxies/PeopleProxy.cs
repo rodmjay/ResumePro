@@ -26,17 +26,17 @@ namespace ResumePro.Shared.Proxies
 
         public async Task<ActionResult<PersonaDetails>> CreatePerson(PersonaOptions options)
         {
-            throw new NotImplementedException();
+            return await DoPost<PersonaOptions, PersonaDetails>("v1.0/people", options);
         }
 
         public async Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonaOptions options)
         {
-            throw new NotImplementedException();
+            return await DoPut<PersonaOptions, PersonaDetails>("v1.0/people", options);
         }
 
         public async Task<Result> DeletePerson(int personId)
         {
-            throw new NotImplementedException();
+            return await DoDelete<Result>($"v1.0/people/{personId}");
         }
     }
 }

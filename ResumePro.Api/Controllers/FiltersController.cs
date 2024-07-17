@@ -11,18 +11,12 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/filters")]
-public class FiltersController : BaseController, IFiltersController
+public sealed class FiltersController(IServiceProvider serviceProvider, IFilterManager filterManager)
+    : BaseController(serviceProvider), IFiltersController
 {
-    private readonly IFilterManager _filterManager;
-
-    public FiltersController(IServiceProvider serviceProvider, IFilterManager filterManager) : base(serviceProvider)
-    {
-        _filterManager = filterManager;
-    }
-
     [HttpGet]
     public async Task<FilterContainer> GetFilters()
     {
-        return await _filterManager.GetFilters(OrganizationId);
+        return await filterManager.GetFilters(OrganizationId);
     }
 }

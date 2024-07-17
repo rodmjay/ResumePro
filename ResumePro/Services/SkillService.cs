@@ -7,12 +7,8 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class SkillService : BaseService<Skill>, ISkillService
+public sealed class SkillService(IServiceProvider serviceProvider) : BaseService<Skill>(serviceProvider), ISkillService
 {
-    public SkillService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     private IQueryable<Skill> Skills => Repository.Queryable();
 
     public Task<List<T>> GetSkills<T>() where T : SkillDto

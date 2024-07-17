@@ -10,19 +10,13 @@ using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
-public class SkillsController : BaseController, ISkillsController
+public sealed class SkillsController(IServiceProvider serviceProvider, ISkillService skillService)
+    : BaseController(serviceProvider), ISkillsController
 {
-    private readonly ISkillService _skillService;
-
-    public SkillsController(IServiceProvider serviceProvider, ISkillService skillService) : base(serviceProvider)
-    {
-        _skillService = skillService;
-    }
-
     [HttpGet]
     public async Task<List<SkillDto>> GetSkills()
     {
-        return await _skillService.GetSkills<SkillDto>()
+        return await skillService.GetSkills<SkillDto>()
             .ConfigureAwait(false);
     }
 }

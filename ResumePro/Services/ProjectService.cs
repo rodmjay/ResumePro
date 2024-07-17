@@ -7,15 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class ProjectService : BaseService<Project>, IProjectService
+public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErrorDescriber projectErrors)
+    : BaseService<Project>(serviceProvider), IProjectService
 {
-    private readonly ProjectErrorDescriber _projectErrors;
-
-    public ProjectService(IServiceProvider serviceProvider, ProjectErrorDescriber projectErrors) : base(serviceProvider)
-    {
-        _projectErrors = projectErrors;
-    }
-
     private IQueryable<Project> Projects => Repository.Queryable();
 
     public Task<List<T>> GetProjects<T>(int organizationId, int jobId) where T : ProjectDto
@@ -64,7 +58,7 @@ public sealed class ProjectService : BaseService<Project>, IProjectService
         var results = Repository.InsertOrUpdateGraph(project, true);
         if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
-        return Result.Failed(_projectErrors.UnableToSaveProject());
+        return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
     public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
@@ -78,7 +72,7 @@ public sealed class ProjectService : BaseService<Project>, IProjectService
         var project = projects.FirstOrDefault(x => x.Id == projectId);
 
         if (project == null)
-            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
+            return Result.Failed(projectErrors.ProjectNotFound(projectId));
 
         projects.Remove(project);
 
@@ -107,7 +101,7 @@ public sealed class ProjectService : BaseService<Project>, IProjectService
         var results = Repository.Commit();
         if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
 
-        return Result.Failed(_projectErrors.UnableToSaveProject());
+        return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
     public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
@@ -118,7 +112,7 @@ public sealed class ProjectService : BaseService<Project>, IProjectService
             .FirstOrDefaultAsync();
 
         if (project == null)
-            return Result.Failed(_projectErrors.ProjectNotFound(projectId));
+            return Result.Failed(projectErrors.ProjectNotFound(projectId));
 
         var projects = await Projects
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
@@ -144,7 +138,7 @@ public sealed class ProjectService : BaseService<Project>, IProjectService
         var changes = Repository.Commit();
         if (changes > 0) return Result.Success();
 
-        return Result.Failed(_projectErrors.UnableToSaveProject());
+        return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
     private async Task<int> GetNextProjectId(int organizationId)

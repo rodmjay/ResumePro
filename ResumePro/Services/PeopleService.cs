@@ -11,15 +11,9 @@ using ResumePro.Shared.Filters;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class PeopleService : BaseService<Persona>, IPeopleService
+public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors)
+    : BaseService<Persona>(serviceProvider), IPeopleService
 {
-    private readonly PersonErrorDescriber _personErrors;
-
-    public PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors) : base(serviceProvider)
-    {
-        _personErrors = personErrors;
-    }
-
     private IQueryable<Persona> People => Repository.Queryable();
 
     public async Task<PagedList<T>> GetPeople<T>(int organizationId, PersonaFilters filters, PagingQuery paging)
@@ -47,7 +41,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
             .FirstOrDefaultAsync();
 
         if (person == null)
-            return Result.Failed(_personErrors.PersonNotFound(personId));
+            return Result.Failed(personErrors.PersonNotFound(personId));
 
         person.IsDeleted = true;
         person.ObjectState = ObjectState.Modified;
@@ -56,7 +50,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
         if (results > 0)
             return Result.Success();
 
-        return Result.Failed(_personErrors.UnableToSavePerson());
+        return Result.Failed(personErrors.UnableToSavePerson());
     }
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
@@ -79,7 +73,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
         var result = Repository.InsertOrUpdateGraph(person, true);
         if (result > 0) return await GetPerson<PersonaDetails>(organizationId, person.Id);
 
-        return Result.Failed(_personErrors.UnableToSavePerson());
+        return Result.Failed(personErrors.UnableToSavePerson());
     }
 
     public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId,
@@ -89,7 +83,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
             .FirstOrDefaultAsync();
 
         if (person == null)
-            return Result.Failed(_personErrors.PersonNotFound(personId));
+            return Result.Failed(personErrors.PersonNotFound(personId));
 
         person.ObjectState = ObjectState.Modified;
         person.Email = options.Email;
@@ -103,7 +97,7 @@ public sealed class PeopleService : BaseService<Persona>, IPeopleService
         if (results > 0)
             return await GetPerson<PersonaDetails>(organizationId, personId);
 
-        return Result.Failed(_personErrors.UnableToSavePerson());
+        return Result.Failed(personErrors.UnableToSavePerson());
     }
 
     private async Task<int> GetNextPersonId(int organizationId)

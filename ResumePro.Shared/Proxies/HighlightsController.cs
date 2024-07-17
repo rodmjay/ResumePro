@@ -18,22 +18,24 @@ public class HighlightsController : BaseProxy, IHighlightsController
 
     public async Task<HighlightDto> GetHighlight(int personId, int jobId, int highlightId)
     {
-        throw new NotImplementedException();
+        return await DoGet<HighlightDto>($"v1.0/people/{personId}/jobs/{jobId}/highlights/{highlightId}");
     }
 
     public async Task<List<HighlightDto>> GetHighlights(int personId, int jobId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<HighlightDto>>($"v1.0/people/{personId}/jobs/{jobId}/highlights");
     }
 
     public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, CreateHighlightOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPost<CreateHighlightOptions, ActionResult<HighlightDto>>(
+            $"v1.0/people/{personId}/jobs/{jobId}/highlights", options);
     }
 
     public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int highlightId, HighlightOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPut<HighlightOptions, ActionResult<HighlightDto>>(
+            $"v1.0/people/{personId}/jobs/{jobId}/highlights/{highlightId}", options);
     }
 
     public async Task<Result> DeleteHighlight(int personId, int jobId, int highlightId)

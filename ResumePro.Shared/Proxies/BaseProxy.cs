@@ -4,6 +4,9 @@
 
 #endregion
 
+using System.Net;
+using Microsoft.AspNetCore.Mvc;
+using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Shared.Proxies;
@@ -32,6 +35,48 @@ public abstract class BaseProxy
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
     }
+
+    protected async Task<ActionResult<TOutput>> DoPostActionResult<TInput, TOutput>(string url, TInput input)
+    {
+        StringContent inputContent = input!.SerializeToUTF8Json();
+        HttpResponseMessage response = await HttpClient.PostAsync(url, inputContent);
+
+        if (response.IsSuccessStatusCode)
+        {
+            TOutput result = response.Content.DeserializeObject<TOutput>();
+            return new OkObjectResult(result);
+        }
+
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            Result result = response.Content.DeserializeObject<Result>();
+            return new BadRequestObjectResult(result);
+        }
+
+        return new StatusCodeResult((int) response.StatusCode);
+    }
+
+
+    protected async Task<ActionResult<TOutput>> DoPutActionResult<TInput, TOutput>(string url, TInput input)
+    {
+        StringContent inputContent = input!.SerializeToUTF8Json();
+        HttpResponseMessage response = await HttpClient.PutAsync(url, inputContent);
+
+        if (response.IsSuccessStatusCode)
+        {
+            TOutput result = response.Content.DeserializeObject<TOutput>();
+            return new OkObjectResult(result);
+        }
+
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            Result result = response.Content.DeserializeObject<Result>();
+            return new BadRequestObjectResult(result);
+        }
+
+        return new StatusCodeResult((int)response.StatusCode);
+    }
+
     //HttpResponseMessage response;
 
     //try

@@ -7,17 +7,11 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class JobService : BaseService<Job>, IJobService
+public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsync<Resume> resumeRepo)
+    : BaseService<Job>(serviceProvider), IJobService
 {
-    private readonly IRepositoryAsync<Resume> _resumeRepo;
-
-    public JobService(IServiceProvider serviceProvider, IRepositoryAsync<Resume> resumeRepo) : base(serviceProvider)
-    {
-        _resumeRepo = resumeRepo;
-    }
-
     private IQueryable<Job> Jobs => Repository.Queryable();
-    private IQueryable<Resume> Resumes => _resumeRepo.Queryable();
+    private IQueryable<Resume> Resumes => resumeRepo.Queryable();
 
     public Task<List<T>> GetJobs<T>(int organizationId, int personId) where T : JobDto
     {
@@ -74,10 +68,10 @@ public sealed class JobService : BaseService<Job>, IJobService
                     });
                 }
 
-                _resumeRepo.InsertOrUpdateGraph(resume);
+                resumeRepo.InsertOrUpdateGraph(resume);
             }
 
-            _resumeRepo.Commit();
+            resumeRepo.Commit();
 
             return await GetJob<JobDetails>(organizationId, personId, job.Id);
         }

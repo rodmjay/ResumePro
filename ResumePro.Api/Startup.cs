@@ -64,17 +64,23 @@ public class Startup
                 {
                     ValidateAudience = false,
                     ValidAudience = builder.AppSettings.Audience,
-
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.AppSettings.Authority,
                     NameClaimType = "name",
                     RoleClaimType = "role"
                 };
 
                 options.Events = new JwtBearerEvents
                 {
+                    OnChallenge = c =>
+                    {
+                        var x = 1;
+                        return Task.FromResult(0);
+                    },
                     OnAuthenticationFailed = c =>
                     {
                         var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace("Authentication Failure");
+                        logger.LogTrace($"Authentication Failure");
                         return Task.FromResult(0);
                     },
                     OnTokenValidated = c =>

@@ -11,22 +11,14 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights")]
-public class ProjectHighlightsController : BaseController, IProjectHighlightsController
+public sealed class ProjectHighlightsController(IServiceProvider serviceProvider, IHighlightService highlightService)
+    : BaseController(serviceProvider), IProjectHighlightsController
 {
-    private readonly IHighlightService _highlightService;
-
-    public ProjectHighlightsController(IServiceProvider serviceProvider, IHighlightService highlightService) : base(
-        serviceProvider)
-    {
-        _highlightService = highlightService;
-    }
-
-
     [HttpGet("{highlightId}")]
     public async Task<HighlightDto> GetHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId, [FromRoute] int highlightId)
     {
-        return await _highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId, projectId)
+        return await highlightService.GetHighlight<HighlightDto>(OrganizationId, highlightId, projectId)
             .ConfigureAwait(false);
     }
 
@@ -34,7 +26,7 @@ public class ProjectHighlightsController : BaseController, IProjectHighlightsCon
     public async Task<List<HighlightDto>> GetHighlights([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId)
     {
-        return await _highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId, projectId)
+        return await highlightService.GetHighlights<HighlightDto>(OrganizationId, jobId, projectId)
             .ConfigureAwait(false);
     }
 
@@ -44,7 +36,7 @@ public class ProjectHighlightsController : BaseController, IProjectHighlightsCon
         [FromRoute] int projectId,
         [FromBody] CreateHighlightOptions options)
     {
-        var result = await _highlightService.CreateHighlight(OrganizationId, personId, jobId, null, options)
+        var result = await highlightService.CreateHighlight(OrganizationId, personId, jobId, null, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -57,7 +49,7 @@ public class ProjectHighlightsController : BaseController, IProjectHighlightsCon
         [FromRoute] int highlightId,
         [FromBody] HighlightOptions options)
     {
-        var result = await _highlightService
+        var result = await highlightService
             .UpdateHighlight(OrganizationId, personId, jobId, projectId, highlightId, options)
             .ConfigureAwait(false);
 
@@ -71,7 +63,7 @@ public class ProjectHighlightsController : BaseController, IProjectHighlightsCon
         [FromRoute] int projectId,
         [FromRoute] int highlightId)
     {
-        return await _highlightService.DeleteHighlight(OrganizationId, personId, jobId, projectId, highlightId)
+        return await highlightService.DeleteHighlight(OrganizationId, personId, jobId, projectId, highlightId)
             .ConfigureAwait(false);
     }
 }

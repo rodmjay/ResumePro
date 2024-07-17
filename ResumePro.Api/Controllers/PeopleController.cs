@@ -12,35 +12,29 @@ using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
-public sealed class PeopleController : BaseController, IPeopleController
+public sealed class PeopleController(IServiceProvider serviceProvider, IPeopleService peopleService)
+    : BaseController(serviceProvider), IPeopleController
 {
-    private readonly IPeopleService _peopleService;
-
-    public PeopleController(IServiceProvider serviceProvider, IPeopleService peopleService) : base(serviceProvider)
-    {
-        _peopleService = peopleService;
-    }
-
     [HttpPost("Search")]
     public async Task<PagedList<PersonaDto>> GetPeople(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
         PersonaFilters? filters, [FromQuery] PagingQuery paging)
     {
-        return await _peopleService.GetPeople<PersonaDto>(OrganizationId, filters, paging)
+        return await peopleService.GetPeople<PersonaDto>(OrganizationId, filters, paging)
             .ConfigureAwait(false);
     }
 
     [HttpGet("{personId}")]
     public async Task<PersonaDetails> GetPerson([FromRoute] int personId)
     {
-        return await _peopleService.GetPerson<PersonaDetails>(OrganizationId, personId)
+        return await peopleService.GetPerson<PersonaDetails>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<PersonaDetails>> CreatePerson([FromBody] PersonaOptions options)
     {
-        var result = await _peopleService.CreatePerson(OrganizationId, options)
+        var result = await peopleService.CreatePerson(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0)
             return Ok(result.AsT0);
@@ -51,7 +45,7 @@ public sealed class PeopleController : BaseController, IPeopleController
     [HttpPut("{personId}")]
     public async Task<ActionResult<PersonaDetails>> UpdatePerson([FromRoute]int personId, [FromBody] PersonaOptions options)
     {
-        var result = await _peopleService.UpdatePerson(OrganizationId, personId, options)
+        var result = await peopleService.UpdatePerson(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0)
             return Ok(result.AsT0);
@@ -62,7 +56,7 @@ public sealed class PeopleController : BaseController, IPeopleController
     [HttpDelete("{personId}")]
     public async Task<Result> DeletePerson([FromRoute] int personId)
     {
-        return await _peopleService.DeletePerson(OrganizationId, personId)
+        return await peopleService.DeletePerson(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 }

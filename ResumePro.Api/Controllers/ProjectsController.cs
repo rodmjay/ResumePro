@@ -11,27 +11,21 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs/{jobId}/projects")]
-public class ProjectsController : BaseController, IProjectsController
+public sealed class ProjectsController(IServiceProvider serviceProvider, IProjectService projectService)
+    : BaseController(serviceProvider), IProjectsController
 {
-    private readonly IProjectService _projectService;
-
-    public ProjectsController(IServiceProvider serviceProvider, IProjectService projectService) : base(serviceProvider)
-    {
-        _projectService = projectService;
-    }
-
     [HttpGet("{projectId}")]
     public async Task<ProjectDetails> GetProject([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId)
     {
-        return await _projectService.GetProject<ProjectDetails>(OrganizationId, projectId)
+        return await projectService.GetProject<ProjectDetails>(OrganizationId, projectId)
             .ConfigureAwait(false);
     }
 
     [HttpGet]
     public async Task<List<ProjectDetails>> GetList([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return await _projectService.GetProjects<ProjectDetails>(OrganizationId, jobId)
+        return await projectService.GetProjects<ProjectDetails>(OrganizationId, jobId)
             .ConfigureAwait(false);
     }
 
@@ -39,7 +33,7 @@ public class ProjectsController : BaseController, IProjectsController
     public async Task<ActionResult<ProjectDetails>> Create([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] ProjectOptions options)
     {
-        var result = await _projectService.CreateProject(OrganizationId, jobId, options)
+        var result = await projectService.CreateProject(OrganizationId, jobId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -50,7 +44,7 @@ public class ProjectsController : BaseController, IProjectsController
     public async Task<ActionResult<ProjectDetails>> Update([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId, [FromBody] ProjectOptions options)
     {
-        var result = await _projectService.UpdateProject(OrganizationId, jobId, projectId, options)
+        var result = await projectService.UpdateProject(OrganizationId, jobId, projectId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -61,7 +55,7 @@ public class ProjectsController : BaseController, IProjectsController
     public async Task<Result> Delete([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId)
     {
-        return await _projectService.DeleteProject(OrganizationId, jobId, projectId)
+        return await projectService.DeleteProject(OrganizationId, jobId, projectId)
             .ConfigureAwait(false);
     }
 }

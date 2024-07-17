@@ -9,7 +9,7 @@ using ResumePro.App.MessageHandlers;
 using ResumePro.Shared.Proxies;
 
 namespace ResumePro.App.Extensions;
-
+ 
 public static class WebAssemblyHostBuilderExtensions
 {
     public static WebAssemblyHostBuilder AddProxies(this WebAssemblyHostBuilder builder)

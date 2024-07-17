@@ -11,33 +11,27 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs")]
-public class JobsController : BaseController, IJobsController
+public sealed class JobsController(IServiceProvider serviceProvider, IJobService jobService)
+    : BaseController(serviceProvider), IJobsController
 {
-    private readonly IJobService _jobService;
-
-    public JobsController(IServiceProvider serviceProvider, IJobService jobService) : base(serviceProvider)
-    {
-        _jobService = jobService;
-    }
-
     [HttpGet]
     public async Task<List<JobDetails>> GetJobs([FromRoute] int personId)
     {
-        return await _jobService.GetJobs<JobDetails>(OrganizationId, personId)
+        return await jobService.GetJobs<JobDetails>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
     [HttpGet("{jobId}")]
     public async Task<JobDetails> GetJob([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return await _jobService.GetJob<JobDetails>(OrganizationId, personId, jobId)
+        return await jobService.GetJob<JobDetails>(OrganizationId, personId, jobId)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<JobDetails>> CreateJob([FromRoute] int personId, [FromBody] JobOptions options)
     {
-        var result = await _jobService.CreateJob(OrganizationId, personId, options)
+        var result = await jobService.CreateJob(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -48,7 +42,7 @@ public class JobsController : BaseController, IJobsController
     public async Task<ActionResult<JobDetails>> UpdateJob([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] JobOptions options)
     {
-        var result = await _jobService.UpdateJob(OrganizationId, personId, jobId, options)
+        var result = await jobService.UpdateJob(OrganizationId, personId, jobId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -58,7 +52,7 @@ public class JobsController : BaseController, IJobsController
     [HttpDelete("{jobId}")]
     public async Task<Result> DeleteJob([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return await _jobService.DeleteJob(OrganizationId, personId, jobId)
+        return await jobService.DeleteJob(OrganizationId, personId, jobId)
             .ConfigureAwait(false);
     }
 }

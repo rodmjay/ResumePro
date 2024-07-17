@@ -7,13 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class HighlightService : BaseService<Highlight>, IHighlightService
+public sealed class HighlightService(IServiceProvider serviceProvider)
+    : BaseService<Highlight>(serviceProvider), IHighlightService
 {
-    public HighlightService(IServiceProvider serviceProvider) : base(
-        serviceProvider)
-    {
-    }
-
     private IQueryable<Highlight> Highlights => Repository.Queryable();
 
     public Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto

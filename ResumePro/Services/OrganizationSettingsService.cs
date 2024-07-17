@@ -7,12 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class OrganizationSettingsService : BaseService<OrganizationSettings>, IOrganizationSettingsService
+public sealed class OrganizationSettingsService(IServiceProvider serviceProvider)
+    : BaseService<OrganizationSettings>(serviceProvider), IOrganizationSettingsService
 {
-    public OrganizationSettingsService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     private IQueryable<OrganizationSettings> Settings => Repository.Queryable();
 
 

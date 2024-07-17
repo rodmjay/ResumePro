@@ -14,6 +14,6 @@ public class FiltersProxy : BaseProxy, IFiltersController
 
     public async Task<FilterContainer> GetFilters()
     {
-        throw new NotImplementedException();
+        return await DoGet<FilterContainer>("v1.0/filters");
     }
 }

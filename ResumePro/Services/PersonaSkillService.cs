@@ -7,18 +7,11 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSkillService
+public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepositoryAsync<Resume> resumeRepo)
+    : BaseService<PersonaSkill>(serviceProvider), IPersonaSkillService
 {
-    private readonly IRepositoryAsync<Resume> _resumeRepo;
-
-    public PersonaSkillService(IServiceProvider serviceProvider, IRepositoryAsync<Resume> resumeRepo) : base(
-        serviceProvider)
-    {
-        _resumeRepo = resumeRepo;
-    }
-
     private IQueryable<PersonaSkill> PersonalSkills => Repository.Queryable();
-    private IQueryable<Resume> Resumes => _resumeRepo.Queryable();
+    private IQueryable<Resume> Resumes => resumeRepo.Queryable();
 
     public Task<List<T>> GetPersonaSkills<T>(int organizationId, int personId) where T : PersonaSkillDto
     {
@@ -82,10 +75,10 @@ public sealed class PersonaSkillService : BaseService<PersonaSkill>, IPersonaSki
                         });
                     }
 
-                    _resumeRepo.InsertOrUpdateGraph(resume);
+                    resumeRepo.InsertOrUpdateGraph(resume);
                 }
 
-                _resumeRepo.Commit();
+                resumeRepo.Commit();
             }
 
             return Result.Success();

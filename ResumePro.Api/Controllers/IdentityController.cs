@@ -8,12 +8,8 @@ using ResumePro.Core.Middleware.Bases;
 
 namespace ResumePro.Api.Controllers;
 
-public class IdentityController : BaseController
+public sealed class IdentityController(IServiceProvider serviceProvider) : BaseController(serviceProvider)
 {
-    public IdentityController(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     [HttpGet]
     public IActionResult GetIdentity()
     {

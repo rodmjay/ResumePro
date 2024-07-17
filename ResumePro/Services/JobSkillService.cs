@@ -7,9 +7,5 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class JobSkillService : BaseService<JobSkill>, IJobSkillService
-{
-    public JobSkillService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-}
+public sealed class JobSkillService(IServiceProvider serviceProvider)
+    : BaseService<JobSkill>(serviceProvider), IJobSkillService;

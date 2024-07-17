@@ -7,12 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class StateService : BaseService<StateProvince>, IStateService
+public sealed class StateService(IServiceProvider serviceProvider)
+    : BaseService<StateProvince>(serviceProvider), IStateService
 {
-    public StateService(IServiceProvider serviceProvider) : base(serviceProvider)
-    {
-    }
-
     private IQueryable<StateProvince> States => Repository.Queryable();
 
     public Task<List<DropdownItem>> GetStatesDropdown(string countryId)

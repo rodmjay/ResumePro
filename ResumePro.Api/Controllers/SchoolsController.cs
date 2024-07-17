@@ -11,26 +11,20 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/schools")]
-public class SchoolsController : BaseController, ISchoolsController
+public sealed class SchoolsController(IServiceProvider serviceProvider, ISchoolService schoolService)
+    : BaseController(serviceProvider), ISchoolsController
 {
-    private readonly ISchoolService _schoolService;
-
-    public SchoolsController(IServiceProvider serviceProvider, ISchoolService schoolService) : base(serviceProvider)
-    {
-        _schoolService = schoolService;
-    }
-
     [HttpGet]
     public async Task<List<SchoolDetails>> GetSchools([FromRoute] int personId)
     {
-        return await _schoolService.GetSchools<SchoolDetails>(OrganizationId, personId)
+        return await schoolService.GetSchools<SchoolDetails>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
     [HttpGet("{schoolId}")]
     public async Task<SchoolDetails> GetSchool([FromRoute] int personId, [FromRoute] int schoolId)
     {
-        return await _schoolService.GetSchool<SchoolDetails>(OrganizationId, personId, schoolId)
+        return await schoolService.GetSchool<SchoolDetails>(OrganizationId, personId, schoolId)
             .ConfigureAwait(false);
     }
 
@@ -39,7 +33,7 @@ public class SchoolsController : BaseController, ISchoolsController
         [FromRoute] int schoolId,
         [FromBody] SchoolOptions options)
     {
-        var result = await _schoolService.UpdateSchool(OrganizationId, personId, schoolId, options)
+        var result = await schoolService.UpdateSchool(OrganizationId, personId, schoolId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -51,7 +45,7 @@ public class SchoolsController : BaseController, ISchoolsController
     public async Task<Result> DeleteSchool([FromRoute] int personId,
         [FromRoute] int schoolId)
     {
-        return await _schoolService.DeleteSchool(OrganizationId, personId, schoolId)
+        return await schoolService.DeleteSchool(OrganizationId, personId, schoolId)
             .ConfigureAwait(false);
     }
 
@@ -60,7 +54,7 @@ public class SchoolsController : BaseController, ISchoolsController
     public async Task<ActionResult<SchoolDetails>> CreateSchool([FromRoute] int personId,
         [FromBody] SchoolOptions options)
     {
-        var result = await _schoolService.CreateSchool(OrganizationId, personId, options)
+        var result = await schoolService.CreateSchool(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 

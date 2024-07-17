@@ -7,15 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class SchoolService : BaseService<School>, ISchoolService
+public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorDescriber schoolErrors)
+    : BaseService<School>(serviceProvider), ISchoolService
 {
-    private readonly SchoolErrorDescriber _schoolErrors;
-
-    public SchoolService(IServiceProvider serviceProvider, SchoolErrorDescriber schoolErrors) : base(serviceProvider)
-    {
-        _schoolErrors = schoolErrors;
-    }
-
     private IQueryable<School> Schools => Repository.Queryable();
 
     public Task<List<T>> GetSchools<T>(int organizationId, int personId) where T : SchoolDto
@@ -51,7 +45,7 @@ public sealed class SchoolService : BaseService<School>, ISchoolService
         var results = Repository.InsertOrUpdateGraph(school, true);
         if (results > 0) return await GetSchool<SchoolDetails>(organizationId, personId, school.Id);
 
-        return Result.Failed(_schoolErrors.UnableToSaveSchool());
+        return Result.Failed(schoolErrors.UnableToSaveSchool());
     }
 
     public async Task<OneOf<SchoolDetails, Result>> UpdateSchool(int organizationId, int personId, int schoolId,
@@ -62,7 +56,7 @@ public sealed class SchoolService : BaseService<School>, ISchoolService
             .FirstOrDefaultAsync();
 
         if (school == null)
-            return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
+            return Result.Failed(schoolErrors.SchoolNotFound(schoolId));
 
         school.Name = options.Name;
         school.EndDate = options.EndDate;
@@ -72,7 +66,7 @@ public sealed class SchoolService : BaseService<School>, ISchoolService
         var result = Repository.InsertOrUpdateGraph(school, true);
         if (result > 0) return await GetSchool<SchoolDetails>(organizationId, personId, schoolId);
 
-        return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
+        return Result.Failed(schoolErrors.SchoolNotFound(schoolId));
     }
 
     public async Task<Result> DeleteSchool(int organizationId, int personId, int schoolId)
@@ -82,7 +76,7 @@ public sealed class SchoolService : BaseService<School>, ISchoolService
             .FirstOrDefaultAsync();
 
         if (school == null)
-            return Result.Failed(_schoolErrors.SchoolNotFound(schoolId));
+            return Result.Failed(schoolErrors.SchoolNotFound(schoolId));
 
         school.ObjectState = ObjectState.Deleted;
 

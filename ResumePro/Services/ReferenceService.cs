@@ -7,16 +7,9 @@
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class ReferenceService : BaseService<Reference>, IReferenceService
+public sealed class ReferenceService(IServiceProvider serviceProvider, ReferenceErrorDescriber referenceErrors)
+    : BaseService<Reference>(serviceProvider), IReferenceService
 {
-    private readonly ReferenceErrorDescriber _referenceErrors;
-
-    public ReferenceService(IServiceProvider serviceProvider, ReferenceErrorDescriber referenceErrors) : base(
-        serviceProvider)
-    {
-        _referenceErrors = referenceErrors;
-    }
-
     private IQueryable<Reference> References => Repository.Queryable();
 
     public Task<List<T>> GetReferences<T>(int organizationId, int personId) where T : ReferenceDto
@@ -65,7 +58,7 @@ public sealed class ReferenceService : BaseService<Reference>, IReferenceService
         if (results > 0)
             return await GetReference<ReferenceDto>(organizationId, personId, reference.Id);
 
-        return Result.Failed(_referenceErrors.UnableToSaveReference());
+        return Result.Failed(referenceErrors.UnableToSaveReference());
     }
 
     public async Task<OneOf<ReferenceDto, Result>> UpdateReference(int organizationId, int personId, int referenceId,
@@ -76,7 +69,7 @@ public sealed class ReferenceService : BaseService<Reference>, IReferenceService
             .FirstOrDefaultAsync();
 
         if (reference == null)
-            return Result.Failed(_referenceErrors.ReferenceNotFound(referenceId));
+            return Result.Failed(referenceErrors.ReferenceNotFound(referenceId));
 
         var references = await References
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
@@ -105,7 +98,7 @@ public sealed class ReferenceService : BaseService<Reference>, IReferenceService
         if (results > 0)
             return await GetReference<ReferenceDto>(organizationId, personId, reference.Id);
 
-        return Result.Failed(_referenceErrors.UnableToSaveReference());
+        return Result.Failed(referenceErrors.UnableToSaveReference());
     }
 
     public async Task<Result> DeleteReference(int organizationId, int personId, int referenceId)
@@ -115,7 +108,7 @@ public sealed class ReferenceService : BaseService<Reference>, IReferenceService
             .FirstOrDefaultAsync();
 
         if (reference == null)
-            return Result.Failed(_referenceErrors.ReferenceNotFound(referenceId));
+            return Result.Failed(referenceErrors.ReferenceNotFound(referenceId));
 
         var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .OrderBy(x => x.Order).ToListAsync();

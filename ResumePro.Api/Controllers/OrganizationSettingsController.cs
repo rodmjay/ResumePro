@@ -13,20 +13,16 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/settings")]
-public sealed class OrganizationSettingsController : BaseController, IOrganizationSettingsController
+public sealed class OrganizationSettingsController(
+    IServiceProvider serviceProvider,
+    IOrganizationSettingsService service)
+    : BaseController(serviceProvider), IOrganizationSettingsController
 {
-    private readonly IOrganizationSettingsService _service;
-
-    public OrganizationSettingsController(IServiceProvider serviceProvider, IOrganizationSettingsService service) : base(serviceProvider)
-    {
-        _service = service;
-    }
-
     [HttpPost]
     public async Task<ActionResult<OrganizationSettingsDto>> CreateSettings(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] OrganizationSettingsOptions? options)
     {
-        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0)
         {
@@ -40,7 +36,7 @@ public sealed class OrganizationSettingsController : BaseController, IOrganizati
     public async Task<ActionResult<OrganizationSettingsDto>> UpdateSettings(
         [FromBody] OrganizationSettingsOptions options)
     {
-        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0)
         {

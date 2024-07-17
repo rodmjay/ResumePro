@@ -11,21 +11,14 @@ using ResumePro.Shared.Proxies;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resume/{resumeId}/skills")]
-public class ResumeSkillsController : BaseController, IResumeSkillsController
+public sealed class ResumeSkillsController(IServiceProvider serviceProvider, IResumeSkillService resumeSkillService)
+    : BaseController(serviceProvider), IResumeSkillsController
 {
-    private readonly IResumeSkillService _resumeSkillService;
-
-    public ResumeSkillsController(IServiceProvider serviceProvider, IResumeSkillService resumeSkillService)
-        : base(serviceProvider)
-    {
-        _resumeSkillService = resumeSkillService;
-    }
-
     [HttpPatch("{skillId}")]
     public async Task<Result> AddResumeSkill([FromRoute] int personId, [FromRoute] int resumeId,
         [FromRoute] int skillId)
     {
-        return await _resumeSkillService.AddResumeSkill(OrganizationId, personId, resumeId, skillId)
+        return await resumeSkillService.AddResumeSkill(OrganizationId, personId, resumeId, skillId)
             .ConfigureAwait(false);
     }
 
@@ -33,7 +26,7 @@ public class ResumeSkillsController : BaseController, IResumeSkillsController
     public async Task<Result> DeleteResumeSkill([FromRoute] int personId, [FromRoute] int resumeId,
         [FromRoute] int skillId)
     {
-        return await _resumeSkillService.DeleteResumeSkill(OrganizationId, personId, resumeId, skillId)
+        return await resumeSkillService.DeleteResumeSkill(OrganizationId, personId, resumeId, skillId)
             .ConfigureAwait(false);
     }
 }
