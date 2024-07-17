@@ -7,6 +7,7 @@
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
@@ -34,7 +35,7 @@ public sealed class ProjectHighlightsController(IServiceProvider serviceProvider
     [HttpPost]
     public async Task<ActionResult<HighlightDto>> CreateHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId,
-        [FromBody] CreateHighlightOptions options)
+        [FromBody] HighlightCreateOptions options)
     {
         var result = await highlightService.CreateHighlight(OrganizationId, personId, jobId, null, options)
             .ConfigureAwait(false);
@@ -47,7 +48,7 @@ public sealed class ProjectHighlightsController(IServiceProvider serviceProvider
     public async Task<ActionResult<HighlightDto>> UpdateHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId,
         [FromRoute] int highlightId,
-        [FromBody] HighlightOptions options)
+        [FromBody] HighlightUpdateOptions options)
     {
         var result = await highlightService
             .UpdateHighlight(OrganizationId, personId, jobId, projectId, highlightId, options)

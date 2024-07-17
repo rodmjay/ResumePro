@@ -9,6 +9,7 @@ using System.Text;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ResumePro.Shared.Extensions;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Generation;
 

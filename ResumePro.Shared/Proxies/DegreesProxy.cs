@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;

@@ -10,6 +10,8 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Shared.Extensions;
 
 public static class ResumeExtensions

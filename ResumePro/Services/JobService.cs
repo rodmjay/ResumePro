@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
@@ -55,8 +57,8 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
 
             foreach (var resume in resumes)
             {
-                var settings = Mapper.Map<ResumeSettings>(resume.ResumeSettings);
-                if (settings.AttachAllJobs.Value)
+                var settings = Mapper.Map<ResumeSettingsDto>(resume.ResumeSettings);
+                if (settings.AttachAllJobs)
                 {
                     resume.ObjectState = ObjectState.Modified;
                     resume.Jobs.Add(new ResumeJob

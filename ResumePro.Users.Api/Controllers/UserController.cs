@@ -6,8 +6,8 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Core.Middleware.Bases;
-using ResumePro.Shared;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Users.Interfaces;
 using ResumePro.Users.Services;
 

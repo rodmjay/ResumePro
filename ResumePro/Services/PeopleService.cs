@@ -7,6 +7,7 @@
 using ResumePro.Core.Queries;
 using ResumePro.Extensions;
 using ResumePro.Shared.Filters;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 

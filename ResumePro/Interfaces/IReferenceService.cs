@@ -5,6 +5,7 @@
 #endregion
 
 using ResumePro.Core.Services.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Interfaces;
 

@@ -6,13 +6,14 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Interfaces;
 
 public interface IResumeController
 {
-    Task<ResumeDetails> Get(int personId, int resumeId);
+    Task<ResumeDetails> GetResume(int personId, int resumeId);
 
     Task<IActionResult> Generate(int personId, int resumeId,
          string templateId);
@@ -20,7 +21,7 @@ public interface IResumeController
     Task<IActionResult> Download(int personId, int resumeId,
          int templateId);
 
-    Task<List<ResumeDto>> GetResumes(int personId, int resumeId);
+    Task<List<ResumeDto>> GetResumes(int personId);
 
     Task<ActionResult<ResumeDetails>> CreateResume(int personId,
          ResumeOptions options);

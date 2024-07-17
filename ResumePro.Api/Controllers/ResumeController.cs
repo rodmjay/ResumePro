@@ -8,6 +8,7 @@ using Microsoft.Net.Http.Headers;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
@@ -16,7 +17,7 @@ public sealed class ResumeController(IServiceProvider serviceProvider, IResumeSe
     : BaseController(serviceProvider), IResumeController
 {
     [HttpGet("{resumeId}")]
-    public async Task<ResumeDetails> Get([FromRoute] int personId, [FromRoute] int resumeId)
+    public async Task<ResumeDetails> GetResume([FromRoute] int personId, [FromRoute] int resumeId)
     {
         return await resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId)
             .ConfigureAwait(false);
@@ -63,7 +64,7 @@ public sealed class ResumeController(IServiceProvider serviceProvider, IResumeSe
     }
 
     [HttpGet]
-    public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId, [FromRoute] int resumeId)
+    public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId)
     {
         return await resumeService.GetResumes<ResumeDto>(OrganizationId, personId)
             .ConfigureAwait(false);

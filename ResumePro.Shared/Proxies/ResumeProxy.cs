@@ -7,15 +7,17 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeController
+public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeController
 {
-    public async Task<ResumeDetails> Get(int personId, int resumeId)
+    public async Task<ResumeDetails> GetResume(int personId, int resumeId)
     {
-        return await DoGet<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}");
+        return await DoGet<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}")
+            .ConfigureAwait(false);
     }
 
     public async Task<IActionResult> Generate(int personId, int resumeId, string templateId)
@@ -28,14 +30,16 @@ public class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), IResume
         throw new NotImplementedException();
     }
 
-    public async Task<List<ResumeDto>> GetResumes(int personId, int resumeId)
+    public async Task<List<ResumeDto>> GetResumes(int personId)
     {
-        throw new NotImplementedException();
+        return await DoGet<List<ResumeDto>>($"v1.0/people/{personId}/resumes")
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ResumeDetails>> CreateResume(int personId, ResumeOptions options)
     {
-        return await DoPost<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes", options);
+        return await DoPostActionResult<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ResumeDetails>> UpdateResume(int personId, int resumeId, ResumeOptions options)

@@ -12,8 +12,8 @@ using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
-using ResumePro.Shared;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Generator;
 

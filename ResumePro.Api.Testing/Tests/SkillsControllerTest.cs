@@ -1,0 +1,24 @@
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using NUnit.Framework;
+
+namespace ResumePro.Api.Testing.Tests;
+
+[TestFixture]
+public class SkillsControllerTest : BaseApiTest
+{
+    [TestFixture]
+    public class TheGetSkillsMethod : SkillsControllerTest
+    {
+        [Test]
+        public async Task CanGetSkills()
+        {
+            var response = await SkillsProxy.GetSkills();
+            Assert.That(response ,Is.Not.Null);
+        }
+    }
+}

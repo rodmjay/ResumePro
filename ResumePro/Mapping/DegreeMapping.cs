@@ -5,6 +5,7 @@
 #endregion
 
 using AutoMapper;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Mapping;
 

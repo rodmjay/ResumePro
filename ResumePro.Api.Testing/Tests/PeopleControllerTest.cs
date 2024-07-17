@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using ResumePro.Api.Testing.Extensions;
+using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Options;
@@ -13,7 +15,7 @@ namespace ResumePro.Api.Testing.Tests
         [TestFixture]
         public class TheUpdatePersonMethod : PeopleControllerTest
         {
-            [TestCaseSource(typeof(PersonCreateOptionsTestData), nameof(PersonCreateOptionsTestData.ValidOptions))]
+            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
             public async Task CanUpdatePerson(PersonaOptions options)
             {
                 var createResponse = await PeopleProxy.CreatePerson(options);
@@ -31,7 +33,7 @@ namespace ResumePro.Api.Testing.Tests
         [TestFixture]
         public class TheDeletePersonMethod : PeopleControllerTest
         {
-            [TestCaseSource(typeof(PersonCreateOptionsTestData), nameof(PersonCreateOptionsTestData.ValidOptions))]
+            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
             public async Task DeletePerson(PersonaOptions options)
             {
                 var createResponse = await PeopleProxy.CreatePerson(options);
@@ -49,7 +51,7 @@ namespace ResumePro.Api.Testing.Tests
         [TestFixture]
         public class TheCreatePersonMethod : PeopleControllerTest
         {
-            [TestCaseSource(typeof(PersonCreateOptionsTestData), nameof(PersonCreateOptionsTestData.ValidOptions))]
+            [TestCaseSource(typeof(PersonOptionsTestData), nameof(PersonOptionsTestData.ValidOptions))]
             public async Task CreatePerson(PersonaOptions options)
             {
                 var result = await PeopleProxy.CreatePerson(options);

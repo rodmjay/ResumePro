@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
@@ -32,7 +34,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     }
 
     public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
-        int? projectId, CreateHighlightOptions options)
+        int? projectId, HighlightCreateOptions options)
     {
         var lastHighlight = await
             Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
@@ -64,7 +66,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 
     public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId,
         int? projectId,
-        int highlightId, HighlightOptions options)
+        int highlightId, HighlightUpdateOptions options)
     {
         var highlight = await Highlights
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&

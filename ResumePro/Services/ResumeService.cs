@@ -6,6 +6,7 @@
 
 using HandlebarsDotNet;
 using ResumePro.Generation;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 

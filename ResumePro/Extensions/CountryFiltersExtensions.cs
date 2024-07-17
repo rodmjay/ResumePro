@@ -6,6 +6,7 @@
 
 using System.Linq.Expressions;
 using ResumePro.Core.Queries;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Extensions;
 

@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]

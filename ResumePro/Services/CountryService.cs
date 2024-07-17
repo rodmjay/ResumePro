@@ -6,6 +6,7 @@
 
 using System.Linq.Expressions;
 using System.Runtime.CompilerServices;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 

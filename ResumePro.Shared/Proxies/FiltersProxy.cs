@@ -5,6 +5,7 @@
 #endregion
 
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Proxies;
 

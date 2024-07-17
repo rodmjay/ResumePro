@@ -5,10 +5,11 @@
 #endregion
 
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Proxies;
 
-public class UserProxy(HttpClient httpClient) : BaseProxy(httpClient), IUserController
+public sealed class UserProxy(HttpClient httpClient) : BaseProxy(httpClient), IUserController
 {
     public async Task<UserOutput> GetUser()
     {

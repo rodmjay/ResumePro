@@ -5,6 +5,7 @@
 #endregion
 
 using ResumePro.Core.Services.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Interfaces;
 
@@ -16,11 +17,11 @@ public interface IHighlightService : IService<Highlight>
 
     Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
         int? projectId,
-        CreateHighlightOptions options);
+        HighlightCreateOptions options);
 
     Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int? projectId,
         int highlightId,
-        HighlightOptions options);
+        HighlightUpdateOptions options);
 
     Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId, int highlightId);
 }

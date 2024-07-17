@@ -5,8 +5,8 @@
 #endregion
 
 using System.Security.Claims;
-using ResumePro.Shared;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Users.Interfaces;
 

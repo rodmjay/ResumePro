@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Interfaces;
@@ -18,11 +19,11 @@ public interface IHighlightsController
     Task<List<HighlightDto>> GetHighlights(int personId, int jobId);
 
     Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId,
-         CreateHighlightOptions options);
+         HighlightCreateOptions options);
 
     Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId,
          int highlightId,
-         HighlightOptions options);
+         HighlightUpdateOptions options);
 
     Task<Result> DeleteHighlight(int personId, int jobId,
          int highlightId);

@@ -5,6 +5,7 @@
 #endregion
 
 using HandlebarsDotNet;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Generation;
 

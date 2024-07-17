@@ -6,6 +6,7 @@
 
 using System.Text;
 using ResumePro.Shared.Extensions;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Generation;
 

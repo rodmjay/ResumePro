@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
@@ -23,12 +24,12 @@ public class ProjectHighlightsProxy(HttpClient httpClient) : BaseProxy(httpClien
         throw new NotImplementedException();
     }
 
-    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId, CreateHighlightOptions options)
+    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId, HighlightCreateOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId, int highlightId, HighlightOptions options)
+    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId, int highlightId, HighlightUpdateOptions options)
     {
         throw new NotImplementedException();
     }
