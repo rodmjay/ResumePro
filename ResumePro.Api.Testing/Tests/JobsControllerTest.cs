@@ -6,12 +6,14 @@
 
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using ResumePro.Api.Controllers;
 using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.Tests;
 
 [TestFixture]
+[TestOf(typeof(JobsController))]
 public class JobsControllerTest : BaseApiTest
 {
     [TestFixture]

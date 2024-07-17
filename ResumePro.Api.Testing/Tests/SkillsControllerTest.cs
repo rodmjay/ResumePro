@@ -5,10 +5,12 @@
 #endregion
 
 using NUnit.Framework;
+using ResumePro.Api.Controllers;
 
 namespace ResumePro.Api.Testing.Tests;
 
 [TestFixture]
+[TestOf(typeof(SkillsController))]
 public class SkillsControllerTest : BaseApiTest
 {
     [TestFixture]

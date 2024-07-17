@@ -13,7 +13,7 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes")]
-public sealed class ResumeController(IServiceProvider serviceProvider, IResumeService resumeService)
+public sealed class ResumesController(IServiceProvider serviceProvider, IResumeService resumeService)
     : BaseController(serviceProvider), IResumeController
 {
     [HttpGet("{resumeId}")]

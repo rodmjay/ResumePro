@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using ResumePro.Api.Controllers;
 using ResumePro.Api.Testing.Extensions;
 using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Options;
@@ -13,7 +14,8 @@ using ResumePro.Shared.Options;
 namespace ResumePro.Api.Testing.Tests;
 
 [TestFixture]
-public class SchoolControllerTest : BaseApiTest
+[TestOf(typeof(SchoolsController))]
+public class SchoolsControllerTest : BaseApiTest
 {
     [TestFixture]
     public class TheCreateSchoolMethod : PeopleControllerTest

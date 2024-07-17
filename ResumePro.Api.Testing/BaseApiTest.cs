@@ -27,6 +27,7 @@ public abstract class BaseApiTest : IntegrationTest<BaseApiTest, Startup>
     protected IResumeController ResumeProxy => new ResumeProxy(ApiClient);
     protected IResumeSkillsController ResumeSkillsProxy => new ResumeSkillsProxy(ApiClient);
     protected ISkillsController SkillsProxy => new SkillsProxy(ApiClient);
+    protected IPersonSkillsController PersonSkillsProxy => new PersonSkillsProxy(ApiClient);
 
     [OneTimeSetUp]
     public virtual async Task SetupFixture()

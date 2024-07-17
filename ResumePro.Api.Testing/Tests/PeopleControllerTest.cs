@@ -7,6 +7,7 @@
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using NUnit.Framework.Legacy;
+using ResumePro.Api.Controllers;
 using ResumePro.Api.Testing.Extensions;
 using ResumePro.Api.Testing.TestData;
 using ResumePro.Shared.Common;
@@ -15,6 +16,7 @@ using ResumePro.Shared.Options;
 namespace ResumePro.Api.Testing.Tests;
 
 [TestFixture]
+[TestOf(typeof(PeopleController))]
 public class PeopleControllerTest : BaseApiTest
 {
     [TestFixture]

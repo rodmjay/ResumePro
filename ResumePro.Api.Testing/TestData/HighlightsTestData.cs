@@ -4,7 +4,6 @@
 
 #endregion
 
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.TestData;

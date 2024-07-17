@@ -12,7 +12,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IReferencesController
+public sealed class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IReferencesController
 {
     public async Task<ReferenceDto> Get(int personId, int referenceId)
     {
@@ -35,11 +35,13 @@ public class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClient), IRe
     public async Task<ActionResult<ReferenceDto>> UpdateReference(int personId, int referenceId, ReferenceOptions options)
     {
         return await DoPostActionResult<ReferenceOptions, ReferenceDto>(
-            $"v1.0/people/{personId}/references/{referenceId}", options);
+            $"v1.0/people/{personId}/references/{referenceId}", options)
+            .ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteReference(int personId, int referenceId)
     {
-        return await DoDelete<Result>($"v1.0/people/{personId}/references/{referenceId}");
+        return await DoDelete<Result>($"v1.0/people/{personId}/references/{referenceId}")
+            .ConfigureAwait(false);
     }
 }
