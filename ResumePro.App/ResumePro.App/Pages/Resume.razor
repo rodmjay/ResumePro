@@ -25,7 +25,7 @@
 @if (ResumeDetails != null)
 {
     <div class="container mt-3">
-        <h2>Resume Details: @ResumeDetails.JobTitle</h2>
+        <h2>Resume Details</h2>
 
         <!-- Bootstrap Nav Tabs -->
         <ul class="nav nav-tabs" id="resumeTab" role="tablist">
@@ -41,17 +41,14 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
                 <div class="p-4">
-                    <h5>Basic Information</h5>
-                    <p><strong>Name:</strong> @ResumeDetails.FirstName @ResumeDetails.LastName</p>
-                    <p><strong>Email:</strong> @ResumeDetails.Email</p>
-                    <p><strong>Phone:</strong> @ResumeDetails.PhoneNumber</p>
-                    <!-- Add more details as necessary -->
+                    <ResumeDetailsComponent Resume="@ResumeDetails" />
                 </div>
             </div>
             <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <div class="p-4">
                     <h5>Settings</h5>
-                    <!-- Settings content goes here, you can display and edit settings related to the resume -->
+                    
+                    <ResumeSettingsComponent Settings="@ResumeDetails.Settings"></ResumeSettingsComponent>
                 </div>
             </div>
         </div>

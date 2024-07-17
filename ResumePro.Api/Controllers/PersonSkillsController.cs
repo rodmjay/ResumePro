@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/skills")]
-public class PersonSkillsController : BaseController
+public class PersonSkillsController : BaseController, IPersonSkillsController
 {
     private readonly IPersonaSkillService _skillService;
 

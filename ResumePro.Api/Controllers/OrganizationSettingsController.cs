@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using OneOf;
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/settings")]
-public sealed class OrganizationSettingsController : BaseController
+public sealed class OrganizationSettingsController : BaseController, IOrganizationSettingsController
 {
     private readonly IOrganizationSettingsService _service;
 
@@ -22,18 +23,30 @@ public sealed class OrganizationSettingsController : BaseController
     }
 
     [HttpPost]
-    public async Task<OneOf<OrganizationSettingsDto, Result>> CreateSettings(
+    public async Task<ActionResult<OrganizationSettingsDto>> CreateSettings(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)] OrganizationSettingsOptions? options)
     {
-        return await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
+
+        return BadRequest(result.AsT1);
     }
 
     [HttpPut]
-    public async Task<OneOf<OrganizationSettingsDto, Result>> UpdateSettings(
+    public async Task<ActionResult<OrganizationSettingsDto>> UpdateSettings(
         [FromBody] OrganizationSettingsOptions options)
     {
-        return await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
+        if (result.IsT0)
+        {
+            return Ok(result.AsT0);
+        }
+
+        return BadRequest(result.AsT1);
     }
 }

@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/references")]
-public class ReferencesController : BaseController
+public class ReferencesController : BaseController, IReferencesController
 {
     private readonly IReferenceService _referenceService;
 

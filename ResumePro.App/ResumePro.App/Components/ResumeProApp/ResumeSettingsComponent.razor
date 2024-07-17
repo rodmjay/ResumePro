@@ -1,0 +1,64 @@
+﻿@page "/resume-settings"
+@using ResumePro.Shared
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is12.OnDesktop">
+        <Card Margin="Margin.Is4.FromBottom">
+            <CardHeader>
+                <CardTitle>Resume Settings</CardTitle>
+            </CardHeader>
+            <CardBody>
+                <Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+               
+                    <Field>
+                        <FieldLabel>Default Template ID</FieldLabel>
+                        <TextEdit @bind-Text="@Settings.DefaultTemplateId" Placeholder="Template ID" />
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.ShowTechnologyPerJob">Show Technology Per Job</Check>
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.AttachAllJobs">Attach All Jobs</Check>
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.AttachAllSkills">Attach All Skills</Check>
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.ShowRatings">Show Ratings</Check>
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.ShowDuration">Show Duration</Check>
+                    </Field>
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@Settings.ShowContactInfo">Show Contact Info</Check>
+                    </Field>
+                    
+                    <Button Color="Color.Primary" Clicked="@Submit">Save Settings</Button>
+                </Validations>
+            </CardBody>
+        </Card>
+    </Column>
+</Row>
+
+@code {
+    [Parameter]
+    public ResumeSettingsDto Settings { get; set; }
+
+    Validations? validationsRef;
+
+    async Task Submit()
+    {
+        if (await validationsRef!.ValidateAll())
+        {
+            // Assuming you have a method to save the settings
+            await SaveSettings();
+            await validationsRef.ClearAll();
+        }
+    }
+
+    private Task SaveSettings()
+    {
+        // Implement your save logic here
+        throw new NotImplementedException();
+    }
+}

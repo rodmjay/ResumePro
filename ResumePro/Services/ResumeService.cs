@@ -92,7 +92,7 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
         {
             var resumeDto = await GetResume<ResumeDto>(organizationId, personaId, resume.Id);
 
-            if (resumeDto.Settings.AttachAllJobs.Value)
+            if (resumeDto.Settings.AttachAllJobs)
             {
                 var jobs = await Jobs
                     .AsNoTracking()
@@ -106,8 +106,26 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
                         JobId = job.Id
                     });
             }
+            else
+            {
+                if (options.JobIds?.Any() == true)
+                {
+                    var jobs = await Jobs.AsNoTracking()
+                        .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
+                        .Where(x => options.JobIds.Contains(x.Id))
+                        .ToListAsync();
 
-            if (resumeDto.Settings.AttachAllSkills.Value)
+                    foreach (var job in jobs)
+                        resume.Jobs.Add(new ResumeJob
+                        {
+                            ObjectState = ObjectState.Added,
+                            JobId = job.Id
+                        });
+                }
+            }
+         
+
+            if (resumeDto.Settings.AttachAllSkills)
             {
                 var skills = await PersonalSkills
                     .AsNoTracking()
@@ -120,6 +138,27 @@ public sealed class ResumeService : BaseService<Resume>, IResumeService
                         ObjectState = ObjectState.Added,
                         SkillId = skill.SkillId
                     });
+            }
+            else
+            {
+                if (options.SkillIds?.Any() == true)
+                {
+                    var skills = await PersonalSkills
+                        .AsNoTracking()
+                        .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId)
+                        .Where(x => options.SkillIds.Contains(x.SkillId))
+                        .ToListAsync();
+
+                    foreach (var skill in skills)
+                    {
+                        resume.Skills.Add(new ResumeSkill
+                        {
+                            ObjectState = ObjectState.Added,
+                            SkillId = skill.SkillId
+                        });
+                    }
+
+                }
             }
 
             Repository.InsertOrUpdateGraph(resume, true);

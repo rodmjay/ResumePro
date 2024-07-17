@@ -38,7 +38,7 @@ public class ResumeProxy : BaseProxy, IResumeController
 
     public async Task<ActionResult<ResumeDetails>> CreateResume(int personId, ResumeOptions options)
     {
-        throw new NotImplementedException();
+        return await DoPost<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes", options);
     }
 
     public async Task<ActionResult<ResumeDetails>> UpdateResume(int personId, int resumeId, ResumeOptions options)

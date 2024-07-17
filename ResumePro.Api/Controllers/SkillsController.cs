@@ -6,10 +6,11 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
-public class SkillsController : BaseController
+public class SkillsController : BaseController, ISkillsController
 {
     private readonly ISkillService _skillService;
 

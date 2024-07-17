@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs")]
-public class JobsController : BaseController
+public class JobsController : BaseController, IJobsController
 {
     private readonly IJobService _jobService;
 

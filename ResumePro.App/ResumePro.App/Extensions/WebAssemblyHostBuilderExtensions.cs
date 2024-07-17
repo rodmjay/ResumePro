@@ -14,54 +14,77 @@ public static class WebAssemblyHostBuilderExtensions
 {
     public static WebAssemblyHostBuilder AddProxies(this WebAssemblyHostBuilder builder)
     {
-        builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
         builder.Services
             .AddTransient<ApiAuthorizationMessageHandler>();
 
-        var url = new Uri(builder.Configuration["ApiBase"]);
+        var resumeProApiUrl = new Uri(builder.Configuration["ApiBase"]);
+        var resumeProUsersApiUrl = new Uri(builder.Configuration["UserApiBase"]);
 
         builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
-                client => client.BaseAddress = url)
+                client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
         builder.Services.AddHttpClient<IResumeController, ResumeProxy>(
-                client => client.BaseAddress = url)
+                client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IApplicationLanguagesController, ApplicationLanguagesProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IJobsController, JobsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        
+        builder.Services.AddHttpClient<ICertificationsController, CertificationsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IApplicationUsersController, ApplicationUsersProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IDegreesController, DegreesProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<ILanguagesController, LanguagesProxy>(
-        //    client => client.BaseAddress = url);
+        builder.Services.AddHttpClient<IFiltersController, FiltersProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IApplicationPhrasesController, ApplicationPhrasesProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IHighlightsController, HighlightsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IApplicationTranslationsController, ApplicationTranslationsProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IOrganizationSettingsController, OrganizationSettingsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IApplicationConsumptionController, ApplicationConsumptionProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IPersonSkillsController, PersonSkillsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IStripeController, StripeProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IProjectHighlightsController, ProjectHighlightsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<IUserController, UserProxy>(
-        //        client => client.BaseAddress = url)
-        //    .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+        builder.Services.AddHttpClient<IProjectsController, ProjectsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        //builder.Services.AddHttpClient<TranslationsProxy>(
-        //    client => client.BaseAddress = translationsUrl);
+        builder.Services.AddHttpClient<IReferencesController, ReferencesProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
+        builder.Services.AddHttpClient<IResumeSkillsController, ResumeSkillsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
+        builder.Services.AddHttpClient<ISchoolsController, SchoolsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
+        builder.Services.AddHttpClient<ISkillsController, SkillsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
+        builder.Services.AddHttpClient<IUserController, UserProxy>(
+                client => client.BaseAddress = resumeProUsersApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
         return builder;
     }

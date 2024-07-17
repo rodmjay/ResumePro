@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs/{jobId}/highlights")]
-public class HighlightsController : BaseController
+public class HighlightsController : BaseController, IHighlightsController
 {
     private readonly IHighlightService _highlightService;
 

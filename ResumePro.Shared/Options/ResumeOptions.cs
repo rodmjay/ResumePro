@@ -14,6 +14,10 @@ public class ResumeOptions
 
     [NotNull] public string Description { get; set; }
 
-
     public ResumeSettingsOptions Settings { get; set; } = new();
+
+    public List<int> SkillIds { get; set; }
+
+    public List<int> JobIds { get; set; }
+
 }

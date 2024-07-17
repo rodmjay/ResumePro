@@ -1,0 +1,61 @@
+﻿@page "/create-resume/{PersonId:int}"
+@using Microsoft.AspNetCore.Components
+@using ResumePro.Shared.Options
+@using ResumePro.Shared.Proxies
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+@inject NavigationManager Navigation
+
+@code {
+    [Parameter] public int PersonId { get; set; }
+
+    [Inject] public IResumeController ResumeController { get; set; }
+
+    private ResumeOptions ResumeOptions = new ResumeOptions();
+
+    Validations? validationsRef;
+
+    private async Task HandleValidSubmit()
+    {
+        if (await validationsRef!.ValidateAll())
+        {
+            if (await validationsRef.ValidateAll())
+            {
+                var response = await ResumeController.CreateResume(PersonId, ResumeOptions);
+                Navigation.NavigateTo($"/people/{PersonId}/resumes/{response.Value.Id}");
+            }
+        }
+    }
+}
+
+<Row>
+    <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+        <Card Margin="Margin.Is4.FromBottom">
+            <CardHeader>
+                <CardTitle>Create Resume</CardTitle>
+            </CardHeader>
+            <CardBody>
+
+                    <Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+                        <Validation Validator="@ValidationRule.IsNotEmpty">
+                            <Field>
+                                <FieldLabel>Title</FieldLabel>
+                                <TextEdit Placeholder="Enter title" @bind-Text="ResumeOptions.Title" />
+                            </Field>
+                        </Validation>
+                        <Validation Validator="@ValidationRule.IsNotEmpty">
+                            <Field>
+                                <FieldLabel>Description</FieldLabel>
+                                <TextEdit Placeholder="Enter description" @bind-Text="ResumeOptions.Description" />
+                            </Field>
+                        </Validation>
+
+                        <Field>
+                            <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
+                        </Field>
+                    </Validations>
+
+            </CardBody>
+        </Card>
+    </Column>
+</Row>

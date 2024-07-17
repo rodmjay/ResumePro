@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/filters")]
-public class FiltersController : BaseController
+public class FiltersController : BaseController, IFiltersController
 {
     private readonly IFilterManager _filterManager;
 

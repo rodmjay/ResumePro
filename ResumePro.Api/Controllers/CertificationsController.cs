@@ -6,11 +6,12 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Proxies;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/certifications")]
-public class CertificationsController : BaseController
+public class CertificationsController : BaseController, ICertificationsController
 {
     private readonly ICertificationService _certificationService;
 
