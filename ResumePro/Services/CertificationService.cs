@@ -34,8 +34,8 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public async Task<OneOf<CertificationDto, Result>> CreateCertification(int organizationId, int personId,
         CertificationOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}"), organizationId,
-            personId);
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"), organizationId,
+            personId, options);
 
         var certification = new Certification
         {
@@ -58,8 +58,8 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
         int certificationId, CertificationOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}"),
-            organizationId, personId, certificationId);
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}, Options: {@options}"),
+            organizationId, personId, certificationId, options);
 
         var certification = await Certifications.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)

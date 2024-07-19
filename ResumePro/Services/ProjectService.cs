@@ -38,10 +38,11 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
         Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, Options: {@options}"),
             organizationId, jobId, options);
 
-        var lastProject = await
+        int lastProjectOrder = await
             Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
+                .Select(x=>x.Order)
                 .FirstOrDefaultAsync();
 
         var project = new Project
@@ -53,13 +54,8 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
             Description = options.Description,
             JobId = jobId,
             Name = options.Name,
-            Order = options.Order
+            Order = lastProjectOrder + 1
         };
-
-        if (lastProject == null)
-            project.Order = 1;
-        else
-            project.Order = lastProject.Order + 1;
 
         var results = Repository.InsertOrUpdateGraph(project, true);
         if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);

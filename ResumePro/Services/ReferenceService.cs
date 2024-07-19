@@ -40,10 +40,11 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
-        var lastReference = await
+        int lastReferenceOrder = await
             References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
+                .Select(x=>x.Order)
                 .FirstOrDefaultAsync();
 
         var reference = new Reference
@@ -53,13 +54,9 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             PersonaId = personId,
             Text = options.Text,
             Name = options.Name,
-            Id = await GetNextReferenceId(organizationId, personId)
+            Id = await GetNextReferenceId(organizationId, personId),
+            Order = lastReferenceOrder + 1
         };
-
-        if (lastReference == null)
-            reference.Order = 1;
-        else
-            reference.Order = lastReference.Order + 1;
 
         var results = Repository.InsertOrUpdateGraph(reference, true);
         if (results > 0)
