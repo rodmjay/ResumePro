@@ -32,7 +32,7 @@ public sealed class CertificationsController(
     }
 
     [HttpPost]
-    public async Task<ActionResult<CertificationDto>> Create([FromRoute] int personId,
+    public async Task<ActionResult<CertificationDto>> CreateCertification([FromRoute] int personId,
         [FromBody] CertificationOptions options)
     {
         var result = await certificationService.CreateCertification(OrganizationId, personId, options)

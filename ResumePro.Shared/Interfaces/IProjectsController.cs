@@ -18,7 +18,7 @@ public interface IProjectsController
 
     Task<List<ProjectDetails>> GetList(int personId, int jobId);
 
-    Task<ActionResult<ProjectDetails>> Create(int personId, int jobId,
+    Task<ActionResult<ProjectDetails>> CreateProject(int personId, int jobId,
          ProjectOptions options);
 
     Task<ActionResult<ProjectDetails>> Update(int personId, int jobId,

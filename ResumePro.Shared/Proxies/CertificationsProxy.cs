@@ -26,7 +26,7 @@ public sealed class CertificationsProxy(HttpClient httpClient) : BaseProxy(httpC
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<CertificationDto>> Create(int personId, CertificationOptions options)
+    public async Task<ActionResult<CertificationDto>> CreateCertification(int personId, CertificationOptions options)
     {
         return await DoPostActionResult<CertificationOptions, CertificationDto>(
                 $"v1.0/people/{personId}/certifications", options)

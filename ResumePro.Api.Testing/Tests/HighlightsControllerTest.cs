@@ -25,6 +25,10 @@ public class HighlightsControllerTest : BaseApiTest
         {
             var response = await HighlightsProxy.CreateHighlight(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
+
+            var highlight = response.GetObject();
+            Assert.That(highlight.Id, Is.GreaterThan(0));
+            Assert.That(highlight.Text, Is.EqualTo(options.Text));
         }
     }
 
@@ -39,12 +43,18 @@ public class HighlightsControllerTest : BaseApiTest
 
             var highlightId = response.GetObject().Id;
 
-            var updateResponse = await HighlightsProxy.UpdateHighlight(1, 1, highlightId, new HighlightUpdateOptions()
+            var updateOptions = new HighlightUpdateOptions()
             {
                 Order = 1,
-                Text = options.Text
-            });
+                Text = options.Text + "_updated"
+            };
+            
+            var updateResponse = await HighlightsProxy.UpdateHighlight(1, 1, highlightId, updateOptions);
             Assert.That(updateResponse.Result is OkObjectResult, Is.True);
+
+            var highlight = updateResponse.GetObject();
+            Assert.That(highlight.Text, Is.EqualTo(updateOptions.Text));
+            Assert.That(highlight.Order, Is.EqualTo(updateOptions.Order));
         }
     }
 
@@ -72,6 +82,7 @@ public class HighlightsControllerTest : BaseApiTest
 
             var highlight = await HighlightsProxy.GetHighlight(1, 1, highlightId);
             Assert.That(highlight.Id, Is.EqualTo(highlightId));
+            Assert.That(highlight.Text, Is.EqualTo(options.Text));
         }
     }
 

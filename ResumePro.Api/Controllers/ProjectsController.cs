@@ -31,7 +31,7 @@ public sealed class ProjectsController(IServiceProvider serviceProvider, IProjec
     }
 
     [HttpPost]
-    public async Task<ActionResult<ProjectDetails>> Create([FromRoute] int personId, [FromRoute] int jobId,
+    public async Task<ActionResult<ProjectDetails>> CreateProject([FromRoute] int personId, [FromRoute] int jobId,
         [FromBody] ProjectOptions options)
     {
         var result = await projectService.CreateProject(OrganizationId, jobId, options)

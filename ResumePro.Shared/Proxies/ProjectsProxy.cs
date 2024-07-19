@@ -26,7 +26,7 @@ public sealed class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient)
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ProjectDetails>> Create(int personId, int jobId, ProjectOptions options)
+    public async Task<ActionResult<ProjectDetails>> CreateProject(int personId, int jobId, ProjectOptions options)
     {
         return await DoPostActionResult<ProjectOptions, ProjectDetails>($"v1.0/people/{personId}/jobs/{jobId}/projects",
             options).ConfigureAwait(false);

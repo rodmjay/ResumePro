@@ -16,7 +16,7 @@ public interface ICertificationsController
     Task<CertificationDto> Get(int personId, int certificationId);
     Task<List<CertificationDto>> Get(int personId);
 
-    Task<ActionResult<CertificationDto>> Create(int personId,
+    Task<ActionResult<CertificationDto>> CreateCertification(int personId,
          CertificationOptions options);
 
     Task<ActionResult<CertificationDto>> Update(int personId, int certificationId,
