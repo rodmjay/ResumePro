@@ -10,6 +10,6 @@ public class PersonaFilters
 {
     public string FirstName { get; set; }
     public string LastName { get; set; }
-    public int[] Skills { get; set; } = Array.Empty<int>();
-    public string State { get; set; }
+    public List<int> Skills { get; set; } = new List<int>();
+    public int State { get; set; }
 }

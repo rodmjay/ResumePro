@@ -7,10 +7,11 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
-public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>
+public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>, IPersonaLanguage
 {
     public int OrganizationId { get; set; }
     public int PersonaId { get; set; }

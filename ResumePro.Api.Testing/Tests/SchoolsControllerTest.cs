@@ -18,7 +18,7 @@ namespace ResumePro.Api.Testing.Tests;
 public class SchoolsControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheCreateSchoolMethod : PeopleControllerTest
+    public sealed class TheCreateSchoolMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanCreateSchool(SchoolOptions options)
@@ -29,7 +29,7 @@ public class SchoolsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheUpdateSchoolMethod : PeopleControllerTest
+    public sealed class TheUpdateSchoolMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanUpdateSchool(SchoolOptions options)
@@ -40,7 +40,7 @@ public class SchoolsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheGetSchoolMethod : PeopleControllerTest
+    public sealed class TheGetSchoolMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanGetSchool(SchoolOptions options)
@@ -51,7 +51,7 @@ public class SchoolsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheGetSchoolsMethod : PeopleControllerTest
+    public sealed class TheGetSchoolsMethod : PeopleControllerTest
     {
         [Test]
         public async Task CanGetSchools()
@@ -62,7 +62,7 @@ public class SchoolsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheDeleteSchoolMethod : PeopleControllerTest
+    public sealed class TheDeleteSchoolMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanDeleteSchool(SchoolOptions options)

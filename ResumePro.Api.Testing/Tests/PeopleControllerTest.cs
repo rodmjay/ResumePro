@@ -20,7 +20,7 @@ namespace ResumePro.Api.Testing.Tests;
 public class PeopleControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheUpdatePersonMethod : PeopleControllerTest
+    public sealed class TheUpdatePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task CanUpdatePerson(PersonaOptions options)
@@ -38,7 +38,7 @@ public class PeopleControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheDeletePersonMethod : PeopleControllerTest
+    public sealed class TheDeletePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task DeletePerson(PersonaOptions options)
@@ -56,7 +56,7 @@ public class PeopleControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheCreatePersonMethod : PeopleControllerTest
+    public sealed class TheCreatePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
         public async Task CreatePerson(PersonaOptions options)
@@ -67,7 +67,7 @@ public class PeopleControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheGetPersonMethod : PeopleControllerTest
+    public sealed class TheGetPersonMethod : PeopleControllerTest
     {
         [Test]
         public async Task CanGetPerson()
@@ -78,7 +78,7 @@ public class PeopleControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheGetPeopleMethod : PeopleControllerTest
+    public sealed class TheGetPeopleMethod : PeopleControllerTest
     {
         [Test]
         public async Task CanGetPeople()

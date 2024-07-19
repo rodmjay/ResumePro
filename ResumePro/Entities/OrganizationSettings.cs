@@ -18,7 +18,7 @@ public sealed class OrganizationSettings : BaseEntity<OrganizationSettings>, IOr
     public int ResumeYearHistory { get; set; } = 10;
     public bool AttachAllJobs { get; set; } = true;
     public bool AttachAllSkills { get; set; } = true;
-    public string DefaultTemplateId { get; set; } = "markdown";
+    public int DefaultTemplateId { get; set; } = 2;
     public bool ShowTechnologyPerJob { get; set; } = false;
     public bool ShowDuration { get; set; } = true;
     public bool ShowContactInfo { get; set; } = true;

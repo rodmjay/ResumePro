@@ -11,7 +11,7 @@ namespace ResumePro.Shared.Options;
 public class OrganizationSettingsOptions
 {
     public int ResumeYearHistory { get; set; } = 10;
-    public string DefaultTemplateId { get; set; } = "markdown";
+    public int DefaultTemplateId { get; set; } = 2;
     public bool ShowTechnologyPerJob { get; set; } = false;
     public bool AttachAllJobs { get; set; } = true;
     public bool AttachAllSkills { get; set; } = true;

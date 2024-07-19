@@ -64,7 +64,11 @@ public static class AppBuilderExtensions
 
             var dbContextOptions = new DbContextOptionsBuilder<TContext>()
                 .UseSqlServer(builder.ConnectionString,
-                    opts => { opts.CommandTimeout(builder.AppSettings.Database.Timeout); })
+                    opts =>
+                    {
+                        opts.EnableRetryOnFailure();
+                        opts.CommandTimeout(builder.AppSettings.Database.Timeout);
+                    })
                 .Options;
 
 

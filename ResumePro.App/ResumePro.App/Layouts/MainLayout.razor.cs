@@ -11,7 +11,7 @@ namespace ResumePro.App.Layouts;
 
 public partial class MainLayout
 {
-    protected string layoutType = "fixed-header";
+    protected string layoutType = "sider-with-header-on-top";
     [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 
     [CascadingParameter] protected Theme? Theme { get; set; }

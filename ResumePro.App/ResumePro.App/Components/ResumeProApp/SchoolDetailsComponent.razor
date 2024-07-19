@@ -1,0 +1,8 @@
+﻿<div>
+    <h4>@School.Name</h4>
+    <p>@School.StartDate.ToShortDateString() - @School.EndDate?.ToShortDateString()</p>
+    @foreach (var degree in School.Degrees)
+    {
+        <p>@degree.Name</p>
+    }
+</div>

@@ -35,16 +35,16 @@
 		<None Remove="Seeding\csv\skills.csv" />
 		<None Remove="Seeding\csv\skill_categories.csv" />
 		<None Remove="Seeding\csv\state_provinces.csv" />
-		<None Remove="Seeding\templates\html.hb" />
-		<None Remove="Seeding\templates\markdown.hb" />
+		<None Remove="Seeding\templates\1_html.htm.hb" />
+		<None Remove="Seeding\templates\2_markdown.md.hb" />
 		<None Remove="sharedSettings.json" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Seeding\templates\html.hb">
+	  <Content Include="Seeding\templates\1_html.htm.hb">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
-	  <Content Include="Seeding\templates\markdown.hb">
+	  <Content Include="Seeding\templates\2_markdown.md.hb">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>

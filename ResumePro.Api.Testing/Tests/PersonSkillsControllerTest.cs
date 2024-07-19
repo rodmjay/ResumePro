@@ -16,7 +16,7 @@ namespace ResumePro.Api.Testing.Tests;
 public class PersonSkillsControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheGetSkillsMethod : PersonSkillsControllerTest
+    public sealed class TheGetSkillsMethod : PersonSkillsControllerTest
     {
         [Test]
         public async Task CanGetSkills()
@@ -27,7 +27,7 @@ public class PersonSkillsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheAddOrUpdateSkillMethod : PersonSkillsControllerTest
+    public sealed class TheAddOrUpdateSkillMethod : PersonSkillsControllerTest
     {
         [TestCaseSource(typeof(PersonSkillTestData), nameof(PersonSkillTestData.ValidOptions))]
         public async Task CanAddOrUpdateSkill(PersonaSkillsOptions options)
@@ -38,7 +38,7 @@ public class PersonSkillsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheDeletePersonalSkillMethod : PersonSkillsControllerTest
+    public sealed class TheDeletePersonalSkillMethod : PersonSkillsControllerTest
     {
         [TestCaseSource(typeof(PersonSkillTestData), nameof(PersonSkillTestData.ValidOptions))]
         public async Task CanDeleteSkill(PersonaSkillsOptions options)

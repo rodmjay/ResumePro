@@ -17,16 +17,10 @@ public sealed class FilterManager(
 {
     public async Task<FilterContainer> GetFilters(int organizationId)
     {
-        var statesTask = stateService.GetStatesDropdown("US");
-        var skillsTask = skillService.GetSkillsDropdown();
-
-        await Task.WhenAll(statesTask, skillsTask);
-
-        // Use the results of the tasks
         var retVal = new FilterContainer
         {
-            States = statesTask.Result,
-            Skills = skillsTask.Result
+            States = await stateService.GetStatesDropdown("US"),
+            Skills = await skillService.GetSkillsDropdown()
         };
 
         return retVal;

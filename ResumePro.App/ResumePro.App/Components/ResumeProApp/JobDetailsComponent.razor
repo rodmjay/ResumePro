@@ -1,0 +1,35 @@
+﻿<div class="job-section">
+    <h4>@JobDetails.Title at @JobDetails.Company</h4>
+    <p>@JobDetails.StartDate.ToShortDateString() - @(JobDetails.DisplayEndDate) (@JobDetails.Duration)</p>
+    <p>@JobDetails.Description</p>
+
+    @if (JobDetails.Highlights != null && JobDetails.Highlights.Any())
+    {
+        <ul>
+            @foreach (var highlight in JobDetails.Highlights)
+            {
+                <li>@highlight.Text</li>
+            }
+        </ul>
+    }
+
+    @if (JobDetails.Projects != null && JobDetails.Projects.Any())
+    {
+        @foreach (var project in JobDetails.Projects)
+        {
+            <div>
+                <h6>Project: @project.Name</h6>
+                <p>@project.Description</p>
+                @if (project.Highlights != null && project.Highlights.Any())
+                {
+                    <ul>
+                        @foreach (var ph in project.Highlights)
+                        {
+                            <li>@ph.Text</li>
+                        }
+                    </ul>
+                }
+            </div>
+        }
+    }
+</div>

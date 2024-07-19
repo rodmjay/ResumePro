@@ -16,6 +16,7 @@ public sealed class ResumeService(
     TemplateErrorDescriber templateErrors,
     IRepositoryAsync<Job> jobRepo,
     IRepositoryAsync<PersonaSkill> personalSkillsRepo,
+    IRepositoryAsync<Rendering> renderingRepo,
     IRepositoryAsync<Template> templateRepo,
     IServiceProvider serviceProvider)
     : BaseService<Resume>(serviceProvider), IResumeService
@@ -24,6 +25,7 @@ public sealed class ResumeService(
     private IQueryable<Job> Jobs => jobRepo.Queryable();
     private IQueryable<PersonaSkill> PersonalSkills => personalSkillsRepo.Queryable();
     private IQueryable<Template> Templates => templateRepo.Queryable();
+    private IQueryable<Rendering> Renderings => renderingRepo.Queryable();
 
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
@@ -144,11 +146,15 @@ public sealed class ResumeService(
                             SkillId = skill.SkillId
                         });
                     }
-
                 }
             }
 
-            Repository.InsertOrUpdateGraph(resume, true);
+            var settings = Mapper.Map<ResumeSettingsDto>(resume.ResumeSettings);
+
+            if (settings.DefaultTemplateId != null)
+            {
+                return await Generate(organizationId, personaId, resume.Id);
+            }
 
             return await GetResume<ResumeDetails>(organizationId, personaId, resume.Id);
         }
@@ -191,7 +197,9 @@ public sealed class ResumeService(
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
         if (records > 0)
+        {
             return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
+        }
 
         return Result.Failed(resumeErrors.UnableToSaveResume());
     }
@@ -210,32 +218,60 @@ public sealed class ResumeService(
         return resumeGenerator.ExecuteOperation(resume);
     }
 
-    public async Task<OneOf<GeneratedResume, Result>> Generate(int organizationId, int personId, int resumeId,
-        string templateId)
+    public async Task<ResumeDetails> Generate(int organizationId, int personId, int resumeId)
     {
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
-        if (resume == null)
-            return Result.Failed();
+        var template = await Templates.Where(x => x.Id == resume.Settings.DefaultTemplateId)
+            .FirstOrDefaultAsync();
 
-        return await Generate(resume, templateId);
+        if (template == null || template.Source == null)
+            throw new Exception();
+
+        var rendering = await Renderings.Where(x =>
+                x.OrganizationId == organizationId && x.ResumeId == resumeId && x.TemplateId == resume.Settings.DefaultTemplateId)
+            .FirstOrDefaultAsync();
+
+
+        if (rendering == null)
+        {
+            rendering = new Rendering()
+            {
+                ObjectState = ObjectState.Added,
+                OrganizationId = organizationId,
+                ResumeId = resumeId,
+                TemplateId = resume.Settings.DefaultTemplateId
+            };
+        }
+        else
+        {
+            rendering.ObjectState = ObjectState.Modified;
+        }
+
+        var generatedResume = await Generate(resume, resume.Settings.DefaultTemplateId);
+        if (generatedResume.IsT0)
+        {
+            rendering.Text = generatedResume.AsT0;
+            rendering.RenderDate = DateTime.UtcNow;
+        }
+
+        var records = renderingRepo.InsertOrUpdateGraph(rendering, true);
+
+        return await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+
     }
 
-    public async Task<OneOf<GeneratedResume, Result>> Generate(ResumeDetails resume, string templateId)
+    public async Task<OneOf<string, Result>> Generate(ResumeDetails resume, int templateId)
     {
-        var generatedResume = new GeneratedResume();
-
-        var template = await Templates.Where(x => x.Name == templateId)
+        var template = await Templates.Where(x => x.Id == templateId)
             .FirstOrDefaultAsync();
 
         if (template == null || template.Source == null)
             return Result.Failed(templateErrors.TemplateNotFound(templateId));
 
         var engine = Handlebars.Compile(template.Source);
-
-        generatedResume.Body = engine(resume);
-
-        return generatedResume;
+        
+        return engine(resume);
     }
 
     public async Task<Result> DeleteResume(int organizationId, int personaId, int resumeId)

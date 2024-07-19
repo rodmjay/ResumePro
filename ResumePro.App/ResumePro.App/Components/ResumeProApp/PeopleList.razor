@@ -1,8 +1,42 @@
-﻿@using ResumePro.Shared.Models
+﻿@using System.Security.Cryptography.X509Certificates
+@using ResumePro.Shared.Models
+@using Blazorise.Components
 
 @if (PagedList != null)
 {
  
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <div class="input-group">
+                <SelectList TItem="ResumePro.Shared.Common.DropdownItem"
+                            TValue="int"
+                            Data="@filterContainer.Skills"
+                            TextField="@((item)=>item.Name)"
+                            ValueField="@((item)=>int.Parse(item.Value))"
+                            Multiple
+                            SelectedValues="@PersonaFilters.Skills"
+                            SelectedValuesChanged="@((IReadOnlyList<int> values) => SelectedSkillsChanged(values))"
+                            DefaultItemText="Choose your skills" />
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <label class="input-group-text" for="stateFilter">States</label>
+                </div>
+                <Select TValue="int" SelectedValue="@PersonaFilters.State" SelectedValueChanged="@(value => SelectedStateChanged(value))">
+                    
+                    @foreach (var state in filterContainer.States)
+                    {
+                        <SelectItem Value="@(int.Parse(state.Value))">@state.Name</SelectItem>
+                    }
+
+                </Select>
+            </div>
+        </div>
+    </div>
+
     <DataGrid TItem="PersonaDto"
               Data="@PagedList.Items"
               TotalItems="@PagedList.TotalItems"

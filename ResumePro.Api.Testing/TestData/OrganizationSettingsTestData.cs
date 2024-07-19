@@ -19,7 +19,7 @@ public class OrganizationSettingsTestData
             {
                 AttachAllSkills = true,
                 AttachAllJobs = true,
-                DefaultTemplateId = "markdown",
+                DefaultTemplateId = 2,
                 ResumeYearHistory = 10,
                 ShowContactInfo = true,
                 ShowDuration = true,

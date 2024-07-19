@@ -47,28 +47,13 @@ internal class Program
             return args.Length > index && int.TryParse(args[index], out var parsedValue) ? parsedValue : defaultValue;
         }
 
-        string GetArgValueString(int position, string defaultValue)
-        {
-            var index = position - 1;
-            return args.Length > index ? args[index] : defaultValue;
-        }
-
         var organizationId = GetArgValue(1, 1);
         var personaId = GetArgValue(2, 1);
         var resumeId = GetArgValue(3, 1);
-        var templateId = GetArgValueString(4, "markdown");
 
         var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
         var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId);
-
-        OneOf<GeneratedResume, Result> generatedResume = await resumeService.Generate(resume, templateId);
-
-        if (generatedResume.IsT0)
-        {
-            Console.WriteLine(generatedResume.AsT0.Body);
-            UpdateReadMe(generatedResume.AsT0.Body);
-        }
 
         var pdfGenerator = new PdfResumeGenerator(new PdfSettings
         {
@@ -76,6 +61,8 @@ internal class Program
             DisplayInExplorer = true,
             FontFamily = "Verdana"
         });
+
+        UpdateReadMe(resume.Renderings.First(x => x.Format == "md").Text);
 
         pdfGenerator.ExecuteOperation(resume);
 

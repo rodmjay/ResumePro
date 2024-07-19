@@ -4,152 +4,123 @@
 
 @if (@Persona != null)
 {
-    <h2>Persona Details</h2>
-
-    <div class="container mt-4">
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Basic Information</h3>
-                <p><strong>Name:</strong> @Persona.FirstName @Persona.LastName</p>
-                <p><strong>Email:</strong> @Persona.Email</p>
-                <p><strong>Phone:</strong> @Persona.PhoneNumber</p>
-                <p><strong>LinkedIn:</strong> <a href="@Persona.LinkedIn">@Persona.LinkedIn</a></p>
-                <p><strong>GitHub:</strong> <a href="@Persona.GitHub">@Persona.GitHub</a></p>
-                <p><strong>Location:</strong> @Persona.City, @Persona.State, @Persona.Country</p>
-            </div>
-        </div>
+    <div class="container sticky-top mt-3">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">@Persona.LastName, @Persona.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
         
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Resumes</h3>
-                @if (Persona.Resumes != null && Persona.Resumes.Count > 0)
-                {
-                    <div class="row">
-                        @foreach (var resume in Persona.Resumes)
+        <ul class="nav nav-tabs" id="resumeTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basicInfo" type="button" role="tab" aria-controls="basicInfo" aria-selected="true">Person Details</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="resumes-tab" data-bs-toggle="tab" data-bs-target="#resumes" type="button" role="tab" aria-controls="resumes" aria-selected="false">Resumes (@Persona.ResumeCount) </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab" aria-controls="jobs" aria-selected="false">Jobs (@Persona.JobCount) </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">Education </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab" aria-controls="skills" aria-selected="false">Skills (@Persona.SkillCount)</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="certifications-tab" data-bs-toggle="tab" data-bs-target="#certifications" type="button" role="tab" aria-controls="certifications" aria-selected="false">Certifications</button>
+            </li>
+        </ul>
+
+    </div>
+
+    <div class="container mt-3">
+
+        <!-- Tab Content -->
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basic-info-tab">
+                <div class="p-4">
+                    
+                    <PersonContactInfoComponent Person="@Persona"></PersonContactInfoComponent>
+
+                    <PersonLanguagesCard Person="@Persona"></PersonLanguagesCard>
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="resumes" role="tabpanel" aria-labelledby="resumes-tab">
+                <div class="p-4">
+                    @if (Persona.Resumes != null && Persona.Resumes.Count > 0)
+                    {
+                        <div class="row">
+                            @foreach (var resume in Persona.Resumes)
+                            {
+                                <ResumeCardComponent PersonId="@PersonId" Resume="@resume"></ResumeCardComponent>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p>No resumes to display.</p>
+                    }
+
+                </div>
+            </div>
+            <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
+                <div class="p-4">
+                    @if (Persona.Jobs != null)
+                    {
+                        foreach (var job in Persona.Jobs)
                         {
-                            <div class="col-md-4">
-                                <div class="card mb-4" style="cursor: pointer;" @onclick="() => NavigateToResumeDetails(resume.Id)">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@resume.JobTitle</h5>
-                                        <h6 class="card-subtitle mb-2 text-muted">@resume.FirstName @resume.LastName</h6>
-                                        <p class="card-text">
-                                            <strong>Email:</strong> @resume.Email<br>
-                                            <strong>Phone:</strong> @resume.PhoneNumber
-                                        </p>
-                                        <a href="mailto:@resume.Email" class="card-link">Send Email</a>
-                                        <a href="@resume.LinkedIn" class="card-link">LinkedIn Profile</a>
-                                    </div>
+                            <JobCardComponent Job="@job"></JobCardComponent>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+                <div class="p-4">
+                    @if (Persona.Education != null)
+                    {
+                        foreach (var school in Persona.Education)
+                        {
+                            <div class="card mb-2">
+                                <div class="card-body">
+                                    <h5 class="card-title">@school.Name</h5>
+                                    @foreach (var degree in school.Degrees)
+                                    {
+                                        <p class="card-text">@degree.Name</p>
+                                    }
                                 </div>
                             </div>
                         }
-                    </div>
-                }
-                else
-                {
-                    <p>No resumes to display.</p>
-                }
-            </div>
-        </div>
-
-
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Jobs</h3>
-                @if (Persona.Jobs != null)
-                {
-                    foreach (var job in Persona.Jobs)
-                    {
-                        <div class="card mb-2">
-                            <div class="card-header">
-                                <strong>@job.Title</strong> at @job.Company
-                            </div>
-                            <div class="card-body">
-                                <h6 class="card-subtitle mb-2 text-muted">
-                                    @job.StartDate.ToShortDateString() - @(job.EndDate.HasValue ? job.EndDate.Value.ToShortDateString() : "Present")
-                                </h6>
-                                <p class="card-text">@job.Description</p>
-                                <p class="card-text">
-                                    <strong>Skills:</strong> @string.Join(", ", job.Skills.Select(s => s.Name))
-                                </p>
-                                @if (job.Projects.Any())
-                                {
-                                    <p class="card-text"><strong>Projects:</strong></p>
-                                    <ul>
-                                        @foreach (var project in job.Projects)
-                                        {
-                                            <li>@project.Name - @project.Description</li>
-                                        }
-                                    </ul>
-                                }
-                            </div>
-                        </div>
                     }
-                }
+                </div>
             </div>
-        </div>
-
-
-
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Education</h3>
-                @if (Persona.Education != null)
-                {
-                    foreach (var school in Persona.Education)
+            <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+                <div class="p-4">
+                    @if (Persona.Skills != null)
                     {
-                        <div class="card mb-2">
-                            <div class="card-body">
-                                <h5 class="card-title">@school.Name</h5>
-                                @foreach (var degree in school.Degrees)
-                                {
-                                    <p class="card-text">@degree.Name</p>
-                                }
-                            </div>
-                        </div>
+                        foreach (var skill in Persona.Skills)
+                        {
+                            <p>@skill.Name (@skill.Rating)</p>
+                        }
                     }
-                }
+                </div>
             </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Skills</h3>
-                @if (Persona.Skills != null)
-                {
-                    foreach (var skill in Persona.Skills)
+            <div class="tab-pane fade" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
+                <div class="p-4">
+                    @if (Persona.Certifications != null)
                     {
-                        <p>@skill.Name (@skill.Rating)</p>
+                        foreach (var certification in Persona.Certifications)
+                        {
+                            <p>@certification.Name - Issued by: @certification.Body on @certification.Date.ToString("yyyy-MM-dd")</p>
+                        }
                     }
-                }
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Languages</h3>
-                @if (Persona.Languages != null)
-                {
-                    foreach (var lang in Persona.Languages)
-                    {
-                        <p>@lang.LanguageName - Proficiency: @lang.Proficiency</p>
-                    }
-                }
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col">
-                <h3>Certifications</h3>
-                @if (Persona.Certifications != null)
-                {
-                    foreach (var certification in Persona.Certifications)
-                    {
-                        <p>@certification.Name - Issued by: @certification.Body on @certification.Date.ToString("yyyy-MM-dd")</p>
-                    }
-                }
+                </div>
             </div>
         </div>
     </div>
-
 }
 

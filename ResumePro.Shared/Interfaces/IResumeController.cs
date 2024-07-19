@@ -15,13 +15,12 @@ public interface IResumeController
 {
     Task<ResumeDetails> GetResume(int personId, int resumeId);
 
-    Task<IActionResult> Generate(int personId, int resumeId,
-         string templateId);
-
     Task<IActionResult> Download(int personId, int resumeId,
          int templateId);
 
     Task<List<ResumeDto>> GetResumes(int personId);
+
+    Task<ResumeDetails> Generate(int personId, int resumeId);
 
     Task<ActionResult<ResumeDetails>> CreateResume(int personId,
          ResumeOptions options);

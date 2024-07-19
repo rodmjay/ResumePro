@@ -23,22 +23,6 @@ public sealed class ResumesController(IServiceProvider serviceProvider, IResumeS
             .ConfigureAwait(false);
     }
 
-
-    [HttpGet("{resumeId}/Generate")]
-    public async Task<IActionResult> Generate([FromRoute] int personId, [FromRoute] int resumeId,
-        [FromQuery] string templateId)
-    {
-        var result = await resumeService.Generate(OrganizationId, personId, resumeId, templateId);
-        if (result.IsT0)
-            return new ContentResult
-            {
-                Content = result.AsT0.Body,
-                ContentType = "text/html"
-            };
-
-        return BadRequest(result.IsT1);
-    }
-
     [HttpGet("{resumeId}/Download")]
     public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId,
         [FromQuery] int templateId)
@@ -68,6 +52,14 @@ public sealed class ResumesController(IServiceProvider serviceProvider, IResumeS
     {
         return await resumeService.GetResumes<ResumeDto>(OrganizationId, personId)
             .ConfigureAwait(false);
+    }
+
+    [HttpPost("{resumeId}/generate")]
+    public async Task<ResumeDetails> Generate([FromRoute]int personId, [FromRoute] int resumeId)
+    {
+        var response = await resumeService.Generate(OrganizationId, personId, resumeId)
+            .ConfigureAwait(true);
+        return response;
     }
 
     [HttpPost]

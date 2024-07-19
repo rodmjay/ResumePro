@@ -27,10 +27,5 @@ namespace ResumePro.App.Pages
         {
             Persona = await PeopleController.GetPerson(PersonId);
         }
-
-        private void NavigateToResumeDetails(int resumeId)
-        {
-            NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}");
-        }
     }
 }

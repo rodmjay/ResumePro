@@ -17,7 +17,7 @@ namespace ResumePro.Api.Testing.Tests;
 public class OrganizationSettingsControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheUpdateOrganizationSettingsMethod : OrganizationSettingsControllerTest
+    public sealed class TheUpdateOrganizationSettingsMethod : OrganizationSettingsControllerTest
     {
         [TestCaseSource(typeof(OrganizationSettingsTestData), nameof(OrganizationSettingsTestData.ValidOptions))]
         public async Task CanUpdateOrganizationSettings(OrganizationSettingsOptions options)
@@ -28,7 +28,7 @@ public class OrganizationSettingsControllerTest : BaseApiTest
     }
 
     [TestFixture]
-    public class TheCreateOrganizationSettingsMethod : OrganizationSettingsControllerTest
+    public sealed class TheCreateOrganizationSettingsMethod : OrganizationSettingsControllerTest
     {
         [TestCaseSource(typeof(OrganizationSettingsTestData), nameof(OrganizationSettingsTestData.ValidOptions))]
         public async Task CanCreateOrganizationSettings(OrganizationSettingsOptions options)

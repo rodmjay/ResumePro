@@ -18,6 +18,7 @@ public sealed class FiltersController(IServiceProvider serviceProvider, IFilterM
     [HttpGet]
     public async Task<FilterContainer> GetFilters()
     {
-        return await filterManager.GetFilters(OrganizationId);
+        return await filterManager.GetFilters(OrganizationId)
+            .ConfigureAwait(false);
     }
 }

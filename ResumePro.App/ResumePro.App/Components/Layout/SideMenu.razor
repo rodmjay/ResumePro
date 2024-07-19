@@ -14,34 +14,27 @@
             <BarItem>
                 <BarLink To="/">
                     <BarIcon IconName="IconName.Dashboard"/>
-                    Dashboard
+                    People
                 </BarLink>
             </BarItem>
             <BarItem>
-                <BarDropdown @bind-Visible="pagesBarVisible">
-                    <BarDropdownToggle>
-                        <BarIcon IconName="IconName.Edit"/>
-                        Pages
-                    </BarDropdownToggle>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/simple-form">Simple Form</BarDropdownItem>
-                    </BarDropdownMenu>
-                    <BarDropdownMenu>
-                        <BarDropdownItem To="/simple-datagrid">Simple DataGrid</BarDropdownItem>
-                    </BarDropdownMenu>
-                </BarDropdown>
+                <BarLink To="/templates">
+                    <BarIcon IconName="IconName.Dashboard" />
+                    Templates
+                </BarLink>
             </BarItem>
+          
         </BarStart>
         <BarEnd>
             <BarItem>
                 <BarDropdown>
                     <BarDropdownToggle>
-                        <BarIcon IconName="IconName.Smartphone"/>
-                        Apps
+                        <BarIcon IconName="IconName.Settings"/>
+                        Settings
                     </BarDropdownToggle>
                     <BarDropdownMenu>
                         <BarDropdownItem To="/apps/todo">
-                            Todo
+                            Settings
                         </BarDropdownItem>
                     </BarDropdownMenu>
                 </BarDropdown>

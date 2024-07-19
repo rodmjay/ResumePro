@@ -36,6 +36,12 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
             .ConfigureAwait(false);
     }
 
+    public async Task<ResumeDetails> Generate(int personId, int resumeId)
+    {
+        return await DoPost<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}/generate")
+            .ConfigureAwait(false);
+    }
+
     public async Task<ActionResult<ResumeDetails>> CreateResume(int personId, ResumeOptions options)
     {
         return await DoPostActionResult<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes", options)

@@ -15,6 +15,7 @@ public sealed class Resume : BaseEntity<Resume>, IResume
     public Persona Persona { get; set; }
     public ICollection<ResumeJob> Jobs { get; set; } = new List<ResumeJob>();
     public ICollection<ResumeSkill> Skills { get; set; } = new List<ResumeSkill>();
+    public ICollection<Rendering> Renderings { get; set; } = new List<Rendering>();
     public ResumeSettings ResumeSettings { get; set; }
     public int OrganizationId { get; set; }
     public int PersonaId { get; set; }

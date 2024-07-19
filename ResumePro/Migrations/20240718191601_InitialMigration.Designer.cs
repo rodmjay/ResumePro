@@ -12,8 +12,8 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240713233451_InitialMigration2")]
-    partial class InitialMigration2
+    [Migration("20240718191601_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -3652,11 +3652,8 @@ namespace ResumePro.Migrations
                     b.Property<bool>("AttachAllSkills")
                         .HasColumnType("bit");
 
-                    b.Property<int>("DefaultTemplate")
+                    b.Property<int>("DefaultTemplateId")
                         .HasColumnType("int");
-
-                    b.Property<string>("DefaultTemplateId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ResumeYearHistory")
                         .HasColumnType("int");
@@ -3686,8 +3683,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             AttachAllJobs = true,
                             AttachAllSkills = true,
-                            DefaultTemplate = 0,
-                            DefaultTemplateId = "markdown",
+                            DefaultTemplateId = 2,
                             ResumeYearHistory = 10,
                             ShowContactInfo = true,
                             ShowDuration = true,
@@ -4379,6 +4375,30 @@ namespace ResumePro.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.Rendering", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TemplateId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("RenderDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrganizationId", "ResumeId", "TemplateId");
+
+                    b.HasIndex("TemplateId");
+
+                    b.ToTable("Rendering");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
                     b.Property<int>("OrganizationId")
@@ -4499,8 +4519,8 @@ namespace ResumePro.Migrations
                     b.Property<bool?>("AttachAllSkills")
                         .HasColumnType("bit");
 
-                    b.Property<string>("DefaultTemplateId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int?>("DefaultTemplateId")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ResumeYearHistory")
                         .HasColumnType("int");
@@ -6094,30 +6114,46 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Template", b =>
                 {
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Engine")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Format")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("OrganizationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Source")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Name");
+                    b.HasKey("Id");
 
                     b.ToTable("Template");
 
                     b.HasData(
                         new
                         {
-                            Name = "html",
-                            Format = ".hb",
+                            Id = 1,
+                            Engine = "hb",
+                            Format = "htm",
+                            Name = "1_html",
                             Source = "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>{{FirstName}} {{LastName}} - Resume</title>\r\n    <style>\r\n        body { font-family: Arial, sans-serif; margin: 20px; }\r\n        h1 { font-size: 24px; }\r\n        h2 { font-size: 20px; margin-top: 20px; }\r\n        p { margin: 5px 0; }\r\n        ul { list-style-type: none; padding: 0; }\r\n        ul li { margin: 5px 0; }\r\n        .contact-info { margin-bottom: 20px; }\r\n        .section { margin-bottom: 20px; }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>{{FirstName}} {{LastName}}</h1>\r\n    <div class=\"contact-info\">\r\n        <p>Email: <a href=\"mailto:{{Email}}\">{{Email}}</a></p>\r\n        <p>Phone: {{PhoneNumber}}</p>\r\n        <p>LinkedIn: <a href=\"{{LinkedIn}}\">{{LinkedIn}}</a></p>\r\n        <p>GitHub: <a href=\"{{GitHub}}\">{{GitHub}}</a></p>\r\n        <p>Location: {{City}}, {{State}}, {{Country}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Job Title</h2>\r\n        <p>{{JobTitle}}</p>\r\n        <p>{{Description}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Skills</h2>\r\n        <ul>\r\n            {{#each Skills}}\r\n            <li>{{Title}} - {{Rating}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Experience</h2>\r\n        {{#each Jobs}}\r\n        <div class=\"job\">\r\n            <h3>{{Title}} at {{Company}}</h3>\r\n            <p>{{Location}} | {{StartDate}} - {{EndDate}}</p>\r\n            <p>{{Description}}</p>\r\n            <ul>\r\n                {{#each Highlights}}\r\n                <li>{{Text}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <ul>\r\n                {{#each Skills}}\r\n                <li>{{Name}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <div>\r\n                <h4>Projects:</h4>\r\n                {{#each Projects}}\r\n                <div class=\"project\">\r\n                    <h5>{{Name}}</h5>\r\n                    <p>{{Description}}</p>\r\n                    <ul>\r\n                        {{#each Highlights}}\r\n                        <li>{{Text}}</li>\r\n                        {{/each}}\r\n                    </ul>\r\n                </div>\r\n                {{/each}}\r\n            </div>\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Education</h2>\r\n        {{#each Education}}\r\n        <div class=\"education\">\r\n            <h3>{{Name}}</h3>\r\n            {{#each Degrees}}\r\n            <p>{{Degree}} | {{StartDate}} - {{EndDate}}</p>\r\n            {{/each}}\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Languages</h2>\r\n        <ul>\r\n            {{#each Languages}}\r\n            <li>{{LanguageName}} - {{Proficiency}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Certifications</h2>\r\n        <ul>\r\n            {{#each Certifications}}\r\n            <li>{{Name}} - {{OrganizationId}} ({{Date}})</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>References</h2>\r\n        <ul>\r\n            {{#each References}}\r\n            <li>{{Name}} - {{PhoneNumber}} | {{Text}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n</body>\r\n</html>\r\n"
                         },
                         new
                         {
-                            Name = "markdown",
-                            Format = ".hb",
+                            Id = 2,
+                            Engine = "hb",
+                            Format = "md",
+                            Name = "2_markdown",
                             Source = "# {{firstName}} {{lastName}}, {{jobTitle}}\r\n\r\n{{#if settings.showContactInfo}}\r\n- **Email:** {{email}}\r\n- **Phone:** {{phoneNumber}}\r\n- **LinkedIn:** {{linkedIn}}\r\n- **GitHub:** {{gitHub}}\r\n{{/if}}\r\n- **Languages:** {{languageString}}\r\n\r\n## Description\r\n{{description}}\r\n\r\n{{#eq settings.skillView 'Grouped'}}\r\n## Skills\r\n| Category               | Skills & Ratings                                       |\r\n|------------------------|--------------------------------------------------------|\r\n{{#each skillDictionary}}\r\n| **{{category}}**       | {{#each skills}}{{title}}{{#if ../settings.showRatings}}({{rating}}){{/if}}{{#unless @last}}, {{/unless}}{{/each}} |\r\n{{/each}}\r\n{{/eq}}\r\n\r\n{{#eq settings.skillView 'List'}}\r\n## Skills\r\n{{#each skills}} \r\n- {{title}} {{#if ../settings.showRatings}}(Rating: {{rating}}){{/if}}\r\n{{/each}}\r\n{{/eq}}\r\n\r\n## Experience\r\n{{#each jobs}}\r\n### {{title}} - {{company}}\r\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}} {{#if ../settings.showDuration}}({{duration}}){{/if}}*\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{#each projects}}\r\n#### Project: {{name}}\r\n{{description}}\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n{{#if Skills}}\r\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\r\n{{/if}}\r\n{{/each}}\r\n\r\n## Education\r\n{{#each education}}\r\n### {{name}}\r\n*{{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each degrees}}\r\n- Degree: {{name}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n## References\r\n{{#each references}}\r\n### {{name}}\r\n{{text}}\r\n{{/each}}"
                         });
                 });
@@ -7579,6 +7615,25 @@ namespace ResumePro.Migrations
                     b.Navigation("Persona");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.Rendering", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Template", "Template")
+                        .WithMany("Renderings")
+                        .HasForeignKey("TemplateId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Resume", "Resume")
+                        .WithMany("Renderings")
+                        .HasForeignKey("OrganizationId", "ResumeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Resume");
+
+                    b.Navigation("Template");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
@@ -7747,6 +7802,8 @@ namespace ResumePro.Migrations
                 {
                     b.Navigation("Jobs");
 
+                    b.Navigation("Renderings");
+
                     b.Navigation("ResumeSettings");
 
                     b.Navigation("Skills");
@@ -7776,6 +7833,8 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Template", b =>
                 {
+                    b.Navigation("Renderings");
+
                     b.Navigation("Resumes");
                 });
 

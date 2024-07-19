@@ -14,7 +14,7 @@ public interface IOrganizationSettings
     int ResumeYearHistory { get; set; }
     bool AttachAllJobs { get; set; }
     bool AttachAllSkills { get; set; }
-    string DefaultTemplateId { get; set; }
+    int DefaultTemplateId { get; set; }
     bool ShowTechnologyPerJob { get; set; }
     bool ShowDuration { get; set; }
     bool ShowContactInfo { get; set; }

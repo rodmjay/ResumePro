@@ -14,7 +14,7 @@ namespace ResumePro.Api.Testing.Tests;
 public class SkillsControllerTest : BaseApiTest
 {
     [TestFixture]
-    public class TheGetSkillsMethod : SkillsControllerTest
+    public sealed class TheGetSkillsMethod : SkillsControllerTest
     {
         [Test]
         public async Task CanGetSkills()

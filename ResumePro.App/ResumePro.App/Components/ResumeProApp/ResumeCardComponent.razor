@@ -1,0 +1,25 @@
+﻿<div class="col-md-4">
+    <div class="card mb-4" style="cursor: pointer;" @onclick="() => NavigateToResumeDetails(Resume.Id)">
+        <div class="card-body">
+            <h5 class="card-title">@Resume.JobTitle</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@Resume.Description</h6>
+            <p class="card-text">
+                <strong>Jobs:</strong> @Resume.JobCount<br>
+            </p>
+            <div class="d-flex justify-content-start">
+                <button class="btn btn-outline-primary me-2" @onclick="() => GeneratePdf(Resume.Id)">
+                    <i class="fa fa-file-pdf"></i> 
+                </button>
+                <button class="btn btn-outline-danger me-2" @onclick="() => DeleteResume(Resume.Id)">
+                    <i class="fa fa-trash"></i>
+                </button>
+                <button class="btn btn-outline-secondary me-2" @onclick="() => EditResume(Resume.Id)">
+                    <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-outline-info" @onclick="() => OpenSettings(Resume.Id)">
+                    <i class="fa fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

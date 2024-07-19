@@ -1,7 +1,4 @@
-﻿@page "/resume-settings"
-@using ResumePro.Shared.Models
-
-<Row>
+﻿<Row>
     <Column ColumnSize="ColumnSize.Is12.OnDesktop">
         <Card Margin="Margin.Is4.FromBottom">
             <CardHeader>
@@ -10,10 +7,7 @@
             <CardBody>
                 <Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
                
-                    <Field>
-                        <FieldLabel>Default Template ID</FieldLabel>
-                        <TextEdit @bind-Text="@Settings.DefaultTemplateId" Placeholder="Template ID" />
-                    </Field>
+             
                     <Field>
                         <Check TValue="bool" @bind-Checked="@Settings.ShowTechnologyPerJob">Show Technology Per Job</Check>
                     </Field>
@@ -39,26 +33,3 @@
         </Card>
     </Column>
 </Row>
-
-@code {
-    [Parameter]
-    public ResumeSettingsDto Settings { get; set; }
-
-    Validations? validationsRef;
-
-    async Task Submit()
-    {
-        if (await validationsRef!.ValidateAll())
-        {
-            // Assuming you have a method to save the settings
-            await SaveSettings();
-            await validationsRef.ClearAll();
-        }
-    }
-
-    private Task SaveSettings()
-    {
-        // Implement your save logic here
-        throw new NotImplementedException();
-    }
-}

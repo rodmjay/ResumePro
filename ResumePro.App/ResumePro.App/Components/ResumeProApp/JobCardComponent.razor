@@ -1,0 +1,48 @@
+﻿<div class="card mb-2">
+    <div class="card-header">
+        <strong>@Job.Title</strong> at @Job.Company
+    </div>
+    <div class="card-body">
+        <h6 class="card-subtitle mb-2 text-muted">
+            @Job.StartDate.ToShortDateString() - @(Job.EndDate.HasValue ? Job.EndDate.Value.ToShortDateString() : "Present") (@Job.Duration)
+        </h6>
+        <p class="card-text">@Job.Description</p>
+      
+        
+        @if (Job.Highlights.Any())
+        {
+            <ul>
+                @foreach (var highlight in Job.Highlights)
+                {
+                    <li>@highlight.Text</li>
+                }
+            </ul>
+        }
+
+        @if (Job.Projects.Any())
+        {
+            <p class="card-text">
+
+                @foreach (var project in Job.Projects)
+                {
+                    <h4>Project: @project.Name</h4>
+                    <p>@project.Description</p>
+
+                    @if (project.Highlights.Any())
+                    {
+                        <ul>
+                            @foreach (var highlight in project.Highlights)
+                            {
+                                <li>@highlight.Text</li>
+                            }
+                        </ul>
+                    }
+                }
+            </p>
+        }
+        
+        <p class="card-text">
+            <strong>Skills:</strong> @string.Join(", ", Job.Skills.Select(s => s.Name))
+        </p>
+    </div>
+</div>

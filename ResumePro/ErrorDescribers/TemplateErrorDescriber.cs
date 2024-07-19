@@ -8,7 +8,7 @@ namespace ResumePro.ErrorDescribers;
 
 public class TemplateErrorDescriber
 {
-    public virtual Error TemplateNotFound(string templateId)
+    public virtual Error TemplateNotFound(int templateId)
     {
         return new Error
         {

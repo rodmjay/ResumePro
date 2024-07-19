@@ -33,6 +33,26 @@ public abstract class BaseProxy(HttpClient httpClient)
         return result;
     }
 
+    protected async Task<ActionResult<TOutput>> DoPostActionResult<TOutput>(string url)
+    {
+        HttpResponseMessage response = await HttpClient.PostAsync(url, null)
+            .ConfigureAwait(false);
+
+        if (response.IsSuccessStatusCode)
+        {
+            TOutput result = response.Content.DeserializeObject<TOutput>();
+            return new OkObjectResult(result);
+        }
+
+        if (response.StatusCode == HttpStatusCode.BadRequest)
+        {
+            Result result = response.Content.DeserializeObject<Result>();
+            return new BadRequestObjectResult(result);
+        }
+
+        return new StatusCodeResult((int)response.StatusCode);
+    }
+
     protected async Task<ActionResult<TOutput>> DoPostActionResult<TInput, TOutput>(string url, TInput input)
     {
         StringContent inputContent = input!.SerializeToUTF8Json();

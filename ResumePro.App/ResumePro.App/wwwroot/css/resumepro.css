@@ -1,0 +1,30 @@
+﻿.breadcrumb {
+  background-color: #f8f9fa; /* Light grey background */
+  padding: 10px 15px; /* Padding around the breadcrumb */
+  border-radius: 5px; /* Rounded corners */
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">"; /* Custom separator */
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0; /* Adjust this value based on your needs, like if you have a top navbar */
+  z-index: 1020; /* Ensure it's above other content but below modals/tooltips */
+  background-color: white; /* Optional: for better visibility against page content */
+  width: 100%;
+}
+
+.nav-pills .nav-link.custom-tab {
+  background-color: #007BFF !important; /* A blue color; change as needed */
+  color: white; /* White text color */
+  text-align: left; /* Align text to the left */
+  border-radius: 0.25rem; /* Optional: adds rounded corners */
+  margin-bottom: 0.5rem; /* Adds space between tabs */
+}
+
+.nav-pills .nav-link.custom-tab.active {
+  background-color: #0056b3 !important; /* A darker blue for active tab */
+  color: white;
+}

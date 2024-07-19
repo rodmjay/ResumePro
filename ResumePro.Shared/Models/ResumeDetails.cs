@@ -28,7 +28,7 @@ public class ResumeDetails : ResumeDto
     public List<SchoolDetails> Education { get; set; }
     public List<PersonaLanguageDto> Languages { get; set; }
     public List<CertificationDto> Certifications { get; set; }
-
+    public List<RenderingDto> Renderings { get; set; }
     public List<CategorySkillRating> SkillDictionary
     {
         get

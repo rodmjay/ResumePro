@@ -73,11 +73,19 @@ public static class SeedingExtensions
             var filePath = files[index];
             var fileContent = File.ReadAllText(filePath);
 
+            var rawName = Path.GetFileNameWithoutExtension(filePath);
+
+            var nameParts = rawName.Split(".");
+            var idPart = nameParts[0].Split("_")[0];
+            var namePart = nameParts[0].Split("_")[1];
+
             templates.Add(new Template
             {
-                Name = Path.GetFileNameWithoutExtension(filePath),
+                Id = int.Parse(idPart),
+                Name = namePart,
                 Source = fileContent,
-                Format = Path.GetExtension(filePath)
+                Format = nameParts[1],
+                Engine = Path.GetExtension(filePath).Replace(".","")
             });
         }
 

@@ -40,9 +40,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Apis", "Apis", "{7D771D3C-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{7CFDE943-F105-47D5-A466-69CFBEB6091D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Api.Testing", "ResumePro.Api.Testing\ResumePro.Api.Testing.csproj", "{0EC4A30A-ACFA-43F9-B5CB-4BC12966D863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Api.Testing", "ResumePro.Api.Testing\ResumePro.Api.Testing.csproj", "{0EC4A30A-ACFA-43F9-B5CB-4BC12966D863}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Testing", "ResumePro.Testing\ResumePro.Testing.csproj", "{C44F3217-47ED-4B8F-BD12-2AA9F2F668DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Testing", "ResumePro.Testing\ResumePro.Testing.csproj", "{C44F3217-47ED-4B8F-BD12-2AA9F2F668DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

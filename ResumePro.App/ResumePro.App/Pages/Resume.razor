@@ -1,55 +1,62 @@
 ﻿@page "/people/{PersonId:int}/resumes/{ResumeId:int}"
 @using Microsoft.AspNetCore.Authorization
-@using ResumePro.Shared.Interfaces
-@using ResumePro.Shared.Models
 
 @attribute [Authorize]
 
-@inject IResumeController ResumeController
-
-@code {
-    [Parameter]
-    public int ResumeId { get; set; }
-
-    [Parameter]
-    public int PersonId { get; set; }
-
-    private ResumeDetails ResumeDetails { get; set; }
-
-    protected override async Task OnParametersSetAsync()
-    {
-        ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
-    }
-
-}
-
 @if (ResumeDetails != null)
 {
-    <div class="container mt-3">
-        <h2>Resume Details</h2>
+    <div class="container sticky-top">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@ResumeDetails.LastName, @ResumeDetails.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">@ResumeDetails.JobTitle</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
 
         <!-- Bootstrap Nav Tabs -->
         <ul class="nav nav-tabs" id="resumeTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="main-details-tab" data-bs-toggle="tab" data-bs-target="#mainDetails" type="button" role="tab" aria-controls="mainDetails" aria-selected="true">Main Details</button>
+                <button class="nav-link @ActiveTabClass("home")" id="main-details-tab" data-bs-toggle="tab" data-bs-target="#mainDetails" type="button" role="tab" aria-controls="mainDetails" aria-selected="true">Main Details</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Settings</button>
+                <button class="nav-link @ActiveTabClass("markdown")" id="main-markdown-tab" data-bs-toggle="tab" data-bs-target="#markdown" type="button" role="tab" aria-controls="markdown" aria-selected="true">Markdown</button>
+            </li>
+            <li class="nav-item me-auto" role="presentation">
+                <button class="nav-link @ActiveTabClass("settings")" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
+                    <i class="fa fa-cog"></i>
+                </button>
             </li>
         </ul>
 
+    </div>
+    <div class="container mt-3">
+
         <!-- Tab Content -->
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("home")" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
                 <div class="p-4">
                     <ResumeDetailsComponent Resume="@ResumeDetails" />
                 </div>
             </div>
-            <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("settings")" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                 <div class="p-4">
                     <h5>Settings</h5>
-                    
                     <ResumeSettingsComponent Settings="@ResumeDetails.Settings"></ResumeSettingsComponent>
+                </div>
+            </div>
+            <div class="tab-pane fade @ActiveTabPaneClass("markdown")" id="markdown" role="tabpanel" aria-labelledby="markdown-tab">
+                <div class="p-4">
+                    <button class="btn-primary" @onclick="Regenerate">Regenerate</button>
+                    
+                    @if (ResumeDetails.Renderings.Any())
+                    {
+                        <MarkdownComponent Content="@ResumeDetails.Renderings[0].Text"></MarkdownComponent>
+                    }
                 </div>
             </div>
         </div>

@@ -18,22 +18,13 @@ using ResumePro.Core.Validation;
 
 namespace ResumePro.Core.Middleware;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware(
+    RequestDelegate next,
+    ILoggerFactory loggerFactory,
+    IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
 {
-    private readonly JsonSerializerSettings _jsonSerializerSettings;
-    private readonly ILoggerFactory _loggerFactory;
-    private readonly RequestDelegate _next;
+    private readonly JsonSerializerSettings _jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
 
-
-    public ExceptionMiddleware(
-        RequestDelegate next,
-        ILoggerFactory loggerFactory,
-        IOptions<MvcNewtonsoftJsonOptions> jsonOptions)
-    {
-        _next = next;
-        _loggerFactory = loggerFactory;
-        _jsonSerializerSettings = jsonOptions.Value.SerializerSettings;
-    }
 
     private static string GetLogMessage(string message, [CallerMemberName] string callerName = null)
     {
@@ -44,7 +35,7 @@ public class ExceptionMiddleware
     {
         try
         {
-            await _next(httpContext);
+            await next(httpContext);
         }
         catch (Exception ex)
         {
@@ -73,7 +64,7 @@ public class ExceptionMiddleware
 
     private void LogAndAddException(ValidationResultModel modelResult, Exception exception)
     {
-        var exLogger = _loggerFactory.CreateLogger(exception.TargetSite.DeclaringType.FullName);
+        var exLogger = loggerFactory.CreateLogger(exception.TargetSite.DeclaringType.FullName);
         exLogger?.LogError(exception, exception.Message);
         modelResult.Errors.Add(new ValidationError(null, exception.Message));
     }

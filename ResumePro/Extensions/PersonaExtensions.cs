@@ -22,7 +22,7 @@ public static class PersonaExtensions
         if (!string.IsNullOrWhiteSpace(filters.LastName))
             predicate = predicate.And(x => x.FirstName == filters.LastName);
 
-        if (!string.IsNullOrWhiteSpace(filters.State)) predicate = predicate.And(x => x.State.Code == filters.State);
+        if (filters.State > 0) predicate = predicate.And(x => x.State.Id == filters.State);
 
         if (filters.Skills.Any())
             predicate = predicate.And(x => filters.Skills.Intersect(x.Skills.Select(a => a.SkillId)).Any());
