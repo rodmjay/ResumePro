@@ -23,17 +23,17 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
             .ProjectTo<T>(Mapper).ToListAsync();
     }
 
-    public Task<T> GetJob<T>(int organizationId, int personaId, int jobId) where T : JobDto
+    public Task<T> GetJob<T>(int organizationId, int personId, int jobId) where T : JobDto
     {
         return Jobs.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personaId && x.Id == jobId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .ProjectTo<T>(Mapper).FirstOrDefaultAsync();
     }
 
     public async Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
         var job = new Job
@@ -90,7 +90,7 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
         JobOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, JobId, {jobId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, Options: {@options}"),
             organizationId, personId, jobId, options);
 
         var job = await Jobs.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
@@ -115,7 +115,7 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
 
     public async Task<Result> DeleteJob(int organizationId, int personId, int jobId)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, JobId, {jobId}"),
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {jobId}"),
             organizationId, personId, jobId);
 
         var job = await Jobs

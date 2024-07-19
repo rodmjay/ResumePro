@@ -19,11 +19,13 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, ResumeId: {resumeId}, SkillId: {skillId}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, ResumeId: {@resumeId}, SkillId: {@skillId}"),
             organizationId, personId, resumeId, skillId);
 
         var resumeSkill = await ResumeSkills.Where(x => x.OrganizationId == organizationId
-                                                        && x.PersonaId == personId && x.SkillId == skillId)
+                                                        && x.ResumeId== resumeId
+                                                        && x.PersonaId == personId 
+                                                        && x.SkillId == skillId)
             .FirstOrDefaultAsync();
 
         if (resumeSkill != null) return Result.Failed();
@@ -46,7 +48,7 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, ResumeId: {resumeId}, SkillId: {skillId}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, ResumeId: {@resumeId}, SkillId: {@skillId}"),
             organizationId, personId, resumeId, skillId);
 
         return Task.FromResult(Result.Failed());

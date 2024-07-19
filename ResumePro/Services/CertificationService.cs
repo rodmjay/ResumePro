@@ -34,7 +34,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public async Task<OneOf<CertificationDto, Result>> CreateCertification(int organizationId, int personId,
         CertificationOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}"), organizationId,
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}"), organizationId,
             personId);
 
         var certification = new Certification
@@ -58,7 +58,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
         int certificationId, CertificationOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, CertificationId: {certificationId}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}"),
             organizationId, personId, certificationId);
 
         var certification = await Certifications.Where(x =>
@@ -82,7 +82,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public async Task<Result> DeleteCertification(int organizationId, int personId, int certificationId)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, CertificationId: {certificationId}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}"),
             organizationId, personId, certificationId);
 
         var certification = await Certifications.Where(x =>

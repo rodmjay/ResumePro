@@ -35,7 +35,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
         SchoolOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
         var school = new School
@@ -60,7 +60,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, SchoolId: {schoolId}, Options: {options}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId: {@schoolId}, Options: {@options}"),
             organizationId, personId, schoolId, options);
 
         var school = await Schools
@@ -84,7 +84,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
     public async Task<Result> DeleteSchool(int organizationId, int personId, int schoolId)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, SchoolId: {schoolId}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId: {@schoolId}"),
             organizationId, personId, schoolId);
 
         var school = await Schools.Include(x => x.Degrees)

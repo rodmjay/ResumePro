@@ -26,7 +26,7 @@ public sealed class OrganizationSettingsService(IServiceProvider serviceProvider
     public async Task<OneOf<OrganizationSettingsDto, Result>> AddOrUpdateUpdateOrganizationSettings(int organizationId,
         OrganizationSettingsOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"), organizationId,
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, Options: {@options}"), organizationId,
             options);
 
         // use default options if null

@@ -11,5 +11,6 @@ namespace ResumePro.Interfaces;
 
 public interface IJobSkillService : IService<JobSkill>
 {
-    Task<OneOf<JobSkillDto, Result>> AddJobSkill(int organizationId, int personId, int jobId);
+    Task<Result> AddJobSkill(int organizationId, int personId, int jobId, int skillId);
+    Task<Result> DeleteJobSkill(int organizationId, int personId, int jobId, int skillId);
 }

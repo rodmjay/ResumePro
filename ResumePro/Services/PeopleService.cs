@@ -39,7 +39,7 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
     public async Task<Result> DeletePerson(int organizationId, int personId)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}"), organizationId,
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}"), organizationId,
             personId);
 
         var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)
@@ -60,7 +60,7 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"), organizationId,
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, Options: {@options}"), organizationId,
             options);
 
         var nextId = await GetNextPersonId(organizationId);
@@ -88,7 +88,7 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
         PersonaOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
         var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)

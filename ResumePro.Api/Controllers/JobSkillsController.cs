@@ -14,9 +14,19 @@ namespace ResumePro.Api.Controllers;
 public sealed class JobSkillsController(IServiceProvider serviceProvider, IJobSkillService service)
     : BaseController(serviceProvider)
 {
-    [HttpPost]
-    public async Task<ActionResult<JobSkillDto>> CreateJobSkill([FromRoute] int personId, [FromRoute] int jobId)
+    [HttpPatch("{skillId}")]
+    public async Task<Result> AddJobSkill([FromRoute] int personId, [FromRoute] int jobId,
+        [FromRoute] int skillId)
     {
-        throw new NotImplementedException();
+        return await service.AddJobSkill(OrganizationId, personId, jobId, skillId)
+            .ConfigureAwait(false);
+    }
+
+    [HttpDelete("{skillId}")]
+    public async Task<Result> DeleteJobSkill([FromRoute] int personId, [FromRoute] int jobId,
+        [FromRoute] int skillId)
+    {
+        return await service.DeleteJobSkill(OrganizationId, personId, jobId, skillId)
+            .ConfigureAwait(false);
     }
 }

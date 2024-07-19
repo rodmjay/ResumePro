@@ -33,7 +33,7 @@ public sealed class TemplateService(IServiceProvider serviceProvider)
 
     public async Task<OneOf<TemplateDto, Result>> CreateTemplate(int organizationId, TemplateOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"),
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, Options: {@options}"),
             organizationId, options);
 
         var template = new Template
@@ -57,7 +57,7 @@ public sealed class TemplateService(IServiceProvider serviceProvider)
         TemplateOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, TemplateId: {templateId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, TemplateId: {templateId}, Options: {@options}"),
             organizationId, templateId, options);
 
         var template = await Templates.Where(x => x.OrganizationId == organizationId && x.Id == templateId)

@@ -39,7 +39,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, Options: {options}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, Options: {@options}"),
             organizationId, personId, jobId, projectId, options);
 
         var lastHighlight = await
@@ -76,7 +76,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, HighlightId: {highlightId}, Options: {options}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, HighlightId: {@highlightId}, Options: {@options}"),
             organizationId, personId, jobId, projectId, highlightId, options);
 
         var highlight = await Highlights
@@ -123,7 +123,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, HighlightId: {highlightId}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, HighlightId: {@highlightId}"),
             organizationId, personId, jobId, projectId, highlightId);
 
         var highlight = await Highlights

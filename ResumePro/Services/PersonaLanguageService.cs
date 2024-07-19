@@ -40,7 +40,7 @@ public sealed class PersonaLanguageService(
         PersonLanguageOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"));
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"));
 
         var errors = new List<Error>();
 

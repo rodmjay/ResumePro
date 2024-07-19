@@ -37,7 +37,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
         ReferenceCreateOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
         var lastReference = await
@@ -73,7 +73,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {organizationId}, PersonId: {personId}, ReferenceId: {referenceId}, Options: {options}"),
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, ReferenceId: {@referenceId}, Options: {@options}"),
             organizationId, personId, referenceId, options);
 
         var reference = await References.Where(x =>
@@ -116,7 +116,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     public async Task<Result> DeleteReference(int organizationId, int personId, int referenceId)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, ReferenceId: {referenceId}"),
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, ReferenceId: {@referenceId}"),
             organizationId, personId, referenceId);
 
         var reference = await References.Where(x =>
