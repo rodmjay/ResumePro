@@ -25,7 +25,7 @@ public sealed class TemplatesProxy(HttpClient httpClient) : BaseProxy(httpClient
             .ConfigureAwait(true);
     }
 
-    public async Task<ActionResult<TemplateDto>> UpdateTemplate(string templateId, TemplateOptions options)
+    public async Task<ActionResult<TemplateDto>> UpdateTemplate(int templateId, TemplateOptions options)
     {
         return await DoPutActionResult<TemplateOptions, TemplateDto>($"v1.0/templates/{templateId}", options)
             .ConfigureAwait(true);

@@ -85,7 +85,7 @@ public static class SeedingExtensions
                 Name = namePart,
                 Source = fileContent,
                 Format = nameParts[1],
-                Engine = Path.GetExtension(filePath).Replace(".","")
+                Engine = Path.GetExtension(filePath).Replace(".", "")
             });
         }
 

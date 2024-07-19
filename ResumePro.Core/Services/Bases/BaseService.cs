@@ -10,6 +10,10 @@ using Microsoft.Extensions.Options;
 using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Services.Interfaces;
 using ResumePro.Core.Settings;
+using System.Runtime.CompilerServices;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using ILogger = Microsoft.Extensions.Logging.ILogger;
 
 namespace ResumePro.Core.Services.Bases;
 
@@ -31,10 +35,20 @@ public abstract class BaseService
 
 public abstract class BaseService<TEntity> : BaseService, IService<TEntity> where TEntity : class, IObjectState
 {
+    protected ILogger Logger { get; }
     protected BaseService(IServiceProvider serviceProvider) : base(serviceProvider)
     {
+        var loggerType = typeof(ILogger<>).MakeGenericType(GetType());
+        Logger = (ILogger) serviceProvider.GetRequiredService(loggerType);
         Repository = UnitOfWork.RepositoryAsync<TEntity>();
     }
+
+    protected string GetLogMessage(string message, [CallerMemberName] string callerName = null)
+    {
+        var className = this.GetType().Name;
+        return $"[{className}.{callerName}] - {message}";
+    }
+
 
     public IRepositoryAsync<TEntity> Repository { get; }
 }

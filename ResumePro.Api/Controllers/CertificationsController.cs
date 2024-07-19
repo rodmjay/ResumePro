@@ -12,7 +12,9 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/certifications")]
-public sealed class CertificationsController(IServiceProvider serviceProvider, ICertificationService certificationService)
+public sealed class CertificationsController(
+    IServiceProvider serviceProvider,
+    ICertificationService certificationService)
     : BaseController(serviceProvider), ICertificationsController
 {
     [HttpGet("{certificationId}")]

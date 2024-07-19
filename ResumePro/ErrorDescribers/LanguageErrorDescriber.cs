@@ -10,7 +10,7 @@ public class LanguageErrorDescriber
 {
     public virtual Error LanguageNotFound(string languageId)
     {
-        return new Error()
+        return new Error
         {
             Code = nameof(LanguageNotFound)
         };

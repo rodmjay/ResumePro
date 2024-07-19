@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -22,8 +23,12 @@ public sealed class OrganizationSettingsService(IServiceProvider serviceProvider
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<OrganizationSettingsDto, Result>> AddOrUpdateUpdateOrganizationSettings(int organizationId, OrganizationSettingsOptions options)
+    public async Task<OneOf<OrganizationSettingsDto, Result>> AddOrUpdateUpdateOrganizationSettings(int organizationId,
+        OrganizationSettingsOptions options)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"), organizationId,
+            options);
+
         // use default options if null
         options ??= new OrganizationSettingsOptions();
 
@@ -31,17 +36,13 @@ public sealed class OrganizationSettingsService(IServiceProvider serviceProvider
             .FirstOrDefaultAsync();
 
         if (settings == null)
-        {
-            settings = new OrganizationSettings()
+            settings = new OrganizationSettings
             {
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId
             };
-        }
         else
-        {
             settings.ObjectState = ObjectState.Modified;
-        }
 
         settings.AttachAllJobs = options.AttachAllJobs;
         settings.AttachAllSkills = options.AttachAllSkills;
@@ -54,10 +55,7 @@ public sealed class OrganizationSettingsService(IServiceProvider serviceProvider
         settings.SkillView = options.SkillView;
 
         var changes = Repository.InsertOrUpdateGraph(settings, true);
-        if (changes > 0)
-        {
-            return await GetOrganizationSettings(organizationId);
-        }
+        if (changes > 0) return await GetOrganizationSettings(organizationId);
 
         return Result.Failed();
     }

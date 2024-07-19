@@ -55,7 +55,7 @@ public sealed class ResumesController(IServiceProvider serviceProvider, IResumeS
     }
 
     [HttpPost("{resumeId}/generate")]
-    public async Task<ResumeDetails> Generate([FromRoute]int personId, [FromRoute] int resumeId)
+    public async Task<ResumeDetails> Generate([FromRoute] int personId, [FromRoute] int resumeId)
     {
         var response = await resumeService.Generate(OrganizationId, personId, resumeId)
             .ConfigureAwait(true);

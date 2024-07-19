@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Core.Queries;
 using ResumePro.Extensions;
 using ResumePro.Shared.Filters;
@@ -38,6 +39,9 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
     public async Task<Result> DeletePerson(int organizationId, int personId)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}"), organizationId,
+            personId);
+
         var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)
             .FirstOrDefaultAsync();
 
@@ -56,6 +60,9 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"), organizationId,
+            options);
+
         var nextId = await GetNextPersonId(organizationId);
         var person = new Persona
         {
@@ -80,6 +87,10 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
     public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId,
         PersonaOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            organizationId, personId, options);
+
         var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)
             .FirstOrDefaultAsync();
 
@@ -103,15 +114,12 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
     private async Task<int> GetNextPersonId(int organizationId)
     {
-        var result = await People.AsNoTracking()
+        var id = await People.AsNoTracking()
             .IgnoreQueryFilters()
-            .OrderByDescending(x => x.Id)
             .Where(x => x.OrganizationId == organizationId)
+            .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (result == null)
-            return 1;
-
-        return result.Id + 1;
+        return id + 1;
     }
 }

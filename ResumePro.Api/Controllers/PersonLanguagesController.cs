@@ -12,7 +12,7 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/languages")]
-public sealed class PersonLanguagesController(IServiceProvider serviceProvider, IPersonaLanguageService languageService) 
+public sealed class PersonLanguagesController(IServiceProvider serviceProvider, IPersonaLanguageService languageService)
     : BaseController(serviceProvider), IPersonLanguagesController
 {
     [HttpGet]

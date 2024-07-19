@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -36,6 +37,11 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
         int? projectId, HighlightCreateOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, Options: {options}"),
+            organizationId, personId, jobId, projectId, options);
+
         var lastHighlight = await
             Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
                 .AsNoTracking()
@@ -68,6 +74,11 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
         int? projectId,
         int highlightId, HighlightUpdateOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, HighlightId: {highlightId}, Options: {options}"),
+            organizationId, personId, jobId, projectId, highlightId, options);
+
         var highlight = await Highlights
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
                         x.ProjectId == projectId)
@@ -110,6 +121,11 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     public async Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId,
         int highlightId)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, JobId: {jobId}, ProjectId: {projectId}, HighlightId: {highlightId}"),
+            organizationId, personId, jobId, projectId, highlightId);
+
         var highlight = await Highlights
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
                         x.ProjectId == projectId)
@@ -144,15 +160,12 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 
     private async Task<int> GetNextHighlightId(int organizationId)
     {
-        var highlight = await Highlights
+        var id = await Highlights.AsNoTracking()
             .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId)
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (highlight == null)
-            return 1;
-
-        return highlight.Id + 1;
+        return id + 1;
     }
 }

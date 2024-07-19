@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -31,6 +32,10 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
 
     public async Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            organizationId, personId, options);
+
         var job = new Job
         {
             Id = await GetNextJobId(organizationId),
@@ -84,6 +89,10 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
     public async Task<OneOf<JobDetails, Result>> UpdateJob(int organizationId, int personId, int jobId,
         JobOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, JobId, {jobId}, Options: {options}"),
+            organizationId, personId, jobId, options);
+
         var job = await Jobs.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
@@ -106,6 +115,9 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
 
     public async Task<Result> DeleteJob(int organizationId, int personId, int jobId)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, JobId, {jobId}"),
+            organizationId, personId, jobId);
+
         var job = await Jobs
             .Include(x => x.Highlights)
             .Include(x => x.Resumes)
@@ -138,15 +150,12 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
 
     private async Task<int> GetNextJobId(int organizationId)
     {
-        var job = await Jobs.AsNoTracking()
+        var id = await Jobs.AsNoTracking()
             .IgnoreQueryFilters()
-            .OrderByDescending(x => x.Id)
             .Where(x => x.OrganizationId == organizationId)
+            .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (job == null)
-            return 1;
-
-        return job.Id + 1;
+        return id + 1;
     }
 }

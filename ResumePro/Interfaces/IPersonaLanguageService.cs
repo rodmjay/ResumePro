@@ -16,6 +16,6 @@ public interface IPersonaLanguageService : IService<PersonaLanguage>
 
     Task<List<T>> GetPersonaLanguages<T>(int organizationId, int personId) where T : PersonaLanguageDto;
 
-    Task<OneOf<PersonaLanguageDto, Result>> CreateOrUpdatePersonaLanguage(int organizationId, int personId, 
+    Task<OneOf<PersonaLanguageDto, Result>> CreateOrUpdatePersonaLanguage(int organizationId, int personId,
         PersonLanguageOptions options);
 }

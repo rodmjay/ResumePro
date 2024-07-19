@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -33,6 +34,9 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public async Task<OneOf<CertificationDto, Result>> CreateCertification(int organizationId, int personId,
         CertificationOptions options)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}"), organizationId,
+            personId);
+
         var certification = new Certification
         {
             ObjectState = ObjectState.Added,
@@ -53,6 +57,10 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public async Task<OneOf<CertificationDto, Result>> UpdateCertification(int organizationId, int personId,
         int certificationId, CertificationOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, CertificationId: {certificationId}"),
+            organizationId, personId, certificationId);
+
         var certification = await Certifications.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
@@ -73,6 +81,10 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
 
     public async Task<Result> DeleteCertification(int organizationId, int personId, int certificationId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, CertificationId: {certificationId}"),
+            organizationId, personId, certificationId);
+
         var certification = await Certifications.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
@@ -90,14 +102,12 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
 
     private async Task<int> GetNextCertificationId(int organizationId, int personId)
     {
-        var certification = await Certifications.AsNoTracking()
+        var id = await Certifications.AsNoTracking()
+            .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .OrderByDescending(x => x.Id)
-            .IgnoreQueryFilters()
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (certification == null) return 1;
-
-        return certification.Id + 1;
+        return id + 1;
     }
 }

@@ -30,15 +30,12 @@ public sealed class DegreesController(IServiceProvider serviceProvider, IDegreeS
     }
 
     [HttpPut("{degreeId}")]
-    public async Task<ActionResult<DegreeDto>> UpdateDegree([FromRoute] int personId, [FromRoute] int schoolId, 
-        [FromRoute]int degreeId, [FromBody]DegreeOptions options)
+    public async Task<ActionResult<DegreeDto>> UpdateDegree([FromRoute] int personId, [FromRoute] int schoolId,
+        [FromRoute] int degreeId, [FromBody] DegreeOptions options)
     {
         var result = await degreeService.UpdateDegree(OrganizationId, personId, schoolId, degreeId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
@@ -52,14 +49,12 @@ public sealed class DegreesController(IServiceProvider serviceProvider, IDegreeS
     }
 
     [HttpPost]
-    public async Task<ActionResult<DegreeDto>> CreateDegree([FromRoute] int personId, [FromRoute] int schoolId, [FromBody] DegreeOptions options)
+    public async Task<ActionResult<DegreeDto>> CreateDegree([FromRoute] int personId, [FromRoute] int schoolId,
+        [FromBody] DegreeOptions options)
     {
         var result = await degreeService.CreateDegree(OrganizationId, personId, schoolId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }

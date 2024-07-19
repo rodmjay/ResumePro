@@ -44,7 +44,8 @@ public sealed class PeopleController(IServiceProvider serviceProvider, IPeopleSe
     }
 
     [HttpPut("{personId}")]
-    public async Task<ActionResult<PersonaDetails>> UpdatePerson([FromRoute]int personId, [FromBody] PersonaOptions options)
+    public async Task<ActionResult<PersonaDetails>> UpdatePerson([FromRoute] int personId,
+        [FromBody] PersonaOptions options)
     {
         var result = await peopleService.UpdatePerson(OrganizationId, personId, options)
             .ConfigureAwait(false);

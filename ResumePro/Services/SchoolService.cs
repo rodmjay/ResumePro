@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -33,6 +34,10 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
     public async Task<OneOf<SchoolDetails, Result>> CreateSchool(int organizationId, int personId,
         SchoolOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            organizationId, personId, options);
+
         var school = new School
         {
             Id = await GetNextSchoolId(organizationId),
@@ -53,6 +58,11 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
     public async Task<OneOf<SchoolDetails, Result>> UpdateSchool(int organizationId, int personId, int schoolId,
         SchoolOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, SchoolId: {schoolId}, Options: {options}"),
+            organizationId, personId, schoolId, options);
+
         var school = await Schools
             .Where(x => x.OrganizationId == organizationId && x.Id == schoolId)
             .FirstOrDefaultAsync();
@@ -73,6 +83,10 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
 
     public async Task<Result> DeleteSchool(int organizationId, int personId, int schoolId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, SchoolId: {schoolId}"),
+            organizationId, personId, schoolId);
+
         var school = await Schools.Include(x => x.Degrees)
             .Where(x => x.Id == schoolId && x.OrganizationId == organizationId)
             .FirstOrDefaultAsync();
@@ -90,14 +104,12 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
 
     private async Task<int> GetNextSchoolId(int organizationId)
     {
-        var school = await Schools.AsNoTracking()
+        var id = await Schools.AsNoTracking()
             .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId)
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (school == null) return 1;
-
-        return school.Id + 1;
+        return id + 1;
     }
 }

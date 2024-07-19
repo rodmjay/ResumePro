@@ -15,7 +15,6 @@ namespace ResumePro.Api.Controllers;
 public sealed class TemplatesController(IServiceProvider serviceProvider, ITemplateService service)
     : BaseController(serviceProvider), ITemplatesController
 {
-
     [HttpGet]
     public async Task<List<TemplateDto>> GetTemplates()
     {
@@ -28,25 +27,19 @@ public sealed class TemplatesController(IServiceProvider serviceProvider, ITempl
     {
         var result = await service.CreateTemplate(OrganizationId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
 
     [HttpPut("{templateId}")]
-    public async Task<ActionResult<TemplateDto>> UpdateTemplate([FromRoute] string templateId, [FromBody] TemplateOptions options)
+    public async Task<ActionResult<TemplateDto>> UpdateTemplate([FromRoute] int templateId,
+        [FromBody] TemplateOptions options)
     {
         var result = await service.UpdateTemplate(OrganizationId, templateId, options)
             .ConfigureAwait(false);
-        if (result.IsT0)
-        {
-            return Ok(result.AsT0);
-        }
+        if (result.IsT0) return Ok(result.AsT0);
 
         return BadRequest(result.AsT1);
     }
-
 }

@@ -38,8 +38,8 @@ public static class HostBuilderExtensions
         }
 
         logging.AddFilter(DbLoggerCategory.Database.Connection.Name, LogLevel.Information);
-        logging.AddFilter("TranslationPro.Base", LogLevel.Information);
-        logging.AddFilter("TranslationPro.Shared", LogLevel.Information);
+        logging.AddFilter("ResumePro", LogLevel.Information);
+        logging.AddFilter("ResumePro.Shared", LogLevel.Information);
         logging.AddFilter("IdentityServer4", LogLevel.Warning);
     }
 

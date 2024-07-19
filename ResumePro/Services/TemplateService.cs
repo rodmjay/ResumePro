@@ -4,12 +4,14 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class TemplateService(IServiceProvider serviceProvider) : BaseService<Template>(serviceProvider), ITemplateService
+public sealed class TemplateService(IServiceProvider serviceProvider)
+    : BaseService<Template>(serviceProvider), ITemplateService
 {
     private IQueryable<Template> Templates => Repository.Queryable();
 
@@ -31,6 +33,9 @@ public sealed class TemplateService(IServiceProvider serviceProvider) : BaseServ
 
     public async Task<OneOf<TemplateDto, Result>> CreateTemplate(int organizationId, TemplateOptions options)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, Options: {options}"),
+            organizationId, options);
+
         var template = new Template
         {
             //Id = await GetNextTemplateId(),
@@ -41,19 +46,21 @@ public sealed class TemplateService(IServiceProvider serviceProvider) : BaseServ
             Source = options.Template,
             Format = options.Format
         };
-        
+
         var records = Repository.Insert(template, true);
-        if (records > 0)
-        {
-            return await GetTemplate<TemplateDto>(organizationId, template.Name);
-        }
+        if (records > 0) return await GetTemplate<TemplateDto>(organizationId, template.Name);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<TemplateDto, Result>> UpdateTemplate(int organizationId, string templateName, TemplateOptions options)
+    public async Task<OneOf<TemplateDto, Result>> UpdateTemplate(int organizationId, int templateId,
+        TemplateOptions options)
     {
-        var template = await Templates.Where(x => x.OrganizationId == organizationId && x.Name == templateName)
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, TemplateId: {templateId}, Options: {options}"),
+            organizationId, templateId, options);
+
+        var template = await Templates.Where(x => x.OrganizationId == organizationId && x.Id == templateId)
             .FirstOrDefaultAsync();
 
         template.ObjectState = ObjectState.Modified;
@@ -63,27 +70,18 @@ public sealed class TemplateService(IServiceProvider serviceProvider) : BaseServ
         template.Source = options.Template;
 
         var records = Repository.InsertOrUpdateGraph(template, true);
-        if (records > 0)
-        {
-            return await GetTemplate<TemplateDto>(organizationId, template.Name);
-        }
+        if (records > 0) return await GetTemplate<TemplateDto>(organizationId, template.Name);
 
         return Result.Failed();
     }
 
     private async Task<int> GetNextTemplateId()
     {
-        var lastTemplate = await Templates
-            .AsNoTracking()
+        var id = await Templates.AsNoTracking()
             .IgnoreQueryFilters()
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (lastTemplate == null)
-        {
-            return 1;
-        }
-
-        return lastTemplate.Id + 1;
+        return id + 1;
     }
 }

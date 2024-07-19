@@ -5,6 +5,7 @@
 #endregion
 
 using HandlebarsDotNet;
+using Microsoft.Extensions.Logging;
 using ResumePro.Generation;
 using ResumePro.Shared.Models;
 
@@ -52,6 +53,10 @@ public sealed class ResumeService(
     public async Task<OneOf<ResumeDetails, Result>> CreateResume(
         int organizationId, int personaId, ResumeOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personaId}, Options: {options}"),
+            organizationId, personaId, options);
+
         var resume = new Resume
         {
             Id = await GetNextResumeId(organizationId),
@@ -112,7 +117,7 @@ public sealed class ResumeService(
                         });
                 }
             }
-         
+
 
             if (resumeDto.Settings.AttachAllSkills)
             {
@@ -139,22 +144,17 @@ public sealed class ResumeService(
                         .ToListAsync();
 
                     foreach (var skill in skills)
-                    {
                         resume.Skills.Add(new ResumeSkill
                         {
                             ObjectState = ObjectState.Added,
                             SkillId = skill.SkillId
                         });
-                    }
                 }
             }
 
             var settings = Mapper.Map<ResumeSettingsDto>(resume.ResumeSettings);
 
-            if (settings.DefaultTemplateId != null)
-            {
-                return await Generate(organizationId, personaId, resume.Id);
-            }
+            if (settings.DefaultTemplateId > 0) return await Generate(organizationId, personaId, resume.Id);
 
             return await GetResume<ResumeDetails>(organizationId, personaId, resume.Id);
         }
@@ -165,6 +165,11 @@ public sealed class ResumeService(
     public async Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personaId, int resumeId,
         ResumeOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personaId}, ResumeId: {resumeId}, Options: {options}"),
+            organizationId, personaId, resumeId, options);
+
         var resume = await Resumes
             .Include(x => x.ResumeSettings)
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
@@ -196,16 +201,17 @@ public sealed class ResumeService(
         resume.ResumeSettings.SkillView = options.Settings.SkillView;
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
-        if (records > 0)
-        {
-            return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
-        }
+        if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
 
         return Result.Failed(resumeErrors.UnableToSaveResume());
     }
 
     public async Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personaId}, ResumeId: {resumeId}"),
+            organizationId, personId, resumeId);
+
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
         var resumeGenerator = new PdfResumeGenerator(new PdfSettings
@@ -220,6 +226,10 @@ public sealed class ResumeService(
 
     public async Task<ResumeDetails> Generate(int organizationId, int personId, int resumeId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personaId}, ResumeId: {resumeId}"),
+            organizationId, personId, resumeId);
+
         var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
         var template = await Templates.Where(x => x.Id == resume.Settings.DefaultTemplateId)
@@ -229,24 +239,21 @@ public sealed class ResumeService(
             throw new Exception();
 
         var rendering = await Renderings.Where(x =>
-                x.OrganizationId == organizationId && x.ResumeId == resumeId && x.TemplateId == resume.Settings.DefaultTemplateId)
+                x.OrganizationId == organizationId && x.ResumeId == resumeId &&
+                x.TemplateId == resume.Settings.DefaultTemplateId)
             .FirstOrDefaultAsync();
 
 
         if (rendering == null)
-        {
-            rendering = new Rendering()
+            rendering = new Rendering
             {
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId,
                 ResumeId = resumeId,
                 TemplateId = resume.Settings.DefaultTemplateId
             };
-        }
         else
-        {
             rendering.ObjectState = ObjectState.Modified;
-        }
 
         var generatedResume = await Generate(resume, resume.Settings.DefaultTemplateId);
         if (generatedResume.IsT0)
@@ -258,11 +265,13 @@ public sealed class ResumeService(
         var records = renderingRepo.InsertOrUpdateGraph(rendering, true);
 
         return await GetResume<ResumeDetails>(organizationId, personId, resumeId);
-
     }
 
     public async Task<OneOf<string, Result>> Generate(ResumeDetails resume, int templateId)
     {
+        Logger.LogInformation(GetLogMessage("Resume: {resume}, TemplateId: {templateId}"),
+            resume, templateId);
+
         var template = await Templates.Where(x => x.Id == templateId)
             .FirstOrDefaultAsync();
 
@@ -270,12 +279,16 @@ public sealed class ResumeService(
             return Result.Failed(templateErrors.TemplateNotFound(templateId));
 
         var engine = Handlebars.Compile(template.Source);
-        
+
         return engine(resume);
     }
 
     public async Task<Result> DeleteResume(int organizationId, int personaId, int resumeId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personaId}, ResumeId: {resumeId}"),
+            organizationId, personaId, resumeId);
+
         var resume = await Resumes
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
             .Include(x => x.Jobs)
@@ -299,15 +312,12 @@ public sealed class ResumeService(
 
     private async Task<int> GetNextResumeId(int organizationId)
     {
-        var resume = await Resumes.AsNoTracking()
+        var id = await Resumes.AsNoTracking()
             .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId)
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (resume == null)
-            return 1;
-
-        return resume.Id + 1;
+        return id + 1;
     }
 }

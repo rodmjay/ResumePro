@@ -4,6 +4,8 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
+
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
@@ -15,6 +17,11 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
     public async Task<Result> AddResumeSkill(int organizationId, int personId, int resumeId,
         int skillId)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, ResumeId: {resumeId}, SkillId: {skillId}"),
+            organizationId, personId, resumeId, skillId);
+
         var resumeSkill = await ResumeSkills.Where(x => x.OrganizationId == organizationId
                                                         && x.PersonaId == personId && x.SkillId == skillId)
             .FirstOrDefaultAsync();
@@ -37,6 +44,11 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
 
     public Task<Result> DeleteResumeSkill(int organizationId, int personId, int resumeId, int skillId)
     {
-        throw new NotImplementedException();
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, ResumeId: {resumeId}, SkillId: {skillId}"),
+            organizationId, personId, resumeId, skillId);
+
+        return Task.FromResult(Result.Failed());
     }
 }

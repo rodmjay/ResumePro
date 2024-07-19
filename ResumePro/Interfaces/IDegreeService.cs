@@ -15,7 +15,9 @@ public interface IDegreeService : IService<Degree>
     Task<List<T>> GetDegrees<T>(int organizationId, int personId, int schoolId) where T : DegreeDto;
 
     Task<OneOf<DegreeDto, Result>> CreateDegree(int organizationId, int personId, int schoolId, DegreeOptions options);
-    Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId, int degreeId, DegreeOptions options);
+
+    Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId, int degreeId,
+        DegreeOptions options);
 
     Task<Result> DeleteDegree(int organizationId, int personId, int schoolId, int degreeId);
 }

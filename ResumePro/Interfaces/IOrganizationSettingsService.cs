@@ -12,6 +12,7 @@ namespace ResumePro.Interfaces;
 public interface IOrganizationSettingsService : IService<OrganizationSettings>
 {
     Task<OrganizationSettingsDto> GetOrganizationSettings(int organizationId);
+
     Task<OneOf<OrganizationSettingsDto, Result>> AddOrUpdateUpdateOrganizationSettings(int organizationId,
         OrganizationSettingsOptions options);
 }

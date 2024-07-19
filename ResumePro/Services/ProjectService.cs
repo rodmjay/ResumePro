@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -34,6 +35,9 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
     public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId,
         ProjectOptions options)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, JobId: {jobId}, Options: {options}"),
+            organizationId, jobId, options);
+
         var lastProject = await
             Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
                 .AsNoTracking()
@@ -66,6 +70,11 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
     public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
         ProjectOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, JobId: {jobId}, ProjectId: {projectId}, Options: {options}"),
+            organizationId, jobId, projectId, options);
+
         var projects = await Projects
             .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
             .OrderBy(x => x.Order)
@@ -108,6 +117,9 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
 
     public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
     {
+        Logger.LogInformation(GetLogMessage("OrganizationId: {organizationId}, JobId: {jobId}, ProjectId: {projectId}"),
+            organizationId, jobId, projectId);
+
         var project = await Projects
             .Include(x => x.Highlights)
             .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
@@ -145,14 +157,12 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
 
     private async Task<int> GetNextProjectId(int organizationId)
     {
-        var project = await Projects.IgnoreQueryFilters()
+        var id = await Projects.AsNoTracking()
+            .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId)
-            .AsNoTracking()
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (project == null) return 1;
-
-        return project.Id + 1;
+        return id + 1;
     }
 }

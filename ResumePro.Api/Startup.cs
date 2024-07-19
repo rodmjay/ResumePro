@@ -80,7 +80,7 @@ public class Startup
                     OnAuthenticationFailed = c =>
                     {
                         var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace($"Authentication Failure");
+                        logger.LogTrace("Authentication Failure");
                         return Task.FromResult(0);
                     },
                     OnTokenValidated = c =>

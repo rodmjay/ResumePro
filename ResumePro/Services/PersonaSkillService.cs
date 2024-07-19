@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -25,6 +26,10 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
 
     public async Task<Result> AddOrUpdatePersonaSkill(int organizationId, int personId, PersonaSkillsOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            organizationId, personId, options);
+
         var personalSkill =
             await PersonalSkills.Where(x =>
                     x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == options.SkillId)
@@ -91,6 +96,10 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
 
     public async Task<Result> DeletePersonalSkill(int organizationId, int personId, int skillId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, SkillId: {skillId}"),
+            organizationId, personId, skillId);
+
         var changes = await Repository.DeleteAsync(x =>
             x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == skillId);
 

@@ -33,7 +33,7 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
     public async Task<OneOf<DegreeDto, Result>> CreateDegree(int organizationId, int personId, int schoolId,
         DegreeOptions options)
     {
-        var degree = new Degree()
+        var degree = new Degree
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
@@ -43,15 +43,13 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
         };
 
         var changes = Repository.InsertOrUpdateGraph(degree, true);
-        if (changes > 0)
-        {
-            return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
-        }
+        if (changes > 0) return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
 
         return Result.Failed(errors.UnableToSaveDegree());
     }
 
-    public async Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId, int degreeId, DegreeOptions options)
+    public async Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId,
+        int degreeId, DegreeOptions options)
     {
         var degree = await Degrees
             .Where(x => x.OrganizationId == organizationId && x.SchoolId == schoolId && x.Id == degreeId)
@@ -64,10 +62,7 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
         degree.Name = options.Name;
 
         var changes = Repository.InsertOrUpdateGraph(degree, true);
-        if (changes > 0)
-        {
-            return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
-        }
+        if (changes > 0) return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
 
         return Result.Failed(errors.UnableToSaveDegree());
     }
@@ -89,14 +84,12 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
 
     private async Task<int> GetNextDegreeId(int organizationId)
     {
-        var degree = await Degrees.Where(x => x.OrganizationId == organizationId)
-            .AsNoTracking()
+        var id = await Degrees.AsNoTracking()
+            .IgnoreQueryFilters()
+            .Where(x => x.OrganizationId == organizationId)
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (degree == null)
-            return 1;
-
-        return degree.Id + 1;
+        return id + 1;
     }
 }

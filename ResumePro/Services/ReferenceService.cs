@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -35,6 +36,10 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     public async Task<OneOf<ReferenceDto, Result>> CreateReference(int organizationId, int personId,
         ReferenceCreateOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, Options: {options}"),
+            organizationId, personId, options);
+
         var lastReference = await
             References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
                 .AsNoTracking()
@@ -66,6 +71,11 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     public async Task<OneOf<ReferenceDto, Result>> UpdateReference(int organizationId, int personId, int referenceId,
         ReferenceOptions options)
     {
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {organizationId}, PersonId: {personId}, ReferenceId: {referenceId}, Options: {options}"),
+            organizationId, personId, referenceId, options);
+
         var reference = await References.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
             .FirstOrDefaultAsync();
@@ -105,6 +115,10 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
 
     public async Task<Result> DeleteReference(int organizationId, int personId, int referenceId)
     {
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {organizationId}, PersonId: {personId}, ReferenceId: {referenceId}"),
+            organizationId, personId, referenceId);
+
         var reference = await References.Where(x =>
                 x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
             .FirstOrDefaultAsync();
@@ -137,14 +151,12 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
 
     private async Task<int> GetNextReferenceId(int organizationId, int personId)
     {
-        var reference = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
-            .AsNoTracking()
+        var id = await References.AsNoTracking()
             .IgnoreQueryFilters()
+            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
             .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
             .FirstOrDefaultAsync();
-
-        if (reference == null) return 1;
-
-        return reference.Id + 1;
+        return id + 1;
     }
 }

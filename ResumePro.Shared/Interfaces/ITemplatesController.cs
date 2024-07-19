@@ -14,5 +14,5 @@ public interface ITemplatesController
 {
     Task<List<TemplateDto>> GetTemplates();
     Task<ActionResult<TemplateDto>> CreateTemplate(TemplateOptions options);
-    Task<ActionResult<TemplateDto>> UpdateTemplate(string templateId, TemplateOptions options);
+    Task<ActionResult<TemplateDto>> UpdateTemplate(int templateId, TemplateOptions options);
 }

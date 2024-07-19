@@ -5,7 +5,6 @@
 #endregion
 
 using System.Linq.Expressions;
-using System.Runtime.CompilerServices;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -43,10 +42,5 @@ public sealed class CountryService : BaseService<Country>, ICountryService
         return StateProvinces.Where(x => x.Iso2 == iso2).ProjectTo<T>(Mapper)
             .AsNoTracking()
             .ToListAsync();
-    }
-
-    private string GetLogMessage(string message, [CallerMemberName] string callerName = null)
-    {
-        return $"[{nameof(CountryService)}.{callerName}] - {message}";
     }
 }
