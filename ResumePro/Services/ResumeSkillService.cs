@@ -23,8 +23,8 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
             organizationId, personId, resumeId, skillId);
 
         var resumeSkill = await ResumeSkills.Where(x => x.OrganizationId == organizationId
-                                                        && x.ResumeId== resumeId
-                                                        && x.PersonaId == personId 
+                                                        && x.ResumeId == resumeId
+                                                        && x.PersonaId == personId
                                                         && x.SkillId == skillId)
             .FirstOrDefaultAsync();
 

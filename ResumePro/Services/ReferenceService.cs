@@ -40,11 +40,11 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
-        int lastReferenceOrder = await
+        var lastReferenceOrder = await
             References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
-                .Select(x=>x.Order)
+                .Select(x => x.Order)
                 .FirstOrDefaultAsync();
 
         var reference = new Reference

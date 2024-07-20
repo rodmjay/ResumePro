@@ -34,9 +34,11 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
     public async Task<OneOf<DegreeDto, Result>> CreateDegree(int organizationId, int personId, int schoolId,
         DegreeOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Options: {@options}"),
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Options: {@options}"),
             organizationId, personId, schoolId, options);
-        
+
         var degree = new Degree
         {
             ObjectState = ObjectState.Added,
@@ -55,7 +57,9 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
     public async Task<OneOf<DegreeDto, Result>> UpdateDegree(int organizationId, int personId, int schoolId,
         int degreeId, DegreeOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Degree: {@degreeId}, Options: {@options}"),
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Degree: {@degreeId}, Options: {@options}"),
             organizationId, personId, schoolId, degreeId, options);
 
         var degree = await Degrees
@@ -76,9 +80,11 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
 
     public async Task<Result> DeleteDegree(int organizationId, int personId, int schoolId, int degreeId)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Degree: {@degreeId}"),
+        Logger.LogInformation(
+            GetLogMessage(
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Degree: {@degreeId}"),
             organizationId, personId, schoolId, degreeId);
-        
+
         var degree = await Degrees
             .Where(x => x.OrganizationId == organizationId && x.SchoolId == schoolId && x.Id == degreeId)
             .FirstOrDefaultAsync();

@@ -34,10 +34,7 @@ public class JobsControllerTest : BaseApiTest
             Assert.That(job.Location, Is.EqualTo(options.Location));
             Assert.That(job.EndDate, Is.EqualTo(options.EndDate));
 
-            if (job.EndDate == null)
-            {
-                Assert.That(job.DisplayEndDate, Is.EqualTo("Present"));
-            }
+            if (job.EndDate == null) Assert.That(job.DisplayEndDate, Is.EqualTo("Present"));
         }
     }
 }

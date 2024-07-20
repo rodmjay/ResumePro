@@ -29,7 +29,6 @@ public class DegreesControllerTest : BaseApiTest
             var degree = response.GetObject();
 
             Assert.That(degree.Name, Is.EqualTo(options.Name));
-
         }
     }
 }

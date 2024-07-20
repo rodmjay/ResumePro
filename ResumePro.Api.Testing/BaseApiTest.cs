@@ -22,6 +22,7 @@ public abstract class BaseApiTest : IntegrationTest<BaseApiTest, Startup>
     protected IProjectsController ProjectsProxy => new ProjectsProxy(ApiClient);
     protected IHighlightsController HighlightsProxy => new HighlightsProxy(ApiClient);
     protected IJobsController JobsProxy => new JobsProxy(ApiClient);
+    protected IJobSkillsController JobSkillsProxy => new JobSkillsProxy(ApiClient);
     protected IOrganizationSettingsController OrganizationSettingsProxy => new OrganizationSettingsProxy(ApiClient);
     protected IReferencesController ReferencesProxy => new ReferencesProxy(ApiClient);
     protected IResumeController ResumeProxy => new ResumeProxy(ApiClient);

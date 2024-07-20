@@ -34,7 +34,7 @@ public class SchoolsControllerTest : BaseApiTest
         [TestCaseSource(typeof(SchoolTestData), nameof(SchoolTestData.ValidOptions))]
         public async Task CanUpdateSchool(SchoolOptions options)
         {
-            var response = await SchoolsProxy.UpdateSchool(1,1, options);
+            var response = await SchoolsProxy.UpdateSchool(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
         }
     }

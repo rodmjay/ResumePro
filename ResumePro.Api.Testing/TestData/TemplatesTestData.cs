@@ -12,9 +12,9 @@ public class TemplatesTestData
 {
     public static IEnumerable<TemplateOptions> ValidOptions()
     {
-        return new List<TemplateOptions>()
+        return new List<TemplateOptions>
         {
-            new TemplateOptions()
+            new()
             {
                 Name = "test",
                 Engine = "hb",

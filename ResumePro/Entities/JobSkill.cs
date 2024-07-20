@@ -21,7 +21,7 @@ public sealed class JobSkill : BaseEntity<JobSkill>, IJobSkill
 
     public override void Configure(EntityTypeBuilder<JobSkill> builder)
     {
-        builder.HasKey(x => new {x.OrganizationId, x.SkillId, x.JobId});
+        builder.HasKey(x => new {x.OrganizationId, x.PersonaId, x.JobId, x.SkillId});
 
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Skills)

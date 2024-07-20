@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.Extensions.Logging;
-using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 
@@ -14,7 +13,7 @@ public sealed class JobSkillService(IServiceProvider serviceProvider)
     : BaseService<JobSkill>(serviceProvider), IJobSkillService
 {
     private IQueryable<JobSkill> JobSkills => Repository.Queryable();
-    
+
     public async Task<Result> AddJobSkill(int organizationId, int personId, int jobId, int skillId)
     {
         Logger.LogInformation(
@@ -23,14 +22,14 @@ public sealed class JobSkillService(IServiceProvider serviceProvider)
             organizationId, personId, jobId, skillId);
 
         var jobSkill = await JobSkills.Where(x => x.OrganizationId == organizationId
-                                                     && x.PersonaId == personId 
-                                                     && x.JobId == jobId 
-                                                     && x.SkillId == skillId)
+                                                  && x.PersonaId == personId
+                                                  && x.JobId == jobId
+                                                  && x.SkillId == skillId)
             .FirstOrDefaultAsync();
 
         if (jobSkill != null) return Result.Failed();
 
-        jobSkill = new JobSkill()
+        jobSkill = new JobSkill
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
@@ -66,6 +65,5 @@ public sealed class JobSkillService(IServiceProvider serviceProvider)
         if (changes > 0) return Result.Success();
 
         return Result.Failed();
-
     }
 }

@@ -12,20 +12,21 @@ public class ReferenceTestData
 {
     public static IEnumerable<ReferenceCreateOptions> ValidCreateOptions()
     {
-        return new List<ReferenceCreateOptions>()
+        return new List<ReferenceCreateOptions>
         {
-            new ReferenceCreateOptions()
+            new()
             {
                 Name = "test test",
                 Text = "foo"
             }
         };
     }
+
     public static IEnumerable<ReferenceOptions> ValidOptions()
     {
-        return new List<ReferenceOptions>()
+        return new List<ReferenceOptions>
         {
-            new ReferenceOptions()
+            new()
             {
                 Name = "test test",
                 Order = 1,

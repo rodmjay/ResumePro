@@ -38,11 +38,11 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
         Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, Options: {@options}"),
             organizationId, jobId, options);
 
-        int lastProjectOrder = await
+        var lastProjectOrder = await
             Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
-                .Select(x=>x.Order)
+                .Select(x => x.Order)
                 .FirstOrDefaultAsync();
 
         var project = new Project
@@ -113,7 +113,8 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
 
     public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, ProjectId: {@projectId}"),
+        Logger.LogInformation(
+            GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, ProjectId: {@projectId}"),
             organizationId, jobId, projectId);
 
         var project = await Projects

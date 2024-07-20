@@ -6,13 +6,14 @@
 
 using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/jobs/{jobId}/skills")]
 public sealed class JobSkillsController(IServiceProvider serviceProvider, IJobSkillService service)
-    : BaseController(serviceProvider)
+    : BaseController(serviceProvider), IJobSkillsController
 {
     [HttpPatch("{skillId}")]
     public async Task<Result> AddJobSkill([FromRoute] int personId, [FromRoute] int jobId,

@@ -12,9 +12,9 @@ public class PersonSkillTestData
 {
     public static IEnumerable<PersonaSkillsOptions> ValidOptions()
     {
-        return new List<PersonaSkillsOptions>()
+        return new List<PersonaSkillsOptions>
         {
-            new PersonaSkillsOptions()
+            new()
             {
                 Rating = 10,
                 SkillId = 1

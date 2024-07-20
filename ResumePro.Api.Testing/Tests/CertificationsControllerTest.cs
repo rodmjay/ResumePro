@@ -27,7 +27,7 @@ public class CertificationsControllerTest : BaseApiTest
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var certification = response.GetObject();
-            
+
             Assert.That(certification.Name, Is.EqualTo(options.Name));
             Assert.That(certification.Body, Is.EqualTo(options.Body));
             Assert.That(certification.Date, Is.EqualTo(options.Date));

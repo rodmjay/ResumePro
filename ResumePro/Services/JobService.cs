@@ -90,7 +90,8 @@ public sealed class JobService(IServiceProvider serviceProvider, IRepositoryAsyn
         JobOptions options)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, Options: {@options}"),
+            GetLogMessage(
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, Options: {@options}"),
             organizationId, personId, jobId, options);
 
         var job = await Jobs.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)

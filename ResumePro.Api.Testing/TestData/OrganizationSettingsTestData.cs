@@ -13,7 +13,7 @@ public class OrganizationSettingsTestData
 {
     public static IEnumerable<OrganizationSettingsOptions> ValidOptions()
     {
-        return new List<OrganizationSettingsOptions>()
+        return new List<OrganizationSettingsOptions>
         {
             new()
             {

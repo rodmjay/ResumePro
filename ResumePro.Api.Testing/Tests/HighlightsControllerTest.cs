@@ -43,12 +43,12 @@ public class HighlightsControllerTest : BaseApiTest
 
             var highlightId = response.GetObject().Id;
 
-            var updateOptions = new HighlightUpdateOptions()
+            var updateOptions = new HighlightUpdateOptions
             {
                 Order = 1,
                 Text = options.Text + "_updated"
             };
-            
+
             var updateResponse = await HighlightsProxy.UpdateHighlight(1, 1, highlightId, updateOptions);
             Assert.That(updateResponse.Result is OkObjectResult, Is.True);
 
