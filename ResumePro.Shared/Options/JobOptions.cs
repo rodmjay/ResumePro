@@ -20,4 +20,7 @@ public class JobOptions
 
     [Required]
     public string Title { get; set; }
+
+    public List<HighlightOptions> HighlightOptions { get; set; } = new List<HighlightOptions>();
+    public List<ProjectOptions> ProjectOptions { get; set; } = new List<ProjectOptions>();
 }

@@ -19,6 +19,7 @@ public class PersonaMapping : Profile
             .ForMember(x => x.CertificationCount, opt => opt.MapFrom(x => x.Certifications.Count))
             .ForMember(x => x.JobCount, opt => opt.MapFrom(x => x.Jobs.Count))
             .ForMember(x => x.State, opt => opt.MapFrom(x => x.State.Code))
+            .ForMember(x => x.StateId, opt => opt.MapFrom(x => x.State.Id))
             .ForMember(x => x.Country, opt => opt.MapFrom(x => x.State.Country.Iso2))
             .IncludeAllDerived();
 

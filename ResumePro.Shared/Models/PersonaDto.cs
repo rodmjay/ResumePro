@@ -18,6 +18,7 @@ namespace ResumePro.Shared.Models;
 public class PersonaDto : IPersona
 {
     public string State { get; set; }
+    public int StateId { get; set; }
     public int SkillCount { get; set; }
     public int ResumeCount { get; set; }
     public int JobCount { get; set; }

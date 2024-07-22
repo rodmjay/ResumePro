@@ -8,6 +8,15 @@ namespace ResumePro.ErrorDescribers;
 
 public class GeographyErrorDescriber
 {
+    public virtual Error StateNotFound()
+    {
+        return new Error
+        {
+            Code = nameof(StateNotFound),
+            Description = "Unable to find state"
+        };
+    }
+
     public virtual Error EnableCountryError()
     {
         return new Error

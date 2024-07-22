@@ -17,7 +17,7 @@
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     @foreach (var template in TemplateRecords)
                     {
-                        <button class="nav-link custom-tab @((selectedTemplate != null && selectedTemplate.Id == template.Id) ? "active" : "")" 
+                        <button class="nav-link custom-tab @((SelectedTemplate != null && SelectedTemplate.Id == template.Id) ? "active" : "")" 
                                 @onclick="() => SelectTemplate(template)">
                             @template.Name
                         </button>
@@ -26,24 +26,24 @@
             </div>
             <div class="col-md-9">
                 <div class="tab-content" id="v-pills-tabContent">
-                    @if (selectedTemplate != null)
+                    @if (SelectedTemplate != null)
                     {
                         <div class="tab-pane fade show active">
-                            <h3>@(selectedTemplate.Id == 0 ? "New Template" : selectedTemplate.Name)</h3>
-                            <textarea class="form-control" rows="10" @bind="selectedTemplate.Source" disabled="@selectedTemplate.IsGlobal"></textarea>
-                            <small class="text-muted">Format: @selectedTemplate.Format, Engine: @selectedTemplate.Engine</small>
-                            @if (!selectedTemplate.IsGlobal)
+                            <h3>@(SelectedTemplate.Id == 0 ? "New Template" : SelectedTemplate.Name)</h3>
+                            <textarea class="form-control" rows="10" @bind="SelectedTemplate.Source" disabled="@SelectedTemplate.IsGlobal"></textarea>
+                            <small class="text-muted">Format: @SelectedTemplate.Format, Engine: @SelectedTemplate.Engine</small>
+                            @if (!SelectedTemplate.IsGlobal)
                             {
-                                <button class="btn btn-primary mt-2" @onclick="() => SaveTemplate(selectedTemplate.Id == 0)">Save</button>
+                                <button class="btn btn-primary mt-2" @onclick="() => SaveTemplate(SelectedTemplate.Id == 0)">Save</button>
                             }
                         </div>
-                        @if (selectedTemplate.Id == 0)
+                        @if (SelectedTemplate.Id == 0)
                         {
                             <!-- Binding new template options -->
                             <div>
-                                <input class="form-control" placeholder="Name" @bind="newTemplateOptions.Name" />
-                                <input class="form-control mt-2" placeholder="Format" @bind="newTemplateOptions.Format" />
-                                <input class="form-control mt-2" placeholder="Engine" @bind="newTemplateOptions.Engine" />
+                                <input class="form-control" placeholder="Name" @bind="CreateTemplateOptions.Name" />
+                                <input class="form-control mt-2" placeholder="Format" @bind="CreateTemplateOptions.Format" />
+                                <input class="form-control mt-2" placeholder="Engine" @bind="CreateTemplateOptions.Engine" />
                             </div>
                         }
                     }

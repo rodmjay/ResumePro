@@ -1,0 +1,26 @@
+﻿
+@inherits FormComponent<SchoolOptions>
+
+
+<Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>Name</FieldLabel>
+            <TextEdit Placeholder="Enter name" @bind-Text="Options.Name" />
+        </Field>
+    </Validation>
+    <Field>
+        <FieldLabel>Start Date</FieldLabel>
+        <DateEdit TValue="DateTime" Placeholder="Enter start date" @bind-Date="Options.StartDate" />
+    </Field>
+    <Field>
+        <FieldLabel>End Date</FieldLabel>
+        <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate" />
+    </Field>
+    
+    <Field>
+        <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
+        <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+
+    </Field>
+</Validations>

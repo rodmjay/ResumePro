@@ -2,11 +2,10 @@
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using System.Web;
-using System;
 
 namespace ResumePro.App.Pages
 {
-    public partial class Resume
+    public partial class ResumePage
     {
         [Inject] private IResumeController ResumeController { get; set; }
         [Inject]

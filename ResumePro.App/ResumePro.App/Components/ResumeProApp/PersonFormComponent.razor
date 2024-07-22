@@ -1,0 +1,40 @@
+﻿@inherits FormComponent<PersonaOptions>
+
+<Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>First Name</FieldLabel>
+            <TextEdit Placeholder="Enter first name" @bind-Text="Options.FirstName" />
+        </Field>
+    </Validation>
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>First Name</FieldLabel>
+            <TextEdit Placeholder="Enter last name" @bind-Text="Options.LastName" />
+        </Field>
+    </Validation>
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>Email</FieldLabel>
+            <TextEdit Placeholder="Enter email" @bind-Text="Options.Email" />
+        </Field>
+    </Validation>
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>LinkedIn</FieldLabel>
+            <TextEdit Placeholder="Enter linkedin" @bind-Text="Options.LinkedIn" />
+        </Field>
+    </Validation>
+    <Validation Validator="@ValidationRule.IsNotEmpty">
+        <Field>
+            <FieldLabel>GitHub</FieldLabel>
+            <TextEdit Placeholder="Enter GitHub" @bind-Text="Options.GitHub" />
+        </Field>
+    </Validation>
+   
+    <Field>
+        <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
+        <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+
+    </Field>
+</Validations>

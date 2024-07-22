@@ -2,20 +2,19 @@
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
-using static System.Net.WebRequestMethods;
 
 namespace ResumePro.App.Pages
 {
-    public partial class Templates
+    public partial class TemplatesPage
     {
         [Inject]
         public ITemplatesController TemplatesController { get; set; }
-        private TemplateDto selectedTemplate;
-        private TemplateOptions newTemplateOptions = new TemplateOptions();
+        private TemplateDto SelectedTemplate;
+        private TemplateOptions CreateTemplateOptions = new TemplateOptions();
 
         private void CreateNewTemplate()
         {
-            selectedTemplate = new TemplateDto
+            SelectedTemplate = new TemplateDto
             {
                 Name = "",
                 Source = "",
@@ -24,7 +23,7 @@ namespace ResumePro.App.Pages
                 IsGlobal = false,  // Default to editable
                 Id = 0  // Signifying a new template
             };
-            newTemplateOptions = new TemplateOptions
+            CreateTemplateOptions = new TemplateOptions
             {
                 Name = "",
                 Template = "",
@@ -41,7 +40,7 @@ namespace ResumePro.App.Pages
         }
         private void SelectTemplate(TemplateDto template)
         {
-            selectedTemplate = template;
+            SelectedTemplate = template;
         }
 
         private async Task SaveTemplate(bool isNew)
@@ -61,7 +60,7 @@ namespace ResumePro.App.Pages
 
             //// Refresh templates list or handle updates appropriately
             //templates = await Http.GetFromJsonAsync<List<TemplateDto>>("api/templates");
-            selectedTemplate = null;  // Reset or reselect template
+            SelectedTemplate = null;  // Reset or reselect template
         }
     }
 }

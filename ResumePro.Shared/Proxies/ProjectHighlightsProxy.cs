@@ -28,16 +28,16 @@ public sealed class ProjectHighlightsProxy(HttpClient httpClient) : BaseProxy(ht
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId, HighlightCreateOptions options)
+    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId, HighlightOptions options)
     {
-        return await DoPostActionResult<HighlightCreateOptions, HighlightDto>(
+        return await DoPostActionResult<HighlightOptions, HighlightDto>(
                 $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights", options)
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId, int highlightId, HighlightUpdateOptions options)
+    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId, int highlightId, HighlightOptions options)
     {
-        return await DoPutActionResult<HighlightCreateOptions, HighlightDto>(
+        return await DoPutActionResult<HighlightOptions, HighlightDto>(
                 $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights/{highlightId}", options)
             .ConfigureAwait(false);
     }

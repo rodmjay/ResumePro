@@ -35,7 +35,7 @@ public sealed class ProjectHighlightsController(IServiceProvider serviceProvider
     [HttpPost]
     public async Task<ActionResult<HighlightDto>> CreateHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId,
-        [FromBody] HighlightCreateOptions options)
+        [FromBody] HighlightOptions options)
     {
         var result = await highlightService.CreateHighlight(OrganizationId, personId, jobId, null, options)
             .ConfigureAwait(false);
@@ -48,7 +48,7 @@ public sealed class ProjectHighlightsController(IServiceProvider serviceProvider
     public async Task<ActionResult<HighlightDto>> UpdateHighlight([FromRoute] int personId, [FromRoute] int jobId,
         [FromRoute] int projectId,
         [FromRoute] int highlightId,
-        [FromBody] HighlightUpdateOptions options)
+        [FromBody] HighlightOptions options)
     {
         var result = await highlightService
             .UpdateHighlight(OrganizationId, personId, jobId, projectId, highlightId, options)

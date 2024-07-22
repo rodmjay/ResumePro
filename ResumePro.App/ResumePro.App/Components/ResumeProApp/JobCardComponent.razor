@@ -1,48 +1,48 @@
-﻿<div class="card mb-2">
-    <div class="card-header">
+﻿<Card Margin="Margin.Is2.FromBottom">
+    <CardHeader>
         <strong>@Job.Title</strong> at @Job.Company
-    </div>
-    <div class="card-body">
-        <h6 class="card-subtitle mb-2 text-muted">
-            @Job.StartDate.ToShortDateString() - @(Job.EndDate.HasValue ? Job.EndDate.Value.ToShortDateString() : "Present") (@Job.Duration)
-        </h6>
-        <p class="card-text">@Job.Description</p>
-      
+    </CardHeader>
+    <CardBody>
         
+        <CardSubtitle Margin="Margin.Is2.FromBottom" Italic="true">
+            @Job.StartDate.ToShortDateString() - @(Job.DisplayEndDate) (@Job.Duration)
+        </CardSubtitle>
+        <CardText>
+            @Job.Description
+        </CardText>
+
         @if (Job.Highlights.Any())
         {
-            <ul>
+            <UnorderedList>
                 @foreach (var highlight in Job.Highlights)
                 {
-                    <li>@highlight.Text</li>
+                    <UnorderedListItem>@highlight.Text</UnorderedListItem>
                 }
-            </ul>
+            </UnorderedList>
         }
 
         @if (Job.Projects.Any())
         {
-            <p class="card-text">
-
+            <CardText>
                 @foreach (var project in Job.Projects)
                 {
-                    <h4>Project: @project.Name</h4>
-                    <p>@project.Description</p>
+                    <Heading Size="HeadingSize.Is4">Project: @project.Name</Heading>
+                    <Paragraph>@project.Description</Paragraph>
 
                     @if (project.Highlights.Any())
                     {
-                        <ul>
+                        <UnorderedList>
                             @foreach (var highlight in project.Highlights)
                             {
-                                <li>@highlight.Text</li>
+                                <UnorderedListItem>@highlight.Text</UnorderedListItem>
                             }
-                        </ul>
+                        </UnorderedList>
                     }
                 }
-            </p>
+            </CardText>
         }
-        
-        <p class="card-text">
+        <CardText>
             <strong>Skills:</strong> @string.Join(", ", Job.Skills.Select(s => s.Name))
-        </p>
-    </div>
-</div>
+        </CardText>
+    </CardBody>
+</Card>

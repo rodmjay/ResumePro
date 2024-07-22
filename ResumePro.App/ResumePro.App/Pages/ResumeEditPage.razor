@@ -1,0 +1,42 @@
+﻿@page "/people/{PersonId:int}/resumes/{ResumeId:int}/edit"
+@using Microsoft.AspNetCore.Authorization
+@inherits PersonPageBase
+@attribute [Authorize]
+
+@if (Person != null)
+{
+    <div class="container sticky-top mt-3">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}/resumes/{ResumeId}")">@ResumeDetails.JobTitle</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">Edit Resume</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
+    </div>
+
+
+    <Row>
+        <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+            <Card Margin="Margin.Is4.FromBottom">
+                <CardHeader>
+                    <CardTitle>Edit Resume</CardTitle>
+                </CardHeader>
+                <CardBody>
+
+                    <ResumeFormComponent OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="ResumeOptions">
+
+                    </ResumeFormComponent>
+
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+}

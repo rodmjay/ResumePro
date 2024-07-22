@@ -17,11 +17,11 @@ public interface IHighlightService : IService<Highlight>
 
     Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
         int? projectId,
-        HighlightCreateOptions options);
+        HighlightOptions options);
 
     Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId, int? projectId,
         int highlightId,
-        HighlightUpdateOptions options);
+        HighlightOptions options);
 
     Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId, int highlightId);
 }

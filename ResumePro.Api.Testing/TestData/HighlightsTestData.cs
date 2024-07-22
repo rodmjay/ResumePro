@@ -10,9 +10,9 @@ namespace ResumePro.Api.Testing.TestData;
 
 public class HighlightsTestData
 {
-    public static IEnumerable<HighlightCreateOptions> ValidCreateOptions()
+    public static IEnumerable<HighlightOptions> ValidCreateOptions()
     {
-        return new List<HighlightCreateOptions>
+        return new List<HighlightOptions>
         {
             new()
             {
@@ -21,9 +21,9 @@ public class HighlightsTestData
         };
     }
 
-    public static IEnumerable<HighlightUpdateOptions> ValidUpdateOptions()
+    public static IEnumerable<HighlightOptions> ValidUpdateOptions()
     {
-        return new List<HighlightUpdateOptions>
+        return new List<HighlightOptions>
         {
             new()
             {

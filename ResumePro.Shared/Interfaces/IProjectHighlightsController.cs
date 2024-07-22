@@ -21,12 +21,12 @@ public interface IProjectHighlightsController
 
     Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId,
          int projectId,
-         HighlightCreateOptions options);
+         HighlightOptions options);
 
     Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId,
          int projectId,
          int highlightId,
-         HighlightUpdateOptions options);
+         HighlightOptions options);
 
     Task<Result> DeleteHighlight(int personId, int jobId,
          int projectId,

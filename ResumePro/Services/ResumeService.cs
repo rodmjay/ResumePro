@@ -63,7 +63,7 @@ public sealed class ResumeService(
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
             PersonaId = personId,
-            JobTitle = options.Title,
+            JobTitle = options.JobTitle,
             Description = options.Description,
             ResumeSettings = new ResumeSettings
             {
@@ -179,7 +179,7 @@ public sealed class ResumeService(
             return Result.Failed(resumeErrors.ResumeNotFound(resumeId));
 
         resume.ObjectState = ObjectState.Modified;
-        resume.JobTitle = options.Title;
+        resume.JobTitle = options.JobTitle;
         resume.Description = options.Description;
 
         if (resume.ResumeSettings == null)

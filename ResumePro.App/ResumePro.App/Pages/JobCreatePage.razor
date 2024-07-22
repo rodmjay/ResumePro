@@ -1,0 +1,35 @@
+﻿@page "/people/{PersonId:int}/jobs/create"
+@inherits PersonPageBase
+
+@if (Person != null)
+{
+    <div class="container sticky-top mt-3">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">Create Job</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
+    </div>
+    <Container Fluid>
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+                <Card Margin="Margin.Is4.FromBottom">
+                    <CardHeader>
+                        <CardTitle>Create Job</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <JobFormComponent Options="JobOptions" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
+                    </CardBody>
+                </Card>
+            </Column>
+        </Row>
+    </Container>
+  
+
+}

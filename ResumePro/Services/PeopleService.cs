@@ -13,7 +13,8 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors)
+public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors,
+    IRepositoryAsync<StateProvince> stateRepo, GeographyErrorDescriber geoErrors)
     : BaseService<Persona>(serviceProvider), IPeopleService
 {
     private IQueryable<Persona> People => Repository.Queryable();
@@ -58,10 +59,29 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
         return Result.Failed(personErrors.UnableToSavePerson());
     }
 
+
+    private async IAsyncEnumerable<Error> GetErrors(PersonaOptions options)
+    {
+        var stateExists = await stateRepo.Queryable()
+            .AsNoTracking()
+            .Where(x => x.Id == options.StateId).AnyAsync();
+
+        if (!stateExists)
+            yield return geoErrors.StateNotFound();
+    }
+
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
     {
         Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, Options: {@options}"), organizationId,
             options);
+
+
+        var errors = new List<Error>();
+
+        await foreach (var error in GetErrors(options)) errors.Add(error);
+
+        if (errors.Any())
+            return Result.Failed(errors.ToArray());
 
         var nextId = await GetNextPersonId(organizationId);
         var person = new Persona
@@ -96,6 +116,13 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
 
         if (person == null)
             return Result.Failed(personErrors.PersonNotFound(personId));
+
+        var errors = new List<Error>();
+
+        await foreach (var error in GetErrors(options)) errors.Add(error);
+
+        if (errors.Any())
+            return Result.Failed(errors.ToArray());
 
         person.ObjectState = ObjectState.Modified;
         person.Email = options.Email;

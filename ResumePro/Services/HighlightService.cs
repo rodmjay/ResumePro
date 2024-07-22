@@ -35,7 +35,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
     }
 
     public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
-        int? projectId, HighlightCreateOptions options)
+        int? projectId, HighlightOptions options)
     {
         Logger.LogInformation(
             GetLogMessage(
@@ -72,7 +72,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 
     public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId,
         int? projectId,
-        int highlightId, HighlightUpdateOptions options)
+        int highlightId, HighlightOptions options)
     {
         Logger.LogInformation(
             GetLogMessage(
@@ -96,7 +96,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
         highlight.Text = options.Text;
         highlight.ObjectState = ObjectState.Modified;
 
-        var index = options.Order - 1;
+        var index = options.Order.GetValueOrDefault() - 1;
 
         if (index < 0) index = 0;
         if (index > highlights.Count) index = highlights.Count;

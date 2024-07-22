@@ -23,7 +23,7 @@ public class ResumeTestData
                     AttachAllJobs = true,
                     AttachAllSkills = true
                 },
-                Title = "foo"
+                JobTitle = "foo"
             }
         };
     }

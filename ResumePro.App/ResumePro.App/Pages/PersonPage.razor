@@ -1,8 +1,9 @@
 ﻿@page "/people/{PersonId:int}"
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
+@inherits PersonPageBase
 
-@if (@Persona != null)
+@if (@Person != null)
 {
     <div class="container sticky-top mt-3">
         <Breadcrumb>
@@ -10,7 +11,7 @@
                 <BreadcrumbLink To="/">People</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem Active>
-                <BreadcrumbLink To="#">@Persona.LastName, @Persona.FirstName</BreadcrumbLink>
+                <BreadcrumbLink To="#">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
         
@@ -19,16 +20,16 @@
                 <button class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basicInfo" type="button" role="tab" aria-controls="basicInfo" aria-selected="true">Person Details</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="resumes-tab" data-bs-toggle="tab" data-bs-target="#resumes" type="button" role="tab" aria-controls="resumes" aria-selected="false">Resumes (@Persona.ResumeCount) </button>
+                <button class="nav-link" id="resumes-tab" data-bs-toggle="tab" data-bs-target="#resumes" type="button" role="tab" aria-controls="resumes" aria-selected="false">Resumes (@Person.ResumeCount) </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab" aria-controls="jobs" aria-selected="false">Jobs (@Persona.JobCount) </button>
+                <button class="nav-link" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab" aria-controls="jobs" aria-selected="false">Jobs (@Person.JobCount) </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">Education </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab" aria-controls="skills" aria-selected="false">Skills (@Persona.SkillCount)</button>
+                <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab" aria-controls="skills" aria-selected="false">Skills (@Person.SkillCount)</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="certifications-tab" data-bs-toggle="tab" data-bs-target="#certifications" type="button" role="tab" aria-controls="certifications" aria-selected="false">Certifications</button>
@@ -43,47 +44,78 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basic-info-tab">
                 <div class="p-4">
-                    
-                    <PersonContactInfoComponent Person="@Persona"></PersonContactInfoComponent>
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="EditPersonDetails">Edit Person Details</button>
+                    </div>
+                    <PersonContactInfoComponent Person="@Person"></PersonContactInfoComponent>
 
-                    <PersonLanguagesCard Person="@Persona"></PersonLanguagesCard>
+                    <PersonLanguagesCard Person="@Person"></PersonLanguagesCard>
 
                 </div>
             </div>
             <div class="tab-pane fade" id="resumes" role="tabpanel" aria-labelledby="resumes-tab">
                 <div class="p-4">
-                    @if (Persona.Resumes != null && Persona.Resumes.Count > 0)
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="CreateNewResume">Add Resume</button>
+                    </div>
+                    @if (Person.Resumes is {Count: > 0})
                     {
-                        <div class="row">
-                            @foreach (var resume in Persona.Resumes)
+
+                        <div class="row row-cols-1 row-cols-md-2 g-4">
+                            @foreach (var resume in Person.Resumes)
                             {
-                                <ResumeCardComponent PersonId="@PersonId" Resume="@resume"></ResumeCardComponent>
+                                <div class="col">
+                                    <div @onclick="@(() => EditResume(resume.Id))" style="cursor: pointer;">
+                                        <ResumeCardComponent PersonId="@PersonId" Resume="@resume"></ResumeCardComponent>
+                                    </div>
+                                </div>
                             }
                         </div>
                     }
                     else
                     {
-                        <p>No resumes to display.</p>
+                        <div class="alert alert-info" role="alert">
+                            No resumes available. Click 'Create New Resume' to add one.
+                        </div>
                     }
 
                 </div>
             </div>
             <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
                 <div class="p-4">
-                    @if (Persona.Jobs != null)
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="CreateNewJob">Add Job</button>
+                    </div>
+
+                    @if (Person.Jobs != null && Person.Jobs.Any())
                     {
-                        foreach (var job in Persona.Jobs)
-                        {
-                            <JobCardComponent Job="@job"></JobCardComponent>
-                        }
+                        <div class="row row-cols-1 row-cols-md-1 g-4">
+                            @foreach (var job in Person.Jobs)
+                            {
+                                <div class="col">
+                                    <div @onclick="@(() => EditJob(job.Id))" style="cursor: pointer;">
+                                        <JobCardComponent Job="@job" />
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            No jobs available. Click 'Create New Job' to add one.
+                        </div>
                     }
                 </div>
             </div>
             <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
                 <div class="p-4">
-                    @if (Persona.Education != null)
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="CreateSchool">Add School</button>
+                    </div>
+                    @if (Person.Education != null)
                     {
-                        foreach (var school in Persona.Education)
+                        foreach (var school in Person.Education)
                         {
                             <div class="card mb-2">
                                 <div class="card-body">
@@ -100,9 +132,9 @@
             </div>
             <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                 <div class="p-4">
-                    @if (Persona.Skills != null)
+                    @if (Person.Skills != null)
                     {
-                        foreach (var skill in Persona.Skills)
+                        foreach (var skill in Person.Skills)
                         {
                             <p>@skill.Name (@skill.Rating)</p>
                         }
@@ -111,9 +143,9 @@
             </div>
             <div class="tab-pane fade" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
                 <div class="p-4">
-                    @if (Persona.Certifications != null)
+                    @if (Person.Certifications != null)
                     {
-                        foreach (var certification in Persona.Certifications)
+                        foreach (var certification in Person.Certifications)
                         {
                             <p>@certification.Name - Issued by: @certification.Body on @certification.Date.ToString("yyyy-MM-dd")</p>
                         }

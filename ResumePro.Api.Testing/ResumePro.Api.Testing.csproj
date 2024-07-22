@@ -23,5 +23,8 @@
     <ProjectReference Include="..\ResumePro.Api\ResumePro.Api.csproj" />
     <ProjectReference Include="..\ResumePro.Testing\ResumePro.Testing.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+  </ItemGroup>
 
 </Project>

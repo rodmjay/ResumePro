@@ -17,7 +17,7 @@ namespace ResumePro.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -7498,13 +7498,14 @@ namespace ResumePro.Migrations
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Highlights")
                         .HasForeignKey("OrganizationId", "JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Project", "Project")
                         .WithMany("Highlights")
                         .HasForeignKey("ProjectId", "JobId")
-                        .HasPrincipalKey("Id", "JobId");
+                        .HasPrincipalKey("Id", "JobId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Job");
 

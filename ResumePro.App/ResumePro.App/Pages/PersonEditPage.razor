@@ -1,0 +1,45 @@
+﻿@page "/people/{PersonId:int}/edit"
+@inherits PersonPageBase
+
+
+@if (Person != null)
+{
+    <div class="container sticky-top mt-3">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">Edit</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
+    </div>
+
+    @if (errorMessages.Any())
+    {
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                @foreach (var error in errorMessages)
+                {
+                    <li>@error</li>
+                }
+            </ul>
+        </div>
+    }
+
+    <Row>
+        <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+            <Card Margin="Margin.Is4.FromBottom">
+                <CardHeader>
+                    <CardTitle>Edit Person</CardTitle>
+                </CardHeader>
+                <CardBody>
+                    <PersonFormComponent Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
+                </CardBody>
+            </Card>
+        </Column>
+    </Row>
+}

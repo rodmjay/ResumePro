@@ -7,8 +7,8 @@
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
 using ResumePro.Api.Controllers;
-using ResumePro.Api.Testing.Extensions;
 using ResumePro.Api.Testing.TestData;
+using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.Tests;
@@ -21,7 +21,7 @@ public class HighlightsControllerTest : BaseApiTest
     public sealed class TheCreateHighlightMethod : HighlightsControllerTest
     {
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
-        public async Task CanCreateHighlight(HighlightCreateOptions options)
+        public async Task CanCreateHighlight(HighlightOptions options)
         {
             var response = await HighlightsProxy.CreateHighlight(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
@@ -36,14 +36,14 @@ public class HighlightsControllerTest : BaseApiTest
     public sealed class TheUpdateHighlightMethod : HighlightsControllerTest
     {
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
-        public async Task CanUpdateHighlight(HighlightCreateOptions options)
+        public async Task CanUpdateHighlight(HighlightOptions options)
         {
             var response = await HighlightsProxy.CreateHighlight(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var highlightId = response.GetObject().Id;
 
-            var updateOptions = new HighlightUpdateOptions
+            var updateOptions = new HighlightOptions
             {
                 Order = 1,
                 Text = options.Text + "_updated"
@@ -73,7 +73,7 @@ public class HighlightsControllerTest : BaseApiTest
     public sealed class TheGetHighlightMethod : HighlightsControllerTest
     {
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
-        public async Task CanGetHighlight(HighlightCreateOptions options)
+        public async Task CanGetHighlight(HighlightOptions options)
         {
             var response = await HighlightsProxy.CreateHighlight(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
@@ -90,7 +90,7 @@ public class HighlightsControllerTest : BaseApiTest
     public sealed class TheDeleteHighlightMethod : HighlightsControllerTest
     {
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
-        public async Task CanDeleteHighlight(HighlightCreateOptions options)
+        public async Task CanDeleteHighlight(HighlightOptions options)
         {
             var response = await HighlightsProxy.CreateHighlight(1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);

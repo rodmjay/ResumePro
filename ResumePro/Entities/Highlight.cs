@@ -31,12 +31,13 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
             .WithMany(x => x.Highlights)
             .HasForeignKey(x => new {x.OrganizationId, x.JobId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Project)
             .WithMany(x => x.Highlights)
             .HasForeignKey(x => new {x.ProjectId, x.JobId})
             .HasPrincipalKey(x => new {x.Id, x.JobId})
+            .OnDelete(DeleteBehavior.Cascade)
             .IsRequired(false);
     }
 }

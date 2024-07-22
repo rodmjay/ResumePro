@@ -14,6 +14,7 @@ public class ProjectMapping : Profile
     public ProjectMapping()
     {
         CreateMap<Project, ProjectDto>()
+            .ForMember(x => x.Id, opt => opt.MapFrom(x => x.Id))
             .ForMember(x => x.JobId, opt => opt.Ignore())
             .IncludeAllDerived();
 

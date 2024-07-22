@@ -1,0 +1,228 @@
+﻿@inherits FormComponent<JobOptions>
+
+<Row>
+    <Column>
+        <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+            <Fields>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsFull">
+                        <FieldLabel>Title</FieldLabel>
+                        <TextEdit Placeholder="Enter title" @bind-Text="Options.Title">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsHalf">
+                        <FieldLabel>Company</FieldLabel>
+                        <TextEdit Placeholder="Enter company" @bind-Text="Options.Company">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsHalf">
+                        <FieldLabel>Location</FieldLabel>
+                        <TextEdit Placeholder="Enter location" @bind-Text="Options.Location">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsHalf">
+                        <FieldLabel>Start Date</FieldLabel>
+                        <DatePicker @bind-Date="@Options.StartDate">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </DatePicker>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsHalf">
+                        <FieldLabel>End Date</FieldLabel>
+                        <DatePicker @bind-Date="@Options.EndDate">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </DatePicker>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field ColumnSize="ColumnSize.IsFull">
+                        <FieldLabel>Description</FieldLabel>
+                        <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description">
+                            <Feedback>
+                                <ValidationError />
+                            </Feedback>
+                        </MemoEdit>
+                    </Field>
+                </Validation>
+
+                <Card Margin="Margin.Is3.FromBottom">
+                    <CardBody>
+                        <CardTitle>
+                            Highlights
+                        </CardTitle>
+                        <CardText>
+                            @foreach (var highlight in Options.HighlightOptions)
+                            {
+                                <Column ColumnSize="ColumnSize.Is11">
+                                    <Addons>
+                                        <Addon AddonType="AddonType.Body">
+                                            <Validation>
+                                                <Field ColumnSize="ColumnSize.Is9">
+                                                    <TextEdit @bind-Text="highlight.Text" Placeholder="Enter highlight">
+                                                        <Feedback>
+                                                            <ValidationError/>
+                                                        </Feedback>
+                                                    </TextEdit>
+
+                                                </Field>
+                                            </Validation>
+                                        </Addon>
+                                        <Addon AddonType="AddonType.End">
+                                            <Field>
+                                                <Button Color="Color.Danger" Clicked="@(() => RemoveHighlight(highlight))">
+                                                    <i class="fas fa-trash"></i>
+                                                </Button>
+                                            </Field>
+                                        </Addon>
+                                    </Addons>
+                                </Column>
+
+                            }
+                        </CardText>
+                        <Button Color="Color.Primary" Clicked="@AddHighlight">Add Highlight</Button>
+
+                    </CardBody>
+                </Card>
+
+                <Card Margin="Margin.Is5.FromBottom">
+                    <CardBody>
+                        <CardTitle>
+                            Projects
+                        </CardTitle>
+                        <CardText>
+                            @foreach (var project in Options.ProjectOptions)
+                            {
+                                <Card Margin="Margin.Is3">
+                                    <CardBody>
+                                        <CardText>
+
+                                            <Column ColumnSize="ColumnSize.IsAuto">
+                                                <Addons>
+                                                    <Addon AddonType="AddonType.Body">
+                                                        <Validation>
+                                                            <Field ColumnSize="ColumnSize.IsHalf">
+                                                                <TextEdit @bind-Text="project.Name" Placeholder="Enter name">
+                                                                    <Feedback>
+                                                                        <ValidationError />
+                                                                    </Feedback>
+                                                                </TextEdit>
+
+                                                            </Field>
+                                                        </Validation>
+                                                        <Validation>
+                                                            <Field ColumnSize="ColumnSize.IsHalf">
+                                                                <NumericEdit @bind-Value="project.Budget" Placeholder="Enter budget">
+                                                                    <Feedback>
+                                                                        <ValidationError />
+                                                                    </Feedback>
+                                                                </NumericEdit>
+
+                                                            </Field>
+                                                        </Validation>
+
+                                                        <Validation>
+                                                            <Field ColumnSize="ColumnSize.IsFull">
+                                                                <MemoEdit @bind-Text="project.Description" Placeholder="Enter description">
+                                                                    <Feedback>
+                                                                        <ValidationError />
+                                                                    </Feedback>
+                                                                </MemoEdit>
+
+                                                            </Field>
+                                                        </Validation>
+
+                                                    </Addon>
+                                                  
+                                                </Addons>
+                                            </Column>
+
+
+
+                                            <Card Margin="Margin.Is3.FromBottom">
+
+                                                <CardBody>
+                                                    <CardTitle>
+                                                        Project Highlights
+                                                    </CardTitle>
+                                                    <CardText>
+
+
+                                                        @foreach (var highlight in project.HighlightOptions)
+                                                        {
+
+                                                            <Column ColumnSize="ColumnSize.IsAuto">
+                                                                <Addons>
+                                                                    <Addon AddonType="AddonType.Body">
+
+                                                                        <Validation>
+                                                                            <Field ColumnSize="ColumnSize.Is9">
+                                                                                <TextEdit @bind-Text="highlight.Text" Placeholder="Enter highlight">
+                                                                                    <Feedback>
+                                                                                        <ValidationError />
+                                                                                    </Feedback>
+                                                                                </TextEdit>
+
+                                                                            </Field>
+                                                                        </Validation>
+                                                                    </Addon>
+                                                                    <Addon AddonType="AddonType.End">
+                                                                        <Field>
+                                                                            <Button Color="Color.Danger" Clicked="@(() => RemoveProjectHighlight(project, highlight))"><i class="fas fa-trash"></i></Button>
+                                                                        </Field>
+                                                                    </Addon>
+                                                                </Addons>
+                                                            </Column>
+
+
+                                                        }
+                                                    </CardText>
+                                                    <Button Color="Color.Primary" Clicked="@(() => AddProjectHighlight(project))">Add Project Highlight</Button>
+
+                                                </CardBody>
+                                            </Card>
+
+                                        </CardText>
+                                        <Button Color="Color.Danger" Clicked="@(() => RemoveProject(project))">
+                                            <i class="fas fa-trash"></i>
+                                        </Button>
+                                    </CardBody>
+                                  
+                                </Card>
+
+                            }
+
+                        </CardText>
+                        <Button Color="Color.Primary" Clicked="@AddProject">Add Project</Button>
+
+                    </CardBody>
+                </Card>
+                <Field>
+                    <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
+                    <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+
+                </Field>
+            </Fields>
+            
+        </Validations>
+    </Column>
+</Row>

@@ -10,7 +10,7 @@ namespace ResumePro.Shared.Options;
 
 public class ResumeOptions
 {
-    [NotNull] public string Title { get; set; }
+    [NotNull] public string JobTitle { get; set; }
 
     [NotNull] public string Description { get; set; }
 
