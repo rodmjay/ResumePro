@@ -39,13 +39,21 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
                 "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Options: {@options}"),
             organizationId, personId, schoolId, options);
 
+        var lastOrder = await
+            Degrees.Where(x => x.OrganizationId == organizationId && x.SchoolId == schoolId)
+                .AsNoTracking()
+                .OrderByDescending(x => x.Order)
+                .Select(x => x.Order)
+                .FirstOrDefaultAsync();
+
         var degree = new Degree
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
             SchoolId = schoolId,
             Name = options.Name,
-            Id = await GetNextDegreeId(organizationId)
+            Id = await GetNextDegreeId(organizationId),
+            Order = lastOrder
         };
 
         var changes = Repository.InsertOrUpdateGraph(degree, true);
@@ -62,17 +70,37 @@ public sealed class DegreeService(IServiceProvider serviceProvider, DegreeErrorD
                 "OrganizationId: {@organizationId}, PersonId: {@personId}, SchoolId {@schoolId}, Degree: {@degreeId}, Options: {@options}"),
             organizationId, personId, schoolId, degreeId, options);
 
-        var degree = await Degrees
-            .Where(x => x.OrganizationId == organizationId && x.SchoolId == schoolId && x.Id == degreeId)
-            .FirstOrDefaultAsync();
+        var degrees = await Degrees
+            .Where(x => x.OrganizationId == organizationId && x.SchoolId == schoolId)
+            .OrderBy(x => x.Order)
+            .ToListAsync();
+
+        var degree = degrees.FirstOrDefault(x => x.Id == degreeId);
 
         if (degree == null)
             return Result.Failed(errors.DegreeNotFound(degreeId));
 
+        degrees.Remove(degree);
+
         degree.ObjectState = ObjectState.Modified;
         degree.Name = options.Name;
+        degree.Order = options.Order;
 
-        var changes = Repository.InsertOrUpdateGraph(degree, true);
+        var index = options.Order - 1;
+        if (index < 0) index = 0;
+        if (index > degrees.Count) index = degrees.Count;
+
+        degrees.Insert(index, degree);
+
+        for (var i = 0; i < degrees.Count; i++)
+        {
+            degrees[i].Order = i + 1;
+            degrees[i].ObjectState = ObjectState.Modified;
+
+            Repository.InsertOrUpdateGraph(degrees[0]);
+        }
+
+        var changes = Repository.Commit();
         if (changes > 0) return await GetDegree<DegreeDto>(organizationId, personId, schoolId, degree.Id);
 
         return Result.Failed(errors.UnableToSaveDegree());

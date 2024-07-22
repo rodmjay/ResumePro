@@ -4,13 +4,15 @@
 
 @inject IVersionProvider VersionProvider
 
-<Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromBottom">People</Heading>
+<Container>
+    <Heading Size="HeadingSize.Is2" Margin="Margin.Is3.FromBottom">People</Heading>
 
-<AuthorizeView>
-    <Authorized>
-        <PeopleList></PeopleList>
-    </Authorized>
-</AuthorizeView>
+    <AuthorizeView>
+        <Authorized>
+            <PeopleList></PeopleList>
+        </Authorized>
+    </AuthorizeView>
+</Container>
 
 
 @* 

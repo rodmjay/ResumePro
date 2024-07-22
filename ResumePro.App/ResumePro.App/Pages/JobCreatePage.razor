@@ -16,15 +16,17 @@
             </BreadcrumbItem>
         </Breadcrumb>
     </div>
-    <Container Fluid>
+    <Container>
         <Row>
-            <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+            <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
                 <Card Margin="Margin.Is4.FromBottom">
                     <CardHeader>
-                        <CardTitle>Create Job</CardTitle>
+                        <strong>Create Job</strong>
                     </CardHeader>
                     <CardBody>
-                        <JobFormComponent Options="JobOptions" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
+                        <CardText>
+                            <JobFormComponent Options="JobOptions" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
+                        </CardText>
                     </CardBody>
                 </Card>
             </Column>

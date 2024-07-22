@@ -16,6 +16,6 @@ public class SchoolMapping : Profile
         CreateMap<School, SchoolDto>().IncludeAllDerived();
 
         CreateMap<School, SchoolDetails>()
-            .ForMember(x => x.Degrees, opt => opt.MapFrom(x => x.Degrees));
+            .ForMember(x => x.Degrees, opt => opt.MapFrom(x => x.Degrees.OrderBy(d => d.Order)));
     }
 }

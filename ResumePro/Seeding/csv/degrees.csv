@@ -1,2 +1,2 @@
-﻿OrganizationId,Id,SchoolId,Name
-1,1,1,"AAS Computer and Information Systems"
+﻿OrganizationId,Id,SchoolId,Name,Order
+1,1,1,"AAS Computer and Information Systems",1

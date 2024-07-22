@@ -17,6 +17,7 @@ public sealed class Degree : BaseEntity<Degree>, IDegree
     public int SchoolId { get; set; }
     public int Id { get; set; }
     public string Name { get; set; }
+    public int Order { get; set; }
 
     public override void Configure(EntityTypeBuilder<Degree> builder)
     {

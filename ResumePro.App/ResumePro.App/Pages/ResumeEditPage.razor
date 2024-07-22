@@ -22,21 +22,24 @@
         </Breadcrumb>
     </div>
 
+    <Container>
+        
+        <Row>
+            <Column ColumnSize="ColumnSize.Is6.OnDesktop">
+                <Card Margin="Margin.Is4.FromBottom">
+                    <CardHeader>
+                        <Strong>Edit Resume</Strong>
+                    </CardHeader>
+                    <CardBody>
 
-    <Row>
-        <Column ColumnSize="ColumnSize.Is6.OnDesktop">
-            <Card Margin="Margin.Is4.FromBottom">
-                <CardHeader>
-                    <CardTitle>Edit Resume</CardTitle>
-                </CardHeader>
-                <CardBody>
+                        <ResumeFormComponent OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="ResumeOptions">
 
-                    <ResumeFormComponent OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="ResumeOptions">
+                        </ResumeFormComponent>
 
-                    </ResumeFormComponent>
+                    </CardBody>
+                </Card>
+            </Column>
+        </Row>
+    </Container>
 
-                </CardBody>
-            </Card>
-        </Column>
-    </Row>
 }

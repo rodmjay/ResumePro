@@ -8,13 +8,33 @@ namespace ResumePro.App.Components.ResumeProApp
 
         void AddDegree()
         {
-            Options.Degrees.Add(new DegreeOptions());
+            Options.DegreeOptions.Add(new DegreeOptions());
         }
 
         void RemoveDegree(DegreeOptions degree)
         {
-            Options.Degrees.Remove(degree);
+            Options.DegreeOptions.Remove(degree);
         }
 
+
+        private void MoveDegreeUp(int index)
+        {
+            if (index >= 0 && index < Options.DegreeOptions.Count - 1)
+            {
+                var item = Options.DegreeOptions[index];
+                Options.DegreeOptions.RemoveAt(index);
+                Options.DegreeOptions.Insert(index + 1, item);
+            }
+        }
+
+        private void MoveDegreeDown(int index)
+        {
+            if (index >= 0 && index < Options.DegreeOptions.Count - 1)
+            {
+                var item = Options.DegreeOptions[index];
+                Options.DegreeOptions.RemoveAt(index);
+                Options.DegreeOptions.Insert(index + 1, item);
+            }
+        }
     }
 }

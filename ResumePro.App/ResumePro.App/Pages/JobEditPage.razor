@@ -20,8 +20,10 @@
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
                 <Card Margin="Margin.Is4.FromBottom">
+                    <CardHeader>
+                        <Strong>Edit Job</Strong>
+                    </CardHeader>
                     <CardBody>
-                        <CardTitle>Edit Job</CardTitle>
                         <CardText>
                             <JobFormComponent Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
                         </CardText>

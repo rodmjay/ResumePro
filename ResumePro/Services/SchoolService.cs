@@ -44,7 +44,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
             Id = await GetNextSchoolId(organizationId),
             ObjectState = ObjectState.Added,
             EndDate = options.EndDate,
-            StartDate = options.StartDate,
+            StartDate = options.StartDate.Value,
             Name = options.Name,
             PersonaId = personId,
             OrganizationId = organizationId
@@ -52,16 +52,18 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
 
         var nextDegreeId = await GetNextDegreeId(organizationId);
 
-        foreach (var degreeOptions in options.Degrees)
+        for (var i = 0; i < options.DegreeOptions.Count; i++)
         {
+            var degreeOptions = options.DegreeOptions[i];
             var degree = new Degree()
             {
                 Id = nextDegreeId++,
                 ObjectState = ObjectState.Added,
                 Name = degreeOptions.Name,
                 OrganizationId = organizationId,
+                Order = i + 1
             };
-            
+
             school.Degrees.Add(degree);
         }
 
@@ -80,7 +82,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
             organizationId, personId, schoolId, options);
 
         var school = await Schools
-            .Include(x=>x.Degrees)
+            .Include(x => x.Degrees)
             .Where(x => x.OrganizationId == organizationId && x.Id == schoolId)
             .FirstOrDefaultAsync();
 
@@ -89,18 +91,19 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
 
         school.Name = options.Name;
         school.EndDate = options.EndDate;
-        school.StartDate = options.StartDate;
+        school.StartDate = options.StartDate.Value;
         school.ObjectState = ObjectState.Modified;
 
         var nextDegreeId = await GetNextDegreeId(organizationId);
-        
+
         foreach (var degree in school.Degrees)
         {
             degree.ObjectState = ObjectState.Deleted;
         }
 
-        foreach (var degreeOptions in options.Degrees)
+        for (var i = 0; i < options.DegreeOptions.Count; i++)
         {
+            var degreeOptions = options.DegreeOptions[i];
             var degreeEntity = school.Degrees.FirstOrDefault(x => x.Id == degreeOptions.Id);
             if (degreeEntity == null)
             {
@@ -116,6 +119,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
                 degreeEntity.ObjectState = ObjectState.Modified;
             }
 
+            degreeEntity.Order = i + 1;
             degreeEntity.Name = degreeOptions.Name;
         }
 
