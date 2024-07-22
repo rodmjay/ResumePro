@@ -94,7 +94,6 @@
                                                 <Buttons>
                                                     <Button Color="Color.Light" Clicked="@(() => MoveHighlightUp(highlight.index))" Disabled="@(highlight.index == 0)">
                                                         <Icon Name="IconName.ArrowUp"/>
-
                                                     </Button>
                                                     <Button Color="Color.Light" Clicked="@(() => MoveHighlightDown(highlight.index))" Disabled="@(highlight.index == @Options.HighlightOptions.Count - 1)">
                                                         <Icon Name="IconName.ArrowDown"/>
@@ -122,7 +121,7 @@
                             Projects
                         </CardTitle>
                         <CardText>
-                            @foreach (var project in Options.ProjectOptions)
+                            @foreach (var project in Options.ProjectOptions.Select((value, index) => new { value, index }))
                             {
                                 <Card Margin="Margin.Is3">
                                     <CardBody>
@@ -133,7 +132,7 @@
                                                     <Addon AddonType="AddonType.Body">
                                                         <Validation>
                                                             <Field ColumnSize="ColumnSize.IsHalf">
-                                                                <TextEdit @bind-Text="project.Name" Placeholder="Enter name">
+                                                                <TextEdit @bind-Text="project.value.Name" Placeholder="Enter name">
                                                                     <Feedback>
                                                                         <ValidationError />
                                                                     </Feedback>
@@ -143,7 +142,7 @@
                                                         </Validation>
                                                         <Validation>
                                                             <Field ColumnSize="ColumnSize.IsHalf">
-                                                                <NumericEdit @bind-Value="project.Budget" Placeholder="Enter budget">
+                                                                <NumericEdit @bind-Value="project.value.Budget" Placeholder="Enter budget">
                                                                     <Feedback>
                                                                         <ValidationError />
                                                                     </Feedback>
@@ -154,7 +153,7 @@
 
                                                         <Validation>
                                                             <Field ColumnSize="ColumnSize.IsFull">
-                                                                <MemoEdit @bind-Text="project.Description" Placeholder="Enter description">
+                                                                <MemoEdit @bind-Text="project.value.Description" Placeholder="Enter description">
                                                                     <Feedback>
                                                                         <ValidationError />
                                                                     </Feedback>
@@ -179,7 +178,7 @@
                                                     <CardText>
 
 
-                                                        @foreach (var highlight in project.HighlightOptions.Select((value, index) => new { value, index }))
+                                                        @foreach (var highlight in project.value.HighlightOptions.Select((value, index) => new { value, index }))
                                                         {
 
                                                             <Column ColumnSize="ColumnSize.IsAuto">
@@ -201,14 +200,14 @@
                                                                         <Field>
                                                                             <Field>
                                                                                 <Buttons>
-                                                                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightUp(project, highlight.index))" Disabled="@(highlight.index == 0)">
+                                                                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightUp(project.value, highlight.index))" Disabled="@(highlight.index == 0)">
                                                                                         <Icon Name="IconName.ArrowUp"/>
 
                                                                                     </Button>
-                                                                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightDown(project, highlight.index))" Disabled="@(highlight.index == @Options.HighlightOptions.Count - 1)">
+                                                                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightDown(project.value, highlight.index))" Disabled="@(highlight.index == @project.value.HighlightOptions.Count - 1)">
                                                                                         <Icon Name="IconName.ArrowDown"/>
                                                                                     </Button>
-                                                                                    <Button Color="Color.Danger" Clicked="@(() => RemoveProjectHighlight(project, highlight.value))">
+                                                                                    <Button Color="Color.Danger" Clicked="@(() => RemoveProjectHighlight(project.value, highlight.value))">
                                                                                         <Icon Name="IconName.Delete"/>
                                                                                     </Button>
                                                                                 </Buttons>
@@ -222,15 +221,24 @@
 
                                                         }
                                                     </CardText>
-                                                    <Button Color="Color.Primary" Clicked="@(() => AddProjectHighlight(project))">Add Project Highlight</Button>
+                                                    <Button Color="Color.Primary" Clicked="@(() => AddProjectHighlight(project.value))">Add Project Highlight</Button>
 
                                                 </CardBody>
                                             </Card>
 
                                         </CardText>
-                                        <Button Color="Color.Danger" Clicked="@(() => RemoveProject(project))">
-                                            <i class="fas fa-trash"></i>
-                                        </Button>
+                                        <Buttons>
+                                            <Button Color="Color.Light" Clicked="@(() => MoveProjectUp(project.index))" Disabled="@(project.index == 0)">
+                                                <Icon Name="IconName.ArrowUp"/>
+                                            </Button>
+                                            <Button Color="Color.Light" Clicked="@(() => MoveProjectDown(project.index))" Disabled="@(project.index == @Options.ProjectOptions.Count - 1)">
+                                                <Icon Name="IconName.ArrowDown"/>
+                                            </Button>
+                                            <Button Color="Color.Danger" Clicked="@(() => RemoveProject(project.value))">
+                                                <Icon Name="IconName.Delete" />
+                                            </Button>
+                                        </Buttons>
+                                     
                                     </CardBody>
 
                                 </Card>

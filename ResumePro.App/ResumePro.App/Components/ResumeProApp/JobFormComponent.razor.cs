@@ -33,6 +33,27 @@ namespace ResumePro.App.Components.ResumeProApp
                 projectOptions.HighlightOptions.Insert(index + 1, item);
             }
         }
+
+        private void MoveProjectUp(int index)
+        {
+            if (index >= 0 && index < Options.ProjectOptions.Count - 1)
+            {
+                var item = Options.ProjectOptions[index];
+                Options.ProjectOptions.RemoveAt(index);
+                Options.ProjectOptions.Insert(index + 1, item);
+            }
+        }
+
+        private void MoveProjectDown(int index)
+        {
+            if (index >= 0 && index < Options.ProjectOptions.Count - 1)
+            {
+                var item = Options.ProjectOptions[index];
+                Options.ProjectOptions.RemoveAt(index);
+                Options.ProjectOptions.Insert(index + 1, item);
+            }
+        }
+
         private void MoveHighlightDown(int index)
         {
             if (index >= 0 && index < Options.HighlightOptions.Count - 1)
