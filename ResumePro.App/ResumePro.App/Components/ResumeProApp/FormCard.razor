@@ -2,7 +2,13 @@
 
 <Card>
     <CardHeader>
-        @Title
+        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+            <span>@Title</span>
+            @if (OnDeleted.HasDelegate)
+            {
+                <Button Color="Color.Danger" Clicked="@Delete">Delete</Button>
+            }
+        </div>
     </CardHeader>
     <CardBody>
         <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
@@ -10,21 +16,8 @@
         </Validations>
     </CardBody>
     <CardFooter>
-        <div class="card-footer-buttons">
-            <div class="button-group">
-                <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>
-                <Button Color="Color.Secondary" Clicked="@Cancel">Cancel</Button>
-            </div>
-        
-            @if (OnDeleted.HasDelegate)
-            {
-                <div class="button-group">
-                    <Button Color="Color.Danger" Clicked="@Delete">Delete</Button>
-                </div>
-            }
-        </div>
-     
-
+        <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>
+        <Button Color="Color.Secondary" Clicked="@Cancel">Cancel</Button>
     </CardFooter>
 </Card>
 

@@ -26,6 +26,12 @@ namespace ResumePro.App.Pages
             NavigationManager.NavigateTo($"people/{PersonId}/references/create");
         }
 
+
+        void CreateCertification()
+        {
+            NavigationManager.NavigateTo($"people/{PersonId}/certifications/create");
+        }
+
         void EditPersonDetails()
         {
             NavigationManager.NavigateTo($"people/{PersonId}/edit");
@@ -45,7 +51,10 @@ namespace ResumePro.App.Pages
         {
             NavigationManager.NavigateTo($"/people/{PersonId}/jobs/{jobId}/edit");
         }
-
+        private void EditCertification(int certificationId)
+        {
+            NavigationManager.NavigateTo($"/people/{PersonId}/certifications/{certificationId}/edit");
+        }
         private void EditSchool(int schoolId)
         {
             NavigationManager.NavigateTo($"/people/{PersonId}/schools/{schoolId}/edit");

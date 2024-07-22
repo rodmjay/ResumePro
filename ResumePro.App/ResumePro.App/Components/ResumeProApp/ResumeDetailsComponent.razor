@@ -1,33 +1,47 @@
 ﻿<div class="resume-details">
-    
 
     <h2>@Resume.FirstName @Resume.LastName, @Resume.JobTitle</h2>
     <p>@Resume.Description</p>
 
     <ResumeContactInfoComponent Resume="@Resume"></ResumeContactInfoComponent>
-
-    <h3>Experience</h3>
-    @if (Resume.Jobs != null)
+    
+    @if (Resume.Jobs.Any())
     {
-        @foreach (var job in Resume.Jobs)
+        <h3>Experience</h3>
+        @if (Resume.Jobs != null)
         {
-            <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
-        }
-    }
-
-    <h3>Education</h3>
-    @if (Resume.Education != null)
-    {
-        foreach (var edu in Resume.Education)
-        {
-            <SchoolDetailsComponent School="@edu"></SchoolDetailsComponent>
+            @foreach (var job in Resume.Jobs)
+            {
+                <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
+            }
         }
     }
     
-    <h3>Certifications</h3>
-    @if (Resume.Certifications != null)
+    @if (Resume.Education.Any())
     {
-
+        <h3>Education</h3>
+        @if (Resume.Education != null)
+        {
+            foreach (var edu in Resume.Education)
+            {
+                <SchoolDetailsComponent School="@edu"></SchoolDetailsComponent>
+            }
+        }
     }
+   
+    
+    @if (Resume.Certifications.Any())
+    {
+        
+        <h3>Certifications</h3>
+        @if (Resume.Certifications != null)
+        {
+            foreach (var cert in Resume.Certifications)
+            {
+                <CertificationCard Certification="cert"></CertificationCard>
+            }
+        }
+    }
+
 
 </div>

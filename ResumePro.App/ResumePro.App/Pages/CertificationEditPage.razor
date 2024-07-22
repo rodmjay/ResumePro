@@ -1,0 +1,35 @@
+﻿@page "/people/{PersonId:int}/certifications/{CertificationId:int}/edit"
+
+@inherits PersonPageBase
+
+
+@if (Person != null)
+{
+    <div class="container sticky-top mt-3">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">Edit Certification</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
+    </div>
+
+    <Container>
+        <Row>
+            <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
+                <CertificationFormComponent Title="Edit Certification"
+                                            Options="Options"
+                                            OnDeleted="HandleDelete"
+                                            OnSaved="HandleValidSubmit"
+                                            OnCancelled="HandleCancelled">
+
+                </CertificationFormComponent>
+            </Column>
+        </Row>
+    </Container>
+}

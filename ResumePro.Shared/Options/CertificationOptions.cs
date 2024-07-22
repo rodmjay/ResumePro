@@ -4,11 +4,18 @@
 
 #endregion
 
+using System.ComponentModel.DataAnnotations;
+
 namespace ResumePro.Shared.Options;
 
 public class CertificationOptions
 {
+    [Required]
     public string Name { get; set; }
-    public DateTime Date { get; set; }
+
+    [Required]
+    public DateTime? Date { get; set; }
+
+    [Required]
     public string Body { get; set; }
 }

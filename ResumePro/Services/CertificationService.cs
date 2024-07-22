@@ -46,7 +46,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
             Id = await GetNextCertificationId(organizationId, personId),
             Body = options.Body,
             PersonaId = personId,
-            Date = options.Date,
+            Date = options.Date.Value,
             Name = options.Name
         };
 
@@ -72,7 +72,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
             return Result.Failed(errors.CertificationNotFound(certificationId));
 
         certification.ObjectState = ObjectState.Modified;
-        certification.Date = options.Date;
+        certification.Date = options.Date.Value;
         certification.Body = options.Body;
         certification.Name = options.Name;
 

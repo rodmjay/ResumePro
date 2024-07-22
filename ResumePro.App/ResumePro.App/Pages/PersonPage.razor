@@ -173,11 +173,16 @@
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("certifications")" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
                 <div class="p-4">
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="CreateCertification">Add Certification</button>
+                    </div>
                     @if (Person.Certifications != null)
                     {
                         foreach (var certification in Person.Certifications)
                         {
-                            <p>@certification.Name - Issued by: @certification.Body on @certification.Date.ToString("yyyy-MM-dd")</p>
+                            <div @onclick="@(() => EditCertification(certification.Id))" style="cursor: pointer;">
+                                <CertificationCard Certification="certification"></CertificationCard>
+                            </div>
                         }
                     }
                 </div>
