@@ -1,6 +1,6 @@
 ﻿@inherits FormComponent<ResumeOptions>
 
-<Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+<FormCard TOptions="ResumeOptions" Title="@Title" Options="@Options" OnCancelled="OnCancelled" OnSaved="OnSaved">
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>Title</FieldLabel>
@@ -13,10 +13,4 @@
             <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description" />
         </Field>
     </Validation>
-
-    <Field>
-        <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
-        <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
-
-    </Field>
-</Validations>
+</FormCard>

@@ -1,0 +1,30 @@
+﻿@typeparam TOptions where TOptions : class, new()
+
+<Card>
+    <CardHeader>
+        @Title
+    </CardHeader>
+    <CardBody>
+        <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+            @ChildContent
+        </Validations>
+    </CardBody>
+    <CardFooter>
+        <div class="card-footer-buttons">
+            <div class="button-group">
+                <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>
+                <Button Color="Color.Secondary" Clicked="@Cancel">Cancel</Button>
+            </div>
+        
+            @if (OnDeleted.HasDelegate)
+            {
+                <div class="button-group">
+                    <Button Color="Color.Danger" Clicked="@Delete">Delete</Button>
+                </div>
+            }
+        </div>
+     
+
+    </CardFooter>
+</Card>
+

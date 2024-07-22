@@ -1,8 +1,16 @@
-﻿<div>
-    <h4>@School.Name</h4>
-    <p>@School.StartDate.ToShortDateString() - @School.EndDate?.ToShortDateString()</p>
-    @foreach (var degree in School.Degrees)
-    {
-        <p>@degree.Name</p>
-    }
-</div>
+﻿
+<Card Margin="Margin.Is2.FromBottom">
+    <CardHeader>
+        <Strong>@School.Name</Strong> (@School.StartDate.ToShortDateString() - @School.EndDate?.ToShortDateString())
+    </CardHeader>
+    <CardBody>
+        <CardText>
+            <UnorderedList>
+                @foreach (var degree in School.Degrees)
+                {
+                    <UnorderedListItem>@degree.Name</UnorderedListItem>
+                }
+            </UnorderedList>
+        </CardText>
+    </CardBody>
+</Card>

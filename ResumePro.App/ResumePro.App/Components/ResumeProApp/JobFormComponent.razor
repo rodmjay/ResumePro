@@ -1,6 +1,6 @@
 ﻿@inherits FormComponent<JobOptions>
 
-<Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+<FormCard TOptions="JobOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
     <Fields>
         <Validation>
             <Field ColumnSize="ColumnSize.IsFull">
@@ -168,7 +168,7 @@
                                             <Strong>Project Highlights</Strong>
                                         </CardHeader>
                                         <CardBody>
-                                            
+
                                             <CardText>
 
 
@@ -241,11 +241,5 @@
 
             </CardBody>
         </Card>
-        <Field>
-            <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
-            <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
-
-        </Field>
     </Fields>
-
-</Validations>
+</FormCard>

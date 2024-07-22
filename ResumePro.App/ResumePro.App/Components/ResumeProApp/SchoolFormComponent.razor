@@ -1,96 +1,89 @@
-﻿
-@inherits FormComponent<SchoolOptions>
+﻿@inherits FormComponent<SchoolOptions>
 
-<Row>
-    <Column>
-        <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
-            <Fields>
-                <Validation>
-                    <Field>
-                        <FieldLabel>Name</FieldLabel>
-                        <TextEdit Placeholder="Enter name" @bind-Text="Options.Name" >
-                            <Feedback>
-                                <ValidationError/>
-                            </Feedback>
-                        </TextEdit>
-                    </Field>
-                </Validation>
-                <Validation>
-                    <Field>
-                        <FieldLabel>Start Date</FieldLabel>
-                        <DateEdit TValue="DateTime?" Placeholder="Enter start date" @bind-Date="Options.StartDate">
-                            <Feedback>
-                                <ValidationError/>
-                            </Feedback>
-                        </DateEdit>
-                    </Field>
-                </Validation>
-                <Validation>
-                    <Field>
-                        <FieldLabel>End Date</FieldLabel>
-                        <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate">
-                            <Feedback>
-                                <ValidationError/>
-                            </Feedback>
-                        </DateEdit>
-                    </Field>
-                </Validation>
-               
-                
-                <Card Margin="Margin.Is3.FromBottom">
-                    <CardBody>
-                        <CardTitle>
-                            Degrees
-                        </CardTitle>
-                        <CardText>
-                            @foreach (var degree in Options.DegreeOptions.Select((value, index) => new { value, index }))
-                            {
-                                <Column ColumnSize="ColumnSize.Is11">
-                                    <Addons>
-                                        <Addon AddonType="AddonType.Body">
-                                            <Validation>
-                                                <Field ColumnSize="ColumnSize.Is9">
-                                                    <TextEdit @bind-Text="degree.value.Name" Placeholder="Enter name">
-                                                        <Feedback>
-                                                            <ValidationError />
-                                                        </Feedback>
-                                                    </TextEdit>
 
-                                                </Field>
-                                            </Validation>
-                                        </Addon>
-                                        <Addon AddonType="AddonType.End">
-                                            <Field>
-                                                <Buttons>
-                                                    <Button Color="Color.Light" Clicked="@(() => MoveDegreeUp(degree.index))" Disabled="@(degree.index == 0)">
-                                                        <Icon Name="IconName.ArrowUp" />
-                                                    </Button>
-                                                    <Button Color="Color.Light" Clicked="@(() => MoveDegreeDown(degree.index))" Disabled="@(degree.index == @Options.DegreeOptions.Count - 1)">
-                                                        <Icon Name="IconName.ArrowDown" />
-                                                    </Button>
-                                                    <Button Color="Color.Danger" Clicked="@(() => RemoveDegree(degree.value))">
-                                                        <Icon Name="IconName.Delete" />
-                                                    </Button>
-                                                </Buttons>
-                                            </Field>
+<FormCard TOptions="SchoolOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
 
-                                        </Addon>
-                                    </Addons>
-                                </Column>
-
-                            }
-                        </CardText>
-                        <Button Color="Color.Primary" Clicked="@AddDegree">Add Degree</Button>
-
-                    </CardBody>
-                </Card>
-
+        <Fields>
+            <Validation>
                 <Field>
-                    <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
-                    <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+                    <FieldLabel>Name</FieldLabel>
+                    <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
+                        <Feedback>
+                            <ValidationError />
+                        </Feedback>
+                    </TextEdit>
                 </Field>
-            </Fields>
-          
-        </Validations>
-    </Column>
-</Row>
+            </Validation>
+            <Validation>
+                <Field>
+                    <FieldLabel>Start Date</FieldLabel>
+                    <DateEdit TValue="DateTime?" Placeholder="Enter start date" @bind-Date="Options.StartDate">
+                        <Feedback>
+                            <ValidationError />
+                        </Feedback>
+                    </DateEdit>
+                </Field>
+            </Validation>
+            <Validation>
+                <Field>
+                    <FieldLabel>End Date</FieldLabel>
+                    <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate">
+                        <Feedback>
+                            <ValidationError />
+                        </Feedback>
+                    </DateEdit>
+                </Field>
+            </Validation>
+
+
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardBody>
+                    <CardTitle>
+                        Degrees
+                    </CardTitle>
+                    <CardText>
+                        @foreach (var degree in Options.DegreeOptions.Select((value, index) => new { value, index }))
+                        {
+                            <Column ColumnSize="ColumnSize.Is11">
+                                <Addons>
+                                    <Addon AddonType="AddonType.Body">
+                                        <Validation>
+                                            <Field ColumnSize="ColumnSize.Is9">
+                                                <TextEdit @bind-Text="degree.value.Name" Placeholder="Enter name">
+                                                    <Feedback>
+                                                        <ValidationError />
+                                                    </Feedback>
+                                                </TextEdit>
+
+                                            </Field>
+                                        </Validation>
+                                    </Addon>
+                                    <Addon AddonType="AddonType.End">
+                                        <Field>
+                                            <Buttons>
+                                                <Button Color="Color.Light" Clicked="@(() => MoveDegreeUp(degree.index))" Disabled="@(degree.index == 0)">
+                                                    <Icon Name="IconName.ArrowUp" />
+                                                </Button>
+                                                <Button Color="Color.Light" Clicked="@(() => MoveDegreeDown(degree.index))" Disabled="@(degree.index == @Options.DegreeOptions.Count - 1)">
+                                                    <Icon Name="IconName.ArrowDown" />
+                                                </Button>
+                                                <Button Color="Color.Danger" Clicked="@(() => RemoveDegree(degree.value))">
+                                                    <Icon Name="IconName.Delete" />
+                                                </Button>
+                                            </Buttons>
+                                        </Field>
+
+                                    </Addon>
+                                </Addons>
+                            </Column>
+
+                        }
+                    </CardText>
+                    <Button Color="Color.Primary" Clicked="@AddDegree">Add Degree</Button>
+
+                </CardBody>
+            </Card>
+        </Fields>
+
+</FormCard>
+

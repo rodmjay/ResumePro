@@ -33,7 +33,14 @@ namespace ResumePro.App.Pages
             await base.OnParametersSetAsync();
         }
 
-
+        private async Task HandleDelete()
+        {
+            var response = await SchoolsController.DeleteSchool(PersonId, SchoolId);
+            if (response.Succeeded)
+            {
+                NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+            }
+        }
         private async Task HandleValidSubmit(SchoolOptions options)
         {
             var response = await SchoolsController.UpdateSchool(PersonId, SchoolId, options);

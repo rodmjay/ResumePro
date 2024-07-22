@@ -234,29 +234,25 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
         var job = await Jobs
             .Include(x => x.Highlights)
-            .Include(x => x.Resumes)
-            .Include(x => x.Projects)
-            .ThenInclude(x => x.Highlights)
-            .Include(x => x.Skills)
+            .Include(x=>x.Projects)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
         if (job == null) return Result.Failed();
-
-        job.ObjectState = ObjectState.Deleted;
-
-        foreach (var highlight in job.Highlights) highlight.ObjectState = ObjectState.Deleted;
-
-        foreach (var resume in job.Resumes) resume.ObjectState = ObjectState.Deleted;
+        
+        foreach (var highlight in job.Highlights)
+        {
+            highlightRepo.Delete(highlight);
+        }
 
         foreach (var project in job.Projects)
         {
-            project.ObjectState = ObjectState.Deleted;
-
-            foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
+            projectRepo.Delete(project);
         }
 
-        var results = Repository.InsertOrUpdateGraph(job, true);
+        Repository.Delete(job);
+
+        var results = UnitOfWork.SaveChanges();
         if (results > 0) return Result.Success();
 
         return Result.Failed();

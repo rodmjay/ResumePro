@@ -19,16 +19,7 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <Card Margin="Margin.Is4.FromBottom">
-                    <CardHeader>
-                        <Strong>Edit Job</Strong>
-                    </CardHeader>
-                    <CardBody>
-                        <CardText>
-                            <JobFormComponent Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
-                        </CardText>
-                    </CardBody>
-                </Card>
+                <JobFormComponent Title="Edit Job" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" OnDeleted="HandleDelete"></JobFormComponent>
             </Column>
         </Row>
     </Container>

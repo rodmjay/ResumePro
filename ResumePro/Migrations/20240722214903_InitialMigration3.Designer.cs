@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ResumePro.Context;
 
@@ -11,9 +12,11 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240722214903_InitialMigration3")]
+    partial class InitialMigration3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("Certification", (string)null);
+                    b.ToTable("Certification");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Country", b =>
@@ -79,7 +82,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Iso3");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Country");
 
                     b.HasData(
                         new
@@ -2243,7 +2246,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "SchoolId");
 
-                    b.ToTable("Degree", (string)null);
+                    b.ToTable("Degree");
 
                     b.HasData(
                         new
@@ -2282,7 +2285,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("ProjectId", "JobId");
 
-                    b.ToTable("Highlight", (string)null);
+                    b.ToTable("Highlight");
 
                     b.HasData(
                         new
@@ -2776,7 +2779,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("Job", (string)null);
+                    b.ToTable("Job");
 
                     b.HasData(
                         new
@@ -2899,7 +2902,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId", "SkillId");
 
-                    b.ToTable("JobSkill", (string)null);
+                    b.ToTable("JobSkill");
 
                     b.HasData(
                         new
@@ -3676,7 +3679,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId");
 
-                    b.ToTable("OrganizationSettings", (string)null);
+                    b.ToTable("OrganizationSettings");
 
                     b.HasData(
                         new
@@ -3733,7 +3736,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Persona", (string)null);
+                    b.ToTable("Persona");
 
                     b.HasData(
                         new
@@ -3770,7 +3773,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Code3");
 
-                    b.ToTable("PersonaLanguage", (string)null);
+                    b.ToTable("PersonaLanguage");
 
                     b.HasData(
                         new
@@ -3807,7 +3810,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("PersonaSkill", (string)null);
+                    b.ToTable("PersonaSkill");
 
                     b.HasData(
                         new
@@ -4182,7 +4185,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "JobId");
 
-                    b.ToTable("Project", (string)null);
+                    b.ToTable("Project");
 
                     b.HasData(
                         new
@@ -4308,7 +4311,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId", "PersonaId", "Id");
 
-                    b.ToTable("Reference", (string)null);
+                    b.ToTable("Reference");
 
                     b.HasData(
                         new
@@ -4397,7 +4400,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("Rendering", (string)null);
+                    b.ToTable("Rendering");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
@@ -4419,7 +4422,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId", "Id");
 
-                    b.ToTable("Resume", (string)null);
+                    b.ToTable("Resume");
 
                     b.HasData(
                         new
@@ -4447,7 +4450,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "JobId");
 
-                    b.ToTable("ResumeJob", (string)null);
+                    b.ToTable("ResumeJob");
 
                     b.HasData(
                         new
@@ -4545,7 +4548,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("DefaultTemplateId");
 
-                    b.ToTable("ResumeSettings", (string)null);
+                    b.ToTable("ResumeSettings");
 
                     b.HasData(
                         new
@@ -4573,7 +4576,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId", "SkillId");
 
-                    b.ToTable("ResumeSkill", (string)null);
+                    b.ToTable("ResumeSkill");
 
                     b.HasData(
                         new
@@ -4721,7 +4724,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("School", (string)null);
+                    b.ToTable("School");
 
                     b.HasData(
                         new
@@ -4748,7 +4751,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skill", (string)null);
+                    b.ToTable("Skill");
 
                     b.HasData(
                         new
@@ -5264,7 +5267,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SkillCategory", (string)null);
+                    b.ToTable("SkillCategory");
 
                     b.HasData(
                         new
@@ -5311,7 +5314,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("SkillCategorySkill", (string)null);
+                    b.ToTable("SkillCategorySkill");
 
                     b.HasData(
                         new
@@ -5700,7 +5703,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Iso2");
 
-                    b.ToTable("StateProvince", (string)null);
+                    b.ToTable("StateProvince");
 
                     b.HasData(
                         new
@@ -6138,7 +6141,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Template", (string)null);
+                    b.ToTable("Template");
 
                     b.HasData(
                         new
@@ -6175,7 +6178,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Code3");
 
-                    b.ToTable("Language", (string)null);
+                    b.ToTable("Language");
 
                     b.HasData(
                         new

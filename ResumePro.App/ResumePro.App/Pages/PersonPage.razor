@@ -146,15 +146,7 @@
                         {
                             <div @onclick="@(() => EditSchool(school.Id))" style="cursor: pointer;">
 
-                                <div class="card mb-2">
-                                    <div class="card-body">
-                                        <h5 class="card-title">@school.Name</h5>
-                                        @foreach (var degree in school.Degrees)
-                                        {
-                                            <p class="card-text">@degree.Name</p>
-                                        }
-                                    </div>
-                                </div>
+                                <SchoolDetailsComponent School="@school"></SchoolDetailsComponent>
                             </div>
                         }
                     }

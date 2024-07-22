@@ -14,7 +14,7 @@ namespace ResumePro.App.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
-        private readonly JobOptions JobOptions = new JobOptions();
+        private readonly JobOptions Options = new JobOptions();
 
         private async Task HandleValidSubmit(JobOptions savedJob)
         {

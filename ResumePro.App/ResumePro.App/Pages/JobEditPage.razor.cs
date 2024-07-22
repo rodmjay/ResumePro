@@ -27,6 +27,7 @@ namespace ResumePro.App.Pages
 
         public JobOptions Options { get; set; } = new JobOptions();
 
+       
         protected override async Task OnParametersSetAsync()
         {
             Job = await JobsController.GetJob(PersonId, JobId);
@@ -35,13 +36,20 @@ namespace ResumePro.App.Pages
             
             await base.OnParametersSetAsync();
         }
-
+        private async Task HandleDelete()
+        {
+            var response = await JobsController.DeleteJob(PersonId, JobId);
+            if (response.Succeeded)
+            {
+                NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
+            }
+        }
+        
         private async Task HandleValidSubmit(JobOptions options)
         {
             var response = await JobsController.UpdateJob(PersonId, JobId, options);
             if (response.IsSuccessStatusCode())
             {
-                var job = response.GetObject();
                 NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
             }
         }

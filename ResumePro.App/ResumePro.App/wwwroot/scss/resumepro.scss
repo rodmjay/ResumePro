@@ -28,3 +28,17 @@
     background-color: #0056b3!important; /* A darker blue for active tab */
     color: white;
 }
+.card-footer-buttons {
+    display: flex;
+    justify-content: space-between; /* Ensures items are pushed to both ends */
+    align-items: center; /* Aligns items vertically */
+    width: 100%; /* Full width to ensure spacing */
+}
+
+.button-group, .button-group-right {
+    display: flex;
+}
+
+.button-group-right {
+    justify-content: flex-end; /* Aligns the delete button to the right */
+}

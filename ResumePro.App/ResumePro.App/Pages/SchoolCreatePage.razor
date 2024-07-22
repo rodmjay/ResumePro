@@ -19,14 +19,13 @@
 
     <Container>
         <Row>
-            <Column ColumnSize="ColumnSize.Is6.OnDesktop">
-                <Card Margin="Margin.Is4.FromBottom">
-                    <CardBody>
-                        <CardTitle>Create School</CardTitle>
+            <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
+                <SchoolFormComponent Title="Create School"
+                                     Options="Options"
+                                     OnSaved="HandleValidSubmit"
+                                     OnCancelled="HandleCancelled">
 
-                        <SchoolFormComponent Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></SchoolFormComponent>
-                    </CardBody>
-                </Card>
+                </SchoolFormComponent>
             </Column>
         </Row>
     </Container>

@@ -1,40 +1,54 @@
 ﻿@inherits FormComponent<PersonaOptions>
 
-<Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
+<FormCard TOptions="PersonaOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>First Name</FieldLabel>
-            <TextEdit Placeholder="Enter first name" @bind-Text="Options.FirstName" />
+            <TextEdit Placeholder="Enter first name" @bind-Text="Options.FirstName">
+                <Feedback>
+                    <ValidationError/>
+                </Feedback>
+            </TextEdit>
         </Field>
     </Validation>
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>First Name</FieldLabel>
-            <TextEdit Placeholder="Enter last name" @bind-Text="Options.LastName" />
+            <TextEdit Placeholder="Enter last name" @bind-Text="Options.LastName">
+                <Feedback>
+                    <ValidationError/>
+                </Feedback>
+            </TextEdit>
         </Field>
     </Validation>
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>Email</FieldLabel>
-            <TextEdit Placeholder="Enter email" @bind-Text="Options.Email" />
+            <TextEdit Placeholder="Enter email" @bind-Text="Options.Email">
+                <Feedback>
+                    <ValidationError/>
+                </Feedback>
+            </TextEdit>
         </Field>
     </Validation>
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>LinkedIn</FieldLabel>
-            <TextEdit Placeholder="Enter linkedin" @bind-Text="Options.LinkedIn" />
+            <TextEdit Placeholder="Enter linkedin" @bind-Text="Options.LinkedIn">
+                <Feedback>
+                    <ValidationError/>
+                </Feedback>
+            </TextEdit>
         </Field>
     </Validation>
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>GitHub</FieldLabel>
-            <TextEdit Placeholder="Enter GitHub" @bind-Text="Options.GitHub" />
+            <TextEdit Placeholder="Enter GitHub" @bind-Text="Options.GitHub">
+                <Feedback>
+                    <ValidationError/>
+                </Feedback>
+            </TextEdit>
         </Field>
     </Validation>
-   
-    <Field>
-        <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
-        <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
-
-    </Field>
-</Validations>
+</FormCard>

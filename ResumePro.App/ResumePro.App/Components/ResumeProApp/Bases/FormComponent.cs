@@ -5,6 +5,10 @@ namespace ResumePro.App.Components.ResumeProApp.Bases
 {
     public abstract class FormComponent<TOptions> : ComponentBase where TOptions: class, new()
     {
+
+        [Parameter]
+        public string Title { get; set; }
+        
         [Parameter]
         public TOptions Options { get; set; }
 
@@ -16,25 +20,8 @@ namespace ResumePro.App.Components.ResumeProApp.Bases
         [Parameter]
         public EventCallback OnCancelled { get; set; }
 
-        protected Validations validationsRef;
-        protected void Cancel()
-        {
-            OnCancelled.InvokeAsync();
-        }
-        protected async Task HandleValidSubmit()
-        {
-            try
-            {
-                if (await validationsRef.ValidateAll())
-                {
-                    await OnSaved.InvokeAsync(Options);
-                }
-            }
-            catch (ArgumentNullException ex)
-            {
-                Console.WriteLine("Validation error: " + ex.ParamName + " - " + ex.Message);
-            }
-           
-        }
+        [Parameter]
+        public EventCallback OnDeleted { get; set; }
+
     }
 }
