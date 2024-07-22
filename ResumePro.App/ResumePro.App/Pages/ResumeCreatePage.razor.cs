@@ -26,7 +26,7 @@ namespace ResumePro.App.Pages
 
         private void HandleCancelled()
         {
-            Navigation.NavigateTo($"/people/{PersonId}");
+            Navigation.NavigateTo($"/people/{PersonId}?tab=resumes");
         }
     }
 }

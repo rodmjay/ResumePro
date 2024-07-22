@@ -10,10 +10,11 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorDescriber schoolErrors)
+public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryAsync<Degree> degreeRepo, SchoolErrorDescriber schoolErrors)
     : BaseService<School>(serviceProvider), ISchoolService
 {
     private IQueryable<School> Schools => Repository.Queryable();
+    private IQueryable<Degree> Degrees => degreeRepo.Queryable();
 
     public Task<List<T>> GetSchools<T>(int organizationId, int personId) where T : SchoolDto
     {
@@ -49,6 +50,21 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
             OrganizationId = organizationId
         };
 
+        var nextDegreeId = await GetNextDegreeId(organizationId);
+
+        foreach (var degreeOptions in options.Degrees)
+        {
+            var degree = new Degree()
+            {
+                Id = nextDegreeId++,
+                ObjectState = ObjectState.Added,
+                Name = degreeOptions.Name,
+                OrganizationId = organizationId,
+            };
+            
+            school.Degrees.Add(degree);
+        }
+
         var results = Repository.InsertOrUpdateGraph(school, true);
         if (results > 0) return await GetSchool<SchoolDetails>(organizationId, personId, school.Id);
 
@@ -64,6 +80,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
             organizationId, personId, schoolId, options);
 
         var school = await Schools
+            .Include(x=>x.Degrees)
             .Where(x => x.OrganizationId == organizationId && x.Id == schoolId)
             .FirstOrDefaultAsync();
 
@@ -74,6 +91,33 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
         school.EndDate = options.EndDate;
         school.StartDate = options.StartDate;
         school.ObjectState = ObjectState.Modified;
+
+        var nextDegreeId = await GetNextDegreeId(organizationId);
+        
+        foreach (var degree in school.Degrees)
+        {
+            degree.ObjectState = ObjectState.Deleted;
+        }
+
+        foreach (var degreeOptions in options.Degrees)
+        {
+            var degreeEntity = school.Degrees.FirstOrDefault(x => x.Id == degreeOptions.Id);
+            if (degreeEntity == null)
+            {
+                degreeEntity = new Degree()
+                {
+                    ObjectState = ObjectState.Added,
+                    Id = nextDegreeId++
+                };
+                school.Degrees.Add(degreeEntity);
+            }
+            else
+            {
+                degreeEntity.ObjectState = ObjectState.Modified;
+            }
+
+            degreeEntity.Name = degreeOptions.Name;
+        }
 
         var result = Repository.InsertOrUpdateGraph(school, true);
         if (result > 0) return await GetSchool<SchoolDetails>(organizationId, personId, schoolId);
@@ -105,6 +149,18 @@ public sealed class SchoolService(IServiceProvider serviceProvider, SchoolErrorD
     private async Task<int> GetNextSchoolId(int organizationId)
     {
         var id = await Schools.AsNoTracking()
+            .IgnoreQueryFilters()
+            .Where(x => x.OrganizationId == organizationId)
+            .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+        return id + 1;
+    }
+
+
+    private async Task<int> GetNextDegreeId(int organizationId)
+    {
+        var id = await Degrees.AsNoTracking()
             .IgnoreQueryFilters()
             .Where(x => x.OrganizationId == organizationId)
             .OrderByDescending(x => x.Id)

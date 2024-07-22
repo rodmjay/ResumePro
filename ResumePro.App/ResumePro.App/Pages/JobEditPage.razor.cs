@@ -15,11 +15,11 @@ namespace ResumePro.App.Pages
         public IMapper Mapper { get; set; }
 
         [Inject]
-        public IJobsController JobsController { get; set; }
-
-        [Inject]
         public NavigationManager NavigationManager { get; set; }
         
+        [Inject]
+        public IJobsController JobsController { get; set; }
+
         [Parameter]
         public int JobId { get; set; }
         
@@ -42,13 +42,13 @@ namespace ResumePro.App.Pages
             if (response.IsSuccessStatusCode())
             {
                 var job = response.GetObject();
-                NavigationManager.NavigateTo($"/people/{PersonId}");
+                NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
             }
         }
 
         private void HandleCancelled()
         {
-            NavigationManager.NavigateTo($"/people/{PersonId}");
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
         }
     }
 }

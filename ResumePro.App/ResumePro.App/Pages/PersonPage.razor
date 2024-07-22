@@ -14,25 +14,52 @@
                 <BreadcrumbLink To="#">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
-        
+
         <ul class="nav nav-tabs" id="resumeTab" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basicInfo" type="button" role="tab" aria-controls="basicInfo" aria-selected="true">Person Details</button>
+                <button class="nav-link @ActiveTabClass("basicInfo")" id="basic-info-tab" data-bs-toggle="tab" data-bs-target="#basicInfo" type="button" role="tab" aria-controls="basicInfo" aria-selected="true">
+                    <Icon Name="IconName.User"></Icon>
+                    Person Details
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="resumes-tab" data-bs-toggle="tab" data-bs-target="#resumes" type="button" role="tab" aria-controls="resumes" aria-selected="false">Resumes (@Person.ResumeCount) </button>
+                <button class="nav-link @ActiveTabClass("resumes")" id="resumes-tab" data-bs-toggle="tab" data-bs-target="#resumes" type="button" role="tab" aria-controls="resumes" aria-selected="false">
+                    <Icon Name="@("fa-file-alt")"></Icon>
+                    Resumes (@Person.ResumeCount)
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab" aria-controls="jobs" aria-selected="false">Jobs (@Person.JobCount) </button>
+                <button class="nav-link @ActiveTabClass("jobs")" id="jobs-tab" data-bs-toggle="tab" data-bs-target="#jobs" type="button" role="tab" aria-controls="jobs" aria-selected="false">
+                    <Icon Name="IconName.Briefcase"></Icon>
+                    Jobs (@Person.JobCount)
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">Education </button>
+                <button class="nav-link @ActiveTabClass("education")" id="education-tab" data-bs-toggle="tab" data-bs-target="#education" type="button" role="tab" aria-controls="education" aria-selected="false">
+                    <Icon Name="@("fa-graduation-cap")"></Icon>
+                    Education
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab" aria-controls="skills" aria-selected="false">Skills (@Person.SkillCount)</button>
+                <button class="nav-link @ActiveTabClass("skills")" id="skills-tab" data-bs-toggle="tab" data-bs-target="#skills" type="button" role="tab" aria-controls="skills" aria-selected="false">
+                    <Icon Name="@("fa-tools")"></Icon>
+
+                    Skills (@Person.SkillCount)
+                </button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="certifications-tab" data-bs-toggle="tab" data-bs-target="#certifications" type="button" role="tab" aria-controls="certifications" aria-selected="false">Certifications</button>
+                <button class="nav-link @ActiveTabClass("certifications")" id="certifications-tab" data-bs-toggle="tab" data-bs-target="#certifications" type="button" role="tab" aria-controls="certifications" aria-selected="false">
+                    <Icon Name="@("fa-certificate")"></Icon>
+
+                    Certifications
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link @ActiveTabClass("references")" id="references-tab" data-bs-toggle="tab" data-bs-target="#references" type="button" role="tab" aria-controls="references" aria-selected="false">
+                    <Icon Name="@("fa-user-check")"></Icon>
+
+                    References
+                </button>
             </li>
         </ul>
 
@@ -42,7 +69,7 @@
 
         <!-- Tab Content -->
         <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="basicInfo" role="tabpanel" aria-labelledby="basic-info-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("basicInfo")" id="basicInfo" role="tabpanel" aria-labelledby="basic-info-tab">
                 <div class="p-4">
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="EditPersonDetails">Edit Person Details</button>
@@ -53,12 +80,12 @@
 
                 </div>
             </div>
-            <div class="tab-pane fade" id="resumes" role="tabpanel" aria-labelledby="resumes-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("resumes")" id="resumes" role="tabpanel" aria-labelledby="resumes-tab">
                 <div class="p-4">
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateNewResume">Add Resume</button>
                     </div>
-                    @if (Person.Resumes is {Count: > 0})
+                    @if (Person.Resumes is { Count: > 0 })
                     {
 
                         <div class="row row-cols-1 row-cols-md-2 g-4">
@@ -81,7 +108,7 @@
 
                 </div>
             </div>
-            <div class="tab-pane fade" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("jobs")" id="jobs" role="tabpanel" aria-labelledby="jobs-tab">
                 <div class="p-4">
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateNewJob">Add Job</button>
@@ -108,7 +135,7 @@
                     }
                 </div>
             </div>
-            <div class="tab-pane fade" id="education" role="tabpanel" aria-labelledby="education-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("education")" id="education" role="tabpanel" aria-labelledby="education-tab">
                 <div class="p-4">
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateSchool">Add School</button>
@@ -117,20 +144,23 @@
                     {
                         foreach (var school in Person.Education)
                         {
-                            <div class="card mb-2">
-                                <div class="card-body">
-                                    <h5 class="card-title">@school.Name</h5>
-                                    @foreach (var degree in school.Degrees)
-                                    {
-                                        <p class="card-text">@degree.Name</p>
-                                    }
+                            <div @onclick="@(() => EditSchool(school.Id))" style="cursor: pointer;">
+
+                                <div class="card mb-2">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@school.Name</h5>
+                                        @foreach (var degree in school.Degrees)
+                                        {
+                                            <p class="card-text">@degree.Name</p>
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         }
                     }
                 </div>
             </div>
-            <div class="tab-pane fade" id="skills" role="tabpanel" aria-labelledby="skills-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("skills")" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                 <div class="p-4">
                     @if (Person.Skills != null)
                     {
@@ -141,7 +171,15 @@
                     }
                 </div>
             </div>
-            <div class="tab-pane fade" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
+            <div class="tab-pane fade @ActiveTabPaneClass("references")" id="references" role="tabpanel" aria-labelledby="references-tab">
+                <div class="mb-3 d-flex justify-content-end">
+                    <button class="btn btn-primary" @onclick="CreateReference">Add Reference</button>
+                </div>
+                <div class="p-4">
+                    References
+                </div>
+            </div>
+            <div class="tab-pane fade @ActiveTabPaneClass("certifications")" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
                 <div class="p-4">
                     @if (Person.Certifications != null)
                     {

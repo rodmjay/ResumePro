@@ -8,5 +8,6 @@ namespace ResumePro.Shared.Options;
 
 public class DegreeOptions
 {
+    public int? Id { get; set; }
     public string Name { get; set; }
 }

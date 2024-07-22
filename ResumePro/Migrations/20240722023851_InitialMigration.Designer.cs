@@ -12,7 +12,7 @@ using ResumePro.Context;
 namespace ResumePro.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240718191601_InitialMigration")]
+    [Migration("20240722023851_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -20,7 +20,7 @@ namespace ResumePro.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -2883,16 +2883,16 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("SkillId")
+                    b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
                     b.Property<int>("JobId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "SkillId", "JobId");
+                    b.HasKey("OrganizationId", "PersonaId", "JobId", "SkillId");
 
                     b.HasIndex("OrganizationId", "JobId");
 
@@ -2904,737 +2904,737 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 9,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 9
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 18,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 18
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 19,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 19
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 20,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 20
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 21,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 21
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 22,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 22
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 7,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 7
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 23,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 23
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 24,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 24
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 5,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 17,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 17
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 16,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 16
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 4,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 2,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 6,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 7,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 7
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 8,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 9,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 9
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 10,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 11,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 11
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 25,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 25
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 26,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 26
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 27,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 27
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 28,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 28
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 8,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 30,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 30
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 33,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 33
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 29,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 29
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 32,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 32
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 4,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 5,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 6,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 31,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 31
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 5,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 7,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 36,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 37,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 37
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 38,
+                            PersonaId = 1,
                             JobId = 1,
-                            PersonaId = 1
+                            SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 38,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 39,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 39
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 40,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 40
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 41,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 41
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 42,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 42
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 31,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 31
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 25,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 25
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 10,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 8,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 4,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 42,
+                            PersonaId = 1,
                             JobId = 4,
-                            PersonaId = 1
+                            SkillId = 42
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 44,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 43,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 43
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 6,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 7,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 44,
+                            PersonaId = 1,
                             JobId = 7,
-                            PersonaId = 1
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 7,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 43,
+                            PersonaId = 1,
                             JobId = 7,
-                            PersonaId = 1
+                            SkillId = 43
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 33,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 33
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 46,
+                            PersonaId = 1,
                             JobId = 8,
-                            PersonaId = 1
+                            SkillId = 46
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 1,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 2,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 3,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 4,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 5,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 6,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 7,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 7
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 8,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 9,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 9
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 10,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 11,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 11
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 12,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 12
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 12,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 12
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 13,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 13
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 13,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 13
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 14,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 14
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 22,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 22
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 22,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 22
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 34,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 44,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 44,
+                            PersonaId = 1,
                             JobId = 3,
-                            PersonaId = 1
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 43,
+                            PersonaId = 1,
                             JobId = 2,
-                            PersonaId = 1
+                            SkillId = 43
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 44,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            SkillId = 47,
+                            PersonaId = 1,
                             JobId = 9,
-                            PersonaId = 1
+                            SkillId = 47
                         });
                 });
 
@@ -6145,7 +6145,7 @@ namespace ResumePro.Migrations
                             Id = 1,
                             Engine = "hb",
                             Format = "htm",
-                            Name = "1_html",
+                            Name = "html",
                             Source = "<!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>{{FirstName}} {{LastName}} - Resume</title>\r\n    <style>\r\n        body { font-family: Arial, sans-serif; margin: 20px; }\r\n        h1 { font-size: 24px; }\r\n        h2 { font-size: 20px; margin-top: 20px; }\r\n        p { margin: 5px 0; }\r\n        ul { list-style-type: none; padding: 0; }\r\n        ul li { margin: 5px 0; }\r\n        .contact-info { margin-bottom: 20px; }\r\n        .section { margin-bottom: 20px; }\r\n    </style>\r\n</head>\r\n<body>\r\n    <h1>{{FirstName}} {{LastName}}</h1>\r\n    <div class=\"contact-info\">\r\n        <p>Email: <a href=\"mailto:{{Email}}\">{{Email}}</a></p>\r\n        <p>Phone: {{PhoneNumber}}</p>\r\n        <p>LinkedIn: <a href=\"{{LinkedIn}}\">{{LinkedIn}}</a></p>\r\n        <p>GitHub: <a href=\"{{GitHub}}\">{{GitHub}}</a></p>\r\n        <p>Location: {{City}}, {{State}}, {{Country}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Job Title</h2>\r\n        <p>{{JobTitle}}</p>\r\n        <p>{{Description}}</p>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Skills</h2>\r\n        <ul>\r\n            {{#each Skills}}\r\n            <li>{{Title}} - {{Rating}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Experience</h2>\r\n        {{#each Jobs}}\r\n        <div class=\"job\">\r\n            <h3>{{Title}} at {{Company}}</h3>\r\n            <p>{{Location}} | {{StartDate}} - {{EndDate}}</p>\r\n            <p>{{Description}}</p>\r\n            <ul>\r\n                {{#each Highlights}}\r\n                <li>{{Text}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <ul>\r\n                {{#each Skills}}\r\n                <li>{{Name}}</li>\r\n                {{/each}}\r\n            </ul>\r\n            <div>\r\n                <h4>Projects:</h4>\r\n                {{#each Projects}}\r\n                <div class=\"project\">\r\n                    <h5>{{Name}}</h5>\r\n                    <p>{{Description}}</p>\r\n                    <ul>\r\n                        {{#each Highlights}}\r\n                        <li>{{Text}}</li>\r\n                        {{/each}}\r\n                    </ul>\r\n                </div>\r\n                {{/each}}\r\n            </div>\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Education</h2>\r\n        {{#each Education}}\r\n        <div class=\"education\">\r\n            <h3>{{Name}}</h3>\r\n            {{#each Degrees}}\r\n            <p>{{Degree}} | {{StartDate}} - {{EndDate}}</p>\r\n            {{/each}}\r\n        </div>\r\n        {{/each}}\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Languages</h2>\r\n        <ul>\r\n            {{#each Languages}}\r\n            <li>{{LanguageName}} - {{Proficiency}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>Certifications</h2>\r\n        <ul>\r\n            {{#each Certifications}}\r\n            <li>{{Name}} - {{OrganizationId}} ({{Date}})</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n\r\n    <div class=\"section\">\r\n        <h2>References</h2>\r\n        <ul>\r\n            {{#each References}}\r\n            <li>{{Name}} - {{PhoneNumber}} | {{Text}}</li>\r\n            {{/each}}\r\n        </ul>\r\n    </div>\r\n</body>\r\n</html>\r\n"
                         },
                         new
@@ -6153,7 +6153,7 @@ namespace ResumePro.Migrations
                             Id = 2,
                             Engine = "hb",
                             Format = "md",
-                            Name = "2_markdown",
+                            Name = "markdown",
                             Source = "# {{firstName}} {{lastName}}, {{jobTitle}}\r\n\r\n{{#if settings.showContactInfo}}\r\n- **Email:** {{email}}\r\n- **Phone:** {{phoneNumber}}\r\n- **LinkedIn:** {{linkedIn}}\r\n- **GitHub:** {{gitHub}}\r\n{{/if}}\r\n- **Languages:** {{languageString}}\r\n\r\n## Description\r\n{{description}}\r\n\r\n{{#eq settings.skillView 'Grouped'}}\r\n## Skills\r\n| Category               | Skills & Ratings                                       |\r\n|------------------------|--------------------------------------------------------|\r\n{{#each skillDictionary}}\r\n| **{{category}}**       | {{#each skills}}{{title}}{{#if ../settings.showRatings}}({{rating}}){{/if}}{{#unless @last}}, {{/unless}}{{/each}} |\r\n{{/each}}\r\n{{/eq}}\r\n\r\n{{#eq settings.skillView 'List'}}\r\n## Skills\r\n{{#each skills}} \r\n- {{title}} {{#if ../settings.showRatings}}(Rating: {{rating}}){{/if}}\r\n{{/each}}\r\n{{/eq}}\r\n\r\n## Experience\r\n{{#each jobs}}\r\n### {{title}} - {{company}}\r\n*{{location}} - {{formatDate startDate}}-{{displayEndDate}} {{#if ../settings.showDuration}}({{duration}}){{/if}}*\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{#each projects}}\r\n#### Project: {{name}}\r\n{{description}}\r\n{{#each highlights}}\r\n- {{text}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n{{#if Skills}}\r\n**Technology Used:** {{#each Skills}}{{Name}}{{#unless @last}}, {{/unless}}{{/each}}\r\n{{/if}}\r\n{{/each}}\r\n\r\n## Education\r\n{{#each education}}\r\n### {{name}}\r\n*{{formatDate startDate}}-{{displayEndDate}}*\r\n{{#each degrees}}\r\n- Degree: {{name}}\r\n{{/each}}\r\n{{/each}}\r\n\r\n## References\r\n{{#each references}}\r\n### {{name}}\r\n{{text}}\r\n{{/each}}"
                         });
                 });
@@ -7501,13 +7501,14 @@ namespace ResumePro.Migrations
                     b.HasOne("ResumePro.Entities.Job", "Job")
                         .WithMany("Highlights")
                         .HasForeignKey("OrganizationId", "JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Project", "Project")
                         .WithMany("Highlights")
                         .HasForeignKey("ProjectId", "JobId")
-                        .HasPrincipalKey("Id", "JobId");
+                        .HasPrincipalKey("Id", "JobId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Job");
 

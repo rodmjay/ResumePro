@@ -1,7 +1,7 @@
-﻿@page "/people/{PersonId:int}/references/create"
+﻿@page "/people/{PersonId:int}/schools/{SchoolId:int}/edit"
 @inherits PersonPageBase
 
-@if (Person != null)
+@if (School != null)
 {
     <div class="container sticky-top mt-3">
         <Breadcrumb>
@@ -12,22 +12,25 @@
                 <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem Active>
-                <BreadcrumbLink To="#">Create Reference</BreadcrumbLink>
+                <BreadcrumbLink To="#">Edit School</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
     </div>
-    <Container Fluid>
+
+    <Container>
+
         <Row>
             <Column ColumnSize="ColumnSize.Is6.OnDesktop">
                 <Card Margin="Margin.Is4.FromBottom">
-                   
-                    <CardTitle>Create Reference</CardTitle>
-
                     <CardBody>
-                        asdf
+                        <CardTitle>Edit School</CardTitle>
+                        <CardText>
+                            <SchoolFormComponent Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></SchoolFormComponent>
+                        </CardText>
                     </CardBody>
                 </Card>
             </Column>
         </Row>
+
     </Container>
 }

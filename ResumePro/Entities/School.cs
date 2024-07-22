@@ -14,7 +14,7 @@ public sealed class School : BaseEntity<School>, ISchool
 {
     public int OrganizationId { get; set; }
     public Persona Persona { get; set; }
-    public ICollection<Degree> Degrees { get; set; }
+    public ICollection<Degree> Degrees { get; set; } = new List<Degree>();
     public int Id { get; set; }
     public int PersonaId { get; set; }
     public DateTime StartDate { get; set; }

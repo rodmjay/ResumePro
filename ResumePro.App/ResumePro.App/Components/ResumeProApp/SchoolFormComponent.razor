@@ -1,26 +1,91 @@
 ﻿
 @inherits FormComponent<SchoolOptions>
 
+<Row>
+    <Column>
+        <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+            <Fields>
+                <Validation>
+                    <Field>
+                        <FieldLabel>Name</FieldLabel>
+                        <TextEdit Placeholder="Enter name" @bind-Text="Options.Name" >
+                            <Feedback>
+                                <ValidationError/>
+                            </Feedback>
+                        </TextEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field>
+                        <FieldLabel>Start Date</FieldLabel>
+                        <DateEdit TValue="DateTime" Placeholder="Enter start date" @bind-Date="Options.StartDate">
+                            <Feedback>
+                                <ValidationError/>
+                            </Feedback>
+                        </DateEdit>
+                    </Field>
+                </Validation>
+                <Validation>
+                    <Field>
+                        <FieldLabel>End Date</FieldLabel>
+                        <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate">
+                            <Feedback>
+                                <ValidationError/>
+                            </Feedback>
+                        </DateEdit>
+                    </Field>
+                </Validation>
+               
+                
+                <Card Margin="Margin.Is3.FromBottom">
+                    <CardBody>
+                        <CardTitle>
+                            Degrees
+                        </CardTitle>
+                        <CardText>
+                            @foreach (var degree in Options.Degrees.Select((value, index) => new { value, index }))
+                            {
+                                <Column ColumnSize="ColumnSize.Is11">
+                                    <Addons>
+                                        <Addon AddonType="AddonType.Body">
+                                            <Validation>
+                                                <Field ColumnSize="ColumnSize.Is9">
+                                                    <TextEdit @bind-Text="degree.value.Name" Placeholder="Enter name">
+                                                        <Feedback>
+                                                            <ValidationError />
+                                                        </Feedback>
+                                                    </TextEdit>
 
-<Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
-    <Validation Validator="@ValidationRule.IsNotEmpty">
-        <Field>
-            <FieldLabel>Name</FieldLabel>
-            <TextEdit Placeholder="Enter name" @bind-Text="Options.Name" />
-        </Field>
-    </Validation>
-    <Field>
-        <FieldLabel>Start Date</FieldLabel>
-        <DateEdit TValue="DateTime" Placeholder="Enter start date" @bind-Date="Options.StartDate" />
-    </Field>
-    <Field>
-        <FieldLabel>End Date</FieldLabel>
-        <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate" />
-    </Field>
-    
-    <Field>
-        <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
-        <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+                                                </Field>
+                                            </Validation>
+                                        </Addon>
+                                        <Addon AddonType="AddonType.End">
+                                            <Field>
+                                                <Buttons>
+                                                 
+                                                    <Button Color="Color.Danger" Clicked="@(() => RemoveDegree(degree.value))">
+                                                        <Icon Name="IconName.Delete" />
+                                                    </Button>
+                                                </Buttons>
+                                            </Field>
 
-    </Field>
-</Validations>
+                                        </Addon>
+                                    </Addons>
+                                </Column>
+
+                            }
+                        </CardText>
+                        <Button Color="Color.Primary" Clicked="@AddDegree">Add Degree</Button>
+
+                    </CardBody>
+                </Card>
+
+                <Field>
+                    <Button Color="Color.Primary" Clicked="HandleValidSubmit">Submit</Button>
+                    <Button Color="Color.Secondary" Clicked="Cancel">Cancel</Button>
+                </Field>
+            </Fields>
+          
+        </Validations>
+    </Column>
+</Row>
