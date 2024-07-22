@@ -17,7 +17,7 @@ public class JobMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Job, JobDetails>()
-            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlights.Where(h => h.ProjectId == null)))
+            .ForMember(x => x.Highlights, opt => opt.MapFrom(x => x.Highlights.OrderBy(a=>a.Order).Where(h => h.ProjectId == null)))
             .ForMember(x => x.Projects, opt => opt.MapFrom(x => x.Projects));
     }
 }
