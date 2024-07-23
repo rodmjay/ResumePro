@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Mvc.Filters;
 using ResumePro.App.Components.ResumeProApp.Bases;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;

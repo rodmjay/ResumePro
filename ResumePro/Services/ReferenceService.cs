@@ -34,7 +34,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     }
 
     public async Task<OneOf<ReferenceDto, Result>> CreateReference(int organizationId, int personId,
-        ReferenceCreateOptions options)
+        ReferenceOptions options)
     {
         Logger.LogInformation(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),

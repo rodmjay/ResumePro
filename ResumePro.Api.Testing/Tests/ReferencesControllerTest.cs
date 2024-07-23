@@ -20,7 +20,7 @@ public class ReferencesControllerTest : BaseApiTest
     public sealed class TheCreateReferenceMethod : ReferencesControllerTest
     {
         [TestCaseSource(typeof(ReferenceTestData), nameof(ReferenceTestData.ValidCreateOptions))]
-        public async Task CanCreateReference(ReferenceCreateOptions options)
+        public async Task CanCreateReference(ReferenceOptions options)
         {
             var response = await ReferencesProxy.CreateReference(1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);

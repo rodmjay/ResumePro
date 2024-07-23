@@ -14,4 +14,5 @@ public class PersonaDetails : PersonaDto
     public List<SchoolDetails> Education { get; set; }
     public List<PersonaLanguageDto> Languages { get; set; }
     public List<CertificationDto> Certifications { get; set; }
+    public List<ReferenceDto> References { get; set; }
 }

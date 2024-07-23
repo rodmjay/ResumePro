@@ -120,6 +120,9 @@
                     @foreach (var project in Options.ProjectOptions.Select((value, index) => new { value, index }))
                     {
                         <Card Margin="Margin.Is3">
+                            <CardHeader>
+                                <Strong>Project @(project.index + 1)</Strong>
+                            </CardHeader>
                             <CardBody>
                                 <CardText>
 

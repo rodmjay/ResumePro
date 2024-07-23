@@ -1,0 +1,31 @@
+﻿@inherits FormComponent<ReferenceOptions>
+
+<FormCard TOptions="ReferenceOptions" 
+          Options="@Options" 
+          Title="@Title" 
+          OnDeleted="@OnDeleted" 
+          OnCancelled="@OnCancelled" 
+          OnSaved="@OnSaved">
+    <Fields>
+        <Validation>
+            <Field ColumnSize="ColumnSize.IsFull">
+                <FieldLabel>Name</FieldLabel>
+                <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+            </Field>
+        </Validation>
+        <Validation>
+            <Field ColumnSize="ColumnSize.IsFull">
+                <FieldLabel>Text</FieldLabel>
+                <MemoEdit Rows="10" Placeholder="Enter text" @bind-Text="Options.Text">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </MemoEdit>
+            </Field>
+        </Validation>
+    </Fields>
+</FormCard>

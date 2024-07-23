@@ -31,7 +31,7 @@ public sealed class ReferencesController(IServiceProvider serviceProvider, IRefe
 
     [HttpPost]
     public async Task<ActionResult<ReferenceDto>> CreateReference([FromRoute] int personId,
-        [FromBody] ReferenceCreateOptions options)
+        [FromBody] ReferenceOptions options)
     {
         var result = await referenceService.CreateReference(OrganizationId, personId, options)
             .ConfigureAwait(false);

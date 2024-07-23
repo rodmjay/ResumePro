@@ -10,9 +10,9 @@ namespace ResumePro.Api.Testing.TestData;
 
 public class ReferenceTestData
 {
-    public static IEnumerable<ReferenceCreateOptions> ValidCreateOptions()
+    public static IEnumerable<ReferenceOptions> ValidCreateOptions()
     {
-        return new List<ReferenceCreateOptions>
+        return new List<ReferenceOptions>
         {
             new()
             {

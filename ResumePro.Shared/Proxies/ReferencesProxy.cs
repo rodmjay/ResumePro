@@ -26,15 +26,15 @@ public sealed class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClien
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ReferenceDto>> CreateReference(int personId, ReferenceCreateOptions options)
+    public async Task<ActionResult<ReferenceDto>> CreateReference(int personId, ReferenceOptions options)
     {
-        return await DoPostActionResult<ReferenceCreateOptions, ReferenceDto>($"v1.0/people/{personId}/references",
+        return await DoPostActionResult<ReferenceOptions, ReferenceDto>($"v1.0/people/{personId}/references",
             options).ConfigureAwait(false);
     }
 
     public async Task<ActionResult<ReferenceDto>> UpdateReference(int personId, int referenceId, ReferenceOptions options)
     {
-        return await DoPostActionResult<ReferenceOptions, ReferenceDto>(
+        return await DoPutActionResult<ReferenceOptions, ReferenceDto>(
             $"v1.0/people/{personId}/references/{referenceId}", options)
             .ConfigureAwait(false);
     }

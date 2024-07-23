@@ -1,5 +1,6 @@
 ﻿@page "/people/{PersonId:int}"
 @using Microsoft.AspNetCore.Authorization
+@using ResumePro.Shared.Models
 @attribute [Authorize]
 @inherits PersonPageBase
 
@@ -168,7 +169,22 @@
                     <button class="btn btn-primary" @onclick="CreateReference">Add Reference</button>
                 </div>
                 <div class="p-4">
-                    References
+                    @if (Person.References != null)
+                    {
+
+                        <DropContainer TItem="ReferenceDto" ItemsFilter="@((item, dropZone) => true)" ItemDropped="@ItemDropped" Items="@Person.References" Flex="Flex.Wrap.Grow.Is1">
+                            <ChildContent>
+                                <DropZone TItem="ReferenceDto" Name="zone1" AllowReorder Flex="Flex.Grow.Is1">
+                                </DropZone>
+                            </ChildContent>
+                            <ItemTemplate>
+                                <div @onclick="@(() => EditReference(context.Id))" style="cursor: pointer;">
+                                    <ReferenceCard Reference="@context"></ReferenceCard>
+                                </div>
+                            </ItemTemplate>
+                        </DropContainer>
+
+                    }
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("certifications")" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">

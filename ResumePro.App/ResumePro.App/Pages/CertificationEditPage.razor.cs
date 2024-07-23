@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Components;
-using Microsoft.Extensions.Options;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
@@ -47,7 +46,6 @@ namespace ResumePro.App.Pages
             if (response.Succeeded)
             {
                 NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
-
             }
         }
 

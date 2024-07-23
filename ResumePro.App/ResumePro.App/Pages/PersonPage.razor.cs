@@ -1,11 +1,29 @@
 ﻿using Microsoft.AspNetCore.Components;
 using ResumePro.App.Pages.Bases;
 using System.Web;
+using AutoMapper;
+using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
+using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages
 {
     public partial class PersonPage : PersonPageBase
     {
+        [Inject]
+        public IMapper Mapper { get; set; }
+        
+        [Inject]
+        public IReferencesController ReferencesController { get; set; }
+        private async Task ItemDropped(DraggableDroppedEventArgs<ReferenceDto> dropItem)
+        {
+            dropItem.Item.Order = dropItem.IndexInZone + 1;
+
+            var referenceOptions = Mapper.Map<ReferenceOptions>(dropItem.Item);
+            var result = await ReferencesController.UpdateReference(PersonId, dropItem.Item.Id, referenceOptions);
+            
+            
+        }
         private string ActiveTabClass(string tabName) => tabName == currentTab ? "active" : "";
         private string ActiveTabPaneClass(string tabName) => tabName == currentTab ? "show active" : "";
         [Inject]
@@ -54,6 +72,10 @@ namespace ResumePro.App.Pages
         private void EditCertification(int certificationId)
         {
             NavigationManager.NavigateTo($"/people/{PersonId}/certifications/{certificationId}/edit");
+        }
+        private void EditReference(int referenceId)
+        {
+            NavigationManager.NavigateTo($"/people/{PersonId}/references/{referenceId}/edit");
         }
         private void EditSchool(int schoolId)
         {

@@ -1,4 +1,4 @@
-﻿@page "/people/{PersonId:int}/references/create"
+﻿@page "/people/{PersonId:int}/references/{ReferenceId:int}/edit"
 @inherits PersonPageBase
 
 @if (Person != null)
@@ -12,14 +12,18 @@
                 <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem Active>
-                <BreadcrumbLink To="#">Create Reference</BreadcrumbLink>
+                <BreadcrumbLink To="#">Edit Reference</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
     </div>
     <Container Fluid>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <ReferenceFormComponent Title="Create Reference" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="Options">
+                <ReferenceFormComponent Title="Edit Reference" 
+                                        OnDeleted="HandleDelete" 
+                                        OnSaved="HandleValidSubmit" 
+                                        OnCancelled="HandleCancelled" 
+                                        Options="Options">
 
                 </ReferenceFormComponent>
             </Column>
