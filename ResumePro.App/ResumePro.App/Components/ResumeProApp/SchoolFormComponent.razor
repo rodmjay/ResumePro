@@ -9,7 +9,7 @@
                 <FieldLabel>Name</FieldLabel>
                 <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
                     <Feedback>
-                        <ValidationError />
+                        <ValidationError/>
                     </Feedback>
                 </TextEdit>
             </Field>
@@ -19,7 +19,7 @@
                 <FieldLabel>Start Date</FieldLabel>
                 <DateEdit TValue="DateTime?" Placeholder="Enter start date" @bind-Date="Options.StartDate">
                     <Feedback>
-                        <ValidationError />
+                        <ValidationError/>
                     </Feedback>
                 </DateEdit>
             </Field>
@@ -29,7 +29,7 @@
                 <FieldLabel>End Date</FieldLabel>
                 <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate">
                     <Feedback>
-                        <ValidationError />
+                        <ValidationError/>
                     </Feedback>
                 </DateEdit>
             </Field>
@@ -42,7 +42,7 @@
                     Degrees
                 </CardTitle>
                 <CardText>
-                    @foreach (var degree in Options.DegreeOptions.Select((value, index) => new { value, index }))
+                    @foreach (var degree in Options.DegreeOptions.Select((value, index) => new {value, index}))
                     {
                         <Column ColumnSize="ColumnSize.Is11">
                             <Addons>
@@ -51,7 +51,7 @@
                                         <Field ColumnSize="ColumnSize.Is9">
                                             <TextEdit @bind-Text="degree.value.Name" Placeholder="Enter name">
                                                 <Feedback>
-                                                    <ValidationError />
+                                                    <ValidationError/>
                                                 </Feedback>
                                             </TextEdit>
 
@@ -62,13 +62,13 @@
                                     <Field>
                                         <Buttons>
                                             <Button Color="Color.Light" Clicked="@(() => MoveDegreeUp(degree.index))" Disabled="@(degree.index == 0)">
-                                                <Icon Name="IconName.ArrowUp" />
+                                                <Icon Name="IconName.ArrowUp"/>
                                             </Button>
-                                            <Button Color="Color.Light" Clicked="@(() => MoveDegreeDown(degree.index))" Disabled="@(degree.index == @Options.DegreeOptions.Count - 1)">
-                                                <Icon Name="IconName.ArrowDown" />
+                                            <Button Color="Color.Light" Clicked="@(() => MoveDegreeDown(degree.index))" Disabled="@(degree.index == Options.DegreeOptions.Count - 1)">
+                                                <Icon Name="IconName.ArrowDown"/>
                                             </Button>
                                             <Button Color="Color.Danger" Clicked="@(() => RemoveDegree(degree.value))">
-                                                <Icon Name="IconName.Delete" />
+                                                <Icon Name="IconName.Delete"/>
                                             </Button>
                                         </Buttons>
                                     </Field>
@@ -76,7 +76,6 @@
                                 </Addon>
                             </Addons>
                         </Column>
-
                     }
                 </CardText>
                 <Button Color="Color.Primary" Clicked="@AddDegree">Add Degree</Button>
@@ -86,4 +85,3 @@
     </Fields>
 
 </FormCard>
-

@@ -4,13 +4,13 @@
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>Title</FieldLabel>
-            <TextEdit Placeholder="Enter title" @bind-Text="Options.JobTitle" />
+            <TextEdit Placeholder="Enter title" @bind-Text="Options.JobTitle"/>
         </Field>
     </Validation>
     <Validation Validator="@ValidationRule.IsNotEmpty">
         <Field>
             <FieldLabel>Description</FieldLabel>
-            <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description" />
+            <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description"/>
         </Field>
     </Validation>
 </FormCard>

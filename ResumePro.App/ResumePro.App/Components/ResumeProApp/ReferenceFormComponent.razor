@@ -1,10 +1,10 @@
 ﻿@inherits FormComponent<ReferenceOptions>
 
-<FormCard TOptions="ReferenceOptions" 
-          Options="@Options" 
-          Title="@Title" 
-          OnDeleted="@OnDeleted" 
-          OnCancelled="@OnCancelled" 
+<FormCard TOptions="ReferenceOptions"
+          Options="@Options"
+          Title="@Title"
+          OnDeleted="@OnDeleted"
+          OnCancelled="@OnCancelled"
           OnSaved="@OnSaved">
     <Fields>
         <Validation>
@@ -12,7 +12,7 @@
                 <FieldLabel>Name</FieldLabel>
                 <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
                     <Feedback>
-                        <ValidationError />
+                        <ValidationError/>
                     </Feedback>
                 </TextEdit>
             </Field>
@@ -22,7 +22,7 @@
                 <FieldLabel>Text</FieldLabel>
                 <MemoEdit Rows="10" Placeholder="Enter text" @bind-Text="Options.Text">
                     <Feedback>
-                        <ValidationError />
+                        <ValidationError/>
                     </Feedback>
                 </MemoEdit>
             </Field>

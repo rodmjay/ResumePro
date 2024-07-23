@@ -1,94 +1,90 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Components;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
-namespace ResumePro.App.Components.ResumeProApp
+namespace ResumePro.App.Components.ResumeProApp;
+
+public partial class PeopleList
 {
-    public partial class PeopleList
+    private FilterContainer filterContainer = new();
+
+    [Inject] protected IFiltersController FiltersController { get; set; }
+
+    [Inject] protected NavigationManager NavManager { get; set; }
+
+    [Inject] private IPeopleController PeopleController { get; set; }
+
+    public PagedList<PersonaDto> PagedList { get; set; }
+
+    protected PagingQuery PagingQuery { get; set; } = new();
+
+    protected PersonaFilters PersonaFilters { get; set; } = new();
+
+    private async Task SelectedSkillsChanged(IReadOnlyList<int> selectedValues)
     {
+        PersonaFilters.Skills.Clear();
+        PersonaFilters.Skills.AddRange(selectedValues);
 
-        private async Task SelectedSkillsChanged(IReadOnlyList<int> selectedValues)
+        await LoadData();
+    }
+
+    private async Task SelectedStateChanged(int selectedValues)
+    {
+        PersonaFilters.State = selectedValues;
+
+        await LoadData();
+    }
+
+
+    private async Task OnStateFilterChanged(ChangeEventArgs e)
+    {
+        var selectedState = e.Value.ToString();
+        // Call API to filter data based on selected state
+        await LoadData();
+        StateHasChanged();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadData();
+        await base.OnInitializedAsync();
+    }
+
+    public async Task LoadData()
+    {
+        filterContainer = await FiltersController.GetFilters();
+        PagedList = await PeopleController.GetPeople(PersonaFilters, PagingQuery);
+    }
+
+    private void HandleRowSelected(DataGridRowMouseEventArgs<PersonaDto> evnt)
+    {
+        NavManager.NavigateTo($"/people/{evnt.Item.Id}");
+    }
+
+    private async Task HandlePageChanged(DataGridPageChangedEventArgs args)
+    {
+        var reload = false;
+
+        if (PagedList.CurrentPage != args.Page)
         {
-            this.PersonaFilters.Skills.Clear();
-            this.PersonaFilters.Skills.AddRange(selectedValues);
-
-            await LoadData();
+            reload = true;
+            PagingQuery.Page = args.Page;
         }
 
-        private async Task SelectedStateChanged(int selectedValues)
+        if (PagedList.PageSize != args.PageSize)
         {
-            this.PersonaFilters.State = selectedValues;
-
-            await LoadData();
+            reload = true;
+            PagingQuery.Size = args.PageSize;
         }
 
-
-
-        private async Task OnStateFilterChanged(ChangeEventArgs e)
-        {
-            string selectedState = e.Value.ToString();
-            // Call API to filter data based on selected state
-            await LoadData();
-            StateHasChanged();
-        }
-
-        private FilterContainer filterContainer = new FilterContainer();
-
-        [Inject]
-        protected IFiltersController FiltersController { get; set; }
-
-        [Inject]
-        protected NavigationManager NavManager { get; set; }
-
-        [Inject] IPeopleController PeopleController { get; set; }
-
-        public PagedList<PersonaDto> PagedList { get; set; }
-
-        protected PagingQuery PagingQuery { get; set; } = new();
-
-        protected PersonaFilters PersonaFilters { get; set; } = new();
-
-        protected override async Task OnInitializedAsync()
-        {
-            await LoadData();
-            await base.OnInitializedAsync();
-        }
-
-        public async Task LoadData()
-        {
-            this.filterContainer = await FiltersController.GetFilters();
-            this.PagedList = await PeopleController.GetPeople(PersonaFilters, PagingQuery);
-
-        }
-
-        private void HandleRowSelected(DataGridRowMouseEventArgs<PersonaDto> evnt)
-        {
-            NavManager.NavigateTo($"/people/{evnt.Item.Id}");
-        }
-
-        private async Task HandlePageChanged(DataGridPageChangedEventArgs args)
-        {
-            var reload = false;
-
-            if (PagedList.CurrentPage != args.Page)
-            {
-                reload = true;
-                PagingQuery.Page = args.Page;
-            }
-
-            if (PagedList.PageSize != args.PageSize)
-            {
-                reload = true;
-                PagingQuery.Size = args.PageSize;
-            }
-
-            if (reload)
-            {
-                await LoadData();
-            }
-
-        }
+        if (reload) await LoadData();
     }
 }

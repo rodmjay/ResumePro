@@ -21,10 +21,8 @@
         return StatusChanged?.Invoke(isChecked) ?? Task.CompletedTask;
     }
 
-    [Parameter]
-    public Todo? Todo { get; set; }
+    [Parameter] public Todo? Todo { get; set; }
 
-    [Parameter]
-    public Func<bool, Task>? StatusChanged { get; set; }
+    [Parameter] public Func<bool, Task>? StatusChanged { get; set; }
 
 }

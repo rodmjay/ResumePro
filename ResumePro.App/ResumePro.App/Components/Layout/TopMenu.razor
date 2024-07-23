@@ -14,7 +14,7 @@
             <BarItem>
                 <BarLink To="/">Home</BarLink>
             </BarItem>
-           
+
             <BarItem>
                 <BarDropdown>
                     <BarDropdownToggle>Layout</BarDropdownToggle>
@@ -130,28 +130,20 @@
         return LayoutTypeChanged.InvokeAsync(layoutType);
     }
 
-    [Parameter]
-    public EventCallback<bool> ThemeEnabledChanged { get; set; }
+    [Parameter] public EventCallback<bool> ThemeEnabledChanged { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> ThemeGradientChanged { get; set; }
+    [Parameter] public EventCallback<bool> ThemeGradientChanged { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> ThemeRoundedChanged { get; set; }
+    [Parameter] public EventCallback<bool> ThemeRoundedChanged { get; set; }
 
-    [Parameter]
-    public EventCallback<string> ThemeColorChanged { get; set; }
+    [Parameter] public EventCallback<string> ThemeColorChanged { get; set; }
 
-    [Parameter]
-    public string? LayoutType { get; set; }
+    [Parameter] public string? LayoutType { get; set; }
 
-    [Parameter]
-    public EventCallback<string> LayoutTypeChanged { get; set; }
+    [Parameter] public EventCallback<string> LayoutTypeChanged { get; set; }
 
-    [Inject]
-    protected ITextLocalizerService? LocalizationService { get; set; }
+    [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 
-    [CascadingParameter]
-    protected Theme? Theme { get; set; }
+    [CascadingParameter] protected Theme? Theme { get; set; }
 
 }

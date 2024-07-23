@@ -1,21 +1,20 @@
-﻿@using ResumePro.Shared.Models
-@using Blazorise.Components
-
+﻿@using Blazorise.Components
+@using ResumePro.Shared.Models
+@using DropdownItem = ResumePro.Shared.Common.DropdownItem
 @if (PagedList != null)
 {
- 
     <div class="row mb-3">
         <div class="col-md-4">
             <div class="input-group">
-                <SelectList TItem="ResumePro.Shared.Common.DropdownItem"
+                <SelectList TItem="DropdownItem"
                             TValue="int"
                             Data="@filterContainer.Skills"
-                            TextField="@((item)=>item.Name)"
-                            ValueField="@((item)=>int.Parse(item.Value))"
+                            TextField="@(item => item.Name)"
+                            ValueField="@(item => int.Parse(item.Value))"
                             Multiple
                             SelectedValues="@PersonaFilters.Skills"
                             SelectedValuesChanged="@((IReadOnlyList<int> values) => SelectedSkillsChanged(values))"
-                            DefaultItemText="Choose your skills" />
+                            DefaultItemText="Choose your skills"/>
 
             </div>
         </div>
@@ -25,7 +24,7 @@
                     <label class="input-group-text" for="stateFilter">States</label>
                 </div>
                 <Select TValue="int" SelectedValue="@PersonaFilters.State" SelectedValueChanged="@(value => SelectedStateChanged(value))">
-                    
+
                     @foreach (var state in filterContainer.States)
                     {
                         <SelectItem Value="@(int.Parse(state.Value))">@state.Name</SelectItem>
@@ -44,7 +43,7 @@
               PageChanged="HandlePageChanged"
               ShowPager
               Responsive>
-            
+
         <DataGridColumns>
             <DataGridColumn Field="@nameof(PersonaDto.FirstName)" Caption="First Name"></DataGridColumn>
             <DataGridColumn Field="@nameof(PersonaDto.LastName)" Caption="Last Name"></DataGridColumn>

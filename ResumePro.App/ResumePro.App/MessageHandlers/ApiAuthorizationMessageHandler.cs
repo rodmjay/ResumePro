@@ -18,6 +18,6 @@ public class ApiAuthorizationMessageHandler : AuthorizationMessageHandler
         var url = config["ApiBase"];
 
         ConfigureHandler(
-            authorizedUrls: new[] { config["ApiBase"] });
+            new[] {config["ApiBase"]});
     }
 }

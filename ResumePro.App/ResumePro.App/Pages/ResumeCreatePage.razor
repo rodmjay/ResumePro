@@ -1,6 +1,6 @@
 ﻿@page "/people/{PersonId:int}/resumes/create"
-@using Microsoft.AspNetCore.Authorization
 @attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
 @inherits PersonPageBase
 
 @if (Person != null)
@@ -27,5 +27,4 @@
             </Column>
         </Row>
     </Container>
-   
 }

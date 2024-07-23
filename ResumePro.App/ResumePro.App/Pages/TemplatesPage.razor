@@ -7,7 +7,6 @@
 
 @if (TemplateRecords != null)
 {
-
     <button class="btn btn-success mb-3" @onclick="CreateNewTemplate">Add New Template</button>
 
 
@@ -17,7 +16,7 @@
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                     @foreach (var template in TemplateRecords)
                     {
-                        <button class="nav-link custom-tab @((SelectedTemplate != null && SelectedTemplate.Id == template.Id) ? "active" : "")" 
+                        <button class="nav-link custom-tab @(SelectedTemplate != null && SelectedTemplate.Id == template.Id ? "active" : "")"
                                 @onclick="() => SelectTemplate(template)">
                             @template.Name
                         </button>
@@ -41,9 +40,9 @@
                         {
                             <!-- Binding new template options -->
                             <div>
-                                <input class="form-control" placeholder="Name" @bind="CreateTemplateOptions.Name" />
-                                <input class="form-control mt-2" placeholder="Format" @bind="CreateTemplateOptions.Format" />
-                                <input class="form-control mt-2" placeholder="Engine" @bind="CreateTemplateOptions.Engine" />
+                                <input class="form-control" placeholder="Name" @bind="CreateTemplateOptions.Name"/>
+                                <input class="form-control mt-2" placeholder="Format" @bind="CreateTemplateOptions.Format"/>
+                                <input class="form-control mt-2" placeholder="Engine" @bind="CreateTemplateOptions.Engine"/>
                             </div>
                         }
                     }
@@ -51,5 +50,4 @@
             </div>
         </div>
     </div>
-
 }

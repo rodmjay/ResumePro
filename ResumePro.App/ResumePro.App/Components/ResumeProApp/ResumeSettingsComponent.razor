@@ -6,8 +6,8 @@
             </CardHeader>
             <CardBody>
                 <Validations @ref="validationsRef" Mode="ValidationMode.Auto" ValidateOnLoad="false">
-               
-             
+
+
                     <Field>
                         <Check TValue="bool" @bind-Checked="@Settings.ShowTechnologyPerJob">Show Technology Per Job</Check>
                     </Field>
@@ -26,7 +26,7 @@
                     <Field>
                         <Check TValue="bool" @bind-Checked="@Settings.ShowContactInfo">Show Contact Info</Check>
                     </Field>
-                    
+
                     <Button Color="Color.Primary" Clicked="@Submit">Save Settings</Button>
                 </Validations>
             </CardBody>

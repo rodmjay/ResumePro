@@ -1,49 +1,52 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Components;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.App.Pages
+namespace ResumePro.App.Pages;
+
+public partial class ResumeEditPage : PersonPageBase
 {
-    public partial class ResumeEditPage : PersonPageBase
+    private readonly ResumeOptions ResumeOptions = new();
+
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    [Parameter] public int ResumeId { get; set; }
+
+    [Inject] public IResumeController ResumeController { get; set; }
+
+    private ResumeDetails ResumeDetails { get; set; }
+
+    protected override async Task OnParametersSetAsync()
     {
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
-        
-        [Parameter]
-        public int ResumeId { get; set; }
-        
-        [Inject] public IResumeController ResumeController { get; set; }
+        ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
 
-        private readonly ResumeOptions ResumeOptions = new();
+        ResumeOptions.Description = ResumeDetails.Description;
+        ResumeOptions.JobTitle = ResumeDetails.JobTitle;
 
-        private ResumeDetails ResumeDetails { get; set; }
-        
-        protected override async Task OnParametersSetAsync()
+        await base.OnParametersSetAsync();
+    }
+
+    private async Task HandleValidSubmit(ResumeOptions savedResume)
+    {
+        var response = await ResumeController.UpdateResume(PersonId, ResumeId, savedResume);
+        if (response.IsSuccessStatusCode())
         {
-            ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
-            
-            ResumeOptions.Description = ResumeDetails.Description;
-            ResumeOptions.JobTitle = ResumeDetails.JobTitle;
-            
-            await base.OnParametersSetAsync();
+            var resume = response.GetObject();
+            NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resume.Id}");
         }
+    }
 
-        private async Task HandleValidSubmit(ResumeOptions savedResume)
-        {
-            var response = await ResumeController.UpdateResume(PersonId, ResumeId, savedResume);
-            if (response.IsSuccessStatusCode())
-            {
-                var resume = response.GetObject();
-                NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resume.Id}");
-            }
-        }
-
-        private void HandleCancelled()
-        {
-            NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{ResumeId}");
-        }
+    private void HandleCancelled()
+    {
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{ResumeId}");
     }
 }

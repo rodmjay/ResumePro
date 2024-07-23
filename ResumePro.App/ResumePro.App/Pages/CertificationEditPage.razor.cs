@@ -1,57 +1,53 @@
-﻿using AutoMapper;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.App.Pages
+namespace ResumePro.App.Pages;
+
+public partial class CertificationEditPage : PersonPageBase
 {
-    public partial class CertificationEditPage : PersonPageBase
+    [Inject] public IMapper Mapper { get; set; }
+
+    [Inject] public NavigationManager NavigationManager { get; set; }
+
+    [Parameter] public int CertificationId { get; set; }
+
+    [Inject] public ICertificationsController CertificationsController { get; set; }
+
+    public CertificationOptions Options { get; set; } = new();
+
+    protected override async Task OnParametersSetAsync()
     {
-        [Inject]
-        public IMapper Mapper { get; set; }
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
+        var certification = await CertificationsController.Get(PersonId, CertificationId);
 
-        [Parameter]
-        public int CertificationId { get; set; }
+        Options = Mapper.Map<CertificationOptions>(certification);
 
-        [Inject]
-        public ICertificationsController CertificationsController { get; set; }
+        await base.OnParametersSetAsync();
+    }
 
-        public CertificationOptions Options { get; set; } = new CertificationOptions();
+    private async Task HandleValidSubmit(CertificationOptions options)
+    {
+        var response = await CertificationsController.Update(PersonId, CertificationId, options);
+        if (response.IsSuccessStatusCode()) NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+    }
 
-        protected override async Task OnParametersSetAsync()
-        {
-            var certification = await CertificationsController.Get(PersonId, CertificationId);
+    private async Task HandleDelete()
+    {
+        var response = await CertificationsController.Delete(PersonId, CertificationId);
+        if (response.Succeeded) NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+    }
 
-            Options = Mapper.Map<CertificationOptions>(certification);
-            
-            await base.OnParametersSetAsync();
-        }
-
-        private async Task HandleValidSubmit(CertificationOptions options)
-        {
-            var response = await CertificationsController.Update(PersonId, CertificationId, options);
-            if (response.IsSuccessStatusCode())
-            {
-                NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
-            }
-        }
-
-        private async Task HandleDelete()
-        {
-            var response = await CertificationsController.Delete(PersonId, CertificationId);
-            if (response.Succeeded)
-            {
-                NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
-            }
-        }
-
-        private void HandleCancelled()
-        {
-            NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
-        }
+    private void HandleCancelled()
+    {
+        NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
     }
 }

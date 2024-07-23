@@ -40,7 +40,7 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade @ActiveTabPaneClass("home")" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
                 <div class="p-4">
-                    <ResumeDetailsComponent Resume="@ResumeDetails" />
+                    <ResumeDetailsComponent Resume="@ResumeDetails"/>
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("settings")" id="settings" role="tabpanel" aria-labelledby="settings-tab">
@@ -52,7 +52,7 @@
             <div class="tab-pane fade @ActiveTabPaneClass("markdown")" id="markdown" role="tabpanel" aria-labelledby="markdown-tab">
                 <div class="p-4">
                     <button class="btn-primary" @onclick="Regenerate">Regenerate</button>
-                    
+
                     @if (ResumeDetails.Renderings.Any())
                     {
                         <MarkdownComponent Content="@ResumeDetails.Renderings[0].Text"></MarkdownComponent>

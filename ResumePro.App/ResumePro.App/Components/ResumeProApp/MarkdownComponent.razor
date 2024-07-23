@@ -2,8 +2,7 @@
 
 @code {
 
-    [Parameter]
-    public string Content { get; set; }
+    [Parameter] public string Content { get; set; }
 
     private string RenderMarkdownToHtml(string markdown)
     {
@@ -11,8 +10,10 @@
         var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
         return Markdown.ToHtml(markdown, pipeline);
     }
+
 }
+
 <div class="p-3 border rounded shadow-sm">
 
-    <div>@((MarkupString)RenderMarkdownToHtml(Content))</div>
+    <div>@((MarkupString) RenderMarkdownToHtml(Content))</div>
 </div>

@@ -4,7 +4,7 @@
     <p>@Resume.Description</p>
 
     <ResumeContactInfoComponent Resume="@Resume"></ResumeContactInfoComponent>
-    
+
     @if (Resume.Jobs.Any())
     {
         <h3>Experience</h3>
@@ -16,7 +16,7 @@
             }
         }
     }
-    
+
     @if (Resume.Education.Any())
     {
         <h3>Education</h3>
@@ -28,11 +28,10 @@
             }
         }
     }
-   
-    
+
+
     @if (Resume.Certifications.Any())
     {
-        
         <h3>Certifications</h3>
         @if (Resume.Certifications != null)
         {

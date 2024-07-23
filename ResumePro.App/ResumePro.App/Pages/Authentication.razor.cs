@@ -1,10 +1,14 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿#region Header Info
 
-namespace ResumePro.App.Pages
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using Microsoft.AspNetCore.Components;
+
+namespace ResumePro.App.Pages;
+
+public partial class Authentication
 {
-    public partial class Authentication
-    {
-        [Parameter] public string Action { get; set; }
-
-    }
+    [Parameter] public string Action { get; set; }
 }

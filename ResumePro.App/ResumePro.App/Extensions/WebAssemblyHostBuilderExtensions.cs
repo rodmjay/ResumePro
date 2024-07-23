@@ -15,7 +15,7 @@ public static class WebAssemblyHostBuilderExtensions
 {
     public static WebAssemblyHostBuilder AddProxies(this WebAssemblyHostBuilder builder)
     {
-        builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+        builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
 
         builder.Services
             .AddTransient<ApiAuthorizationMessageHandler>();
@@ -38,7 +38,7 @@ public static class WebAssemblyHostBuilderExtensions
         builder.Services.AddHttpClient<IJobsController, JobsProxy>(
                 client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
-        
+
         builder.Services.AddHttpClient<ICertificationsController, CertificationsProxy>(
                 client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();

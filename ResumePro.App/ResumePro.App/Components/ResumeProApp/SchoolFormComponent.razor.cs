@@ -1,39 +1,44 @@
-﻿using ResumePro.App.Components.ResumeProApp.Bases;
+﻿#region Header Info
+
+// Copyright 2024 Rod Johnson.  All rights reserved
+
+#endregion
+
+using ResumePro.App.Components.ResumeProApp.Bases;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.App.Components.ResumeProApp
+namespace ResumePro.App.Components.ResumeProApp;
+
+public partial class SchoolFormComponent : FormComponent<SchoolOptions>
 {
-    public partial class SchoolFormComponent : FormComponent<SchoolOptions>
+    private void AddDegree()
     {
-        void AddDegree()
+        Options.DegreeOptions.Add(new DegreeOptions());
+    }
+
+    private void RemoveDegree(DegreeOptions degree)
+    {
+        Options.DegreeOptions.Remove(degree);
+    }
+
+
+    private void MoveDegreeUp(int index)
+    {
+        if (index >= 0 && index < Options.DegreeOptions.Count - 1)
         {
-            Options.DegreeOptions.Add(new DegreeOptions());
+            var item = Options.DegreeOptions[index];
+            Options.DegreeOptions.RemoveAt(index);
+            Options.DegreeOptions.Insert(index + 1, item);
         }
+    }
 
-        void RemoveDegree(DegreeOptions degree)
+    private void MoveDegreeDown(int index)
+    {
+        if (index >= 0 && index < Options.DegreeOptions.Count - 1)
         {
-            Options.DegreeOptions.Remove(degree);
-        }
-
-
-        private void MoveDegreeUp(int index)
-        {
-            if (index >= 0 && index < Options.DegreeOptions.Count - 1)
-            {
-                var item = Options.DegreeOptions[index];
-                Options.DegreeOptions.RemoveAt(index);
-                Options.DegreeOptions.Insert(index + 1, item);
-            }
-        }
-
-        private void MoveDegreeDown(int index)
-        {
-            if (index >= 0 && index < Options.DegreeOptions.Count - 1)
-            {
-                var item = Options.DegreeOptions[index];
-                Options.DegreeOptions.RemoveAt(index);
-                Options.DegreeOptions.Insert(index + 1, item);
-            }
+            var item = Options.DegreeOptions[index];
+            Options.DegreeOptions.RemoveAt(index);
+            Options.DegreeOptions.Insert(index + 1, item);
         }
     }
 }

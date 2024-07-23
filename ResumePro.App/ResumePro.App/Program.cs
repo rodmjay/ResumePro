@@ -19,7 +19,7 @@ public class Program
     public static async Task Main(string[] args)
     {
         var builder = WebAssemblyHostBuilder.CreateDefault(args);
-        
+
         builder.RootComponents.Add<App>("#app");
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
@@ -39,7 +39,6 @@ public class Program
             builder.Configuration.Bind("OidcConfiguration", options.ProviderOptions);
             builder.Configuration.Bind("UserOptions", options.UserOptions);
             builder.Configuration.Bind("AuthenticationPaths", options.AuthenticationPaths);
-
         });
         //builder.Services.AddAuthorizationCore(authorizationOptions =>
         //{

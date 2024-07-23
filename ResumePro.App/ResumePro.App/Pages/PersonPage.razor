@@ -1,10 +1,10 @@
 ﻿@page "/people/{PersonId:int}"
+@attribute [Authorize]
 @using Microsoft.AspNetCore.Authorization
 @using ResumePro.Shared.Models
-@attribute [Authorize]
 @inherits PersonPageBase
 
-@if (@Person != null)
+@if (Person != null)
 {
     <div class="container sticky-top mt-3">
         <Breadcrumb>
@@ -86,9 +86,8 @@
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateNewResume">Add Resume</button>
                     </div>
-                    @if (Person.Resumes is { Count: > 0 })
+                    @if (Person.Resumes is {Count: > 0})
                     {
-
                         <div class="row row-cols-1 row-cols-md-2 g-4">
                             @foreach (var resume in Person.Resumes)
                             {
@@ -122,7 +121,7 @@
                             {
                                 <div class="col">
                                     <div @onclick="@(() => EditJob(job.Id))" style="cursor: pointer;">
-                                        <JobCardComponent Job="@job" />
+                                        <JobCardComponent Job="@job"/>
                                     </div>
                                 </div>
                             }
@@ -171,7 +170,6 @@
                 <div class="p-4">
                     @if (Person.References != null)
                     {
-
                         <DropContainer TItem="ReferenceDto" ItemsFilter="@((item, dropZone) => true)" ItemDropped="@ItemDropped" Items="@Person.References" Flex="Flex.Wrap.Grow.Is1">
                             <ChildContent>
                                 <DropZone TItem="ReferenceDto" Name="zone1" AllowReorder Flex="Flex.Grow.Is1">
@@ -183,7 +181,6 @@
                                 </div>
                             </ItemTemplate>
                         </DropContainer>
-
                     }
                 </div>
             </div>
@@ -206,4 +203,3 @@
         </div>
     </Container>
 }
-
