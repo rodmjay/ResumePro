@@ -39,7 +39,7 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
 
         foreach (var job in JobDetailsList)
         {
-            JobCheckStates[job.Id] = Options.SkillIds.Contains(job.Id);
+            JobCheckStates[job.Id] = Options.JobIds.Contains(job.Id);
         }
     }
     

@@ -181,12 +181,25 @@ public sealed class ResumeService(
             organizationId, personId, resumeId, options);
 
         var resume = await Resumes
+            .Include(x=>x.Jobs)
+            .Include(x=>x.Skills)
             .Include(x => x.ResumeSettings)
-            .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
+            .Where(x => x.OrganizationId == organizationId && x.Id == resumeId && x.PersonaId == personId)
             .FirstOrDefaultAsync();
 
         if (resume == null)
             return Result.Failed(resumeErrors.ResumeNotFound(resumeId));
+
+        foreach (var job in resume.Jobs)
+        {
+            job.ObjectState = ObjectState.Deleted;
+        }
+
+        foreach (var skill in resume.Skills)
+        {
+            skill.ObjectState = ObjectState.Deleted;
+        }
+        
 
         resume.ObjectState = ObjectState.Modified;
         resume.JobTitle = options.JobTitle;
@@ -209,6 +222,60 @@ public sealed class ResumeService(
         resume.ResumeSettings.ShowContactInfo = options.Settings.ShowContactInfo;
         resume.ResumeSettings.ShowDuration = options.Settings.ShowDuration;
         resume.ResumeSettings.SkillView = options.Settings.SkillView;
+
+
+        var allJobIds = await Jobs
+            .AsNoTracking()
+            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Select(x=>x.Id)
+            .ToListAsync();
+
+        var actualJobIds = allJobIds.Where(x => options.JobIds.Contains(x)).ToList();
+
+        foreach (var jobId in actualJobIds)
+        {
+            var resumeJob = resume.Jobs.FirstOrDefault(x => x.JobId == jobId);
+            if (resumeJob == null)
+            {
+                resume.Jobs.Add(new ResumeJob()
+                {
+                    ObjectState = ObjectState.Added,
+                    OrganizationId = organizationId,
+                    JobId = jobId
+                });
+            }
+            else
+            {
+                resumeJob.ObjectState = ObjectState.Unchanged;
+            }
+        }
+
+        var allSkillIds = await PersonalSkills
+            .AsNoTracking()
+            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Select(x => x.SkillId)
+            .ToListAsync();
+
+        var actualSkillIds = allSkillIds.Where(x => options.SkillIds.Contains(x)).ToList();
+
+        foreach (var skillId in actualSkillIds)
+        {
+            var resumeSkill = resume.Skills.FirstOrDefault(x => x.SkillId == skillId);
+            if (resumeSkill == null)
+            {
+                resume.Skills.Add(new ResumeSkill()
+                {
+                    ObjectState = ObjectState.Added,
+                    OrganizationId = organizationId,
+                    SkillId = skillId
+                });
+            }
+            else
+            {
+                resumeSkill.ObjectState = ObjectState.Unchanged;
+            }
+        }
+        
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
         if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
