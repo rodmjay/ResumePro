@@ -80,6 +80,8 @@ public sealed class ResumeService(
                 SkillView = options.Settings.SkillView
             }
         };
+        
+        
 
         var changes = Repository.InsertOrUpdateGraph(resume, true);
         if (changes > 0)
@@ -97,6 +99,8 @@ public sealed class ResumeService(
                     resume.Jobs.Add(new ResumeJob
                     {
                         ObjectState = ObjectState.Added,
+                        OrganizationId = organizationId,
+                        ResumeId = resume.Id,
                         JobId = job.Id
                     });
             }
@@ -113,7 +117,9 @@ public sealed class ResumeService(
                         resume.Jobs.Add(new ResumeJob
                         {
                             ObjectState = ObjectState.Added,
-                            JobId = job.Id
+                            JobId = job.Id,
+                            ResumeId = resume.Id,
+                            OrganizationId = organizationId
                         });
                 }
             }
@@ -130,6 +136,7 @@ public sealed class ResumeService(
                     resume.Skills.Add(new ResumeSkill
                     {
                         ObjectState = ObjectState.Added,
+                        OrganizationId = organizationId,
                         SkillId = skill.SkillId
                     });
             }
@@ -147,10 +154,13 @@ public sealed class ResumeService(
                         resume.Skills.Add(new ResumeSkill
                         {
                             ObjectState = ObjectState.Added,
-                            SkillId = skill.SkillId
+                            SkillId = skill.SkillId,
+                            OrganizationId = organizationId
                         });
                 }
             }
+
+            var secondaryRecords = Repository.InsertOrUpdateGraph(resume, true);
 
             var settings = Mapper.Map<ResumeSettingsDto>(resume.ResumeSettings);
 

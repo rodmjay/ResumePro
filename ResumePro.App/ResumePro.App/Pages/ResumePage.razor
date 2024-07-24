@@ -40,7 +40,10 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade @ActiveTabPaneClass("home")" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
                 <div class="p-4">
-                    <ResumeDetailsComponent Resume="@ResumeDetails"/>
+                    <div class="mb-3 d-flex justify-content-end">
+                        <button class="btn btn-primary" @onclick="@EditResume">Edit Resume</button>
+                    </div>
+                    <ResumeDetailsComponent Resume="@ResumeDetails" />
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("settings")" id="settings" role="tabpanel" aria-labelledby="settings-tab">

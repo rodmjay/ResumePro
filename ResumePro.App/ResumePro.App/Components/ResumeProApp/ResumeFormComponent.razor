@@ -33,6 +33,16 @@
             <Strong>Jobs</Strong>
         </CardHeader>
         <CardBody>
+            
+            @foreach (var job in JobDetailsList)
+            {
+                <Field>
+                    <Check TValue="bool" @bind-Checked="@JobCheckStates[job.Id]"
+                           @onchange="(() => ToggleSelectionJob(job.Id))">
+                        @job.Title, @job.Company (@job.StartDate.ToShortDateString() - @job.DisplayEndDate)
+                    </Check>
+                </Field>
+            }
 
         </CardBody>
     </Card>

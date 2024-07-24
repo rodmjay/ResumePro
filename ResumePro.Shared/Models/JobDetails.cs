@@ -16,11 +16,7 @@ public class JobDetails : JobDto
     public List<HighlightDto> Highlights { get; set; }
 
     [JsonProperty("technology")]
-    public List<JobSkillDto> Skills
-    {
-        get => !ShowTechnology ? null : _skills;
-        set => _skills = value;
-    }
+    public List<JobSkillDto> Skills { get; set; }
 
     public List<ProjectDetails> Projects { get; set; }
 }

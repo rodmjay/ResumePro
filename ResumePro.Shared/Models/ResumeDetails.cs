@@ -10,17 +10,10 @@ namespace ResumePro.Shared.Models;
 
 public class ResumeDetails : ResumeDto
 {
-    private List<JobDetails> _jobs;
-
     public List<JobDetails> Jobs
     {
-        get
-        {
-            return _jobs;
-            //return _jobs.Where(x => !x.EndDate.HasValue || x.EndDate.Value >= DateTime.Now.AddYears(-10))
-            //    .ToList();
-        }
-        set => _jobs = value;
+        get;
+        set;
     }
 
     public List<ResumeSkillDto> Skills { get; set; }

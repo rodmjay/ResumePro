@@ -10,15 +10,12 @@
         <ResumeSkillTableComponent ResumeSkills="Resume.Skills"></ResumeSkillTableComponent>
     }
 
-    @if (Resume.Jobs.Any())
+    @if (Resume.Jobs != null && Resume.Jobs.Any())
     {
         <h4>Experience</h4>
-        @if (Resume.Jobs != null)
+        @foreach (var job in Resume.Jobs)
         {
-            @foreach (var job in Resume.Jobs)
-            {
-                <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
-            }
+            <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
         }
     }
 

@@ -14,12 +14,13 @@ namespace ResumePro.App.Components.ResumeProApp;
 
 public partial class ResumeFormComponent : FormComponent<ResumeOptions>
 {
-    Dictionary<int, bool> SkillCheckStates = new Dictionary<int, bool>();
+    private Dictionary<int, bool> SkillCheckStates = new();
+    private Dictionary<int, bool> JobCheckStates = new();
 
-    private Dictionary<string, Dictionary<string, int>> CategorySkills =
-        new Dictionary<string, Dictionary<string, int>>();
+    private Dictionary<string, Dictionary<string, int>> CategorySkills = new();
 
     private List<PersonaSkillDto> PersonSkills { get; set; }
+    
 
     [Parameter]
     public int PersonId { get; set; }
@@ -27,9 +28,23 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
     [Inject]
     public IPersonSkillsController PersonSkillsController { get; set; }
 
-    protected override async Task OnParametersSetAsync()
+    [Inject]
+    public IJobsController JobsController { get; set; }
+    
+    public List<JobDetails> JobDetailsList { get; set; }
+    
+    private async Task LoadJobData()
     {
-        await base.OnParametersSetAsync();
+        JobDetailsList = await JobsController.GetJobs(PersonId);
+
+        foreach (var job in JobDetailsList)
+        {
+            JobCheckStates[job.Id] = Options.SkillIds.Contains(job.Id);
+        }
+    }
+    
+    private async Task LoadSkillData()
+    {
 
         PersonSkills = await PersonSkillsController.GetSkills(PersonId);
 
@@ -57,7 +72,24 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
             SkillCheckStates[skill.SkillId] = Options.SkillIds.Contains(skill.SkillId);
         }
     }
-
+    
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+        await LoadSkillData();
+        await LoadJobData();
+    }
+    void ToggleSelectionJob(int jobId)
+    {
+        if (Options.JobIds.Contains(jobId))
+        {
+            Options.JobIds.Remove(jobId);
+        }
+        else
+        {
+            Options.JobIds.Add(jobId);
+        }
+    }
     void ToggleSelection(int skillId)
     {
         if (Options.SkillIds.Contains(skillId))

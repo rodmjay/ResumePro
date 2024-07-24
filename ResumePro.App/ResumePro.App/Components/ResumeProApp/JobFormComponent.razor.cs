@@ -14,12 +14,11 @@ namespace ResumePro.App.Components.ResumeProApp;
 
 public partial class JobFormComponent : FormComponent<JobOptions>
 {
-    Dictionary<int, bool> SkillCheckStates = new Dictionary<int, bool>();
+    Dictionary<int, bool> SkillCheckStates = new();
 
-    private Dictionary<string, Dictionary<string, int>> CategorySkills =
-        new Dictionary<string, Dictionary<string, int>>();
+    private Dictionary<string, Dictionary<string, int>> CategorySkills = new();
 
-    private Dictionary<string, int> OtherSkills = new Dictionary<string, int>();
+    private Dictionary<string, int> OtherSkills = new();
 
     [Inject]
     public IPersonSkillsController PersonSkillsController { get; set; }

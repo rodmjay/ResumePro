@@ -50,4 +50,10 @@ public partial class ResumePage
     {
         return tabName == currentTab ? "show active" : "";
     }
+
+
+    private void EditResume()
+    {
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{ResumeId}/edit");
+    }
 }

@@ -3,46 +3,55 @@
 
 <FormCard TOptions="SchoolOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
 
-    <Fields>
-        <Validation>
-            <Field>
-                <FieldLabel>Name</FieldLabel>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Name</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
-            </Field>
-        </Validation>
-        <Validation>
-            <Field>
-                <FieldLabel>Start Date</FieldLabel>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Start Date</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
                 <DateEdit TValue="DateTime?" Placeholder="Enter start date" @bind-Date="Options.StartDate">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </DateEdit>
-            </Field>
-        </Validation>
-        <Validation>
-            <Field>
-                <FieldLabel>End Date</FieldLabel>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">End Date</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
                 <DateEdit TValue="DateTime?" Placeholder="Enter end date" @bind-Date="Options.EndDate">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </DateEdit>
-            </Field>
-        </Validation>
+            </FieldBody>
 
+        </Field>
+    </Validation>
+
+    <CardText>
 
         <Card Margin="Margin.Is3.FromBottom">
             <CardBody>
                 <CardTitle>
-                    Degrees
+                    <Strong>Degrees</Strong>
                 </CardTitle>
                 <CardText>
-                    @foreach (var degree in Options.DegreeOptions.Select((value, index) => new {value, index}))
+                    @foreach (var degree in Options.DegreeOptions.Select((value, index) => new { value, index }))
                     {
                         <Column ColumnSize="ColumnSize.Is11">
                             <Addons>
@@ -51,7 +60,7 @@
                                         <Field ColumnSize="ColumnSize.Is9">
                                             <TextEdit @bind-Text="degree.value.Name" Placeholder="Enter name">
                                                 <Feedback>
-                                                    <ValidationError/>
+                                                    <ValidationError />
                                                 </Feedback>
                                             </TextEdit>
 
@@ -62,13 +71,13 @@
                                     <Field>
                                         <Buttons>
                                             <Button Color="Color.Light" Clicked="@(() => MoveDegreeUp(degree.index))" Disabled="@(degree.index == 0)">
-                                                <Icon Name="IconName.ArrowUp"/>
+                                                <Icon Name="IconName.ArrowUp" />
                                             </Button>
                                             <Button Color="Color.Light" Clicked="@(() => MoveDegreeDown(degree.index))" Disabled="@(degree.index == Options.DegreeOptions.Count - 1)">
-                                                <Icon Name="IconName.ArrowDown"/>
+                                                <Icon Name="IconName.ArrowDown" />
                                             </Button>
                                             <Button Color="Color.Danger" Clicked="@(() => RemoveDegree(degree.value))">
-                                                <Icon Name="IconName.Delete"/>
+                                                <Icon Name="IconName.Delete" />
                                             </Button>
                                         </Buttons>
                                     </Field>
@@ -82,6 +91,6 @@
 
             </CardBody>
         </Card>
-    </Fields>
+    </CardText>
 
 </FormCard>

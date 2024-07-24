@@ -105,8 +105,4 @@ public partial class PersonPage : PersonPageBase
 
     }
 
-    private void EditResume(int resumeId)
-    {
-        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}/edit");
-    }
 }
