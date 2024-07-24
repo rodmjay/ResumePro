@@ -22,7 +22,6 @@ public class JobSkillsControllerTest : BaseApiTest
         {
             await PersonSkillsProxy.AddOrUpdateSkill(1, new PersonaSkillsOptions
             {
-                Rating = 1,
                 SkillId = 99
             });
 

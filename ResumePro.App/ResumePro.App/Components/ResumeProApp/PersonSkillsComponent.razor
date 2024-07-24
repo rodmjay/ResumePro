@@ -1,0 +1,45 @@
+﻿
+@if (CategorySkills.Any())
+{
+    
+    <Div>
+
+
+        @foreach (var entry in CategorySkills)
+        {
+            <Heading Size="HeadingSize.Is5">
+                @entry.Key
+            </Heading>
+
+            @foreach (var entry2 in entry.Value)
+            {
+                <Field>
+                    <Check TValue="bool" 
+                           Checked="@SkillCheckStates[entry2.Value]"
+                           CheckedChanged="@((val)=>ToggleSelection(val,entry2.Value))">
+                        @entry2.Key
+                    </Check>
+                </Field>
+            }
+        }
+                    
+        @if (OtherSkills.Any())
+        {
+            <Heading Size="HeadingSize.Is5">
+                Other Skills
+            </Heading>
+
+            @foreach (var entry2 in OtherSkills)
+            {
+                <Field>
+                    <Check TValue="bool" 
+                           Checked="@SkillCheckStates[entry2.Value]"
+                           CheckedChanged="((val)=>ToggleSelection(val,entry2.Value))">
+                        @entry2.Key
+                    </Check>
+                </Field>
+            }
+        }
+
+    </Div>
+}

@@ -36,6 +36,6 @@ public class ResumeMapping : Profile
             .ForMember(x => x.Certifications,
                 opt => opt.MapFrom(x => x.Persona.Certifications.OrderByDescending(a => a.Date)))
             .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Persona.Schools.OrderByDescending(a => a.StartDate)))
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.OrderByDescending(a => a.Skill.Rating)));
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills));
     }
 }

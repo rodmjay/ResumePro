@@ -10,7 +10,7 @@ namespace ResumePro.Shared.Models;
 
 public class SkillDto : ISkill
 {
-    public string[] Categories { get; set; }
+    public List<string> Categories { get; set; } = new List<string>();
     public int Id { get; set; }
 
     public string Title { get; set; }

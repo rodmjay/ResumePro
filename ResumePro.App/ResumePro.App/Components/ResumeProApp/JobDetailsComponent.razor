@@ -1,5 +1,5 @@
 ﻿<div class="job-section">
-    <Heading Size="HeadingSize.Is4">@JobDetails.Title at @JobDetails.Company</Heading>
+    <Heading Size="HeadingSize.Is3">@JobDetails.Title at @JobDetails.Company</Heading>
     <Paragraph>@JobDetails.StartDate.ToShortDateString() - @(JobDetails.DisplayEndDate) (@JobDetails.Duration)</Paragraph>
     <Paragraph>@JobDetails.Description</Paragraph>
 
@@ -18,7 +18,7 @@
         @foreach (var project in JobDetails.Projects)
         {
             <div>
-                <Heading Size="HeadingSize.Is6">Project: @project.Name</Heading>
+                <Heading Size="HeadingSize.Is2">Project: @project.Name</Heading>
                 <Paragraph>@project.Description</Paragraph>
                 @if (project.Highlights != null && project.Highlights.Any())
                 {

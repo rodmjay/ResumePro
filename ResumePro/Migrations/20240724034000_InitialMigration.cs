@@ -256,8 +256,7 @@ namespace ResumePro.Migrations
                 {
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
-                    SkillId = table.Column<int>(type: "int", nullable: false),
-                    Rating = table.Column<int>(type: "int", nullable: false)
+                    SkillId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -381,12 +380,14 @@ namespace ResumePro.Migrations
                         name: "FK_JobSkill_Job_OrganizationId_JobId",
                         columns: x => new { x.OrganizationId, x.JobId },
                         principalTable: "Job",
-                        principalColumns: new[] { "OrganizationId", "Id" });
+                        principalColumns: new[] { "OrganizationId", "Id" },
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_JobSkill_PersonaSkill_OrganizationId_PersonaId_SkillId",
                         columns: x => new { x.OrganizationId, x.PersonaId, x.SkillId },
                         principalTable: "PersonaSkill",
-                        principalColumns: new[] { "OrganizationId", "PersonaId", "SkillId" });
+                        principalColumns: new[] { "OrganizationId", "PersonaId", "SkillId" },
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -512,7 +513,8 @@ namespace ResumePro.Migrations
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     SchoolId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Order = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -1098,7 +1100,13 @@ namespace ResumePro.Migrations
                     { 96, "Amazon Web Services (AWS)" },
                     { 97, "Google Cloud Platform" },
                     { 98, "Oracle Cloud" },
-                    { 99, "IBM Cloud" }
+                    { 99, "IBM Cloud" },
+                    { 100, "Google APIs" },
+                    { 101, "Twitter API" },
+                    { 102, "Facebook API" },
+                    { 103, "Amazon AWS API" },
+                    { 104, "Twilio API" },
+                    { 105, "Spotify API" }
                 });
 
             migrationBuilder.InsertData(
@@ -1110,7 +1118,9 @@ namespace ResumePro.Migrations
                     { 2, "Database management systems", "Databases" },
                     { 3, "Software frameworks", "Frameworks" },
                     { 4, "Tools for DevOps and CI/CD", "DevOps Tools" },
-                    { 5, "Platforms for cloud computing", "Cloud Platforms" }
+                    { 5, "Platforms for cloud computing", "Cloud Platforms" },
+                    { 6, "Application Programming Interfaces", "APIs" },
+                    { 7, "Integrated Development Environment", "IDEs" }
                 });
 
             migrationBuilder.InsertData(
@@ -1161,6 +1171,7 @@ namespace ResumePro.Migrations
                     { 3, 14 },
                     { 3, 17 },
                     { 3, 26 },
+                    { 3, 31 },
                     { 3, 34 },
                     { 3, 38 },
                     { 3, 67 },
@@ -1198,7 +1209,15 @@ namespace ResumePro.Migrations
                     { 5, 96 },
                     { 5, 97 },
                     { 5, 98 },
-                    { 5, 99 }
+                    { 5, 99 },
+                    { 6, 39 },
+                    { 6, 100 },
+                    { 6, 101 },
+                    { 6, 102 },
+                    { 6, 103 },
+                    { 6, 104 },
+                    { 6, 105 },
+                    { 7, 9 }
                 });
 
             migrationBuilder.InsertData(
@@ -1291,58 +1310,58 @@ namespace ResumePro.Migrations
 
             migrationBuilder.InsertData(
                 table: "PersonaSkill",
-                columns: new[] { "OrganizationId", "PersonaId", "SkillId", "Rating" },
+                columns: new[] { "OrganizationId", "PersonaId", "SkillId" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 10 },
-                    { 1, 1, 2, 9 },
-                    { 1, 1, 3, 9 },
-                    { 1, 1, 4, 9 },
-                    { 1, 1, 5, 10 },
-                    { 1, 1, 6, 8 },
-                    { 1, 1, 7, 9 },
-                    { 1, 1, 8, 8 },
-                    { 1, 1, 9, 10 },
-                    { 1, 1, 10, 8 },
-                    { 1, 1, 11, 8 },
-                    { 1, 1, 12, 8 },
-                    { 1, 1, 13, 8 },
-                    { 1, 1, 14, 8 },
-                    { 1, 1, 15, 8 },
-                    { 1, 1, 16, 8 },
-                    { 1, 1, 17, 8 },
-                    { 1, 1, 18, 8 },
-                    { 1, 1, 19, 8 },
-                    { 1, 1, 20, 8 },
-                    { 1, 1, 21, 8 },
-                    { 1, 1, 22, 10 },
-                    { 1, 1, 23, 8 },
-                    { 1, 1, 24, 8 },
-                    { 1, 1, 25, 8 },
-                    { 1, 1, 26, 8 },
-                    { 1, 1, 27, 8 },
-                    { 1, 1, 28, 8 },
-                    { 1, 1, 29, 8 },
-                    { 1, 1, 30, 8 },
-                    { 1, 1, 31, 10 },
-                    { 1, 1, 32, 8 },
-                    { 1, 1, 33, 8 },
-                    { 1, 1, 34, 10 },
-                    { 1, 1, 35, 8 },
-                    { 1, 1, 36, 9 },
-                    { 1, 1, 37, 9 },
-                    { 1, 1, 38, 10 },
-                    { 1, 1, 39, 10 },
-                    { 1, 1, 40, 10 },
-                    { 1, 1, 41, 10 },
-                    { 1, 1, 42, 10 },
-                    { 1, 1, 43, 10 },
-                    { 1, 1, 44, 10 },
-                    { 1, 1, 45, 8 },
-                    { 1, 1, 46, 5 },
-                    { 1, 1, 47, 5 },
-                    { 1, 1, 95, 9 },
-                    { 1, 1, 96, 9 }
+                    { 1, 1, 1 },
+                    { 1, 1, 2 },
+                    { 1, 1, 3 },
+                    { 1, 1, 4 },
+                    { 1, 1, 5 },
+                    { 1, 1, 6 },
+                    { 1, 1, 7 },
+                    { 1, 1, 8 },
+                    { 1, 1, 9 },
+                    { 1, 1, 10 },
+                    { 1, 1, 11 },
+                    { 1, 1, 12 },
+                    { 1, 1, 13 },
+                    { 1, 1, 14 },
+                    { 1, 1, 15 },
+                    { 1, 1, 16 },
+                    { 1, 1, 17 },
+                    { 1, 1, 18 },
+                    { 1, 1, 19 },
+                    { 1, 1, 20 },
+                    { 1, 1, 21 },
+                    { 1, 1, 22 },
+                    { 1, 1, 23 },
+                    { 1, 1, 24 },
+                    { 1, 1, 25 },
+                    { 1, 1, 26 },
+                    { 1, 1, 27 },
+                    { 1, 1, 28 },
+                    { 1, 1, 29 },
+                    { 1, 1, 30 },
+                    { 1, 1, 31 },
+                    { 1, 1, 32 },
+                    { 1, 1, 33 },
+                    { 1, 1, 34 },
+                    { 1, 1, 35 },
+                    { 1, 1, 36 },
+                    { 1, 1, 37 },
+                    { 1, 1, 38 },
+                    { 1, 1, 39 },
+                    { 1, 1, 40 },
+                    { 1, 1, 41 },
+                    { 1, 1, 42 },
+                    { 1, 1, 43 },
+                    { 1, 1, 44 },
+                    { 1, 1, 45 },
+                    { 1, 1, 46 },
+                    { 1, 1, 47 },
+                    { 1, 1, 95 },
+                    { 1, 1, 96 }
                 });
 
             migrationBuilder.InsertData(
@@ -1371,8 +1390,8 @@ namespace ResumePro.Migrations
 
             migrationBuilder.InsertData(
                 table: "Degree",
-                columns: new[] { "Id", "OrganizationId", "Name", "SchoolId" },
-                values: new object[] { 1, 1, "AAS Computer and Information Systems", 1 });
+                columns: new[] { "Id", "OrganizationId", "Name", "Order", "SchoolId" },
+                values: new object[] { 1, 1, "AAS Computer and Information Systems", 1, 1 });
 
             migrationBuilder.InsertData(
                 table: "Highlight",

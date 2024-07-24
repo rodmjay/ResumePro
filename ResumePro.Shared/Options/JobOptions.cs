@@ -23,4 +23,7 @@ public class JobOptions
 
     public List<HighlightOptions> HighlightOptions { get; set; } = new List<HighlightOptions>();
     public List<ProjectOptions> ProjectOptions { get; set; } = new List<ProjectOptions>();
+
+    public List<int> JobSkillIds { get; set; } = new List<int>();
+
 }

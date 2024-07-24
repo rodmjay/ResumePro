@@ -21,8 +21,7 @@ public class ResumeJobMapping : Profile
             .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Job.Title))
             .ForMember(x => x.StartDate, opt => opt.MapFrom(x => x.Job.StartDate))
             .ForMember(x => x.EndDate, opt => opt.MapFrom(x => x.Job.EndDate))
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Job.Skills
-                .OrderByDescending(a => a.Skill.Rating)))
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Job.Skills))
             .ForMember(x => x.Projects, opt => opt.MapFrom(x => x.Job.Projects.OrderBy(a => a.Order)))
             .ForMember(x => x.Highlights,
                 opt => opt.MapFrom(x => x.Job.Highlights.OrderBy(a => a.Order).Where(a => a.ProjectId == null)));

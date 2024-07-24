@@ -10,5 +10,4 @@ public interface IPersonaSkill
 {
     int PersonaId { get; set; }
     int SkillId { get; set; }
-    int Rating { get; set; }
 }

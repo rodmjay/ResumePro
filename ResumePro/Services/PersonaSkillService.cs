@@ -42,14 +42,12 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId,
                 PersonaId = personId,
-                SkillId = options.SkillId,
-                Rating = options.Rating
+                SkillId = options.SkillId
             };
         }
         else
         {
-            personalSkill.ObjectState = ObjectState.Modified;
-            personalSkill.Rating = options.Rating;
+            personalSkill.ObjectState = ObjectState.Unchanged;
         }
 
         var isAdd = personalSkill.ObjectState == ObjectState.Added;
@@ -68,8 +66,8 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
 
                 foreach (var resume in resumes)
                 {
-                    var settings = Mapper.Map<ResumeSettings>(resume.ResumeSettings);
-                    if (settings.AttachAllSkills.Value)
+                    var settings = Mapper.Map<ResumeSettingsDto>(resume.ResumeSettings);
+                    if (settings.AttachAllSkills)
                     {
                         resume.ObjectState = ObjectState.Modified;
                         resume.Skills.Add(new ResumeSkill

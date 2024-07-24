@@ -16,7 +16,6 @@ public class PersonSkillTestData
         {
             new()
             {
-                Rating = 10,
                 SkillId = 1
             }
         };

@@ -16,7 +16,6 @@ public class ResumeSkillMapping : Profile
         CreateMap<ResumeSkill, ResumeSkillDto>()
             .ForMember(x => x.Categories,
                 opt => opt.MapFrom(x => x.Skill.Skill.Categories.Select(a => a.SkillCategory.Name)))
-            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Skill.Skill.Title))
-            .ForMember(x => x.Rating, opt => opt.MapFrom(x => x.Skill.Rating));
+            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Skill.Skill.Title));
     }
 }

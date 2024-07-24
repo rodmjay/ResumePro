@@ -1,5 +1,6 @@
 ﻿@page "/people/{PersonId:int}"
 @attribute [Authorize]
+
 @using Microsoft.AspNetCore.Authorization
 @using ResumePro.Shared.Models
 @inherits PersonPageBase
@@ -156,10 +157,7 @@
                 <div class="p-4">
                     @if (Person.Skills != null)
                     {
-                        foreach (var skill in Person.Skills)
-                        {
-                            <p>@skill.Name (@skill.Rating)</p>
-                        }
+                        <PersonSkillsComponent PersonId="@PersonId"></PersonSkillsComponent>
                     }
                 </div>
             </div>

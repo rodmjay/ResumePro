@@ -14,13 +14,16 @@ namespace ResumePro.Services;
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public sealed class JobService(IServiceProvider serviceProvider, 
     IRepositoryAsync<Project> projectRepo,
-    IRepositoryAsync<Resume> resumeRepo, IRepositoryAsync<Highlight> highlightRepo)
+    IRepositoryAsync<Resume> resumeRepo,
+    IRepositoryAsync<PersonaSkill> personSkillRepo,
+    IRepositoryAsync<Highlight> highlightRepo)
     : BaseService<Job>(serviceProvider), IJobService
 {
     private IQueryable<Job> Jobs => Repository.Queryable();
     private IQueryable<Resume> Resumes => resumeRepo.Queryable();
     private IQueryable<Highlight> Highlights => highlightRepo.Queryable();
     private IQueryable<Project> Projects => projectRepo.Queryable();
+    private IQueryable<PersonaSkill> PersonSkills => personSkillRepo.Queryable();
 
     public Task<List<T>> GetJobs<T>(int organizationId, int personId) where T : JobDto
     {
@@ -38,7 +41,7 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
     public async Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options)
     {
-        Logger.LogInformation(
+            Logger.LogInformation(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
@@ -55,6 +58,22 @@ public sealed class JobService(IServiceProvider serviceProvider,
             OrganizationId = organizationId,
             PersonaId = personId
         };
+
+        var personSkills = await PersonSkills.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Select(x => x.SkillId).ToListAsync();
+
+        var availableSkills = options.JobSkillIds.Where(x => personSkills.Contains(x)).ToList();
+
+        foreach (var availableSkill in availableSkills)
+        {
+            job.Skills.Add(new JobSkill()
+            {
+                ObjectState = ObjectState.Added,
+                SkillId = availableSkill,
+                PersonaId = personId,
+                OrganizationId = organizationId
+            });
+        }
 
         for (var index = 0; index < options.HighlightOptions.Count; index++)
         {
@@ -114,6 +133,7 @@ public sealed class JobService(IServiceProvider serviceProvider,
         var job = await Jobs.Include(x => x.Highlights)
             .Include(x=>x.Projects)
             .ThenInclude(x=>x.Highlights)
+            .Include(x=>x.Skills)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
@@ -142,6 +162,30 @@ public sealed class JobService(IServiceProvider serviceProvider,
             foreach (var highlight in project.Highlights)
             {
                 highlight.ObjectState = ObjectState.Deleted;
+            }
+        }
+
+        foreach (var skill in job.Skills)
+        {
+            skill.ObjectState = ObjectState.Deleted;
+        }
+
+        foreach (var skillId in options.JobSkillIds)
+        {
+            var skill = job.Skills.FirstOrDefault(x => x.SkillId == skillId);
+            if (skill == null)
+            {
+                job.Skills.Add(new JobSkill()
+                {
+                    ObjectState = ObjectState.Added,
+                    PersonaId = personId,
+                    OrganizationId = organizationId,
+                    SkillId = skillId
+                });
+            }
+            else
+            {
+                skill.ObjectState = ObjectState.Unchanged;
             }
         }
 

@@ -11,9 +11,12 @@
         </div>
     </CardHeader>
     <CardBody>
-        <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
-            @ChildContent
-        </Validations>
+        <CardText>
+            <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+                @ChildContent
+            </Validations>
+        </CardText>
+
     </CardBody>
     <CardFooter>
         <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>

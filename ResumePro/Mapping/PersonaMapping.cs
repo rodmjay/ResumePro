@@ -24,7 +24,7 @@ public class PersonaMapping : Profile
             .IncludeAllDerived();
 
         CreateMap<Persona, PersonaDetails>()
-            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills.OrderByDescending(a => a.Rating)))
+            .ForMember(x => x.Skills, opt => opt.MapFrom(x => x.Skills))
             .ForMember(x => x.Certifications, opt => opt.MapFrom(x => x.Certifications.OrderByDescending(a => a.Date)))
             .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Schools.OrderByDescending(a => a.StartDate)))
             .ForMember(x => x.Languages, opt => opt.MapFrom(x => x.Languages.OrderByDescending(a => a.Proficiency)))

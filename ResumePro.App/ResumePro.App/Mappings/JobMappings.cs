@@ -21,6 +21,7 @@ public class JobMappings : Profile
             .ForMember(x => x.Company, opt => opt.MapFrom(x => x.Company))
             .ForMember(x => x.EndDate, opt => opt.MapFrom(x => x.EndDate))
             .ForMember(x => x.StartDate, opt => opt.MapFrom(x => x.StartDate))
+            .ForMember(x => x.JobSkillIds, opt => opt.MapFrom(x => x.Skills.Select(s => s.SkillId)))
             .ForMember(x => x.HighlightOptions, opt => opt.MapFrom(x => x.Highlights))
             .ForMember(x => x.ProjectOptions, opt => opt.MapFrom(x => x.Projects));
     }

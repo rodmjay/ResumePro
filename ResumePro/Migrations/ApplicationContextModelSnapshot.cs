@@ -46,7 +46,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("Certification", (string)null);
+                    b.ToTable("Certification");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Country", b =>
@@ -79,7 +79,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Iso3");
 
-                    b.ToTable("Country", (string)null);
+                    b.ToTable("Country");
 
                     b.HasData(
                         new
@@ -2243,7 +2243,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "SchoolId");
 
-                    b.ToTable("Degree", (string)null);
+                    b.ToTable("Degree");
 
                     b.HasData(
                         new
@@ -2282,7 +2282,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("ProjectId", "JobId");
 
-                    b.ToTable("Highlight", (string)null);
+                    b.ToTable("Highlight");
 
                     b.HasData(
                         new
@@ -2776,7 +2776,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("Job", (string)null);
+                    b.ToTable("Job");
 
                     b.HasData(
                         new
@@ -2899,7 +2899,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId", "SkillId");
 
-                    b.ToTable("JobSkill", (string)null);
+                    b.ToTable("JobSkill");
 
                     b.HasData(
                         new
@@ -3676,7 +3676,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId");
 
-                    b.ToTable("OrganizationSettings", (string)null);
+                    b.ToTable("OrganizationSettings");
 
                     b.HasData(
                         new
@@ -3733,7 +3733,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("StateId");
 
-                    b.ToTable("Persona", (string)null);
+                    b.ToTable("Persona");
 
                     b.HasData(
                         new
@@ -3770,7 +3770,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Code3");
 
-                    b.ToTable("PersonaLanguage", (string)null);
+                    b.ToTable("PersonaLanguage");
 
                     b.HasData(
                         new
@@ -3800,358 +3800,306 @@ namespace ResumePro.Migrations
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Rating")
-                        .HasColumnType("int");
-
                     b.HasKey("OrganizationId", "PersonaId", "SkillId");
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("PersonaSkill", (string)null);
+                    b.ToTable("PersonaSkill");
 
                     b.HasData(
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 1,
-                            Rating = 10
+                            SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 2,
-                            Rating = 9
+                            SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 3,
-                            Rating = 9
+                            SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 4,
-                            Rating = 9
+                            SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 5,
-                            Rating = 10
+                            SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 6,
-                            Rating = 8
+                            SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 7,
-                            Rating = 9
+                            SkillId = 7
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 8,
-                            Rating = 8
+                            SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 9,
-                            Rating = 10
+                            SkillId = 9
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 10,
-                            Rating = 8
+                            SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 11,
-                            Rating = 8
+                            SkillId = 11
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 12,
-                            Rating = 8
+                            SkillId = 12
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 13,
-                            Rating = 8
+                            SkillId = 13
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 14,
-                            Rating = 8
+                            SkillId = 14
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 15,
-                            Rating = 8
+                            SkillId = 15
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 16,
-                            Rating = 8
+                            SkillId = 16
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 17,
-                            Rating = 8
+                            SkillId = 17
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 18,
-                            Rating = 8
+                            SkillId = 18
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 19,
-                            Rating = 8
+                            SkillId = 19
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 20,
-                            Rating = 8
+                            SkillId = 20
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 21,
-                            Rating = 8
+                            SkillId = 21
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 22,
-                            Rating = 10
+                            SkillId = 22
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 23,
-                            Rating = 8
+                            SkillId = 23
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 24,
-                            Rating = 8
+                            SkillId = 24
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 25,
-                            Rating = 8
+                            SkillId = 25
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 26,
-                            Rating = 8
+                            SkillId = 26
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 27,
-                            Rating = 8
+                            SkillId = 27
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 28,
-                            Rating = 8
+                            SkillId = 28
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 29,
-                            Rating = 8
+                            SkillId = 29
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 30,
-                            Rating = 8
+                            SkillId = 30
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 31,
-                            Rating = 10
+                            SkillId = 31
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 32,
-                            Rating = 8
+                            SkillId = 32
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 33,
-                            Rating = 8
+                            SkillId = 33
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 34,
-                            Rating = 10
+                            SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 35,
-                            Rating = 8
+                            SkillId = 35
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 36,
-                            Rating = 9
+                            SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 37,
-                            Rating = 9
+                            SkillId = 37
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 38,
-                            Rating = 10
+                            SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 39,
-                            Rating = 10
+                            SkillId = 39
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 40,
-                            Rating = 10
+                            SkillId = 40
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 41,
-                            Rating = 10
+                            SkillId = 41
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 42,
-                            Rating = 10
+                            SkillId = 42
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 43,
-                            Rating = 10
+                            SkillId = 43
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 44,
-                            Rating = 10
+                            SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 45,
-                            Rating = 8
+                            SkillId = 45
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 46,
-                            Rating = 5
+                            SkillId = 46
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 47,
-                            Rating = 5
+                            SkillId = 47
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 95,
-                            Rating = 9
+                            SkillId = 95
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 96,
-                            Rating = 9
+                            SkillId = 96
                         });
                 });
 
@@ -4182,7 +4130,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "JobId");
 
-                    b.ToTable("Project", (string)null);
+                    b.ToTable("Project");
 
                     b.HasData(
                         new
@@ -4308,7 +4256,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId", "PersonaId", "Id");
 
-                    b.ToTable("Reference", (string)null);
+                    b.ToTable("Reference");
 
                     b.HasData(
                         new
@@ -4397,7 +4345,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("TemplateId");
 
-                    b.ToTable("Rendering", (string)null);
+                    b.ToTable("Rendering");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
@@ -4419,7 +4367,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId", "Id");
 
-                    b.ToTable("Resume", (string)null);
+                    b.ToTable("Resume");
 
                     b.HasData(
                         new
@@ -4447,7 +4395,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "JobId");
 
-                    b.ToTable("ResumeJob", (string)null);
+                    b.ToTable("ResumeJob");
 
                     b.HasData(
                         new
@@ -4545,7 +4493,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("DefaultTemplateId");
 
-                    b.ToTable("ResumeSettings", (string)null);
+                    b.ToTable("ResumeSettings");
 
                     b.HasData(
                         new
@@ -4573,7 +4521,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId", "SkillId");
 
-                    b.ToTable("ResumeSkill", (string)null);
+                    b.ToTable("ResumeSkill");
 
                     b.HasData(
                         new
@@ -4721,7 +4669,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("OrganizationId", "PersonaId");
 
-                    b.ToTable("School", (string)null);
+                    b.ToTable("School");
 
                     b.HasData(
                         new
@@ -4748,7 +4696,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Skill", (string)null);
+                    b.ToTable("Skill");
 
                     b.HasData(
                         new
@@ -5245,6 +5193,36 @@ namespace ResumePro.Migrations
                         {
                             Id = 99,
                             Title = "IBM Cloud"
+                        },
+                        new
+                        {
+                            Id = 100,
+                            Title = "Google APIs"
+                        },
+                        new
+                        {
+                            Id = 101,
+                            Title = "Twitter API"
+                        },
+                        new
+                        {
+                            Id = 102,
+                            Title = "Facebook API"
+                        },
+                        new
+                        {
+                            Id = 103,
+                            Title = "Amazon AWS API"
+                        },
+                        new
+                        {
+                            Id = 104,
+                            Title = "Twilio API"
+                        },
+                        new
+                        {
+                            Id = 105,
+                            Title = "Spotify API"
                         });
                 });
 
@@ -5264,7 +5242,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SkillCategory", (string)null);
+                    b.ToTable("SkillCategory");
 
                     b.HasData(
                         new
@@ -5296,6 +5274,18 @@ namespace ResumePro.Migrations
                             Id = 5,
                             Description = "Platforms for cloud computing",
                             Name = "Cloud Platforms"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Description = "Application Programming Interfaces",
+                            Name = "APIs"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Description = "Integrated Development Environment",
+                            Name = "IDEs"
                         });
                 });
 
@@ -5311,7 +5301,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("SkillId");
 
-                    b.ToTable("SkillCategorySkill", (string)null);
+                    b.ToTable("SkillCategorySkill");
 
                     b.HasData(
                         new
@@ -5432,6 +5422,11 @@ namespace ResumePro.Migrations
                         new
                         {
                             SkillCategoryId = 2,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            SkillCategoryId = 2,
                             SkillId = 63
                         },
                         new
@@ -5442,17 +5437,47 @@ namespace ResumePro.Migrations
                         new
                         {
                             SkillCategoryId = 2,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            SkillCategoryId = 2,
                             SkillId = 65
                         },
                         new
                         {
                             SkillCategoryId = 2,
                             SkillId = 66
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 26
+                        },
+                        new
+                        {
+                            SkillCategoryId = 3,
+                            SkillId = 31
                         },
                         new
                         {
@@ -5478,11 +5503,6 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 3,
                             SkillId = 69
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 4
                         },
                         new
                         {
@@ -5558,31 +5578,6 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 3,
                             SkillId = 84
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            SkillCategoryId = 3,
-                            SkillId = 26
                         },
                         new
                         {
@@ -5673,6 +5668,46 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 5,
                             SkillId = 99
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 39
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 100
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 101
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 102
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 103
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 104
+                        },
+                        new
+                        {
+                            SkillCategoryId = 6,
+                            SkillId = 105
+                        },
+                        new
+                        {
+                            SkillCategoryId = 7,
+                            SkillId = 9
                         });
                 });
 
@@ -5700,7 +5735,7 @@ namespace ResumePro.Migrations
 
                     b.HasIndex("Iso2");
 
-                    b.ToTable("StateProvince", (string)null);
+                    b.ToTable("StateProvince");
 
                     b.HasData(
                         new
@@ -6138,7 +6173,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Template", (string)null);
+                    b.ToTable("Template");
 
                     b.HasData(
                         new
@@ -6175,7 +6210,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("Code3");
 
-                    b.ToTable("Language", (string)null);
+                    b.ToTable("Language");
 
                     b.HasData(
                         new

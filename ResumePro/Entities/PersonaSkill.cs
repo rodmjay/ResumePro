@@ -19,7 +19,6 @@ public sealed class PersonaSkill : BaseEntity<PersonaSkill>, IPersonaSkill
     public ICollection<ResumeSkill> Resumes { get; set; }
     public int PersonaId { get; set; }
     public int SkillId { get; set; }
-    public int Rating { get; set; }
 
     public override void Configure(EntityTypeBuilder<PersonaSkill> builder)
     {
