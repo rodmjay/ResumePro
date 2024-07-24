@@ -1,0 +1,25 @@
+﻿<Table Striped Margin="Margin.Is3.FromBottom">
+    <TableHeader ThemeContrast="ThemeContrast.Light">
+        <TableRow>
+            <TableHeaderCell Width="Width.Px(300)">
+                Category
+            </TableHeaderCell>
+            <TableHeaderCell Width="Width.Auto">
+                Skills
+            </TableHeaderCell>
+        </TableRow>
+    </TableHeader>
+    <TableBody>
+        @foreach (var kvp in SkillDictionary)
+        {
+            <TableRow>
+                <TableRowHeader>
+                    @kvp.Key
+                </TableRowHeader>
+                <TableRowCell>
+                    @string.Join(", ", kvp.Value)
+                </TableRowCell>
+            </TableRow>
+        }
+    </TableBody>
+</Table>

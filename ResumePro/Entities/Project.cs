@@ -14,7 +14,7 @@ public sealed class Project : BaseEntity<Project>, IProject
 {
     public int OrganizationId { get; set; }
     public Job Job { get; set; }
-    public ICollection<Highlight> Highlights { get; set; }
+    public ICollection<Highlight> Highlights { get; set; } = new List<Highlight>();
     public int Id { get; set; }
     public int JobId { get; set; }
     public int Order { get; set; }

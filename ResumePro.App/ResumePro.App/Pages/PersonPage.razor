@@ -93,7 +93,7 @@
                             @foreach (var resume in Person.Resumes)
                             {
                                 <div class="col">
-                                    <div @onclick="@(() => EditResume(resume.Id))" style="cursor: pointer;">
+                                    <div @onclick="@(() => GoToResume(resume.Id))" style="cursor: pointer;">
                                         <ResumeCardComponent PersonId="@PersonId" Resume="@resume"></ResumeCardComponent>
                                     </div>
                                 </div>

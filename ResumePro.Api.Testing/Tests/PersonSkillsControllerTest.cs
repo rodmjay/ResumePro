@@ -32,22 +32,9 @@ public class PersonSkillsControllerTest : BaseApiTest
         [TestCaseSource(typeof(PersonSkillTestData), nameof(PersonSkillTestData.ValidOptions))]
         public async Task CanAddOrUpdateSkill(PersonaSkillsOptions options)
         {
-            var response = await PersonSkillsProxy.AddOrUpdateSkill(1, options);
+            var response = await PersonSkillsProxy.ToggleSkill(1, options.SkillId);
             Assert.That(response.Succeeded, Is.True);
         }
     }
-
-    [TestFixture]
-    public sealed class TheDeletePersonalSkillMethod : PersonSkillsControllerTest
-    {
-        [TestCaseSource(typeof(PersonSkillTestData), nameof(PersonSkillTestData.ValidOptions))]
-        public async Task CanDeleteSkill(PersonaSkillsOptions options)
-        {
-            var response = await PersonSkillsProxy.AddOrUpdateSkill(1, options);
-            Assert.That(response.Succeeded, Is.True);
-
-            var deleteResponse = await PersonSkillsProxy.DeletePersonalSkill(1, options.SkillId);
-            Assert.That(deleteResponse.Succeeded, Is.True);
-        }
-    }
+    
 }

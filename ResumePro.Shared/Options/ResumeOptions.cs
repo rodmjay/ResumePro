@@ -4,20 +4,20 @@
 
 #endregion
 
-using System.Diagnostics.CodeAnalysis;
+using System.ComponentModel.DataAnnotations;
 
 namespace ResumePro.Shared.Options;
 
 public class ResumeOptions
 {
-    [NotNull] public string JobTitle { get; set; }
+    [Required] public string JobTitle { get; set; }
 
-    [NotNull] public string Description { get; set; }
+    [Required] public string Description { get; set; }
 
     public ResumeSettingsOptions Settings { get; set; } = new();
 
-    public List<int> SkillIds { get; set; }
+    public List<int> SkillIds { get; set; } = new();
 
-    public List<int> JobIds { get; set; }
+    public List<int> JobIds { get; set; } = new();
 
 }

@@ -99,6 +99,12 @@ public partial class PersonPage : PersonPageBase
         NavigationManager.NavigateTo($"/people/{PersonId}/schools/{schoolId}/edit");
     }
 
+    private void GoToResume(int resumeId)
+    {
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}");
+
+    }
+
     private void EditResume(int resumeId)
     {
         NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}/edit");

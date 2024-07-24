@@ -3,6 +3,7 @@ using Microsoft.Extensions.Options;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
+using System.Linq;
 
 namespace ResumePro.App.Components.ResumeProApp
 {
@@ -30,26 +31,14 @@ namespace ResumePro.App.Components.ResumeProApp
         private List<PersonaSkillDto> PersonSkills { get; set; }
 
 
-        async Task ToggleSelection(bool selected, int skillId)
+        async Task ToggleSelection(bool val, int skillId)
         {
-            if (selected)
-            {
-
-                var result = await PersonSkillsController.AddOrUpdateSkill(PersonId, new PersonaSkillsOptions()
-                {
-                    SkillId = skillId,
-                });
-            }
-            else
-            {
-                var result = await PersonSkillsController.DeletePersonalSkill(PersonId, skillId);
-            }
-
+            SkillCheckStates[skillId] = val;
+            await PersonSkillsController.ToggleSkill(PersonId, skillId);
         }
 
-        protected override async Task OnParametersSetAsync()
+        private async Task LoadData()
         {
-            await base.OnParametersSetAsync();
 
             Skills = await SkillsController.GetSkills();
             PersonSkills = await PersonSkillsController.GetSkills(PersonId);
@@ -71,7 +60,7 @@ namespace ResumePro.App.Components.ResumeProApp
             {
 
                 SkillCheckStates.TryAdd(skill.Id, false);
-                
+
                 foreach (var category in skill.Categories)
                 {
                     if (!CategorySkills[category].ContainsKey(skill.Title))
@@ -84,7 +73,13 @@ namespace ResumePro.App.Components.ResumeProApp
 
             OtherSkills = Skills.Where(x => x.Categories.Count == 0)
                 .ToDictionary(x => x.Title, x => x.Id);
+        }
 
+        protected override async Task OnParametersSetAsync()
+        {
+            await base.OnParametersSetAsync();
+
+            await LoadData();
         }
     }
 }

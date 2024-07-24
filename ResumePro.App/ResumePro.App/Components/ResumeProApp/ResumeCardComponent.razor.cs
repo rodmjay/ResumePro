@@ -34,7 +34,8 @@ public partial class ResumeCardComponent
 
     private void EditResume(int resumeId)
     {
-        // Logic to navigate to the edit page
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}/edit");
+
     }
 
     private void OpenSettings(int resumeId)

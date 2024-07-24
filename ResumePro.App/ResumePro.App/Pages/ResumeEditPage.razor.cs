@@ -4,6 +4,7 @@
 
 #endregion
 
+using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Extensions;
@@ -15,7 +16,7 @@ namespace ResumePro.App.Pages;
 
 public partial class ResumeEditPage : PersonPageBase
 {
-    private readonly ResumeOptions ResumeOptions = new();
+    private ResumeOptions Options = new();
 
     [Inject] public NavigationManager NavigationManager { get; set; }
 
@@ -23,16 +24,16 @@ public partial class ResumeEditPage : PersonPageBase
 
     [Inject] public IResumeController ResumeController { get; set; }
 
+    [Inject] public IMapper Mapper { get; set; }
+
     private ResumeDetails ResumeDetails { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
-        ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
-
-        ResumeOptions.Description = ResumeDetails.Description;
-        ResumeOptions.JobTitle = ResumeDetails.JobTitle;
-
         await base.OnParametersSetAsync();
+        
+        ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
+        Options = Mapper.Map<ResumeOptions>(ResumeDetails);
     }
 
     private async Task HandleValidSubmit(ResumeOptions savedResume)

@@ -22,17 +22,11 @@ public sealed class PersonSkillsController(IServiceProvider serviceProvider, IPe
             .ConfigureAwait(false);
     }
 
-    [HttpPatch]
-    public async Task<Result> AddOrUpdateSkill([FromRoute] int personId, [FromBody] PersonaSkillsOptions options)
+    [HttpPatch("{skillId}")]
+    public async Task<Result> ToggleSkill([FromRoute] int personId, [FromRoute] int skillId)
     {
-        return await skillService.AddOrUpdatePersonaSkill(OrganizationId, personId, options)
+        return await skillService.TogglePersonalSkill(OrganizationId, personId, skillId)
             .ConfigureAwait(false);
     }
 
-    [HttpDelete("{skillId}")]
-    public async Task<Result> DeletePersonalSkill([FromRoute] int personId, [FromRoute] int skillId)
-    {
-        return await skillService.DeletePersonalSkill(OrganizationId, personId, skillId)
-            .ConfigureAwait(false);
-    }
 }

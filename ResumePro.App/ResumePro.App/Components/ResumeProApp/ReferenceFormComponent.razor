@@ -6,26 +6,32 @@
           OnDeleted="@OnDeleted"
           OnCancelled="@OnCancelled"
           OnSaved="@OnSaved">
-    <Fields>
-        <Validation>
-            <Field ColumnSize="ColumnSize.IsFull">
-                <FieldLabel>Name</FieldLabel>
+
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Reference Name</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter name" @bind-Text="Options.Name">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
-            </Field>
-        </Validation>
-        <Validation>
-            <Field ColumnSize="ColumnSize.IsFull">
-                <FieldLabel>Text</FieldLabel>
-                <MemoEdit Rows="10" Placeholder="Enter text" @bind-Text="Options.Text">
+            </FieldBody>
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Reference Text</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is8">
+                <MemoEdit Rows="5" Placeholder="Enter text" @bind-Text="Options.Text">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </MemoEdit>
-            </Field>
-        </Validation>
-    </Fields>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    
+
 </FormCard>

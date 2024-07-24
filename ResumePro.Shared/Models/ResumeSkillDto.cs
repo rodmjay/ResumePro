@@ -16,7 +16,7 @@ public class ResumeSkillDto : IResumeSkill
 
     [JsonIgnore] public int ResumeId { get; set; }
 
-    [JsonIgnore] public int SkillId { get; set; }
+    public int SkillId { get; set; }
 
     [JsonIgnore] public int PersonaId { get; set; }
 

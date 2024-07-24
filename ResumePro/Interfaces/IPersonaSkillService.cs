@@ -13,7 +13,7 @@ public interface IPersonaSkillService : IService<PersonaSkill>
 {
     Task<List<T>> GetPersonaSkills<T>(int organizationId, int personId) where T : PersonaSkillDto;
 
-    Task<Result> AddOrUpdatePersonaSkill(int organizationId, int personId, PersonaSkillsOptions options);
+    Task<Result> TogglePersonalSkill(int organizationId, int personId, int skillId);
 
     Task<Result> DeletePersonalSkill(int organizationId, int personId, int skillId);
 }

@@ -24,15 +24,15 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
             .ToListAsync();
     }
 
-    public async Task<Result> AddOrUpdatePersonaSkill(int organizationId, int personId, PersonaSkillsOptions options)
+    public async Task<Result> TogglePersonalSkill(int organizationId, int personId, int skillId)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
-            organizationId, personId, options);
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, SkillId: {@skillId}"),
+            organizationId, personId, skillId);
 
         var personalSkill =
             await PersonalSkills.Where(x =>
-                    x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == options.SkillId)
+                    x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == skillId)
                 .FirstOrDefaultAsync();
 
         if (personalSkill == null)
@@ -42,12 +42,12 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId,
                 PersonaId = personId,
-                SkillId = options.SkillId
+                SkillId = skillId
             };
         }
         else
         {
-            personalSkill.ObjectState = ObjectState.Unchanged;
+            personalSkill.ObjectState = ObjectState.Deleted;
         }
 
         var isAdd = personalSkill.ObjectState == ObjectState.Added;

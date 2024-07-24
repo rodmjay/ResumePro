@@ -39,7 +39,6 @@ public partial class ReferenceEditPage : PersonPageBase
         var response = await ReferencesController.UpdateReference(PersonId, ReferenceId, options);
         if (response.IsSuccessStatusCode())
         {
-            var job = response.GetObject();
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
         }
     }

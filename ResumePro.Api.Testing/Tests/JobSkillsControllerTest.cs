@@ -20,10 +20,7 @@ public class JobSkillsControllerTest : BaseApiTest
         [Test]
         public async Task CanAddJobSkills()
         {
-            await PersonSkillsProxy.AddOrUpdateSkill(1, new PersonaSkillsOptions
-            {
-                SkillId = 99
-            });
+            await PersonSkillsProxy.ToggleSkill(1, 99);
 
             var response = await JobSkillsProxy.AddJobSkill(1, 1, 99);
             Assert.That(response.Succeeded, Is.True);

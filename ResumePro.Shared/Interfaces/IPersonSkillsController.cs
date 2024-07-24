@@ -13,6 +13,5 @@ namespace ResumePro.Shared.Interfaces;
 public interface IPersonSkillsController
 {
     Task<List<PersonaSkillDto>> GetSkills(int personId);
-    Task<Result> AddOrUpdateSkill(int personId, PersonaSkillsOptions options);
-    Task<Result> DeletePersonalSkill(int personId, int skillId);
+    Task<Result> ToggleSkill(int personId, int skillId);
 }

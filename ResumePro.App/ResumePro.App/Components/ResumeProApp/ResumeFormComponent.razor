@@ -1,16 +1,66 @@
 ﻿@inherits FormComponent<ResumeOptions>
 
 <FormCard TOptions="ResumeOptions" Title="@Title" Options="@Options" OnCancelled="OnCancelled" OnSaved="OnSaved">
-    <Validation Validator="@ValidationRule.IsNotEmpty">
-        <Field>
-            <FieldLabel>Title</FieldLabel>
-            <TextEdit Placeholder="Enter title" @bind-Text="Options.JobTitle"/>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Title</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is8">
+                <TextEdit Placeholder="Enter title" @bind-Text="Options.JobTitle">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+
+            </FieldBody>
         </Field>
     </Validation>
-    <Validation Validator="@ValidationRule.IsNotEmpty">
-        <Field>
-            <FieldLabel>Description</FieldLabel>
-            <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description"/>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Description</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is8">
+                <MemoEdit Rows="10" Placeholder="Enter description" @bind-Text="Options.Description">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </MemoEdit>
+            </FieldBody>
         </Field>
     </Validation>
+
+
+    <Card Margin="Margin.Is3.FromBottom">
+        <CardHeader>
+            <Strong>Jobs</Strong>
+        </CardHeader>
+        <CardBody>
+
+        </CardBody>
+    </Card>
+
+    <Card Margin="Margin.Is3.FromBottom">
+        <CardHeader>
+            <Strong>Skills</Strong>
+        </CardHeader>
+        <CardBody>
+            
+            @foreach (var entry in CategorySkills)
+            {
+                <Heading Size="HeadingSize.Is5">
+                    @entry.Key
+                </Heading>
+
+                @foreach (var entry2 in entry.Value)
+                {
+                    <Field>
+                        <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"
+                               @onchange="(() => ToggleSelection(entry2.Value))">
+                            @entry2.Key
+                        </Check>
+                    </Field>
+                }
+            }
+                    
+        </CardBody>
+    </Card>
+
 </FormCard>

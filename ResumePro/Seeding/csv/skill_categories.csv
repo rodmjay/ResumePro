@@ -1,8 +1,14 @@
-﻿Id,Name,Description
-1,Programming Languages,Languages used for programming
-2,Databases,Database management systems
-3,Frameworks,Software frameworks
-4,DevOps Tools,Tools for DevOps and CI/CD
-5,Cloud Platforms,Platforms for cloud computing
-6,APIs,Application Programming Interfaces
-7,IDEs,"Integrated Development Environment"
+﻿Id,Name
+1,Programming Languages
+2,Databases
+3,Web Development Frameworks
+4,DevOps and Infrastructure
+5,Cloud Platforms
+6,APIs and Integration Tools
+7,Software Development Tools
+8,UI/UX Design
+9,Data Management and Analytics
+10,Server-Side Technologies
+11,Markup Languages
+12,Payment and Commerce
+13,Legacy Technologies

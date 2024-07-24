@@ -64,6 +64,10 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
         var availableSkills = options.JobSkillIds.Where(x => personSkills.Contains(x)).ToList();
 
+
+        var nextHighlightId = await GetNextHighlightId(organizationId);
+        var nextProjectId = await GetNextProjectId(organizationId);
+
         foreach (var availableSkill in availableSkills)
         {
             job.Skills.Add(new JobSkill()
@@ -75,16 +79,49 @@ public sealed class JobService(IServiceProvider serviceProvider,
             });
         }
 
+        for (var index = 0; index < options.ProjectOptions.Count; index++)
+        {
+            var project = options.ProjectOptions[index];
+            var projectEntity = new Project()
+            {
+                OrganizationId = organizationId,
+                Budget = project.Budget,
+                Description = project.Description,
+                Id = nextProjectId++,
+                Name = project.Name,
+                Order = index + 1,
+                ObjectState = ObjectState.Added
+            };
+
+            for (var i = 0; i < project.HighlightOptions.Count; i++)
+            {
+                var highlight = project.HighlightOptions[i];
+                projectEntity.Highlights.Add(new Highlight()
+                {
+                    OrganizationId = organizationId,
+                    ObjectState = ObjectState.Added,
+                    Id = nextHighlightId++,
+                    Text = highlight.Text,
+                    Order = i+1
+                });
+            }
+
+            job.Projects.Add(projectEntity);
+        }
+
         for (var index = 0; index < options.HighlightOptions.Count; index++)
         {
             var highlight = options.HighlightOptions[index];
             job.Highlights.Add(new Highlight()
             {
+                Id = nextHighlightId++,
                 ObjectState = ObjectState.Added,
                 Order = index,
-                Text = highlight.Text
+                Text = highlight.Text,
+                OrganizationId = organizationId
             });
         }
+        
 
         var results = Repository.InsertOrUpdateGraph(job, true);
         if (results > 0)

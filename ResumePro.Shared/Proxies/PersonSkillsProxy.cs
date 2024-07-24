@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Options;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -19,15 +20,10 @@ public sealed class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpCli
             .ConfigureAwait(false);
     }
 
-    public async Task<Result> AddOrUpdateSkill(int personId, PersonaSkillsOptions options)
+    public async Task<Result> ToggleSkill(int personId, int skillId)
     {
-        return await DoPatch<PersonaSkillsOptions, Result>($"v1.0/people/{personId}/skills", options)
+        return await DoPatch<Result>($"v1.0/people/{personId}/skills/{skillId}")
             .ConfigureAwait(false);
     }
 
-    public async Task<Result> DeletePersonalSkill(int personId, int skillId)
-    {
-        return await DoDelete<Result>($"v1.0/people/{personId}/skills/{skillId}")
-            .ConfigureAwait(false);
-    }
 }

@@ -1,13 +1,18 @@
 ﻿<div class="resume-details">
 
-    <h2>@Resume.FirstName @Resume.LastName, @Resume.JobTitle</h2>
+    <h3>@Resume.FirstName @Resume.LastName, @Resume.JobTitle</h3>
     <p>@Resume.Description</p>
 
     <ResumeContactInfoComponent Resume="@Resume"></ResumeContactInfoComponent>
+    
+    @if (Resume.Skills.Any())
+    {
+        <ResumeSkillTableComponent ResumeSkills="Resume.Skills"></ResumeSkillTableComponent>
+    }
 
     @if (Resume.Jobs.Any())
     {
-        <h3>Experience</h3>
+        <h4>Experience</h4>
         @if (Resume.Jobs != null)
         {
             @foreach (var job in Resume.Jobs)
@@ -19,7 +24,7 @@
 
     @if (Resume.Education.Any())
     {
-        <h3>Education</h3>
+        <h4>Education</h4>
         @if (Resume.Education != null)
         {
             foreach (var edu in Resume.Education)
@@ -32,7 +37,7 @@
 
     @if (Resume.Certifications.Any())
     {
-        <h3>Certifications</h3>
+        <h4>Certifications</h4>
         @if (Resume.Certifications != null)
         {
             foreach (var cert in Resume.Certifications)
