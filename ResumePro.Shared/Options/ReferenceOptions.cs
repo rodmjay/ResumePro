@@ -10,10 +10,9 @@ namespace ResumePro.Shared.Options;
 
 public class ReferenceOptions
 {
-    [Required]
-    public string Text { get; set; }
+    [Required] public string Text { get; set; }
 
-    [Required]
-    public string Name { get; set; }
+    [Required] public string Name { get; set; }
+
     public int Order { get; set; }
 }

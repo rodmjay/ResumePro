@@ -29,7 +29,7 @@ public class PersonaMapping : Profile
             .ForMember(x => x.Education, opt => opt.MapFrom(x => x.Schools.OrderByDescending(a => a.StartDate)))
             .ForMember(x => x.Languages, opt => opt.MapFrom(x => x.Languages.OrderByDescending(a => a.Proficiency)))
             .ForMember(x => x.Resumes, opt => opt.MapFrom(x => x.Resumes))
-            .ForMember(x => x.References, opt => opt.MapFrom(x => x.References.OrderBy(r=>r.Order)))
+            .ForMember(x => x.References, opt => opt.MapFrom(x => x.References.OrderBy(r => r.Order)))
             .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderByDescending(a => a.StartDate)));
     }
 }

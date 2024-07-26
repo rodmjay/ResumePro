@@ -13,8 +13,11 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorDescriber personErrors,
-    IRepositoryAsync<StateProvince> stateRepo, GeographyErrorDescriber geoErrors)
+public sealed class PeopleService(
+    IServiceProvider serviceProvider,
+    PersonErrorDescriber personErrors,
+    IRepositoryAsync<StateProvince> stateRepo,
+    GeographyErrorDescriber geoErrors)
     : BaseService<Persona>(serviceProvider), IPeopleService
 {
     private IQueryable<Persona> People => Repository.Queryable();
@@ -57,17 +60,6 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
             return Result.Success();
 
         return Result.Failed(personErrors.UnableToSavePerson());
-    }
-
-
-    private async IAsyncEnumerable<Error> GetErrors(PersonaOptions options)
-    {
-        var stateExists = await stateRepo.Queryable()
-            .AsNoTracking()
-            .Where(x => x.Id == options.StateId).AnyAsync();
-
-        if (!stateExists)
-            yield return geoErrors.StateNotFound();
     }
 
     public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
@@ -137,6 +129,17 @@ public sealed class PeopleService(IServiceProvider serviceProvider, PersonErrorD
             return await GetPerson<PersonaDetails>(organizationId, personId);
 
         return Result.Failed(personErrors.UnableToSavePerson());
+    }
+
+
+    private async IAsyncEnumerable<Error> GetErrors(PersonaOptions options)
+    {
+        var stateExists = await stateRepo.Queryable()
+            .AsNoTracking()
+            .Where(x => x.Id == options.StateId).AnyAsync();
+
+        if (!stateExists)
+            yield return geoErrors.StateNotFound();
     }
 
     private async Task<int> GetNextPersonId(int organizationId)

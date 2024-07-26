@@ -36,7 +36,6 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                 .FirstOrDefaultAsync();
 
         if (personalSkill == null)
-        {
             personalSkill = new PersonaSkill
             {
                 ObjectState = ObjectState.Added,
@@ -44,11 +43,8 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                 PersonaId = personId,
                 SkillId = skillId
             };
-        }
         else
-        {
             personalSkill.ObjectState = ObjectState.Deleted;
-        }
 
         var isAdd = personalSkill.ObjectState == ObjectState.Added;
 

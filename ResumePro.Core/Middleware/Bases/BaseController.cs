@@ -4,6 +4,7 @@
 
 #endregion
 
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -22,6 +23,20 @@ public class BaseController : ControllerBase
     protected BaseController(IServiceProvider serviceProvider)
     {
         AppSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
+    }
+
+    public int UserId
+    {
+        get
+        {
+            // Attempt to retrieve the organizationId claim as a string
+            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            // Try parsing the claim value to an integer
+            if (int.TryParse(userIdClaim, out var userId))
+                return userId;
+            throw new Exception("The userId claim is missing or not a valid integer.");
+        }
     }
 
     public int OrganizationId

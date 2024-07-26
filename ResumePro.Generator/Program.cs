@@ -6,13 +6,11 @@
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using OneOf;
 using ResumePro.Context;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Generator;

@@ -22,6 +22,7 @@ public class ResumeDto : IResume
     public string State { get; set; }
     public string Country { get; set; }
     public int JobCount { get; set; }
+    public int SkillCount { get; set; }
 
     [JsonIgnore] public int PersonaId { get; set; }
 

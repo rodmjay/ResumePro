@@ -13,5 +13,4 @@ public interface IRendering
     public int TemplateId { get; set; }
     public DateTime RenderDate { get; set; }
     public string Text { get; set; }
-
 }

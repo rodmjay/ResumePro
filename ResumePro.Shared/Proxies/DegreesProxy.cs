@@ -26,10 +26,11 @@ public sealed class DegreesProxy(HttpClient httpClient) : BaseProxy(httpClient),
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<DegreeDto>> UpdateDegree(int personId, int schoolId, int degreeId, DegreeOptions options)
+    public async Task<ActionResult<DegreeDto>> UpdateDegree(int personId, int schoolId, int degreeId,
+        DegreeOptions options)
     {
         return await DoPutActionResult<DegreeOptions, DegreeDto>(
-            $"v1.0/people/{personId}/schools/{schoolId}/degrees/{degreeId}", options)
+                $"v1.0/people/{personId}/schools/{schoolId}/degrees/{degreeId}", options)
             .ConfigureAwait(false);
     }
 

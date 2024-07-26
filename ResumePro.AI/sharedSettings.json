@@ -1,0 +1,7 @@
+{
+  "ConnectionStrings": {
+    "DefaultConnection":
+      "Server=(localdb)\\mssqllocaldb;Database=ResumePro_AI;Trusted_Connection=True;MultipleActiveResultSets=true"
+
+  }
+}

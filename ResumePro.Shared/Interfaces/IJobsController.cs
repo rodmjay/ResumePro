@@ -11,7 +11,6 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Interfaces;
 
-
 public interface IJobsController
 {
     Task<List<JobDetails>> GetJobs(int personId);

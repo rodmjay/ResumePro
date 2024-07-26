@@ -7,7 +7,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using ResumePro.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
 
 namespace ResumePro.Testing.Extensions;
 

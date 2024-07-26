@@ -10,11 +10,7 @@ namespace ResumePro.Shared.Models;
 
 public class ResumeDetails : ResumeDto
 {
-    public List<JobDetails> Jobs
-    {
-        get;
-        set;
-    }
+    public List<JobDetails> Jobs { get; set; }
 
     public List<ResumeSkillDto> Skills { get; set; }
     public List<ReferenceDto> References { get; set; }
@@ -22,6 +18,7 @@ public class ResumeDetails : ResumeDto
     public List<PersonaLanguageDto> Languages { get; set; }
     public List<CertificationDto> Certifications { get; set; }
     public List<RenderingDto> Renderings { get; set; }
+
     public List<CategorySkillRating> SkillDictionary
     {
         get
@@ -29,14 +26,14 @@ public class ResumeDetails : ResumeDto
             var categories = Skills.SelectMany(a => a.Categories).Distinct();
 
             return (from category in categories
-                    let skills = Skills.Where(x => x.Categories.Contains(category))
-                    select new CategorySkillRating
-                    {
-                        Category = category,
-                        Skills = skills.OrderByDescending(a => a.Rating)
-                            .Select(x => new { x.Title, x.Rating })
-                            .ToList()
-                    }).ToList();
+                let skills = Skills.Where(x => x.Categories.Contains(category))
+                select new CategorySkillRating
+                {
+                    Category = category,
+                    Skills = skills.OrderByDescending(a => a.Rating)
+                        .Select(x => new {x.Title, x.Rating})
+                        .ToList()
+                }).ToList();
         }
     }
 

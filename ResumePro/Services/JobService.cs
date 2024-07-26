@@ -5,14 +5,13 @@
 #endregion
 
 using Microsoft.Extensions.Logging;
-using Microsoft.Identity.Client;
 using ResumePro.Shared.Models;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class JobService(IServiceProvider serviceProvider, 
+public sealed class JobService(
+    IServiceProvider serviceProvider,
     IRepositoryAsync<Project> projectRepo,
     IRepositoryAsync<Resume> resumeRepo,
     IRepositoryAsync<PersonaSkill> personSkillRepo,
@@ -41,7 +40,7 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
     public async Task<OneOf<JobDetails, Result>> CreateJob(int organizationId, int personId, JobOptions options)
     {
-            Logger.LogInformation(
+        Logger.LogInformation(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
@@ -69,20 +68,18 @@ public sealed class JobService(IServiceProvider serviceProvider,
         var nextProjectId = await GetNextProjectId(organizationId);
 
         foreach (var availableSkill in availableSkills)
-        {
-            job.Skills.Add(new JobSkill()
+            job.Skills.Add(new JobSkill
             {
                 ObjectState = ObjectState.Added,
                 SkillId = availableSkill,
                 PersonaId = personId,
                 OrganizationId = organizationId
             });
-        }
 
         for (var index = 0; index < options.ProjectOptions.Count; index++)
         {
             var project = options.ProjectOptions[index];
-            var projectEntity = new Project()
+            var projectEntity = new Project
             {
                 OrganizationId = organizationId,
                 Budget = project.Budget,
@@ -96,13 +93,13 @@ public sealed class JobService(IServiceProvider serviceProvider,
             for (var i = 0; i < project.HighlightOptions.Count; i++)
             {
                 var highlight = project.HighlightOptions[i];
-                projectEntity.Highlights.Add(new Highlight()
+                projectEntity.Highlights.Add(new Highlight
                 {
                     OrganizationId = organizationId,
                     ObjectState = ObjectState.Added,
                     Id = nextHighlightId++,
                     Text = highlight.Text,
-                    Order = i+1
+                    Order = i + 1
                 });
             }
 
@@ -112,7 +109,7 @@ public sealed class JobService(IServiceProvider serviceProvider,
         for (var index = 0; index < options.HighlightOptions.Count; index++)
         {
             var highlight = options.HighlightOptions[index];
-            job.Highlights.Add(new Highlight()
+            job.Highlights.Add(new Highlight
             {
                 Id = nextHighlightId++,
                 ObjectState = ObjectState.Added,
@@ -121,7 +118,7 @@ public sealed class JobService(IServiceProvider serviceProvider,
                 OrganizationId = organizationId
             });
         }
-        
+
 
         var results = Repository.InsertOrUpdateGraph(job, true);
         if (results > 0)
@@ -168,9 +165,9 @@ public sealed class JobService(IServiceProvider serviceProvider,
             organizationId, personId, jobId, options);
 
         var job = await Jobs.Include(x => x.Highlights)
-            .Include(x=>x.Projects)
-            .ThenInclude(x=>x.Highlights)
-            .Include(x=>x.Skills)
+            .Include(x => x.Projects)
+            .ThenInclude(x => x.Highlights)
+            .Include(x => x.Skills)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
@@ -189,47 +186,35 @@ public sealed class JobService(IServiceProvider serviceProvider,
         var nextProjectId = await GetNextProjectId(organizationId);
 
         foreach (var highlight in job.Highlights.Where(a => a.ProjectId == null))
-        {
             highlight.ObjectState = ObjectState.Deleted;
-        }
 
         foreach (var project in job.Projects)
         {
             project.ObjectState = ObjectState.Deleted;
-            foreach (var highlight in project.Highlights)
-            {
-                highlight.ObjectState = ObjectState.Deleted;
-            }
+            foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
         }
 
-        foreach (var skill in job.Skills)
-        {
-            skill.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var skill in job.Skills) skill.ObjectState = ObjectState.Deleted;
 
         foreach (var skillId in options.JobSkillIds)
         {
             var skill = job.Skills.FirstOrDefault(x => x.SkillId == skillId);
             if (skill == null)
-            {
-                job.Skills.Add(new JobSkill()
+                job.Skills.Add(new JobSkill
                 {
                     ObjectState = ObjectState.Added,
                     PersonaId = personId,
                     OrganizationId = organizationId,
                     SkillId = skillId
                 });
-            }
             else
-            {
                 skill.ObjectState = ObjectState.Unchanged;
-            }
         }
 
         for (var index = 0; index < options.HighlightOptions.Count; index++)
         {
             var highlight = options.HighlightOptions[index];
-            
+
             var highlightEntity = job.Highlights.FirstOrDefault(x => x.Id == highlight.Id && x.ProjectId == null);
             if (highlightEntity == null)
             {
@@ -279,7 +264,8 @@ public sealed class JobService(IServiceProvider serviceProvider,
             for (var i = 0; i < projectOptions.HighlightOptions.Count; i++)
             {
                 var highlightOption = projectOptions.HighlightOptions[i];
-                var highlightEntity = projectEntity.Highlights.FirstOrDefault(x => x.Id == highlightOption.Id && x.ProjectId == projectOptions.Id);
+                var highlightEntity = projectEntity.Highlights.FirstOrDefault(x =>
+                    x.Id == highlightOption.Id && x.ProjectId == projectOptions.Id);
                 if (highlightEntity == null)
                 {
                     highlightEntity = new Highlight
@@ -298,7 +284,6 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
                 highlightEntity.Text = highlightOption.Text;
                 highlightEntity.Order = i + 1;
-
             }
         }
 
@@ -315,21 +300,15 @@ public sealed class JobService(IServiceProvider serviceProvider,
 
         var job = await Jobs
             .Include(x => x.Highlights)
-            .Include(x=>x.Projects)
+            .Include(x => x.Projects)
             .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == jobId)
             .FirstOrDefaultAsync();
 
         if (job == null) return Result.Failed();
-        
-        foreach (var highlight in job.Highlights)
-        {
-            highlightRepo.Delete(highlight);
-        }
 
-        foreach (var project in job.Projects)
-        {
-            projectRepo.Delete(project);
-        }
+        foreach (var highlight in job.Highlights) highlightRepo.Delete(highlight);
+
+        foreach (var project in job.Projects) projectRepo.Delete(project);
 
         Repository.Delete(job);
 

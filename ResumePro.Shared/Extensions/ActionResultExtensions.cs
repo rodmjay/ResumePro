@@ -15,7 +15,7 @@ public static class ActionResultExtensions
     {
         return result.Result is OkObjectResult;
     }
-    
+
     public static T GetObject<T>(this ActionResult<T> response) where T : class
     {
         var myResult = (((OkObjectResult) response.Result!)!.Value as T)!;

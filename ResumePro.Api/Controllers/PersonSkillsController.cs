@@ -28,5 +28,4 @@ public sealed class PersonSkillsController(IServiceProvider serviceProvider, IPe
         return await skillService.TogglePersonalSkill(OrganizationId, personId, skillId)
             .ConfigureAwait(false);
     }
-
 }

@@ -9,6 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Serilog;
@@ -65,7 +66,7 @@ public static class HostBuilderExtensions
     }
 
 
-    public static ILogger CreateLogger()
+    public static ILogger CreateLogger(IServiceProvider serviceProvider)
     {
         SelfLog.Enable(msg =>
         {
@@ -98,12 +99,14 @@ public static class HostBuilderExtensions
         string exceptionMessage = "Application terminated unexpectedly"
     )
     {
-        Log.Logger = CreateLogger();
+        var host = hostBuilder.Build();
+
+        Log.Logger = CreateLogger(host.Services.GetRequiredService<IServiceProvider>());
 
         try
         {
             Log.Information(initMessage);
-            hostBuilder.Build().Run();
+            host.Run();
         }
         catch (Exception ex)
         {

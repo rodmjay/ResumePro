@@ -10,7 +10,10 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryAsync<Degree> degreeRepo, SchoolErrorDescriber schoolErrors)
+public sealed class SchoolService(
+    IServiceProvider serviceProvider,
+    IRepositoryAsync<Degree> degreeRepo,
+    SchoolErrorDescriber schoolErrors)
     : BaseService<School>(serviceProvider), ISchoolService
 {
     private IQueryable<School> Schools => Repository.Queryable();
@@ -55,7 +58,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
         for (var i = 0; i < options.DegreeOptions.Count; i++)
         {
             var degreeOptions = options.DegreeOptions[i];
-            var degree = new Degree()
+            var degree = new Degree
             {
                 Id = nextDegreeId++,
                 ObjectState = ObjectState.Added,
@@ -96,10 +99,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
 
         var nextDegreeId = await GetNextDegreeId(organizationId);
 
-        foreach (var degree in school.Degrees)
-        {
-            degree.ObjectState = ObjectState.Deleted;
-        }
+        foreach (var degree in school.Degrees) degree.ObjectState = ObjectState.Deleted;
 
         for (var i = 0; i < options.DegreeOptions.Count; i++)
         {
@@ -107,7 +107,7 @@ public sealed class SchoolService(IServiceProvider serviceProvider, IRepositoryA
             var degreeEntity = school.Degrees.FirstOrDefault(x => x.Id == degreeOptions.Id);
             if (degreeEntity == null)
             {
-                degreeEntity = new Degree()
+                degreeEntity = new Degree
                 {
                     ObjectState = ObjectState.Added,
                     Id = nextDegreeId++

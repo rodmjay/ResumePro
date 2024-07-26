@@ -20,7 +20,7 @@ public interface IDegreesController
         int degreeId, DegreeOptions options);
 
     Task<Result> DeleteDegree(int personId, int schoolId,
-         int degreeId);
+        int degreeId);
 
     Task<ActionResult<DegreeDto>> CreateDegree(int personId, int schoolId, DegreeOptions options);
 }

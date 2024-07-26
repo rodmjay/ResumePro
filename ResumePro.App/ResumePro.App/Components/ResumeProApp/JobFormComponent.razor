@@ -94,7 +94,7 @@
                             <Addons>
                                 <Addon AddonType="AddonType.Body">
                                     <Validation>
-                                        <Field ColumnSize="ColumnSize.Is10">
+                                        <Field ColumnSize="ColumnSize.Is8">
                                             <TextEdit @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
                                                 <Feedback>
                                                     <ValidationError />
@@ -106,16 +106,21 @@
                                 </Addon>
                                 <Addon AddonType="AddonType.End">
                                     <Field>
+                                        <Button Color="Color.Primary" Clicked="@(() => Rephrase(highlight.value))">
+                                            Rephrase
+                                        </Button>
                                         <Buttons>
                                             <Button Color="Color.Light" Clicked="@(() => MoveHighlightUp(highlight.index))" Disabled="@(highlight.index == 0)">
-                                                <Icon Name="IconName.ArrowUp" />
+                                                <Icon Name="IconName.ArrowUp"/>
                                             </Button>
                                             <Button Color="Color.Light" Clicked="@(() => MoveHighlightDown(highlight.index))" Disabled="@(highlight.index == Options.HighlightOptions.Count - 1)">
-                                                <Icon Name="IconName.ArrowDown" />
+                                                <Icon Name="IconName.ArrowDown"/>
                                             </Button>
                                             <Button Color="Color.Danger" Clicked="@(() => RemoveHighlight(highlight.value))">
-                                                <Icon Name="IconName.Delete" />
+                                                <Icon Name="IconName.Delete"/>
                                             </Button>
+
+
                                         </Buttons>
                                     </Field>
 

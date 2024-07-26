@@ -72,11 +72,6 @@ public class Startup
 
                 options.Events = new JwtBearerEvents
                 {
-                    OnChallenge = c =>
-                    {
-                        var x = 1;
-                        return Task.FromResult(0);
-                    },
                     OnAuthenticationFailed = c =>
                     {
                         var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();

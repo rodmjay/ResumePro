@@ -20,8 +20,16 @@ public static class WebAssemblyHostBuilderExtensions
         builder.Services
             .AddTransient<ApiAuthorizationMessageHandler>();
 
+        builder.Services
+            .AddTransient<AiApiAuthorizationMessageHandler>();
+
         var resumeProApiUrl = new Uri(builder.Configuration["ApiBase"]);
         var resumeProUsersApiUrl = new Uri(builder.Configuration["UserApiBase"]);
+        var aiApiUrl = new Uri(builder.Configuration["AIApiBase"]);
+
+        builder.Services.AddHttpClient<ITextController, ChatGptProxy>(
+                client => client.BaseAddress = aiApiUrl)
+            .AddHttpMessageHandler<AiApiAuthorizationMessageHandler>();
 
         builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
                 client => client.BaseAddress = resumeProApiUrl)

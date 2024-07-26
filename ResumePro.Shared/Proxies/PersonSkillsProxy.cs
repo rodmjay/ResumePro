@@ -4,11 +4,9 @@
 
 #endregion
 
-using Microsoft.Extensions.Options;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
@@ -25,5 +23,4 @@ public sealed class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpCli
         return await DoPatch<Result>($"v1.0/people/{personId}/skills/{skillId}")
             .ConfigureAwait(false);
     }
-
 }

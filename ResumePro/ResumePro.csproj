@@ -7,9 +7,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Compile Remove="Templates\**" />
-	  <EmbeddedResource Remove="Templates\**" />
-	  <None Remove="Templates\**" />
+		<Compile Remove="Templates\**" />
+		<EmbeddedResource Remove="Templates\**" />
+		<None Remove="Templates\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -40,12 +40,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Include="Seeding\templates\1_html.htm.hb">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
-	  <Content Include="Seeding\templates\2_markdown.md.hb">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Include="Seeding\templates\1_html.htm.hb">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Seeding\templates\2_markdown.md.hb">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -62,10 +62,10 @@
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\organization_settings.csv">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\resume_settings.csv">
-		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</EmbeddedResource>
 		<EmbeddedResource Include="Seeding\csv\schools.csv">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

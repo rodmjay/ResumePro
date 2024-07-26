@@ -1,10 +1,19 @@
-﻿<div class="card mb-4">
-    <div class="card-body">
-        <h5 class="card-title">@Resume.JobTitle</h5>
-        <h6 class="card-subtitle mb-2 text-muted">@Resume.Description</h6>
-        <p class="card-text">
-            <strong>Jobs:</strong> @Resume.JobCount<br>
-        </p>
+﻿<Card>
+    <CardHeader>
+        <CardTitle><Strong>@Resume.JobTitle</Strong></CardTitle>
+    </CardHeader>
+    <CardBody>
+        <CardSubtitle>
+            @Resume.Description
+        </CardSubtitle>
+        <CardText>
+            <UnorderedList>
+                <UnorderedListItem><Strong>Jobs:</Strong> @Resume.JobCount </UnorderedListItem>
+                <UnorderedListItem><Strong>Skills:</Strong> @Resume.SkillCount </UnorderedListItem>
+            </UnorderedList>
+        </CardText>
+    </CardBody>
+    <CardFooter>
         <div class="d-flex justify-content-start">
             <button class="btn btn-outline-primary me-2" @onclick="() => GeneratePdf(Resume.Id)">
                 <i class="fa fa-file-pdf"></i>
@@ -19,5 +28,5 @@
                 <i class="fa fa-cog"></i>
             </button>
         </div>
-    </div>
-</div>
+    </CardFooter>
+</Card>

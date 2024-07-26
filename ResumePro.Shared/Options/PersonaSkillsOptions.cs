@@ -4,8 +4,6 @@
 
 #endregion
 
-using System.ComponentModel.DataAnnotations;
-
 namespace ResumePro.Shared.Options;
 
 public class PersonaSkillsOptions

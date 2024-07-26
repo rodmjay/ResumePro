@@ -33,7 +33,8 @@ public sealed class CertificationsProxy(HttpClient httpClient) : BaseProxy(httpC
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<CertificationDto>> Update(int personId, int certificationId, CertificationOptions options)
+    public async Task<ActionResult<CertificationDto>> Update(int personId, int certificationId,
+        CertificationOptions options)
     {
         return await DoPutActionResult<CertificationOptions, CertificationDto>(
                 $"v1.0/people/{personId}/certifications/{certificationId}", options)

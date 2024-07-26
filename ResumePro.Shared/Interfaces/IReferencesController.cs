@@ -17,12 +17,12 @@ public interface IReferencesController
     Task<List<ReferenceDto>> GetReferences(int personId);
 
     Task<ActionResult<ReferenceDto>> CreateReference(int personId,
-         ReferenceOptions options);
+        ReferenceOptions options);
 
     Task<ActionResult<ReferenceDto>> UpdateReference(int personId,
-         int referenceId,
-         ReferenceOptions options);
+        int referenceId,
+        ReferenceOptions options);
 
     Task<Result> DeleteReference(int personId,
-         int referenceId);
+        int referenceId);
 }

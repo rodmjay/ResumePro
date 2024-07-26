@@ -17,10 +17,10 @@ public interface ICertificationsController
     Task<List<CertificationDto>> Get(int personId);
 
     Task<ActionResult<CertificationDto>> CreateCertification(int personId,
-         CertificationOptions options);
+        CertificationOptions options);
 
     Task<ActionResult<CertificationDto>> Update(int personId, int certificationId,
-         CertificationOptions options);
+        CertificationOptions options);
 
     Task<Result> Delete(int personId, int certificationId);
 }

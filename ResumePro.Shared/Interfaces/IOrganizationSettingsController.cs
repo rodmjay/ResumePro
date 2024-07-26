@@ -16,5 +16,5 @@ public interface IOrganizationSettingsController
         OrganizationSettingsOptions options);
 
     Task<ActionResult<OrganizationSettingsDto>> UpdateSettings(
-         OrganizationSettingsOptions options);
+        OrganizationSettingsOptions options);
 }

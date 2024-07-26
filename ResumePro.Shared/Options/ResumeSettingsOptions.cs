@@ -10,7 +10,6 @@ namespace ResumePro.Shared.Options;
 
 public class ResumeSettingsOptions
 {
-
     public int? ResumeYearHistory { get; set; }
     public int? DefaultTemplateId { get; set; }
     public bool? ShowTechnologyPerJob { get; set; }

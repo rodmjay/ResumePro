@@ -32,10 +32,11 @@ public sealed class ReferencesProxy(HttpClient httpClient) : BaseProxy(httpClien
             options).ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ReferenceDto>> UpdateReference(int personId, int referenceId, ReferenceOptions options)
+    public async Task<ActionResult<ReferenceDto>> UpdateReference(int personId, int referenceId,
+        ReferenceOptions options)
     {
         return await DoPutActionResult<ReferenceOptions, ReferenceDto>(
-            $"v1.0/people/{personId}/references/{referenceId}", options)
+                $"v1.0/people/{personId}/references/{referenceId}", options)
             .ConfigureAwait(false);
     }
 

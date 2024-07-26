@@ -14,16 +14,16 @@ namespace ResumePro.Shared.Interfaces;
 public interface IProjectsController
 {
     Task<ProjectDetails> GetProject(int personId, int jobId,
-         int projectId);
+        int projectId);
 
     Task<List<ProjectDetails>> GetList(int personId, int jobId);
 
     Task<ActionResult<ProjectDetails>> CreateProject(int personId, int jobId,
-         ProjectOptions options);
+        ProjectOptions options);
 
     Task<ActionResult<ProjectDetails>> Update(int personId, int jobId,
-         int projectId, ProjectOptions options);
+        int projectId, ProjectOptions options);
 
     Task<Result> Delete(int personId, int jobId,
-         int projectId);
+        int projectId);
 }

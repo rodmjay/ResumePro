@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -22,19 +22,14 @@ public class UrlHelper
             foreach (var property in properties)
             {
                 var value = property.GetValue(obj);
-                if (value != null)
-                {
-                    query[property.Name] = value.ToString();
-                }
+                if (value != null) query[property.Name] = value.ToString();
             }
 
             queryParams.Add(query.ToString());
 
             return string.Join("&", queryParams);
-
         }
 
         return string.Join("&", queryParams);
-
     }
 }

@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using ResumePro.App.Components.ResumeProApp.Bases;
+using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
@@ -14,6 +15,9 @@ namespace ResumePro.App.Components.ResumeProApp;
 
 public partial class JobFormComponent : FormComponent<JobOptions>
 {
+    [Inject]
+    public ITextController TextController { get; set; }
+    
     Dictionary<int, bool> SkillCheckStates = new();
 
     private Dictionary<string, Dictionary<string, int>> CategorySkills = new();
@@ -140,6 +144,15 @@ public partial class JobFormComponent : FormComponent<JobOptions>
         Options.HighlightOptions.Add(new HighlightOptions());
     }
 
+    private async Task Rephrase(HighlightOptions highlight)
+    {
+        var result = await TextController.Professionalize(new ChatOptions()
+        {
+            InputText = highlight.Text
+        });
+        highlight.Text = result.OutputText;
+    }
+    
     private void RemoveHighlight(HighlightOptions highlight)
     {
         Options.HighlightOptions.Remove(highlight);

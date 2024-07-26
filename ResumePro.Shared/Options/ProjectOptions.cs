@@ -14,8 +14,8 @@ public class ProjectOptions
     public decimal? Budget { get; set; } = 0;
     public string Description { get; set; }
 
-    [Required]
-    public string Name { get; set; }
+    [Required] public string Name { get; set; }
+
     public int Order { get; set; }
-    public List<HighlightOptions> HighlightOptions { get; set; } = new List<HighlightOptions>();
+    public List<HighlightOptions> HighlightOptions { get; set; } = new();
 }

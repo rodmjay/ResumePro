@@ -20,11 +20,6 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
             .ConfigureAwait(false);
     }
 
-    public async Task<IActionResult> Generate(int personId, int resumeId, string templateId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<IActionResult> Download(int personId, int resumeId, int templateId)
     {
         throw new NotImplementedException();
@@ -50,12 +45,18 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
 
     public async Task<ActionResult<ResumeDetails>> UpdateResume(int personId, int resumeId, ResumeOptions options)
     {
-        return await DoPutActionResult<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}", options)
+        return await DoPutActionResult<ResumeOptions, ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}",
+                options)
             .ConfigureAwait(false);
     }
 
     public async Task<Result> DeleteResume(int personId, int resumeId)
     {
         return await DoDelete<Result>($"v1.0/people/{personId}/resumes/{resumeId}");
+    }
+
+    public async Task<IActionResult> Generate(int personId, int resumeId, string templateId)
+    {
+        throw new NotImplementedException();
     }
 }

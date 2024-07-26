@@ -28,14 +28,16 @@ public sealed class ProjectHighlightsProxy(HttpClient httpClient) : BaseProxy(ht
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId, HighlightOptions options)
+    public async Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId, int projectId,
+        HighlightOptions options)
     {
         return await DoPostActionResult<HighlightOptions, HighlightDto>(
                 $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights", options)
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId, int highlightId, HighlightOptions options)
+    public async Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId, int projectId,
+        int highlightId, HighlightOptions options)
     {
         return await DoPutActionResult<HighlightOptions, HighlightDto>(
                 $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights/{highlightId}", options)
@@ -45,7 +47,7 @@ public sealed class ProjectHighlightsProxy(HttpClient httpClient) : BaseProxy(ht
     public async Task<Result> DeleteHighlight(int personId, int jobId, int projectId, int highlightId)
     {
         return await DoDelete<Result>(
-            $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights/{highlightId}")
+                $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}/highlights/{highlightId}")
             .ConfigureAwait(false);
     }
 }

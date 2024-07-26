@@ -6,7 +6,6 @@
 
 using NUnit.Framework;
 using ResumePro.Api.Controllers;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Api.Testing.Tests;
 

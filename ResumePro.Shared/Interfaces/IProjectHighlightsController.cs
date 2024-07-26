@@ -14,21 +14,21 @@ namespace ResumePro.Shared.Interfaces;
 public interface IProjectHighlightsController
 {
     Task<HighlightDto> GetHighlight(int personId, int jobId,
-         int projectId, int highlightId);
+        int projectId, int highlightId);
 
     Task<List<HighlightDto>> GetHighlights(int personId, int jobId,
-         int projectId);
+        int projectId);
 
     Task<ActionResult<HighlightDto>> CreateHighlight(int personId, int jobId,
-         int projectId,
-         HighlightOptions options);
+        int projectId,
+        HighlightOptions options);
 
     Task<ActionResult<HighlightDto>> UpdateHighlight(int personId, int jobId,
-         int projectId,
-         int highlightId,
-         HighlightOptions options);
+        int projectId,
+        int highlightId,
+        HighlightOptions options);
 
     Task<Result> DeleteHighlight(int personId, int jobId,
-         int projectId,
-         int highlightId);
+        int projectId,
+        int highlightId);
 }

@@ -1,6 +1,6 @@
 ﻿#region Header Info
 
-// Copyright 2023 Rod Johnson.  All rights reserved
+// Copyright 2024 Rod Johnson.  All rights reserved
 
 #endregion
 
@@ -9,16 +9,16 @@ using ResumePro.Core.Middleware.Bases;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Users.Interfaces;
-using ResumePro.Users.Services;
 
 namespace ResumePro.Users.Api.Controllers;
 
 public class UserController : BaseController, IUserController
 {
-    private readonly IUserService _userService;
     private readonly IUserAccessor _accessor;
+    private readonly IUserService _userService;
 
-    public UserController(IServiceProvider serviceProvider, IUserService userService, IUserAccessor accessor) : base(serviceProvider)
+    public UserController(IServiceProvider serviceProvider, IUserService userService, IUserAccessor accessor) : base(
+        serviceProvider)
     {
         _userService = userService;
         _accessor = accessor;

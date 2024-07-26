@@ -32,10 +32,11 @@ public sealed class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient)
             options).ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ProjectDetails>> Update(int personId, int jobId, int projectId, ProjectOptions options)
+    public async Task<ActionResult<ProjectDetails>> Update(int personId, int jobId, int projectId,
+        ProjectOptions options)
     {
         return await DoPutActionResult<ProjectOptions, ProjectDetails>(
-            $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}", options)
+                $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}", options)
             .ConfigureAwait(false);
     }
 

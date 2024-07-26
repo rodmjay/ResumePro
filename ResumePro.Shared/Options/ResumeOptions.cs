@@ -19,5 +19,4 @@ public class ResumeOptions
     public List<int> SkillIds { get; set; } = new();
 
     public List<int> JobIds { get; set; } = new();
-
 }

@@ -16,19 +16,19 @@ public interface IResumeController
     Task<ResumeDetails> GetResume(int personId, int resumeId);
 
     Task<IActionResult> Download(int personId, int resumeId,
-         int templateId);
+        int templateId);
 
     Task<List<ResumeDto>> GetResumes(int personId);
 
     Task<ResumeDetails> Generate(int personId, int resumeId);
 
     Task<ActionResult<ResumeDetails>> CreateResume(int personId,
-         ResumeOptions options);
+        ResumeOptions options);
 
     Task<ActionResult<ResumeDetails>> UpdateResume(int personId,
-         int resumeId,
-         ResumeOptions options);
+        int resumeId,
+        ResumeOptions options);
 
     Task<Result> DeleteResume(int personId,
-         int resumeId);
+        int resumeId);
 }

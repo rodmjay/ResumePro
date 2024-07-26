@@ -56,4 +56,14 @@ public partial class ResumePage
     {
         NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{ResumeId}/edit");
     }
+
+
+    private async Task DeleteResume()
+    {
+        var result = await ResumeController.DeleteResume(PersonId, ResumeId);
+        if (result.Succeeded)
+        {
+            NavigationManager.NavigateTo($"/people/{PersonId}/?tab=resumes");
+        }
+    }
 }

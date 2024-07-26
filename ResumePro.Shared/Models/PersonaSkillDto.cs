@@ -4,7 +4,6 @@
 
 #endregion
 
-
 #region Header Info
 
 // Copyright 2024 Rod Johnson.  All rights reserved
@@ -24,5 +23,4 @@ public class PersonaSkillDto : IPersonaSkill
     [JsonIgnore] public virtual int PersonaId { get; set; }
 
     public virtual int SkillId { get; set; }
-
 }

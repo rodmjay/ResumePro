@@ -24,6 +24,7 @@ public class ResumeMapping : Profile
             .ForMember(x => x.State, opt => opt.MapFrom(x => x.Persona.State.Code))
             .ForMember(x => x.Country, opt => opt.MapFrom(x => x.Persona.State.Country.Iso2))
             .ForMember(x => x.JobCount, opt => opt.MapFrom(x => x.Jobs.Count))
+            .ForMember(x => x.SkillCount, opt => opt.MapFrom(x => x.Skills.Count))
             .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.Persona.PhoneNumber))
             .IncludeAllDerived();
 

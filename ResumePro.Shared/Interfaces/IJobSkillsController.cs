@@ -11,8 +11,8 @@ namespace ResumePro.Shared.Interfaces;
 public interface IJobSkillsController
 {
     Task<Result> AddJobSkill(int personId, int jobId,
-         int skillId);
+        int skillId);
 
     Task<Result> DeleteJobSkill(int personId, int jobId,
-       int skillId);
+        int skillId);
 }
