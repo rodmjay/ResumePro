@@ -39,12 +39,10 @@ public class ChatGptService(IServiceProvider serviceProvider)
             MaxTokens = 180
         });
 
-
         return new ChatResult
         {
             OutputText = RemoveQuotes(response.Completions[0].Text.Trim())
         };
-        return retVal;
     }
 
     static string RemoveQuotes(string input)

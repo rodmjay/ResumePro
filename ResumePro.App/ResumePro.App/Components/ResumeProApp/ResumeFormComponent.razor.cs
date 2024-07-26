@@ -20,8 +20,10 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
     private Dictionary<string, Dictionary<string, int>> CategorySkills = new();
 
     private List<PersonaSkillDto> PersonSkills { get; set; }
-    
 
+    [Inject]
+    public ITextController TextController { get; set; }
+    
     [Parameter]
     public int PersonId { get; set; }
 
@@ -72,7 +74,16 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
             SkillCheckStates[skill.SkillId] = Options.SkillIds.Contains(skill.SkillId);
         }
     }
-    
+
+
+    private async Task RephraseDescription(ResumeOptions resume)
+    {
+        var result = await TextController.Professionalize(new ChatOptions()
+        {
+            InputText = resume.Description
+        });
+        resume.Description = result.OutputText;
+    }
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();

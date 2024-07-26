@@ -152,7 +152,26 @@ public partial class JobFormComponent : FormComponent<JobOptions>
         });
         highlight.Text = result.OutputText;
     }
-    
+
+    private async Task Rephrase(JobOptions job)
+    {
+        var result = await TextController.Professionalize(new ChatOptions()
+        {
+            InputText = job.Description
+        });
+        job.Description = result.OutputText;
+    }
+
+    private async Task Rephrase(ProjectOptions project)
+    {
+        var result = await TextController.Professionalize(new ChatOptions()
+        {
+            InputText = project.Description
+        });
+        project.Description = result.OutputText;
+    }
+
+
     private void RemoveHighlight(HighlightOptions highlight)
     {
         Options.HighlightOptions.Remove(highlight);

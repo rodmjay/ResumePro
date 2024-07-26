@@ -75,6 +75,7 @@
                         <ValidationError />
                     </Feedback>
                 </MemoEdit>
+                <Button Color="Color.Primary" Clicked="@(()=>Rephrase(Options))">Rephrase</Button>
             </FieldBody>
 
         </Field>
@@ -191,6 +192,8 @@
                                                         <ValidationError />
                                                     </Feedback>
                                                 </MemoEdit>
+                                                <Button Color="Color.Primary" Clicked="@(()=>Rephrase(project.value))">Rephrase</Button>
+
                                             </FieldBody>
 
                                         </Field>
@@ -214,7 +217,7 @@
                                                         <Addon AddonType="AddonType.Body">
 
                                                             <Validation>
-                                                                <Field ColumnSize="ColumnSize.Is10">
+                                                                <Field ColumnSize="ColumnSize.Is8">
                                                                     <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
                                                                         <Feedback>
                                                                             <ValidationError />
@@ -227,16 +230,19 @@
                                                         <Addon AddonType="AddonType.End">
                                                             <Field>
                                                                 <Field>
+                                                                    <Button Color="Color.Primary" Clicked="@(() => Rephrase(highlight.value))">
+                                                                        Rephrase
+                                                                    </Button>
                                                                     <Buttons>
                                                                         <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightUp(project.value, highlight.index))" Disabled="@(highlight.index == 0)">
-                                                                            <Icon Name="IconName.ArrowUp" />
+                                                                            <Icon Name="IconName.ArrowUp"/>
 
                                                                         </Button>
                                                                         <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightDown(project.value, highlight.index))" Disabled="@(highlight.index == project.value.HighlightOptions.Count - 1)">
-                                                                            <Icon Name="IconName.ArrowDown" />
+                                                                            <Icon Name="IconName.ArrowDown"/>
                                                                         </Button>
                                                                         <Button Color="Color.Danger" Clicked="@(() => RemoveProjectHighlight(project.value, highlight.value))">
-                                                                            <Icon Name="IconName.Delete" />
+                                                                            <Icon Name="IconName.Delete"/>
                                                                         </Button>
                                                                     </Buttons>
                                                                 </Field>
