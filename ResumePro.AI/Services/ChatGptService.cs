@@ -42,8 +42,13 @@ public class ChatGptService(IServiceProvider serviceProvider)
 
         return new ChatResult
         {
-            OutputText = response.Completions[0].Text.Trim()
+            OutputText = RemoveQuotes(response.Completions[0].Text.Trim())
         };
         return retVal;
+    }
+
+    static string RemoveQuotes(string input)
+    {
+        return input.Trim('"', '\'');
     }
 }

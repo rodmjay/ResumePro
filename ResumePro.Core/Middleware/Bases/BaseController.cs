@@ -30,10 +30,10 @@ public class BaseController : ControllerBase
         get
         {
             // Attempt to retrieve the organizationId claim as a string
-            var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var userIdClaim = User.Identity.Name;
 
             // Try parsing the claim value to an integer
-            if (int.TryParse(userIdClaim, out var userId))
+                if (int.TryParse(userIdClaim, out var userId))
                 return userId;
             throw new Exception("The userId claim is missing or not a valid integer.");
         }

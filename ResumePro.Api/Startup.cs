@@ -5,6 +5,7 @@
 #endregion
 
 using System.Reflection;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -66,8 +67,8 @@ public class Startup
                     ValidAudience = builder.AppSettings.Audience,
                     ValidateIssuer = true,
                     ValidIssuer = builder.AppSettings.Authority,
-                    NameClaimType = "name",
-                    RoleClaimType = "role"
+                    NameClaimType = ClaimTypes.NameIdentifier,
+                    RoleClaimType = ClaimTypes.Role
                 };
 
                 options.Events = new JwtBearerEvents

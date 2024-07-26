@@ -95,11 +95,11 @@
                                 <Addon AddonType="AddonType.Body">
                                     <Validation>
                                         <Field ColumnSize="ColumnSize.Is8">
-                                            <TextEdit @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
+                                            <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
                                                 <Feedback>
                                                     <ValidationError />
                                                 </Feedback>
-                                            </TextEdit>
+                                            </MemoEdit>
 
                                         </Field>
                                     </Validation>
@@ -215,11 +215,11 @@
 
                                                             <Validation>
                                                                 <Field ColumnSize="ColumnSize.Is10">
-                                                                    <TextEdit @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
+                                                                    <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
                                                                         <Feedback>
                                                                             <ValidationError />
                                                                         </Feedback>
-                                                                    </TextEdit>
+                                                                    </MemoEdit>
 
                                                                 </Field>
                                                             </Validation>
