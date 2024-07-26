@@ -1,8 +1,9 @@
-﻿@page "/people/{PersonId:int}/jobs/{JobId:int}/edit"
-@using ResumePro.App.Components.ResumeProApp.Jobs
+﻿@page "/people/{PersonId:int}/edit"
+@using ResumePro.App.Components.ResumeProApp.People
 @inherits PersonPageBase
 
-@if (Job != null)
+
+@if (Person != null)
 {
     <div class="container sticky-top mt-3">
         <Breadcrumb>
@@ -13,15 +14,17 @@
                 <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem Active>
-                <BreadcrumbLink To="#">Edit Job: @Job.Title, @Job.Company</BreadcrumbLink>
+                <BreadcrumbLink To="#">Edit</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
     </div>
+
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <JobFormComponent PersonId="@PersonId" Title="Edit Job" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" OnDeleted="HandleDelete"></JobFormComponent>
+                <PersonFormComponent Title="Edit Person" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
             </Column>
         </Row>
+
     </Container>
 }

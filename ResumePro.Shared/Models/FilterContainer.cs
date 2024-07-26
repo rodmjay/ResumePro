@@ -16,6 +16,6 @@ namespace ResumePro.Shared.Models;
 
 public class FilterContainer
 {
-    public List<DropdownItem> Skills { get; set; }
-    public List<DropdownItem> States { get; set; }
+    public List<SkillDto> Skills { get; set; }
+    public List<StateProvinceOutput> States { get; set; }
 }

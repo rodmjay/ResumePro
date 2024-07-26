@@ -18,8 +18,8 @@ public sealed class SkillService(IServiceProvider serviceProvider) : BaseService
         return Skills.AsNoTracking().ProjectTo<T>(Mapper).ToListAsync();
     }
 
-    public Task<List<DropdownItem>> GetSkillsDropdown()
+    public Task<List<SkillDto>> GetSkillsDropdown()
     {
-        return Skills.AsNoTracking().ProjectTo<DropdownItem>(Mapper).ToListAsync();
+        return Skills.AsNoTracking().ProjectTo<SkillDto>(Mapper).ToListAsync();
     }
 }

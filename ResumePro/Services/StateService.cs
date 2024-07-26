@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
@@ -12,11 +14,11 @@ public sealed class StateService(IServiceProvider serviceProvider)
 {
     private IQueryable<StateProvince> States => Repository.Queryable();
 
-    public Task<List<DropdownItem>> GetStatesDropdown(string countryId)
+    public Task<List<StateProvinceOutput>> GetStatesDropdown(string countryId)
     {
         return States.AsNoTracking()
             .Where(x => x.Iso2 == countryId)
-            .ProjectTo<DropdownItem>(Mapper)
+            .ProjectTo<StateProvinceOutput>(Mapper)
             .ToListAsync();
     }
 }

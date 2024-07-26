@@ -4,9 +4,11 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Interfaces;
 
 public interface IStateService
 {
-    Task<List<DropdownItem>> GetStatesDropdown(string countryId);
+    Task<List<StateProvinceOutput>> GetStatesDropdown(string countryId);
 }

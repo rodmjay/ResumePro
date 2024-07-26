@@ -12,5 +12,5 @@ namespace ResumePro.Interfaces;
 public interface ISkillService : IService<Skill>
 {
     Task<List<T>> GetSkills<T>() where T : SkillDto;
-    Task<List<DropdownItem>> GetSkillsDropdown();
+    Task<List<SkillDto>> GetSkillsDropdown();
 }

@@ -1,6 +1,7 @@
 ﻿@page "/people/{PersonId:int}/resumes/create"
 @attribute [Authorize]
 @using Microsoft.AspNetCore.Authorization
+@using ResumePro.App.Components.ResumeProApp.Resumes
 @inherits PersonPageBase
 
 @if (Person != null)

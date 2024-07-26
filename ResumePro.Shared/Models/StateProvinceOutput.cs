@@ -16,6 +16,7 @@ namespace ResumePro.Shared.Models;
 
 public class StateProvinceOutput : IStateProvince
 {
+    public int Id { get; set; }
     public string Name { get; set; }
 
     public string Abbrev { get; set; }

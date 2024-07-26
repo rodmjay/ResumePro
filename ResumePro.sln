@@ -44,9 +44,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Api.Testing", "Re
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.Testing", "ResumePro.Testing\ResumePro.Testing.csproj", "{C44F3217-47ED-4B8F-BD12-2AA9F2F668DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.OpenAI.Api", "ResumePro.OpenAI.API\ResumePro.OpenAI.Api.csproj", "{BCB48874-E9B1-49D8-9576-0626A1C5FE44}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.OpenAI.Api", "ResumePro.OpenAI.API\ResumePro.OpenAI.Api.csproj", "{BCB48874-E9B1-49D8-9576-0626A1C5FE44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.AI", "ResumePro.AI\ResumePro.AI.csproj", "{186F1EA3-57F9-406A-A894-A0595BC3648D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResumePro.AI", "ResumePro.AI\ResumePro.AI.csproj", "{186F1EA3-57F9-406A-A894-A0595BC3648D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

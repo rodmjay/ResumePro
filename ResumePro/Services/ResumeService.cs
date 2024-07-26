@@ -263,7 +263,8 @@ public sealed class ResumeService(
 
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
-        if (records > 0) return await GetResume<ResumeDetails>(organizationId, 1, resumeId);
+        if (records > 0)
+            return await GetResume<ResumeDetails>(organizationId, personId, resumeId);
 
         return Result.Failed(resumeErrors.UnableToSaveResume());
     }
