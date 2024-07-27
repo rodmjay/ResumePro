@@ -6,11 +6,15 @@
 
 using Blazorise.Localization;
 using Microsoft.AspNetCore.Components;
+using ResumePro.App.Services;
 
 namespace ResumePro.App.Layouts;
 
 public partial class MainLayout
 {
+    //[Inject]
+    //private TokenExpirationService tokenExpirationService { get; set; }
+    
     protected string layoutType = "fixed-header-footer-only";
     [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 
@@ -21,6 +25,8 @@ public partial class MainLayout
         await SelectCulture("en-US");
 
         await base.OnInitializedAsync();
+
+        //tokenExpirationService.StartTokenExpirationTimer();
     }
 
     private Task SelectCulture(string name)

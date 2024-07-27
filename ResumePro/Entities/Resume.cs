@@ -27,6 +27,12 @@ public sealed class Resume : BaseEntity<Resume>, IResume
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});
 
+        builder.Property(x => x.JobTitle)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Description)
+            .ConfigureColumn(StringColumnSize.Large);
+
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Resumes)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})

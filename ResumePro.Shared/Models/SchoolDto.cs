@@ -28,4 +28,6 @@ public class SchoolDto : ISchool
     public DateTime? EndDate { get; set; }
 
     public string Name { get; set; }
+    public string Location { get; set; }
+    public int OrganizationId { get; set; }
 }

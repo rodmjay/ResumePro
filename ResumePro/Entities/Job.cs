@@ -22,7 +22,7 @@ public sealed class Job : BaseEntity<Job>, IJob
     public int Id { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
-    public string Title { get; set; }
+    public string JobTitle { get; set; }
     public string Company { get; set; }
     public string Location { get; set; }
     public string Description { get; set; }
@@ -31,6 +31,18 @@ public sealed class Job : BaseEntity<Job>, IJob
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});
 
+        builder.Property(x => x.JobTitle)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Description)
+            .ConfigureColumn(StringColumnSize.Large, false);
+
+        builder.Property(x => x.Company)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Location)
+            .ConfigureColumn(StringColumnSize.Small, false);
+        
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Jobs)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})

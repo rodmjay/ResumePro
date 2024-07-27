@@ -6,9 +6,6 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IHighlight
+public interface IHighlight : IId, IOrder, IText
 {
-    int Id { get; set; }
-    int Order { get; set; }
-    string Text { get; set; }
 }

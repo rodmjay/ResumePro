@@ -29,6 +29,12 @@ public sealed class Reference : BaseEntity<Reference>, IReference
 
         builder.HasKey(x => new{x.OrganizationId, x.PersonaId, x.Id});
 
+        builder.Property(x => x.Name)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Text)
+            .ConfigureColumn(StringColumnSize.Large);
+        
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.References)
             .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})

@@ -17,8 +17,6 @@ public class SchoolMapping : Profile
         CreateMap<SchoolDetails, SchoolOptions>()
             .ForMember(x => x.Id, opt => opt.MapFrom(x => x.Id))
             .ForMember(x => x.StartDate, opt => opt.MapFrom(x => x.StartDate))
-            .ForMember(x => x.EndDate, opt => opt.MapFrom(x => x.EndDate))
-            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name))
             .ForMember(x => x.DegreeOptions, opt => opt.MapFrom(x => x.Degrees));
     }
 }

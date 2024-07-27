@@ -8,28 +8,16 @@ using Microsoft.JSInterop;
 
 namespace ResumePro.App.Services;
 
-public class FormResponse
+public class SessionStorageInterop(IJSRuntime jsRuntime)
 {
-    public string Value { get; set; }
-}
-
-public class SessionStorageInterop
-{
-    private readonly IJSRuntime _jsRuntime;
-
-    public SessionStorageInterop(IJSRuntime jsRuntime)
-    {
-        _jsRuntime = jsRuntime;
-    }
-
     public async Task<T> LoadFromSessionStorage<T>(string key)
     {
-        var value = await _jsRuntime.InvokeAsync<T>("blazorSessionStorage.getItem", key);
+        var value = await jsRuntime.InvokeAsync<T>("blazorSessionStorage.getItem", key);
         return value;
     }
 
     public async Task SaveToSessionStorage<T>(string key, T value)
     {
-        await _jsRuntime.InvokeVoidAsync("blazorSessionStorage.setItem", key, value.ToString());
+        await jsRuntime.InvokeVoidAsync("blazorSessionStorage.setItem", key, value.ToString());
     }
 }

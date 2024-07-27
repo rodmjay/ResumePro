@@ -5,10 +5,12 @@
 #endregion
 
 using System.ComponentModel.DataAnnotations;
+using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Options;
 
-public class SchoolOptions
+public class SchoolOptions : ILocation, IName, IEndDate
 {
     public int? Id { get; set; }
     public DateTime? EndDate { get; set; }
@@ -18,4 +20,5 @@ public class SchoolOptions
     [Required] public string Name { get; set; }
 
     public List<DegreeOptions> DegreeOptions { get; set; } = new();
+    public string Location { get; set; }
 }

@@ -27,6 +27,9 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});
 
+        builder.Property(x => x.Text)
+            .ConfigureColumn(StringColumnSize.Medium);
+        
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Highlights)
             .HasForeignKey(x => new {x.OrganizationId, x.JobId})

@@ -2,11 +2,11 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden; /* Optional: Remove if you need scrolling */
+    //overflow: hidden; /* Optional: Remove if you need scrolling */
 }
 
 #app, .app {
-    overflow: hidden; /* Prevents double scrollbars if not necessary */
+   // overflow: hidden; /* Prevents double scrollbars if not necessary */
 }
 
 iframe {

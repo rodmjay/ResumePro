@@ -26,6 +26,12 @@ public sealed class Project : BaseEntity<Project>, IProject
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id, x.JobId});
 
+        builder.Property(x => x.Name)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Description)
+            .ConfigureColumn(StringColumnSize.Medium, false);
+
         builder.HasOne(x => x.Job)
             .WithMany(x => x.Projects)
             .HasForeignKey(x => new {x.OrganizationId, x.JobId})

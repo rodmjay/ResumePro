@@ -4,13 +4,10 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Shared.Interfaces;
 
-public interface ISchool
+public interface ISchool : ILocation, IName, IEndDate, IStartDate, IId, IPersonaId, IOrganizationId
 {
-    int Id { get; set; }
-    int PersonaId { get; set; }
-    DateTime StartDate { get; set; }
-    DateTime? EndDate { get; set; }
-    string Name { get; set; }
 }

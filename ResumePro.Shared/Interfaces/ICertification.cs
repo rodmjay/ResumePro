@@ -4,14 +4,10 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Shared.Interfaces;
 
-public interface ICertification
+public interface ICertification : IOrganizationId, IName, IPersonaId, IId, IBody, IDate
 {
-    int OrganizationId { get; set; }
-    string Name { get; set; }
-    string Body { get; set; }
-    int PersonaId { get; set; }
-    int Id { get; set; }
-    DateTime Date { get; set; }
 }

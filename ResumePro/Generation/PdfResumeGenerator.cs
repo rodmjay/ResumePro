@@ -6,6 +6,7 @@
 
 using System.Diagnostics;
 using System.Text;
+using NuGet.Versioning;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ResumePro.Shared.Extensions;
@@ -103,7 +104,7 @@ public class PdfResumeGenerator(PdfSettings settings) : IResumeGenerator
                 if (showDuration) text += $" ({job.Duration})";
 
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.Title}", Indentation = 10};
+                    {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.JobTitle}", Indentation = 10};
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,
@@ -157,13 +158,19 @@ public class PdfResumeGenerator(PdfSettings settings) : IResumeGenerator
             yield return new ResumeSection {SectionType = ResumeSectionType.Header, Text = "Education"};
             foreach (var school in resumeDetails.Education)
             {
+                var schoolText = school.Name;
+                if (!string.IsNullOrWhiteSpace(school.Location))
+                {
+                    schoolText += $", {school.Location}";
+                }
+                
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.Text, Text = $"{school.Name}", Indentation = 10};
+                    {SectionType = ResumeSectionType.Text, Text = schoolText, Indentation = 10};
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,
                     Text =
-                        $"{school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")}",
+                        $"({school.StartDate.ToShortDateString()} - {(school.EndDate.HasValue ? school.EndDate.Value.ToShortDateString() : "Present")})",
                     Indentation = 20
                 };
                 foreach (var degree in school.Degrees)

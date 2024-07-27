@@ -17,7 +17,7 @@ public class JobMappings : Profile
         CreateMap<JobDetails, JobOptions>()
             .ForMember(x => x.Description, opt => opt.MapFrom(x => x.Description))
             .ForMember(x => x.Location, opt => opt.MapFrom(x => x.Location))
-            .ForMember(x => x.Title, opt => opt.MapFrom(x => x.Title))
+            .ForMember(x => x.JobTitle, opt => opt.MapFrom(x => x.JobTitle))
             .ForMember(x => x.Company, opt => opt.MapFrom(x => x.Company))
             .ForMember(x => x.EndDate, opt => opt.MapFrom(x => x.EndDate))
             .ForMember(x => x.StartDate, opt => opt.MapFrom(x => x.StartDate))

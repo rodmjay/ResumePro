@@ -18,6 +18,19 @@
     </Validation>
     <Validation>
         <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Location</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <TextEdit Placeholder="Enter location" @bind-Text="Options.Location">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
             <FieldLabel ColumnSize="ColumnSize.Is2">Start Date</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <DateEdit TValue="DateTime?" Placeholder="Enter start date" @bind-Date="Options.StartDate">

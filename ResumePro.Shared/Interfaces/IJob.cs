@@ -6,12 +6,9 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IJob
+public interface IJob : IStartDate, IEndDate, IId
 {
-    int Id { get; set; }
-    DateTime StartDate { get; set; }
-    DateTime? EndDate { get; set; }
-    string Title { get; set; }
+    string JobTitle { get; set; }
     string Company { get; set; }
     string Location { get; set; }
     string Description { get; set; }

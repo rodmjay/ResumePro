@@ -49,7 +49,7 @@ public sealed class JobService(
             Id = await GetNextJobId(organizationId),
             ObjectState = ObjectState.Added,
             StartDate = options.StartDate,
-            Title = options.Title,
+            JobTitle = options.JobTitle,
             EndDate = options.EndDate,
             Company = options.Company,
             Description = options.Description,
@@ -180,7 +180,7 @@ public sealed class JobService(
         job.EndDate = options.EndDate;
         job.StartDate = options.StartDate;
         job.Location = options.Location;
-        job.Title = options.Title;
+        job.JobTitle = options.JobTitle;
 
         var nextHighlightId = await GetNextHighlightId(organizationId);
         var nextProjectId = await GetNextProjectId(organizationId);

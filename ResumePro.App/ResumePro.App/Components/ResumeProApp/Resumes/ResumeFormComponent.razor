@@ -41,7 +41,7 @@
                     <Field>
                         <Check TValue="bool" @bind-Checked="@JobCheckStates[job.Id]"
                                @onchange="(() => ToggleSelectionJob(job.Id))">
-                            @job.Title, @job.Company (@job.StartDate.ToShortDateString() - @job.DisplayEndDate)
+                            @job.JobTitle, @job.Company (@job.StartDate.ToShortDateString() - @job.DisplayEndDate)
                         </Check>
                     </Field>
                 }

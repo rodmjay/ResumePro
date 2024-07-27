@@ -24,6 +24,12 @@ public sealed class Certification : BaseEntity<Certification>, ICertification
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});
 
+        builder.Property(x => x.Name)
+            .ConfigureColumn(StringColumnSize.Small);
+
+        builder.Property(x => x.Body)
+            .ConfigureColumn(StringColumnSize.Small);
+
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Certifications)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})

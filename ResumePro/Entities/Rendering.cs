@@ -24,6 +24,10 @@ public sealed class Rendering : BaseEntity<Rendering>, IRendering
     {
         builder.HasKey(x => new {x.OrganizationId, x.ResumeId, x.TemplateId});
 
+        builder.Property(x => x.Text)
+            .HasColumnType("TEXT")
+            .IsRequired();
+        
         builder.HasOne(x => x.Resume)
             .WithMany(x => x.Renderings)
             .HasForeignKey(x => new {x.OrganizationId, x.ResumeId})

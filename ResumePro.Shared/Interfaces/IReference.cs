@@ -4,15 +4,10 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Shared.Interfaces;
 
-public interface IReference
+public interface IReference : IPersonaId, IId, IName, IPhoneNumber, IOrder, IOrganizationId, IText
 {
-    int PersonaId { get; set; }
-    int Id { get; set; }
-    string Text { get; set; }
-    string Name { get; set; }
-    string PhoneNumber { get; set; }
-    int Order { get; set; }
-    int OrganizationId { get; set; }
 }

@@ -5,14 +5,17 @@
 #endregion
 
 using System.ComponentModel.DataAnnotations;
+using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Options;
 
-public class CertificationOptions
+public class CertificationOptions : IName, IBody
 {
-    [Required] public string Name { get; set; }
+    [Required][MaxLength(255)] public string Name { get; set; }
 
     [Required] public DateTime? Date { get; set; }
 
+    [MaxLength(255)]
     [Required] public string Body { get; set; }
 }

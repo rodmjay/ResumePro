@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.App.Extensions;
+using ResumePro.App.Services;
 using System.Security.Claims;
 
 namespace ResumePro.App;
@@ -50,6 +51,9 @@ public class Program
         //        Policies.CanAccessApis,
         //        Policies.CanAccessApi());
         //});
+
+        //builder.Services.AddScoped<TokenExpirationService>();
+
 
         builder.AddProxies();
 

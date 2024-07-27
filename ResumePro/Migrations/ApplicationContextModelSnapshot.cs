@@ -31,13 +31,15 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Body")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
@@ -2231,7 +2233,8 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -2274,7 +2277,8 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(512)");
 
                     b.HasKey("OrganizationId", "Id");
 
@@ -2752,25 +2756,27 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Company")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(1024)");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("OrganizationId", "Id");
 
@@ -2784,10 +2790,10 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             Id = 1,
                             Company = "Infosys",
+                            JobTitle = "Technical Architect",
                             Location = "Salt Lake City, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Technical Architect"
+                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2795,10 +2801,10 @@ namespace ResumePro.Migrations
                             Id = 2,
                             Company = "Solution Stream",
                             EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Sr. Software Architect",
                             Location = "American Fork, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Software Architect"
+                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2806,10 +2812,10 @@ namespace ResumePro.Migrations
                             Id = 3,
                             Company = "IdeaFortune",
                             EndDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Founder/Architect",
                             Location = "American Fork, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Founder/Architect"
+                            StartDate = new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2817,10 +2823,10 @@ namespace ResumePro.Migrations
                             Id = 4,
                             Company = "Agile Software and Marketing",
                             EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Architect",
                             Location = "Cameron Park, CA",
                             PersonaId = 1,
-                            StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect"
+                            StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2828,10 +2834,10 @@ namespace ResumePro.Migrations
                             Id = 5,
                             Company = "Access Softek",
                             EndDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Sr. Engineer Dev Lead",
                             Location = "West Jordan, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Engineer Dev Lead"
+                            StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2839,10 +2845,10 @@ namespace ResumePro.Migrations
                             Id = 6,
                             Company = "Netchex",
                             EndDate = new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Architect Consultant",
                             Location = "Mandeville, LA",
                             PersonaId = 1,
-                            StartDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect Consultant"
+                            StartDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2850,10 +2856,10 @@ namespace ResumePro.Migrations
                             Id = 7,
                             Company = "Ancestry.com",
                             EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Sr. Engineer",
                             Location = "Provo, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Sr. Engineer"
+                            StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2861,10 +2867,10 @@ namespace ResumePro.Migrations
                             Id = 8,
                             Company = "Cathexis",
                             EndDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Architect/Dev Manager",
                             Location = "Provo, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Architect/Dev Manager"
+                            StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
@@ -2872,10 +2878,10 @@ namespace ResumePro.Migrations
                             Id = 9,
                             Company = "Motorola Public Safety",
                             EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Engineer",
                             Location = "Salt Lake City, UT",
                             PersonaId = 1,
-                            StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Engineer"
+                            StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -3097,13 +3103,6 @@ namespace ResumePro.Migrations
                             PersonaId = 1,
                             JobId = 5,
                             SkillId = 27
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 28
                         },
                         new
                         {
@@ -3706,25 +3705,29 @@ namespace ResumePro.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("GitHub")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(64)");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("LinkedIn")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<int>("StateId")
                         .HasColumnType("int");
@@ -3973,12 +3976,6 @@ namespace ResumePro.Migrations
                         {
                             OrganizationId = 1,
                             PersonaId = 1,
-                            SkillId = 28
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
                             SkillId = 29
                         },
                         new
@@ -4118,10 +4115,11 @@ namespace ResumePro.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("varchar(512)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -4243,7 +4241,8 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("Order")
                         .HasColumnType("int");
@@ -4252,7 +4251,8 @@ namespace ResumePro.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(1024)");
 
                     b.HasKey("OrganizationId", "PersonaId", "Id");
 
@@ -4339,7 +4339,8 @@ namespace ResumePro.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Text")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.HasKey("OrganizationId", "ResumeId", "TemplateId");
 
@@ -4357,10 +4358,12 @@ namespace ResumePro.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(1024)");
 
                     b.Property<string>("JobTitle")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<int>("PersonaId")
                         .HasColumnType("int");
@@ -4656,6 +4659,9 @@ namespace ResumePro.Migrations
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -4677,6 +4683,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             Id = 1,
                             EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Location = "Portland, OR",
                             Name = "Portland Community College",
                             PersonaId = 1,
                             StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -5453,11 +5460,6 @@ namespace ResumePro.Migrations
                         {
                             SkillCategoryId = 1,
                             SkillId = 27
-                        },
-                        new
-                        {
-                            SkillCategoryId = 12,
-                            SkillId = 28
                         },
                         new
                         {
@@ -6297,19 +6299,22 @@ namespace ResumePro.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Engine")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("Format")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("varchar(64)");
 
                     b.Property<int?>("OrganizationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Source")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 

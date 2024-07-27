@@ -43,6 +43,24 @@ public sealed class Persona : BaseEntity<Persona>, IPersona
             .HasForeignKey(x => x.StateId)
             .OnDelete(DeleteBehavior.NoAction);
 
+        builder.Property(x => x.FirstName)
+            .ConfigureColumn(StringColumnSize.VerySmall);
+
+        builder.Property(x => x.LastName)
+            .ConfigureColumn(StringColumnSize.VerySmall);
+
+        builder.Property(x => x.Email)
+            .ConfigureColumn(StringColumnSize.VerySmall);
+
+        builder.Property(x => x.PhoneNumber)
+            .ConfigureColumn(StringColumnSize.VerySmall);
+
+        builder.Property(x => x.GitHub)
+            .ConfigureColumn(StringColumnSize.VerySmall, false);
+
+        builder.Property(x => x.LinkedIn)
+            .ConfigureColumn(StringColumnSize.VerySmall, false);
+
         builder.HasQueryFilter(x => x.IsDeleted == false);
     }
 }

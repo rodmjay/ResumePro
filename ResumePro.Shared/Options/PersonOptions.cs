@@ -5,30 +5,32 @@
 #endregion
 
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics.CodeAnalysis;
+using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Shared.Options;
 
-public class PersonOptions
+public class PersonOptions : ICity, IPhoneNumber, IFirstAndLastName, IEmail, IGitHub, ILinkedIn, IStateId
 {
     [Required] public string City { get; set; }
 
     public int StateId { get; set; }
 
-    [Phone]
+    [MaxLength(64)]
     public string PhoneNumber { get; set; }
 
+    [MaxLength(64)]
     [Required] public string FirstName { get; set; }
 
+    [MaxLength(64)]
     [Required] public string LastName { get; set; }
 
     [Required]
-    [EmailAddress]
+    [MaxLength(64)]
     public string Email { get; set; }
 
-    [Url]
+    [MaxLength(64)]
     public string GitHub { get; set; }
 
-    [Url]
+    [MaxLength(64)]
     public string LinkedIn { get; set; }
 }

@@ -6,15 +6,6 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IPersona
+public interface IPersona : IId, IOrganizationId, IFirstAndLastName, IEmail, IPhoneNumber, ILinkedIn, IGitHub, ICity, IStateId
 {
-    int Id { get; set; }
-    string FirstName { get; set; }
-    string LastName { get; set; }
-    string Email { get; set; }
-    string PhoneNumber { get; set; }
-    string LinkedIn { get; set; }
-    string GitHub { get; set; }
-    string City { get; set; }
-    int OrganizationId { get; set; }
 }

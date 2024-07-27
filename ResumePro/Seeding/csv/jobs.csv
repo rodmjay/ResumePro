@@ -1,4 +1,4 @@
-﻿Id,OrganizationId,PersonaId,StartDate,EndDate,Title,Company,Location,Description
+﻿Id,OrganizationId,PersonaId,StartDate,EndDate,JobTitle,Company,Location,Description
 1,1,1,4/1/2022,NULL,Technical Architect,Infosys,"Salt Lake City, UT",NULL
 2,1,1,11/1/2020,3/1/2022,"Sr. Software Architect",Solution Stream,"American Fork, UT",NULL
 3,1,1,11/1/2017,11/1/2020,"Founder/Architect",IdeaFortune,"American Fork, UT",NULL

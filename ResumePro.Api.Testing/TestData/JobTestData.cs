@@ -21,7 +21,7 @@ public class JobTestData
                 EndDate = DateTime.Parse("1/1/2015"),
                 StartDate = DateTime.Parse("1/1/2011"),
                 Location = "Seattle, WA",
-                Title = "foo"
+                JobTitle = "foo"
             },
             new()
             {
@@ -30,7 +30,7 @@ public class JobTestData
                 EndDate = null,
                 StartDate = DateTime.Parse("1/1/2014"),
                 Location = "Seattle, WA",
-                Title = "architect"
+                JobTitle = "architect"
             }
         };
     }

@@ -4,6 +4,7 @@
 
 #endregion
 
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Shared.Interfaces;
@@ -23,6 +24,9 @@ public sealed class Degree : BaseEntity<Degree>, IDegree
     {
         builder.HasKey(x => new {x.OrganizationId, x.Id});
 
+        builder.Property(x => x.Name)
+            .ConfigureColumn(StringColumnSize.Small);
+        
         builder.HasOne(x => x.School)
             .WithMany(x => x.Degrees)
             .HasForeignKey(x => new {x.OrganizationId, x.SchoolId})

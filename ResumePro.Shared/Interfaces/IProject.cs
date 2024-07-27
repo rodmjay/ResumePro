@@ -4,14 +4,10 @@
 
 #endregion
 
+using ResumePro.Shared.Models;
+
 namespace ResumePro.Shared.Interfaces;
 
-public interface IProject
+public interface IProject : IId, IOrder, IName, IDescription, IJobId, IBudget
 {
-    int Id { get; set; }
-    int JobId { get; set; }
-    int Order { get; set; }
-    string Name { get; set; }
-    string Description { get; set; }
-    decimal? Budget { get; set; }
 }

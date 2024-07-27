@@ -12,6 +12,7 @@ public class HighlightOptions
 {
     public int? Id { get; set; }
 
+    [MaxLength(512)]
     [Required] public string Text { get; set; }
 
     public int? Order { get; set; }

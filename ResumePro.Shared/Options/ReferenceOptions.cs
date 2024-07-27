@@ -10,8 +10,10 @@ namespace ResumePro.Shared.Options;
 
 public class ReferenceOptions
 {
+    [MaxLength(1024)]
     [Required] public string Text { get; set; }
 
+    [MaxLength(255)]
     [Required] public string Name { get; set; }
 
     public int Order { get; set; }
