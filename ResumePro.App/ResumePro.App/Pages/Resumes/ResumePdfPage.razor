@@ -1,0 +1,25 @@
+﻿@page "/people/{PersonId:int}/resumes/{ResumeId:int}/pdf"
+@inherits PersonPageBase
+
+@if (Resume != null)
+{
+    <div class="container sticky-top">
+        <Breadcrumb>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="/">People</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem>
+                <BreadcrumbLink To="@($"/people/{PersonId}")">@Resume.LastName, @Resume.FirstName</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbItem Active>
+                <BreadcrumbLink To="#">@Resume.JobTitle</BreadcrumbLink>
+            </BreadcrumbItem>
+        </Breadcrumb>
+
+
+    </div>
+
+    <ResumePdfComponent PersonId="PersonId" ResumeId="ResumeId">
+
+    </ResumePdfComponent>
+}

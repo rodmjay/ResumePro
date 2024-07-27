@@ -26,22 +26,28 @@
             <li class="nav-item" role="presentation">
                 <button class="nav-link @ActiveTabClass("markdown")" id="main-markdown-tab" data-bs-toggle="tab" data-bs-target="#markdown" type="button" role="tab" aria-controls="markdown" aria-selected="true">Markdown</button>
             </li>
+
             <li class="nav-item me-auto" role="presentation">
                 <button class="nav-link @ActiveTabClass("settings")" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">
                     <i class="fa fa-cog"></i>
                 </button>
             </li>
+         
         </ul>
 
     </div>
     <div class="container mt-3">
 
         <!-- Tab Content -->
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content" id="myTabContent" >
             <div class="tab-pane fade @ActiveTabPaneClass("home")" id="mainDetails" role="tabpanel" aria-labelledby="main-details-tab">
                 <Div Padding="Padding.Is4">
                     <div class="mb-3 d-flex justify-content-end">
                         <Buttons>
+                            <Button Color="Color.Primary" Clicked="@ViewResume">
+                                <Icon Name="IconName.Edit"/>
+                                Download Resume
+                            </Button>
                             <Button Color="Color.Primary" Clicked="@EditResume">
                                 <Icon Name="IconName.Edit"/>
                                 Edit Resume
@@ -71,6 +77,7 @@
                     }
                 </div>
             </div>
+           
         </div>
     </div>
 }

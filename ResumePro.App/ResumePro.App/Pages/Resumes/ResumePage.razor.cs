@@ -40,6 +40,10 @@ public partial class ResumePage
         ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
     }
 
+    void ViewResume()
+    {
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{ResumeId}/pdf");
+    }
 
     private string ActiveTabClass(string tabName)
     {

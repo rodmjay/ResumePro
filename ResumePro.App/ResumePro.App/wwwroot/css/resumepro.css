@@ -1,4 +1,21 @@
-﻿.breadcrumb {
+﻿html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Optional: Remove if you need scrolling */
+}
+
+#app, .app {
+  overflow: hidden; /* Prevents double scrollbars if not necessary */
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.breadcrumb {
   background-color: #f8f9fa; /* Light grey background */
   padding: 10px 15px; /* Padding around the breadcrumb */
   border-radius: 5px; /* Rounded corners */

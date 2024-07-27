@@ -55,8 +55,10 @@ public sealed class ResumesController(IServiceProvider serviceProvider
 
         var resumeStream = await resumeService.Generate2(resume)
             .ConfigureAwait(true);
+        
+        Response.Headers.Add("Content-Disposition", $"inline; filename={fileName}");
 
-        return File(resumeStream, "application/pdf", fileName);
+        return File(resumeStream, "application/pdf");
     }
 
     [HttpPost]

@@ -1,12 +1,13 @@
-﻿using System.Security.Claims;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
-using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
+using System.Security.Claims;
 using ResumePro.Shared.Extensions;
 
-namespace ResumePro.App.Pages.Resumes
+namespace ResumePro.App.Components.ResumeProApp.Resumes
 {
-    public partial class ResumePdf : PersonPageBase
+    public partial class ResumePdfComponent
     {
         [Inject] private AuthenticationStateProvider AuthState { get; set; }
 
@@ -15,14 +16,18 @@ namespace ResumePro.App.Pages.Resumes
         [Parameter]
         public int ResumeId { get; set; }
 
+        [Parameter]
+        public int PersonId { get; set; }
+
         public int OrganizationId { get; set; }
 
         private ClaimsPrincipal user;
-        
+
         private string PdfUrl { get; set; }
-        
+
         protected override async Task OnInitializedAsync()
         {
+
             var authState = await AuthState.GetAuthenticationStateAsync();
 
             user = authState.User;
