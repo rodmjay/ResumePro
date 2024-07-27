@@ -8,7 +8,9 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using ResumePro.Core.Extensions;
 using ResumePro.Core.Settings;
+using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Core.Middleware.Bases;
 
@@ -25,31 +27,7 @@ public class BaseController : ControllerBase
         AppSettings = serviceProvider.GetRequiredService<IOptions<AppSettings>>().Value;
     }
 
-    public int UserId
-    {
-        get
-        {
-            // Attempt to retrieve the organizationId claim as a string
-            var userIdClaim = User.Identity.Name;
+    public int UserId => User.UserId();
 
-            // Try parsing the claim value to an integer
-                if (int.TryParse(userIdClaim, out var userId))
-                return userId;
-            throw new Exception("The userId claim is missing or not a valid integer.");
-        }
-    }
-
-    public int OrganizationId
-    {
-        get
-        {
-            // Attempt to retrieve the organizationId claim as a string
-            var organizationIdClaim = User.Claims.FirstOrDefault(c => c.Type == "organizationId")?.Value;
-
-            // Try parsing the claim value to an integer
-            if (int.TryParse(organizationIdClaim, out var organizationId))
-                return organizationId;
-            throw new Exception("The organizationId claim is missing or not a valid integer.");
-        }
-    }
+    public int OrganizationId => User.OrganizationId();
 }

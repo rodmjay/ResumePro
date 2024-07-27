@@ -103,7 +103,7 @@
                     else
                     {
                         <div class="alert alert-info" role="alert">
-                            No resumes available. Click 'Create New Resume' to add one.
+                            No resumes available. Click 'Add Resume' to add one.
                         </div>
                     }
 
@@ -131,7 +131,7 @@
                     else
                     {
                         <div class="alert alert-info" role="alert">
-                            No jobs available. Click 'Create New Job' to add one.
+                            No jobs available. Click 'Add Job' to add one.
                         </div>
                     }
                 </div>
@@ -141,7 +141,7 @@
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateSchool">Add School</button>
                     </div>
-                    @if (Person.Education != null)
+                    @if (Person.Education != null && Person.Education.Any())
                     {
                         foreach (var school in Person.Education)
                         {
@@ -151,14 +151,18 @@
                             </div>
                         }
                     }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            No jobs available. Click 'Add Job' to add one.
+                        </div>
+                    }
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("skills")" id="skills" role="tabpanel" aria-labelledby="skills-tab">
                 <div class="p-4">
-                    @if (Person.Skills != null)
-                    {
-                        <PersonSkillsComponent PersonId="@PersonId"></PersonSkillsComponent>
-                    }
+                    <PersonSkillsComponent PersonId="@PersonId"></PersonSkillsComponent>
+
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("references")" id="references" role="tabpanel" aria-labelledby="references-tab">
@@ -166,7 +170,7 @@
                     <button class="btn btn-primary" @onclick="CreateReference">Add Reference</button>
                 </div>
                 <div class="p-4">
-                    @if (Person.References != null)
+                    @if (Person.References != null && Person.References.Any())
                     {
                         <DropContainer TItem="ReferenceDto" ItemsFilter="@((item, dropZone) => true)" ItemDropped="@ItemDropped" Items="@Person.References" Flex="Flex.Wrap.Grow.Is1">
                             <ChildContent>
@@ -180,6 +184,12 @@
                             </ItemTemplate>
                         </DropContainer>
                     }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            No references available. Click 'Add Reference' to add one.
+                        </div>
+                    }
                 </div>
             </div>
             <div class="tab-pane fade @ActiveTabPaneClass("certifications")" id="certifications" role="tabpanel" aria-labelledby="certifications-tab">
@@ -187,7 +197,7 @@
                     <div class="mb-3 d-flex justify-content-end">
                         <button class="btn btn-primary" @onclick="CreateCertification">Add Certification</button>
                     </div>
-                    @if (Person.Certifications != null)
+                    @if (Person.Certifications != null && Person.Certifications.Any())
                     {
                         foreach (var certification in Person.Certifications)
                         {
@@ -195,6 +205,12 @@
                                 <CertificationCard Certification="certification"></CertificationCard>
                             </div>
                         }
+                    }
+                    else
+                    {
+                        <div class="alert alert-info" role="alert">
+                            No certifications available. Click 'Add Certification' to add one.
+                        </div>
                     }
                 </div>
             </div>

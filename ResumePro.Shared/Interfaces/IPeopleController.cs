@@ -18,7 +18,7 @@ public interface IPeopleController
         PersonaFilters filters, PagingQuery paging);
 
     Task<PersonaDetails> GetPerson(int personId);
-    Task<ActionResult<PersonaDetails>> CreatePerson(PersonaOptions options);
-    Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonaOptions options);
+    Task<ActionResult<PersonaDetails>> CreatePerson(PersonOptions options);
+    Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonOptions options);
     Task<Result> DeletePerson(int personId);
 }

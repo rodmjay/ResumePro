@@ -4,16 +4,20 @@
 
 #endregion
 
-using Microsoft.Net.Http.Headers;
+using Microsoft.AspNetCore.Authorization;
 using ResumePro.Core.Middleware.Bases;
+using ResumePro.Generation;
 using ResumePro.Interfaces;
+using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes")]
-public sealed class ResumesController(IServiceProvider serviceProvider, IResumeService resumeService)
+public sealed class ResumesController(IServiceProvider serviceProvider
+    , IPdfStorage pdfStorage
+    , IResumeService resumeService)
     : BaseController(serviceProvider), IResumeController
 {
     [HttpGet("{resumeId}")]
@@ -23,30 +27,6 @@ public sealed class ResumesController(IServiceProvider serviceProvider, IResumeS
             .ConfigureAwait(false);
     }
 
-    [HttpGet("{resumeId}/Download")]
-    public async Task<IActionResult> Download([FromRoute] int personId, [FromRoute] int resumeId,
-        [FromQuery] int templateId)
-    {
-        var filePath = await resumeService.SaveResumeAsPdf(OrganizationId, personId, resumeId);
-        var fileName = Path.GetFileName(filePath);
-
-        if (!System.IO.File.Exists(filePath)) return NotFound();
-
-        var fileBytes = await System.IO.File.ReadAllBytesAsync(filePath);
-        var fileStream = new MemoryStream(fileBytes);
-
-        var contentType = "application/pdf";
-
-        var contentDisposition = new ContentDispositionHeaderValue("attachment")
-        {
-            FileName = fileName
-        };
-
-        Response.Headers.Add("Content-Disposition", contentDisposition.ToString());
-
-        return File(fileStream, contentType, fileName);
-    }
-
     [HttpGet]
     public async Task<List<ResumeDto>> GetResumes([FromRoute] int personId)
     {
@@ -54,12 +34,29 @@ public sealed class ResumesController(IServiceProvider serviceProvider, IResumeS
             .ConfigureAwait(false);
     }
 
-    [HttpPost("{resumeId}/generate")]
-    public async Task<ResumeDetails> Generate([FromRoute] int personId, [FromRoute] int resumeId)
+    [HttpGet("{resumeId}/generate")]
+    public async Task<string> Generate([FromRoute] int personId, [FromRoute] int resumeId)
     {
-        var response = await resumeService.Generate(OrganizationId, personId, resumeId)
+        var resume = await resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId);
+        var fileName = resume.GetFileName();
+        
+        var response = await resumeService.Generate2(resume)
             .ConfigureAwait(true);
-        return response;
+
+        return await pdfStorage.SavePdfAsync(response, fileName);
+    }
+
+    [HttpGet("{resumeId}/pdf")]
+    [AllowAnonymous]
+    public async Task<IActionResult> PdfAnonymous([FromRoute] int personId, [FromRoute] int resumeId, [FromQuery]int organizationId)
+    {
+        var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personId, resumeId);
+        var fileName = resume.GetFileName();
+
+        var resumeStream = await resumeService.Generate2(resume)
+            .ConfigureAwait(true);
+
+        return File(resumeStream, "application/pdf", fileName);
     }
 
     [HttpPost]

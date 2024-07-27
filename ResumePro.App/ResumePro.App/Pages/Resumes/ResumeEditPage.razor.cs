@@ -12,7 +12,7 @@ using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.App.Pages;
+namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumeEditPage : PersonPageBase
 {
@@ -31,7 +31,7 @@ public partial class ResumeEditPage : PersonPageBase
     protected override async Task OnParametersSetAsync()
     {
         await base.OnParametersSetAsync();
-        
+
         ResumeDetails = await ResumeController.GetResume(PersonId, ResumeId);
         Options = Mapper.Map<ResumeOptions>(ResumeDetails);
     }

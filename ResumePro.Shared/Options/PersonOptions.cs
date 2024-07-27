@@ -9,18 +9,26 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ResumePro.Shared.Options;
 
-public class PersonaOptions
+public class PersonOptions
 {
     [Required] public string City { get; set; }
 
     public int StateId { get; set; }
 
+    [Phone]
+    public string PhoneNumber { get; set; }
+
     [Required] public string FirstName { get; set; }
 
     [Required] public string LastName { get; set; }
 
-    [Required] public string Email { get; set; }
+    [Required]
+    [EmailAddress]
+    public string Email { get; set; }
 
+    [Url]
     public string GitHub { get; set; }
+
+    [Url]
     public string LinkedIn { get; set; }
 }

@@ -16,7 +16,7 @@ public partial class PersonEditPage : PersonPageBase
 {
     [Inject] public IMapper Mapper { get; set; }
 
-    public PersonaOptions Options { get; set; } = new();
+    public PersonOptions Options { get; set; } = new();
 
     [Inject] public NavigationManager NavigationManager { get; set; }
 
@@ -24,10 +24,10 @@ public partial class PersonEditPage : PersonPageBase
     {
         await base.OnParametersSetAsync();
 
-        Options = Mapper.Map<PersonaOptions>(Person);
+        Options = Mapper.Map<PersonOptions>(Person);
     }
 
-    private async Task HandleValidSubmit(PersonaOptions savedPerson)
+    private async Task HandleValidSubmit(PersonOptions savedPerson)
     {
         var response = await PeopleController.UpdatePerson(PersonId, savedPerson);
         if (response.IsSuccessStatusCode()) 

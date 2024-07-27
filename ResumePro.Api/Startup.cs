@@ -13,23 +13,17 @@ using ResumePro.Context;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Core.Settings;
+using ResumePro.Extensions;
 
 namespace ResumePro.Api;
 
-public class Startup
+public sealed class Startup(
+    IConfiguration configuration,
+    IWebHostEnvironment environment,
+    HttpMessageHandler identityServerMessageHandler = null)
 {
-    private readonly HttpMessageHandler _identityServerMessageHandler;
-
-    public Startup(IConfiguration configuration, IWebHostEnvironment environment,
-        HttpMessageHandler identityServerMessageHandler = null)
-    {
-        _identityServerMessageHandler = identityServerMessageHandler;
-        Configuration = configuration;
-        Environment = environment;
-    }
-
-    public IWebHostEnvironment Environment { get; }
-    public IConfiguration Configuration { get; }
+    public IWebHostEnvironment Environment { get; } = environment;
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -39,6 +33,7 @@ public class Startup
         var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
             .RegisterHandlebarsExtensions()
+            .RegisterPdfGeneration()
             .RegisterAllServices(businessAssembly);
 
         var webAppBuilder = builder.ConfigureWebApp(Environment);
@@ -58,8 +53,8 @@ public class Startup
                 options.Authority = builder.AppSettings.Authority;
                 options.Audience = builder.AppSettings.Audience;
 
-                if (_identityServerMessageHandler != null)
-                    options.BackchannelHttpHandler = _identityServerMessageHandler;
+                if (identityServerMessageHandler != null)
+                    options.BackchannelHttpHandler = identityServerMessageHandler;
 
                 options.TokenValidationParameters = new TokenValidationParameters
                 {

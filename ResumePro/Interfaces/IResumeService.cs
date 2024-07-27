@@ -18,7 +18,8 @@ public interface IResumeService : IService<Resume>
     Task<OneOf<ResumeDetails, Result>> UpdateResume(int organizationId, int personId, int resumeId,
         ResumeOptions options);
 
-    Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId);
+
+    Task<MemoryStream> Generate2(ResumeDetails resume);
 
     Task<Result> DeleteResume(int organizationId, int personId, int resumeId);
     Task<OneOf<string, Result>> Generate(ResumeDetails resumeDetails, int templateId);

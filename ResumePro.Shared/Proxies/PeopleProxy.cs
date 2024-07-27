@@ -30,15 +30,15 @@ public sealed class PeopleProxy(HttpClient httpClient) : BaseProxy(httpClient), 
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<PersonaDetails>> CreatePerson(PersonaOptions options)
+    public async Task<ActionResult<PersonaDetails>> CreatePerson(PersonOptions options)
     {
-        return await DoPostActionResult<PersonaOptions, PersonaDetails>("v1.0/people", options)
+        return await DoPostActionResult<PersonOptions, PersonaDetails>("v1.0/people", options)
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonaOptions options)
+    public async Task<ActionResult<PersonaDetails>> UpdatePerson(int personId, PersonOptions options)
     {
-        return await DoPutActionResult<PersonaOptions, PersonaDetails>($"v1.0/people/{personId}", options)
+        return await DoPutActionResult<PersonOptions, PersonaDetails>($"v1.0/people/{personId}", options)
             .ConfigureAwait(false);
     }
 

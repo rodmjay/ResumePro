@@ -33,7 +33,7 @@ public sealed class PeopleController(IServiceProvider serviceProvider, IPeopleSe
     }
 
     [HttpPost]
-    public async Task<ActionResult<PersonaDetails>> CreatePerson([FromBody] PersonaOptions options)
+    public async Task<ActionResult<PersonaDetails>> CreatePerson([FromBody] PersonOptions options)
     {
         var result = await peopleService.CreatePerson(OrganizationId, options)
             .ConfigureAwait(false);
@@ -45,7 +45,7 @@ public sealed class PeopleController(IServiceProvider serviceProvider, IPeopleSe
 
     [HttpPut("{personId}")]
     public async Task<ActionResult<PersonaDetails>> UpdatePerson([FromRoute] int personId,
-        [FromBody] PersonaOptions options)
+        [FromBody] PersonOptions options)
     {
         var result = await peopleService.UpdatePerson(OrganizationId, personId, options)
             .ConfigureAwait(false);

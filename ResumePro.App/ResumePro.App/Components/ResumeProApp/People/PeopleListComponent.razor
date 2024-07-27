@@ -1,22 +1,29 @@
 ﻿@using ResumePro.Shared.Models
 @if (PagedList != null)
 {
+        
+    <Container Margin="Margin.Is3.FromBottom">
+        <Row>
+            <Column ColumnSize="ColumnSize.IsFull">
+                <DataGrid TItem="PersonaDto"
+                          Data="@PagedList.Items"
+                          TotalItems="@PagedList.TotalItems"
+                          PageSize="@PagedList.PageSize"
+                          RowClicked="HandleRowSelected"
+                          PageChanged="HandlePageChanged"
+                          ShowPager
+                          Responsive>
 
-    <DataGrid TItem="PersonaDto"
-              Data="@PagedList.Items"
-              TotalItems="@PagedList.TotalItems"
-              PageSize="@PagedList.PageSize"
-              RowClicked="HandleRowSelected"
-              PageChanged="HandlePageChanged"
-              ShowPager
-              Responsive>
-
-        <DataGridColumns>
-            <DataGridColumn Field="@nameof(PersonaDto.FirstName)" Caption="First Name"></DataGridColumn>
-            <DataGridColumn Field="@nameof(PersonaDto.LastName)" Caption="Last Name"></DataGridColumn>
-            <DataGridColumn Field="@nameof(PersonaDto.ResumeCount)" Caption="Resumes"></DataGridColumn>
-            <DataGridColumn Field="@nameof(PersonaDto.SkillCount)" Caption="Skills"></DataGridColumn>
-            <DataGridColumn Field="@nameof(PersonaDto.JobCount)" Caption="Jobs"></DataGridColumn>
-        </DataGridColumns>
-    </DataGrid>
+                    <DataGridColumns>
+                        <DataGridColumn Field="@nameof(PersonaDto.FirstName)" Caption="First Name"></DataGridColumn>
+                        <DataGridColumn Field="@nameof(PersonaDto.LastName)" Caption="Last Name"></DataGridColumn>
+                        <DataGridColumn Field="@nameof(PersonaDto.ResumeCount)" Caption="Resumes"></DataGridColumn>
+                        <DataGridColumn Field="@nameof(PersonaDto.SkillCount)" Caption="Skills"></DataGridColumn>
+                        <DataGridColumn Field="@nameof(PersonaDto.JobCount)" Caption="Jobs"></DataGridColumn>
+                    </DataGridColumns>
+                </DataGrid>
+            </Column>
+        </Row>
+    </Container>
+   
 }

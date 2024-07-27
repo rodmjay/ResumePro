@@ -29,9 +29,9 @@
 
     [Inject] public IPeopleController Controller { get; set; }
 
-    public PersonaOptions Options { get; set; } = new();
+    public PersonOptions Options { get; set; } = new();
 
-    private async Task HandleValidSubmit(PersonaOptions options)
+    private async Task HandleValidSubmit(PersonOptions options)
     {
         var response = await Controller.CreatePerson(options);
         if (response.IsSuccessStatusCode())

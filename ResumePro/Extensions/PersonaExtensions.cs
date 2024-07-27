@@ -25,8 +25,14 @@ public static class PersonaExtensions
         if (filters.States.Any()) 
             predicate = predicate.And(x => filters.States.Contains(x.StateId));
 
+        //if (filters.Skills.Any())
+        //    predicate = predicate.And(x => filters.Skills.Intersect(x.Skills.Select(a => a.SkillId)).Any());
+
         if (filters.Skills.Any())
-            predicate = predicate.And(x => filters.Skills.Intersect(x.Skills.Select(a => a.SkillId)).Any());
+        {
+            predicate = predicate.And(x => filters.Skills.All(requiredSkillId =>
+                x.Skills.Select(a => a.SkillId).Contains(requiredSkillId)));
+        }
 
         return predicate;
     }

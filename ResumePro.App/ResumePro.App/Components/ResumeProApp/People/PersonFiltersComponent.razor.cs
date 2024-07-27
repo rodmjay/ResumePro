@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;  
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
-using ValidationRule = Blazorise.ValidationRule;
 
 namespace ResumePro.App.Components.ResumeProApp.People
 {
@@ -28,7 +27,9 @@ namespace ResumePro.App.Components.ResumeProApp.People
 
             FilterContainer = await FiltersController.GetFilters();
 
-            var categories = FilterContainer.Skills.SelectMany(x => x.Categories).Distinct().ToList();
+            var categories = FilterContainer.Skills.SelectMany(x => x.Categories)
+                .Distinct()
+                .ToList();
 
             foreach (var category in categories)
             {

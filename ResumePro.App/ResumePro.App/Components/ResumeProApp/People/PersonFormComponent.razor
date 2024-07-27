@@ -1,6 +1,6 @@
-﻿@inherits FormComponent<PersonaOptions>
+﻿@inherits FormComponent<PersonOptions>
 
-<FormCard TOptions="PersonaOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
+<FormCard TOptions="PersonOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
     <Validation>
         <Field Horizontal> 
             <FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>
@@ -43,8 +43,8 @@
     </Validation>
     <Validation>
         <Field Horizontal>
-            <FieldLabel>State</FieldLabel>
-            <FieldBody>
+            <FieldLabel ColumnSize="ColumnSize.Is2">State</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
                 <Select TValue="int" @bind-SelectedValue="@Options.StateId">
 
                     @foreach (var state in filterContainer.States)
@@ -61,6 +61,19 @@
             <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter email" @bind-Text="Options.Email">
+                    <Feedback>
+                        <ValidationError/>
+                    </Feedback>
+                </TextEdit>
+            </FieldBody>
+           
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Phone</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <TextEdit Placeholder="Enter phone" @bind-Text="Options.PhoneNumber">
                     <Feedback>
                         <ValidationError/>
                     </Feedback>

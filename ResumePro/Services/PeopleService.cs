@@ -62,7 +62,7 @@ public sealed class PeopleService(
         return Result.Failed(personErrors.UnableToSavePerson());
     }
 
-    public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonaOptions options)
+    public async Task<OneOf<PersonaDetails, Result>> CreatePerson(int organizationId, PersonOptions options)
     {
         Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, Options: {@options}"), organizationId,
             options);
@@ -80,6 +80,7 @@ public sealed class PeopleService(
         {
             Id = nextId,
             ObjectState = ObjectState.Added,
+            PhoneNumber = options.PhoneNumber,
             OrganizationId = organizationId,
             City = options.City,
             StateId = options.StateId,
@@ -97,7 +98,7 @@ public sealed class PeopleService(
     }
 
     public async Task<OneOf<PersonaDetails, Result>> UpdatePerson(int organizationId, int personId,
-        PersonaOptions options)
+        PersonOptions options)
     {
         Logger.LogInformation(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
@@ -121,6 +122,7 @@ public sealed class PeopleService(
         person.FirstName = options.FirstName;
         person.LastName = options.LastName;
         person.GitHub = options.GitHub;
+        person.PhoneNumber = options.PhoneNumber;
         person.StateId = options.StateId;
         person.City = options.City;
 
@@ -132,7 +134,7 @@ public sealed class PeopleService(
     }
 
 
-    private async IAsyncEnumerable<Error> GetErrors(PersonaOptions options)
+    private async IAsyncEnumerable<Error> GetErrors(PersonOptions options)
     {
         var stateExists = await stateRepo.Queryable()
             .AsNoTracking()

@@ -5,6 +5,7 @@
 #endregion
 
 using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;
@@ -151,5 +152,29 @@ public abstract class BaseProxy(HttpClient httpClient)
 
         var result = response.Content.DeserializeObject<TOutput>();
         return result;
+    }
+
+    protected async Task<ActionResult> DoActionResultGet(string url)
+    {
+        try
+        {
+            var response = await HttpClient.GetAsync(url).ConfigureAwait(false);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var stream = await response.Content.ReadAsStreamAsync();
+                // Wrapping the stream in an OkObjectResult, which isn't typical for Blazor but follows your constraint
+                return new OkObjectResult(stream);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Handle exceptions by returning an appropriate result
+            return new BadRequestObjectResult(ex.Message);
+        }
     }
 }

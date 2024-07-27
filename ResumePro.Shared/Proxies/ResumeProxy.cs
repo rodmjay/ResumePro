@@ -20,21 +20,15 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
             .ConfigureAwait(false);
     }
 
-    public async Task<IActionResult> Download(int personId, int resumeId, int templateId)
-    {
-        throw new NotImplementedException();
-    }
-
     public async Task<List<ResumeDto>> GetResumes(int personId)
     {
         return await DoGet<List<ResumeDto>>($"v1.0/people/{personId}/resumes")
             .ConfigureAwait(false);
     }
 
-    public async Task<ResumeDetails> Generate(int personId, int resumeId)
+    public async Task<string> Generate(int personId, int resumeId)
     {
-        return await DoPost<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}/generate")
-            .ConfigureAwait(false);
+        return await DoGet<string>($"v1.0/people/{personId}/resumes/{resumeId}");
     }
 
     public async Task<ActionResult<ResumeDetails>> CreateResume(int personId, ResumeOptions options)
@@ -55,8 +49,8 @@ public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), 
         return await DoDelete<Result>($"v1.0/people/{personId}/resumes/{resumeId}");
     }
 
-    public async Task<IActionResult> Generate(int personId, int resumeId, string templateId)
+    public async Task<IActionResult> PdfAnonymous(int personId, int resumeId, int organizationId)
     {
-        throw new NotImplementedException();
+        return await DoActionResultGet($"v1.0/people/{personId}/resumes/{resumeId}/pdf?organizationId={organizationId}");
     }
 }

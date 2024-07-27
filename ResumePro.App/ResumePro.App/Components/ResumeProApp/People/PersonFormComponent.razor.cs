@@ -12,7 +12,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Components.ResumeProApp.People;
 
-public partial class PersonFormComponent : FormComponent<PersonaOptions>
+public partial class PersonFormComponent : FormComponent<PersonOptions>
 {
     private FilterContainer filterContainer = new();
 

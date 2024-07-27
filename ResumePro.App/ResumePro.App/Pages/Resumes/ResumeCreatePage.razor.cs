@@ -10,7 +10,7 @@ using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Options;
 
-namespace ResumePro.App.Pages;
+namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumeCreatePage : PersonPageBase
 {

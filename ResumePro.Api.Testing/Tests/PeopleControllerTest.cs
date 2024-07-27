@@ -23,7 +23,7 @@ public class PeopleControllerTest : BaseApiTest
     public sealed class TheUpdatePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
-        public async Task CanUpdatePerson(PersonaOptions options)
+        public async Task CanUpdatePerson(PersonOptions options)
         {
             var createResponse = await PeopleProxy.CreatePerson(options);
             Assert.That(createResponse.Result is OkObjectResult, Is.True);
@@ -41,7 +41,7 @@ public class PeopleControllerTest : BaseApiTest
     public sealed class TheDeletePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
-        public async Task DeletePerson(PersonaOptions options)
+        public async Task DeletePerson(PersonOptions options)
         {
             var createResponse = await PeopleProxy.CreatePerson(options);
             Assert.That(createResponse.Result is OkObjectResult, Is.True);
@@ -59,7 +59,7 @@ public class PeopleControllerTest : BaseApiTest
     public sealed class TheCreatePersonMethod : PeopleControllerTest
     {
         [TestCaseSource(typeof(PersonTestData), nameof(PersonTestData.ValidOptions))]
-        public async Task CreatePerson(PersonaOptions options)
+        public async Task CreatePerson(PersonOptions options)
         {
             var result = await PeopleProxy.CreatePerson(options);
             ClassicAssert.IsNotNull(result);

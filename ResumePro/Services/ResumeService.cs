@@ -6,6 +6,7 @@
 
 using HandlebarsDotNet;
 using Microsoft.Extensions.Logging;
+using ResumePro.Entities;
 using ResumePro.Generation;
 using ResumePro.Shared.Models;
 
@@ -269,14 +270,8 @@ public sealed class ResumeService(
         return Result.Failed(resumeErrors.UnableToSaveResume());
     }
 
-    public async Task<string> SaveResumeAsPdf(int organizationId, int personId, int resumeId)
+    public Task<MemoryStream> Generate2(ResumeDetails resume)
     {
-        Logger.LogInformation(
-            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, ResumeId: {@resumeId}"),
-            organizationId, personId, resumeId);
-
-        var resume = await GetResume<ResumeDetails>(organizationId, personId, resumeId);
-
         var resumeGenerator = new PdfResumeGenerator(new PdfSettings
         {
             DisplayInExplorer = false,
@@ -284,7 +279,7 @@ public sealed class ResumeService(
             FontFamily = "Verdana"
         });
 
-        return resumeGenerator.ExecuteOperation(resume);
+        return Task.FromResult(resumeGenerator.ExecuteOperation(resume));
     }
 
     public async Task<ResumeDetails> Generate(int organizationId, int personId, int resumeId)

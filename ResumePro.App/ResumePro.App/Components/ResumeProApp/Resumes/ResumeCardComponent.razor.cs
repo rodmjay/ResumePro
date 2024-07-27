@@ -25,6 +25,7 @@ public partial class ResumeCardComponent
     private void GeneratePdf(int resumeId)
     {
         // Logic to generate PDF
+        NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resumeId}/pdf");
     }
 
     private void DeleteResume(int resumeId)

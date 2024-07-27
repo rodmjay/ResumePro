@@ -10,9 +10,9 @@ namespace ResumePro.Api.Testing.TestData;
 
 public class PersonTestData
 {
-    public static IEnumerable<PersonaOptions> ValidOptions()
+    public static IEnumerable<PersonOptions> ValidOptions()
     {
-        return new List<PersonaOptions>
+        return new List<PersonOptions>
         {
             new()
             {

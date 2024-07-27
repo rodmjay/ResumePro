@@ -10,5 +10,5 @@ namespace ResumePro.Generation;
 
 public interface IResumeGenerator
 {
-    string ExecuteOperation(ResumeDetails resume);
+    MemoryStream ExecuteOperation(ResumeDetails resume);
 }

@@ -13,7 +13,7 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Generation;
 
-public class PdfResumeGenerator : IResumeGenerator
+public class PdfResumeGenerator(PdfSettings settings) : IResumeGenerator
 {
     public enum ResumeSectionType
     {
@@ -24,25 +24,15 @@ public class PdfResumeGenerator : IResumeGenerator
         ItalicText
     }
 
-    private readonly PdfSettings _settings;
 
-
-    public PdfResumeGenerator(PdfSettings settings)
-    {
-        _settings = settings;
-    }
-
-
-    public string ExecuteOperation(ResumeDetails resumeDetails)
+    public MemoryStream ExecuteOperation(ResumeDetails resumeDetails)
     {
         var document = BuildResumePdf(resumeDetails);
-        var fileName = SaveResume(document, resumeDetails);
 
-        if (_settings.CreateUpdatePdf)
-            if (_settings.DisplayInExplorer)
-                Process.Start("explorer", fileName);
-
-        return fileName;
+        MemoryStream stream = new MemoryStream();
+        document.Save(stream);
+        stream.Position = 0;
+        return stream;
     }
 
     private static IEnumerable<ResumeSection> GetResumeSections(ResumeDetails resumeDetails)
@@ -224,11 +214,11 @@ public class PdfResumeGenerator : IResumeGenerator
         const double pageHeight = 842; // A4 size height
         const double bottomMargin = 60;
 
-        var titleFont = new XFont(_settings.FontFamily, 20, XFontStyleEx.Bold);
-        var headerFont = new XFont(_settings.FontFamily, 14, XFontStyleEx.Bold);
-        var regularFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Regular);
-        var italicFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Italic);
-        var boldFont = new XFont(_settings.FontFamily, 12, XFontStyleEx.Bold);
+        var titleFont = new XFont(settings.FontFamily, 20, XFontStyleEx.Bold);
+        var headerFont = new XFont(settings.FontFamily, 14, XFontStyleEx.Bold);
+        var regularFont = new XFont(settings.FontFamily, 12, XFontStyleEx.Regular);
+        var italicFont = new XFont(settings.FontFamily, 12, XFontStyleEx.Italic);
+        var boldFont = new XFont(settings.FontFamily, 12, XFontStyleEx.Bold);
 
         var currentY = margin;
         XGraphics gfx = null;

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Components;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
-namespace ResumePro.App.Pages;
+namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumePage
 {
@@ -26,7 +26,7 @@ public partial class ResumePage
 
     private async Task Regenerate()
     {
-        ResumeDetails = await ResumeController.Generate(PersonId, ResumeId);
+        // ResumeDetails = await ResumeController.Generate(PersonId, ResumeId);
     }
 
     protected override void OnInitialized()

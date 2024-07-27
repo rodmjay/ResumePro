@@ -13,7 +13,7 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.AI.Services;
 
-public class ChatGptService(IServiceProvider serviceProvider)
+public sealed class ChatGptService(IServiceProvider serviceProvider)
     : BaseService<ApiKey>(serviceProvider), IChatGptService
 {
     private IQueryable<ApiKey> ApiKeys => Repository.Queryable();

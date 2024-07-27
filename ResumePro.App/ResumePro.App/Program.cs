@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.App.Extensions;
+using System.Security.Claims;
 
 namespace ResumePro.App;
 
@@ -39,6 +40,9 @@ public class Program
             builder.Configuration.Bind("OidcConfiguration", options.ProviderOptions);
             builder.Configuration.Bind("UserOptions", options.UserOptions);
             builder.Configuration.Bind("AuthenticationPaths", options.AuthenticationPaths);
+
+            options.UserOptions.NameClaim = ClaimTypes.NameIdentifier;
+            options.UserOptions.RoleClaim = ClaimTypes.Role;
         });
         //builder.Services.AddAuthorizationCore(authorizationOptions =>
         //{

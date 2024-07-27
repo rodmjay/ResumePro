@@ -4,11 +4,36 @@
 
 #endregion
 
+using System.Configuration;
 using System.Linq.Expressions;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using ResumePro.Core.Middleware.Builders;
 using ResumePro.Core.Queries;
+using ResumePro.Generation;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Extensions;
+
+public static class AppBuilderExtensions
+{
+    public static AppBuilder RegisterPdfGeneration(this AppBuilder builder)
+    {
+        if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+        {
+            builder.Services.AddSingleton<IPdfStorage>(
+                new LocalPdfStorageStrategy(Path.Combine(Environment.CurrentDirectory, "StoredPdfs")));
+        }
+        else
+        {
+            var blobServiceClient = new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobStorage"));
+            builder.Services.AddSingleton<IPdfStorage>(new AzureBlobPdfStorage(blobServiceClient, "pdfs"));
+        }
+
+        return builder;
+    }
+}
 
 public static class CountryFiltersExtensions
 {
