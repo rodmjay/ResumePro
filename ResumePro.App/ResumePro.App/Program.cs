@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.App.Extensions;
-using ResumePro.App.Services;
 using System.Security.Claims;
 
 namespace ResumePro.App;

@@ -10,7 +10,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class DegreeMapping : Profile
+public sealed class DegreeMapping : Profile
 {
     public DegreeMapping()
     {

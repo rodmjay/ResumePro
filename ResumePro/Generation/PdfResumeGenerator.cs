@@ -4,9 +4,7 @@
 
 #endregion
 
-using System.Diagnostics;
 using System.Text;
-using NuGet.Versioning;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using ResumePro.Shared.Extensions;

@@ -8,6 +8,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Runtime.CompilerServices;
 using System.Security.Authentication;
+using Dawn;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -64,6 +65,9 @@ public class ExceptionMiddleware(
 
     private void LogAndAddException(ValidationResultModel modelResult, Exception exception)
     {
+        Guard.Argument(exception)
+            .NotNull();
+        
         var exLogger = loggerFactory.CreateLogger(exception.TargetSite.DeclaringType.FullName);
         exLogger?.LogError(exception, exception.Message);
         modelResult.Errors.Add(new ValidationError(null, exception.Message));

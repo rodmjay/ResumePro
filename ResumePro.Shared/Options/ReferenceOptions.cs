@@ -5,10 +5,12 @@
 #endregion
 
 using System.ComponentModel.DataAnnotations;
+using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Options;
 
-public class ReferenceOptions
+public class ReferenceOptions : IText, IName, IOrder
 {
     [MaxLength(1024)]
     [Required] public string Text { get; set; }

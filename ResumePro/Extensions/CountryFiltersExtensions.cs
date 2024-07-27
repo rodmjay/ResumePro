@@ -4,13 +4,12 @@
 
 #endregion
 
-using System.Configuration;
 using System.Linq.Expressions;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ResumePro.Core.Builders;
 using ResumePro.Core.Middleware.Builders;
-using ResumePro.Core.Queries;
 using ResumePro.Generation;
 using ResumePro.Shared.Models;
 

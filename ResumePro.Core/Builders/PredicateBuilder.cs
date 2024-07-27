@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 
-namespace ResumePro.Core.Queries;
+namespace ResumePro.Core.Builders;
 
 [ExcludeFromCodeCoverage]
 public static class PredicateBuilder
@@ -44,7 +44,7 @@ public static class PredicateBuilder
     public static Expression<Func<T, bool>> BuildLikeExpression<T>(string[] keywords,
         Expression<Func<T, string>> action)
     {
-        var body = (MemberExpression) action.Body;
+        var body = (MemberExpression)action.Body;
         var name = body.Member.Name;
 
         Expression expression = null!;

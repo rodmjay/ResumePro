@@ -10,7 +10,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class HighlightsMappings : Profile
+public sealed class HighlightsMappings : Profile
 {
     public HighlightsMappings()
     {

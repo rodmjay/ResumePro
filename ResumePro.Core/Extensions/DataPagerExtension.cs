@@ -7,8 +7,8 @@
 using System.Linq.Expressions;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using ResumePro.Core.Builders;
 using ResumePro.Core.Data.Interfaces;
-using ResumePro.Core.Queries;
 using ResumePro.Core.Services.Interfaces;
 using ResumePro.Shared.Common;
 

@@ -5,10 +5,7 @@
 #endregion
 
 using System.Reflection;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using ResumePro.Context;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
@@ -40,48 +37,8 @@ public sealed class Startup(
 
         var restBuilder = webAppBuilder.ConfigureRest()
             .AddCors()
-            .AddAuthorization(policy =>
-            {
-                policy.RequireAuthenticatedUser();
-
-                var scopes = builder.AppSettings.Audience.Split(" ");
-                foreach (var scope in scopes) policy.RequireClaim("scope", scope);
-            })
-            .AddBearerAuthentication(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.Authority = builder.AppSettings.Authority;
-                options.Audience = builder.AppSettings.Audience;
-
-                if (identityServerMessageHandler != null)
-                    options.BackchannelHttpHandler = identityServerMessageHandler;
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false,
-                    ValidAudience = builder.AppSettings.Audience,
-                    ValidateIssuer = true,
-                    ValidIssuer = builder.AppSettings.Authority,
-                    NameClaimType = ClaimTypes.NameIdentifier,
-                    RoleClaimType = ClaimTypes.Role
-                };
-
-                options.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = c =>
-                    {
-                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace("Authentication Failure");
-                        return Task.FromResult(0);
-                    },
-                    OnTokenValidated = c =>
-                    {
-                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace("Authentication Success");
-                        return Task.FromResult(0);
-                    }
-                };
-            })
+            .AddAuthorization()
+            .AddBearerAuthentication(identityServerMessageHandler)
             .AddSwagger(thisAssembly);
     }
 

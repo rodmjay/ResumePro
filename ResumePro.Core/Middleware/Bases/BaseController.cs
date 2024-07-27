@@ -4,11 +4,9 @@
 
 #endregion
 
-using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using ResumePro.Core.Extensions;
 using ResumePro.Core.Settings;
 using ResumePro.Shared.Extensions;
 

@@ -5,7 +5,6 @@
 #endregion
 
 using System.Net;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;

@@ -10,7 +10,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class PersonMapping : Profile
+public sealed class PersonMapping : Profile
 {
     public PersonMapping()
     {

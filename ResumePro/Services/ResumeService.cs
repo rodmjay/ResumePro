@@ -6,7 +6,6 @@
 
 using HandlebarsDotNet;
 using Microsoft.Extensions.Logging;
-using ResumePro.Entities;
 using ResumePro.Generation;
 using ResumePro.Shared.Models;
 

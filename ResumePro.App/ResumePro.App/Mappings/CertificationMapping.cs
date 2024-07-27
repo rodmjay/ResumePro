@@ -10,13 +10,11 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class CertificationMapping : Profile
+public sealed class CertificationMapping : Profile
 {
     public CertificationMapping()
     {
         CreateMap<CertificationDto, CertificationOptions>()
-            .ForMember(x => x.Body, opt => opt.MapFrom(x => x.Body))
-            .ForMember(x => x.Date, opt => opt.MapFrom(x => x.Date))
-            .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Name));
+            .ForMember(x => x.Date, opt => opt.MapFrom(x => x.Date));
     }
 }

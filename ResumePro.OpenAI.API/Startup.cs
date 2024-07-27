@@ -5,10 +5,7 @@
 #endregion
 
 using System.Reflection;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using ResumePro.AI.Contexts;
 using ResumePro.AI.Services;
 using ResumePro.Core.Extensions;
@@ -17,20 +14,13 @@ using ResumePro.Core.Settings;
 
 namespace ResumePro.OpenAI.Api;
 
-public class Startup
+public class Startup(
+    IConfiguration configuration,
+    IWebHostEnvironment environment,
+    HttpMessageHandler identityServerMessageHandler = null)
 {
-    private readonly HttpMessageHandler _identityServerMessageHandler;
-
-    public Startup(IConfiguration configuration, IWebHostEnvironment environment,
-        HttpMessageHandler identityServerMessageHandler = null)
-    {
-        _identityServerMessageHandler = identityServerMessageHandler;
-        Configuration = configuration;
-        Environment = environment;
-    }
-
-    public IWebHostEnvironment Environment { get; }
-    public IConfiguration Configuration { get; }
+    public IWebHostEnvironment Environment { get; } = environment;
+    public IConfiguration Configuration { get; } = configuration;
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -47,49 +37,9 @@ public class Startup
 
         var restBuilder = webAppBuilder.ConfigureRest()
             .AddCors()
-            .AddAuthorization(policy =>
-            {
-                policy.RequireAuthenticatedUser();
-
-                var scopes = builder.AppSettings.Audience.Split(" ");
-                foreach (var scope in scopes) policy.RequireClaim("scope", scope);
-            })
-            .AddBearerAuthentication(options =>
-            {
-                options.RequireHttpsMetadata = false;
-                options.Authority = builder.AppSettings.Authority;
-                options.Audience = builder.AppSettings.Audience;
-
-                if (_identityServerMessageHandler != null)
-                    options.BackchannelHttpHandler = _identityServerMessageHandler;
-
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateAudience = false,
-                    ValidAudience = builder.AppSettings.Audience,
-                    ValidateIssuer = true,
-                    ValidIssuer = builder.AppSettings.Authority,
-                    NameClaimType = ClaimTypes.NameIdentifier,
-                    RoleClaimType = ClaimTypes.Role
-                };
-
-                options.Events = new JwtBearerEvents
-                {
-                    OnAuthenticationFailed = c =>
-                    {
-                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace("Authentication Failure");
-                        return Task.FromResult(0);
-                    },
-                    OnTokenValidated = c =>
-                    {
-                        var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
-                        logger.LogTrace("Authentication Success");
-                        return Task.FromResult(0);
-                    }
-                };
-            })
-            .AddSwagger(thisAssembly);
+            .AddAuthorization()
+            .AddBearerAuthentication(identityServerMessageHandler)
+            .AddSwagger(thisAssembly!);
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env,

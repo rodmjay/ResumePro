@@ -6,7 +6,6 @@
 
 using Blazorise.Localization;
 using Microsoft.AspNetCore.Components;
-using ResumePro.App.Services;
 
 namespace ResumePro.App.Layouts;
 

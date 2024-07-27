@@ -10,7 +10,7 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class JobMappings : Profile
+public sealed class JobMappings : Profile
 {
     public JobMappings()
     {

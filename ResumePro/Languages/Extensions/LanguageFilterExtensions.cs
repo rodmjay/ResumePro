@@ -5,7 +5,7 @@
 #endregion
 
 using System.Linq.Expressions;
-using ResumePro.Core.Queries;
+using ResumePro.Core.Builders;
 using ResumePro.Languages.Entities;
 using ResumePro.Languages.Models;
 

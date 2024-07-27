@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
 using System.Security.Claims;
 using ResumePro.Shared.Extensions;
 

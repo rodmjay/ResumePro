@@ -6,10 +6,14 @@
 
 using System.Globalization;
 using System.Reflection;
+using System.Security.Claims;
 using HandlebarsDotNet;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using ResumePro.Core.Middleware.Builders;
 
 namespace ResumePro.Core.Extensions;
@@ -45,6 +49,18 @@ public static class AppBuilderExtensions
         return builder;
     }
 
+    public static RestApiBuilder AddAuthorization(this RestApiBuilder builder)
+    {
+        builder.AddAuthorization(policy =>
+        {
+            policy.RequireAuthenticatedUser();
+
+            var scopes = builder.AppSettings.Audience.Split(" ");
+            foreach (var scope in scopes) policy.RequireClaim("scope", scope);
+        });
+        return builder;
+    }
+    
     public static RestApiBuilder AddAuthorization(this RestApiBuilder builder,
         Action<AuthorizationPolicyBuilder> action)
     {
@@ -62,6 +78,48 @@ public static class AppBuilderExtensions
 
         return builder;
     }
+
+    public static RestApiBuilder AddBearerAuthentication(this RestApiBuilder builder, HttpMessageHandler? handler)
+    {
+        builder.AddBearerAuthentication(options =>
+        {
+            options.RequireHttpsMetadata = false;
+            options.Authority = builder.AppSettings.Authority;
+            options.Audience = builder.AppSettings.Audience;
+
+            if (handler != null)
+                options.BackchannelHttpHandler = handler;
+
+            options.TokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateAudience = false,
+                ValidAudience = builder.AppSettings.Audience,
+                ValidateIssuer = true,
+                ValidIssuer = builder.AppSettings.Authority,
+                NameClaimType = ClaimTypes.NameIdentifier,
+                RoleClaimType = ClaimTypes.Role
+            };
+
+            options.Events = new JwtBearerEvents
+            {
+                OnAuthenticationFailed = c =>
+                {
+                    var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
+                    logger.LogTrace("Authentication Failure");
+                    return Task.FromResult(0);
+                },
+                OnTokenValidated = c =>
+                {
+                    var logger = c.HttpContext.RequestServices.GetRequiredService<ILogger<StartupBase>>();
+                    logger.LogTrace("Authentication Success");
+                    return Task.FromResult(0);
+                }
+            };
+        });
+        return builder;
+    }
+
+
 
     private static AppBuilder RegisterAllErrorDescribers(this AppBuilder builder, Assembly assembly)
     {

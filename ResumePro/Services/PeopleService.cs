@@ -5,7 +5,7 @@
 #endregion
 
 using Microsoft.Extensions.Logging;
-using ResumePro.Core.Queries;
+using ResumePro.Core.Builders;
 using ResumePro.Extensions;
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Models;

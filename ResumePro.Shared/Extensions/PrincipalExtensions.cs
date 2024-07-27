@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Shared.Interfaces;
 using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Principal;

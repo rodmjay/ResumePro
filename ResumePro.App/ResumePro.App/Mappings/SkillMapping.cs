@@ -10,13 +10,11 @@ using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Mappings;
 
-public class SkillMapping : Profile
+public sealed class SkillMapping : Profile
 {
     public SkillMapping()
     {
         CreateMap<PersonaSkillDto, PersonaSkillsOptions>()
             .ForMember(x=>x.SkillId, opt=>opt.MapFrom(x=>x.SkillId));
     }
-    
-    
 }
