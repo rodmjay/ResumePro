@@ -4,13 +4,13 @@
     <Div>
 
 
-        @foreach (var entry in CategorySkills)
+        @foreach (KeyValuePair<string, Dictionary<string, int>> entry in CategorySkills)
         {
             <Heading Size="HeadingSize.Is5" Margin="Margin.Is2.FromBottom">
                 @entry.Key
             </Heading>
             <Fields ColumnSize="ColumnSize.IsFull" Gap="Gap.Is0" Margin="Margin.Is3.FromBottom">
-                @foreach (var entry2 in entry.Value)
+                @foreach (KeyValuePair<string, int> entry2 in entry.Value)
                 {
 
                     <Field ColumnSize="ColumnSize.Is2">

@@ -13,12 +13,12 @@ namespace ResumePro.App.Components.People
             PersonFilters.Skills.Clear();
             PersonFilters.States.Clear();
 
-            foreach (var kvp in StateStates)
+            foreach (KeyValuePair<int, bool> kvp in StateStates)
             {
                 StateStates[kvp.Key] = false;
             }
 
-            foreach (var kvp in SkillStates)
+            foreach (KeyValuePair<int, bool> kvp in SkillStates)
             {
                 SkillStates[kvp.Key] = false;
             }
@@ -50,19 +50,19 @@ namespace ResumePro.App.Components.People
 
             FilterContainer = await FiltersController.GetFilters();
 
-            var categories = FilterContainer.Skills.SelectMany(x => x.Categories)
+            List<string> categories = FilterContainer.Skills.SelectMany(x => x.Categories)
                 .Distinct()
                 .ToList();
 
-            foreach (var category in categories)
+            foreach (string category in categories)
             {
                 SkillDictionary.TryAdd(category, new List<SkillDto>());
             }
 
-            foreach (var skill in FilterContainer.Skills)
+            foreach (SkillDto skill in FilterContainer.Skills)
             {
                 SkillStates.TryAdd(skill.Id, false);
-                foreach (var category in skill.Categories)
+                foreach (string category in skill.Categories)
                 {
                     if (SkillDictionary.ContainsKey(category))
                     {
@@ -76,7 +76,7 @@ namespace ResumePro.App.Components.People
                 }
             }
 
-            foreach (var state in FilterContainer.States)
+            foreach (StateProvinceOutput state in FilterContainer.States)
             {
                 StateStates.TryAdd(state.Id, false);
             }

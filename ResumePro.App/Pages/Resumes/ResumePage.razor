@@ -1,6 +1,5 @@
 ﻿@page "/people/{PersonId:int}/resumes/{ResumeId:int}"
-@using Microsoft.AspNetCore.Authorization
-
+@inherits PersonPageBase
 @attribute [Authorize]
 
 @if (ResumeDetails != null)

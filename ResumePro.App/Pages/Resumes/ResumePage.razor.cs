@@ -6,22 +6,22 @@
 
 using System.Web;
 using Microsoft.AspNetCore.Components;
+using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Common;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.App.Pages.Resumes;
 
-public partial class ResumePage
+public partial class ResumePage : PersonPageBase
 {
     private bool ShowModal = false;
     private string currentTab;
     [Inject] private IResumeController ResumeController { get; set; }
 
-    [Inject] public NavigationManager NavigationManager { get; set; }
 
     [Parameter] public int ResumeId { get; set; }
-
-    [Parameter] public int PersonId { get; set; }
 
     private ResumeDetails ResumeDetails { get; set; }
 
@@ -32,7 +32,7 @@ public partial class ResumePage
 
     protected override void OnInitialized()
     {
-        var uri = new Uri(NavigationManager.Uri);
+        Uri uri = new Uri(NavigationManager.Uri);
         currentTab = HttpUtility.ParseQueryString(uri.Query).Get("tab") ?? "home";
     }
 
@@ -65,9 +65,11 @@ public partial class ResumePage
 
     private async Task DeleteResume()
     {
-        var result = await ResumeController.DeleteResume(PersonId, ResumeId);
+        Result result = await ResumeController.DeleteResume(PersonId, ResumeId);
         if (result.Succeeded)
         {
+            await EventAggregator.PublishAsync(new ResumeDeletedEvent());
+
             NavigationManager.NavigateTo($"/people/{PersonId}/?tab=resumes");
         }
     }

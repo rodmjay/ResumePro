@@ -16,9 +16,10 @@ public partial class PersonFormComponent : FormComponent<PersonOptions>
 {
     private FilterContainer filterContainer = new();
 
-    [Inject] public IFiltersController FiltersController { get; set; }
+    [Inject]
+    public IFiltersController FiltersController { get; set; }
 
-    public List<StateProvinceOutput> DropdownItems { get; set; }
+    public List<StateProvinceOutput> DropdownItems { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {

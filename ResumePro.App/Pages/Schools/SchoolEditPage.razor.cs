@@ -4,9 +4,11 @@
 
 #endregion
 
-using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Common;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -16,10 +18,6 @@ namespace ResumePro.App.Pages.Schools;
 
 public partial class SchoolEditPage : PersonPageBase
 {
-    [Inject] public IMapper Mapper { get; set; }
-
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
     [Inject] public ISchoolsController SchoolsController { get; set; }
 
     [Parameter] public int SchoolId { get; set; }
@@ -37,14 +35,23 @@ public partial class SchoolEditPage : PersonPageBase
 
     private async Task HandleDelete()
     {
-        var response = await SchoolsController.DeleteSchool(PersonId, SchoolId);
-        if (response.Succeeded) NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        Result response = await SchoolsController.DeleteSchool(PersonId, SchoolId);
+        if (response.Succeeded)
+        {
+            await EventAggregator.PublishAsync(new SchoolDeletedEvent());
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        }
     }
 
     private async Task HandleValidSubmit(SchoolOptions options)
     {
-        var response = await SchoolsController.UpdateSchool(PersonId, SchoolId, options);
-        if (response.IsSuccessStatusCode()) NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        ActionResult<SchoolDetails> response = await SchoolsController.UpdateSchool(PersonId, SchoolId, options);
+        if (response.IsSuccessStatusCode())
+        {
+            SchoolDetails school = response.GetObject();
+            await EventAggregator.PublishAsync(new SchoolUpdatedEvent(school));
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        }
     }
 
     private void HandleCancelled()

@@ -5,9 +5,12 @@
 #endregion
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages.Jobs;
@@ -18,14 +21,13 @@ public partial class JobCreatePage : PersonPageBase
 
     [Inject] public IJobsController JobsProxy { get; set; }
 
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
     private async Task HandleValidSubmit(JobOptions savedJob)
     {
-        var response = await JobsProxy.CreateJob(PersonId, savedJob);
+        ActionResult<JobDetails> response = await JobsProxy.CreateJob(PersonId, savedJob);
         if (response.IsSuccessStatusCode())
         {
-            var job = response.GetObject();
+            JobDetails job = response.GetObject();
+            await EventAggregator.PublishAsync(new JobCreatedEvent(job));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
         }
     }

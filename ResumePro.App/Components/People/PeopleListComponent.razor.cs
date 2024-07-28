@@ -43,7 +43,7 @@ public partial class PeopleListComponent
 
     private async Task HandlePageChanged(DataGridPageChangedEventArgs args)
     {
-        var reload = false;
+        bool reload = false;
 
         if (PagedList.CurrentPage != args.Page)
         {

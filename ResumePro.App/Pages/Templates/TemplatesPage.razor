@@ -1,5 +1,6 @@
 ﻿@page "/templates"
 @using Microsoft.AspNetCore.Authorization
+@using ResumePro.Shared.Models
 
 @attribute [Authorize]
 
@@ -14,7 +15,7 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    @foreach (var template in TemplateRecords)
+                    @foreach (TemplateDto template in TemplateRecords)
                     {
                         <button class="nav-link custom-tab @(SelectedTemplate != null && SelectedTemplate.Id == template.Id ? "active" : "")"
                                 @onclick="() => SelectTemplate(template)">

@@ -1,4 +1,5 @@
-﻿@if (FilterContainer != null)
+﻿@using ResumePro.Shared.Models
+@if (FilterContainer != null)
 {
     
     <Container Margin="Margin.Is3.FromBottom">
@@ -6,7 +7,7 @@
             <DropdownToggle Color="Color.Primary">Select States (@PersonFilters.States.Count)</DropdownToggle>
             <DropdownMenu MaxMenuHeight="200px">
 
-                @foreach (var state in FilterContainer.States)
+                @foreach (StateProvinceOutput state in FilterContainer.States)
                 {
                     <DropdownItem ShowCheckbox="true" Checked="StateStates[state.Id]" CheckedChanged="() => ToggleState(state.Id)">
                         @state.Name
@@ -20,12 +21,12 @@
                 Select Skills (@PersonFilters.Skills.Count)
             </DropdownToggle>
             <DropdownMenu MaxMenuHeight="200px">
-                @foreach (var kvp in SkillDictionary)
+                @foreach (KeyValuePair<string, List<SkillDto>> kvp in SkillDictionary)
                 {
                     <Dropdown>
                         <DropdownToggle>@kvp.Key</DropdownToggle>
                         <DropdownMenu MaxMenuHeight="300px">
-                            @foreach (var skill in kvp.Value)
+                            @foreach (SkillDto skill in kvp.Value)
                             {
                                 <DropdownItem Checked="SkillStates[skill.Id]" ShowCheckbox="true" CheckedChanged="()=>ToggleSkill(skill.Id)">
                                     @skill.Title

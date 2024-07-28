@@ -23,9 +23,9 @@ public static class WebAssemblyHostBuilderExtensions
         builder.Services
             .AddTransient<AiApiAuthorizationMessageHandler>();
 
-        var resumeProApiUrl = new Uri(builder.Configuration["ApiBase"]);
-        var resumeProUsersApiUrl = new Uri(builder.Configuration["UserApiBase"]);
-        var aiApiUrl = new Uri(builder.Configuration["AIApiBase"]);
+        Uri resumeProApiUrl = new Uri(builder.Configuration["ApiBase"]);
+        Uri resumeProUsersApiUrl = new Uri(builder.Configuration["UserApiBase"]);
+        Uri aiApiUrl = new Uri(builder.Configuration["AIApiBase"]);
 
         builder.Services.AddHttpClient<ITextController, ChatGptProxy>(
                 client => client.BaseAddress = aiApiUrl)

@@ -1,4 +1,5 @@
-﻿@using Blazorise.Localization
+﻿@using System.Globalization
+@using Blazorise.Localization
 <Bar @bind-Visible="@topbarVisible" Breakpoint="Breakpoint.Desktop" Background="Background.Primary" ThemeContrast="ThemeContrast.Light">
     <BarBrand>
         <BarItem>
@@ -51,7 +52,7 @@
                 <BarDropdown RightAligned>
                     <BarDropdownToggle><Icon Name="IconName.Language"/></BarDropdownToggle>
                     <BarDropdownMenu>
-                        @foreach (var cultureInfo in LocalizationService!.AvailableCultures)
+                        @foreach (CultureInfo cultureInfo in LocalizationService!.AvailableCultures)
                         {
                             <BarDropdownItem @key="@cultureInfo.Name" Clicked="@(() => SelectCulture(cultureInfo.Name))">
                                 @if (cultureInfo.IsNeutralCulture)

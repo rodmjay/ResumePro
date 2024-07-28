@@ -1,7 +1,4 @@
 ﻿@page "/people/create"
-@using ResumePro.App.Components.People
-@using ResumePro.Shared.Extensions
-@using ResumePro.Shared.Interfaces
 
 <div class="container sticky-top mt-3">
     <Breadcrumb>
@@ -23,26 +20,3 @@
     </Row>
 
 </Container>
-
-@code {
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
-    [Inject] public IPeopleController Controller { get; set; }
-
-    public PersonOptions Options { get; set; } = new();
-
-    private async Task HandleValidSubmit(PersonOptions options)
-    {
-        var response = await Controller.CreatePerson(options);
-        if (response.IsSuccessStatusCode())
-        {
-            var person = response.GetObject();
-            NavigationManager.NavigateTo($"/people/{person.Id}");
-        }
-    }
-
-    private void HandleCancelled()
-    {
-        NavigationManager.NavigateTo($"/");
-    }
-}

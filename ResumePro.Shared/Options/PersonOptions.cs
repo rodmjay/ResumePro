@@ -26,11 +26,14 @@ public class PersonOptions : ICity, IPhoneNumber, IFirstAndLastName, IEmail, IGi
 
     [Required]
     [MaxLength(64)]
+    [EmailAddress]
     public string Email { get; set; }
 
     [MaxLength(64)]
+    [Url]
     public string GitHub { get; set; }
 
     [MaxLength(64)]
+    [Url]
     public string LinkedIn { get; set; }
 }

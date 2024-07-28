@@ -6,22 +6,23 @@
 
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Common;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages.References;
 
 public partial class ReferenceEditPage : PersonPageBase
 {
-    [Inject] public IMapper Mapper { get; set; }
 
     [Parameter] public int ReferenceId { get; set; }
 
     public ReferenceOptions Options { get; set; }
-
-    [Inject] public NavigationManager NavigationManager { get; set; }
 
     [Inject] public IReferencesController ReferencesController { get; set; }
 
@@ -29,16 +30,19 @@ public partial class ReferenceEditPage : PersonPageBase
     {
         await base.OnParametersSetAsync();
 
-        var reference = await ReferencesController.Get(PersonId, ReferenceId);
+        ReferenceDto reference = await ReferencesController.Get(PersonId, ReferenceId);
 
         Options = Mapper.Map<ReferenceOptions>(reference);
     }
 
     private async Task HandleValidSubmit(ReferenceOptions options)
     {
-        var response = await ReferencesController.UpdateReference(PersonId, ReferenceId, options);
+        ActionResult<ReferenceDto> response = await ReferencesController.UpdateReference(PersonId, ReferenceId, options);
         if (response.IsSuccessStatusCode())
         {
+            ReferenceDto reference = response.GetObject();
+            await EventAggregator.PublishAsync(new ReferenceUpdatedEvent(reference));
+
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
         }
     }
@@ -50,7 +54,11 @@ public partial class ReferenceEditPage : PersonPageBase
 
     private async Task HandleDelete()
     {
-        var result = await ReferencesController.DeleteReference(PersonId, ReferenceId);
-        if (result.Succeeded) NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
+        Result result = await ReferencesController.DeleteReference(PersonId, ReferenceId);
+        if (result.Succeeded)
+        {
+            await EventAggregator.PublishAsync(new ReferenceDeletedEvent());
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
+        }
     }
 }

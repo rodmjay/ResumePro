@@ -1,4 +1,5 @@
-﻿@inherits ResumePro.App.Components.Bases.FormComponent<PersonOptions>
+﻿@using ResumePro.Shared.Models
+@inherits ResumePro.App.Components.Bases.FormComponent<PersonOptions>
 
 <FormCard TOptions="PersonOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
     <Validation>
@@ -46,8 +47,7 @@
             <FieldLabel ColumnSize="ColumnSize.Is2">State</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <Select TValue="int" @bind-SelectedValue="@Options.StateId">
-
-                    @foreach (var state in filterContainer.States)
+                    @foreach (StateProvinceOutput state in DropdownItems)
                     {
                         <SelectItem Value="@state.Id">@state.Name</SelectItem>
                     }

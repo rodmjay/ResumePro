@@ -1,11 +1,12 @@
-﻿<Card Margin="Margin.Is2.FromBottom">
+﻿@using ResumePro.Shared.Models
+<Card Margin="Margin.Is2.FromBottom">
     <CardHeader>
         <Strong>@School.Name, @School.Location</Strong> (@School.StartDate.ToShortDateString() - @School.EndDate?.ToShortDateString())
     </CardHeader>
     <CardBody>
         <CardText>
             <UnorderedList>
-                @foreach (var degree in School.Degrees)
+                @foreach (DegreeDto degree in School.Degrees)
                 {
                     <UnorderedListItem>@degree.Name</UnorderedListItem>
                 }

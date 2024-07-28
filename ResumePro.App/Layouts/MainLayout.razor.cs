@@ -5,7 +5,10 @@
 #endregion
 
 using Blazorise.Localization;
+using Blazorise.Snackbar;
+using EventAggregator.Blazor;
 using Microsoft.AspNetCore.Components;
+using ResumePro.Shared.Events;
 
 namespace ResumePro.App.Layouts;
 
@@ -13,7 +16,7 @@ public partial class MainLayout
 {
     //[Inject]
     //private TokenExpirationService tokenExpirationService { get; set; }
-    
+
     protected string layoutType = "sider-with-header-on-top";
     [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 

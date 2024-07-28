@@ -26,7 +26,7 @@ namespace ResumePro.App.Components.Resumes
         protected override async Task OnInitializedAsync()
         {
 
-            var authState = await AuthState.GetAuthenticationStateAsync();
+            AuthenticationState authState = await AuthState.GetAuthenticationStateAsync();
 
             user = authState.User;
 

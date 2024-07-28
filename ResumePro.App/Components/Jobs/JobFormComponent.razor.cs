@@ -49,17 +49,17 @@ public partial class JobFormComponent : FormComponent<JobOptions>
         
         PersonSkills = await PersonSkillsController.GetSkills(PersonId);
 
-        var categories = PersonSkills.SelectMany(x => x.Categories).Distinct();
+        IEnumerable<string> categories = PersonSkills.SelectMany(x => x.Categories).Distinct();
 
 
-        foreach (var category in categories)
+        foreach (string category in categories)
         {
             CategorySkills[category] = new Dictionary<string, int>();
         }
 
-        foreach (var skill in PersonSkills)
+        foreach (PersonaSkillDto skill in PersonSkills)
         {
-            foreach (var category in skill.Categories)
+            foreach (string category in skill.Categories)
             {
                 if (!CategorySkills[category].ContainsKey(skill.Name))
                 {
@@ -68,7 +68,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
             }
         }
 
-        foreach (var skill in PersonSkills)
+        foreach (PersonaSkillDto skill in PersonSkills)
         {
             SkillCheckStates[skill.SkillId] = Options.JobSkillIds.Contains(skill.SkillId);
         }
@@ -82,7 +82,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index > 0 && index < Options.HighlightOptions.Count)
         {
-            var item = Options.HighlightOptions[index];
+            HighlightOptions item = Options.HighlightOptions[index];
             Options.HighlightOptions.RemoveAt(index);
             Options.HighlightOptions.Insert(index - 1, item);
         }
@@ -92,7 +92,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index > 0 && index < projectOptions.HighlightOptions.Count)
         {
-            var item = projectOptions.HighlightOptions[index];
+            HighlightOptions item = projectOptions.HighlightOptions[index];
             projectOptions.HighlightOptions.RemoveAt(index);
             projectOptions.HighlightOptions.Insert(index - 1, item);
         }
@@ -102,7 +102,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index >= 0 && index < projectOptions.HighlightOptions.Count - 1)
         {
-            var item = projectOptions.HighlightOptions[index];
+            HighlightOptions item = projectOptions.HighlightOptions[index];
             projectOptions.HighlightOptions.RemoveAt(index);
             projectOptions.HighlightOptions.Insert(index + 1, item);
         }
@@ -112,7 +112,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index >= 0 && index < Options.ProjectOptions.Count - 1)
         {
-            var item = Options.ProjectOptions[index];
+            ProjectOptions item = Options.ProjectOptions[index];
             Options.ProjectOptions.RemoveAt(index);
             Options.ProjectOptions.Insert(index + 1, item);
         }
@@ -122,7 +122,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index >= 0 && index < Options.ProjectOptions.Count - 1)
         {
-            var item = Options.ProjectOptions[index];
+            ProjectOptions item = Options.ProjectOptions[index];
             Options.ProjectOptions.RemoveAt(index);
             Options.ProjectOptions.Insert(index + 1, item);
         }
@@ -132,7 +132,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
     {
         if (index >= 0 && index < Options.HighlightOptions.Count - 1)
         {
-            var item = Options.HighlightOptions[index];
+            HighlightOptions item = Options.HighlightOptions[index];
             Options.HighlightOptions.RemoveAt(index);
             Options.HighlightOptions.Insert(index + 1, item);
         }
@@ -145,7 +145,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
 
     private async Task Rephrase(HighlightOptions highlight)
     {
-        var result = await TextController.Professionalize(new ChatOptions()
+        ChatResult result = await TextController.Professionalize(new ChatOptions()
         {
             InputText = highlight.Text
         });
@@ -154,7 +154,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
 
     private async Task Rephrase(JobOptions job)
     {
-        var result = await TextController.Professionalize(new ChatOptions()
+        ChatResult result = await TextController.Professionalize(new ChatOptions()
         {
             InputText = job.Description
         });
@@ -163,7 +163,7 @@ public partial class JobFormComponent : FormComponent<JobOptions>
 
     private async Task Rephrase(ProjectOptions project)
     {
-        var result = await TextController.Professionalize(new ChatOptions()
+        ChatResult result = await TextController.Professionalize(new ChatOptions()
         {
             InputText = project.Description
         });

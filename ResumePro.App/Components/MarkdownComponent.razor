@@ -7,7 +7,7 @@
     private string RenderMarkdownToHtml(string markdown)
     {
         // Configure the pipeline with advanced extensions if needed
-        var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
+        MarkdownPipeline pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
         return Markdown.ToHtml(markdown, pipeline);
     }
 

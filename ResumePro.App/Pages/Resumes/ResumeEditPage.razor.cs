@@ -6,7 +6,9 @@
 
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -17,8 +19,6 @@ namespace ResumePro.App.Pages.Resumes;
 public partial class ResumeEditPage : PersonPageBase
 {
     private ResumeOptions Options = new();
-
-    [Inject] public NavigationManager NavigationManager { get; set; }
 
     [Parameter] public int ResumeId { get; set; }
 
@@ -38,10 +38,13 @@ public partial class ResumeEditPage : PersonPageBase
 
     private async Task HandleValidSubmit(ResumeOptions savedResume)
     {
-        var response = await ResumeController.UpdateResume(PersonId, ResumeId, savedResume);
+        ActionResult<ResumeDetails> response = await ResumeController.UpdateResume(PersonId, ResumeId, savedResume);
         if (response.IsSuccessStatusCode())
         {
-            var resume = response.GetObject();
+            ResumeDetails resume = response.GetObject();
+
+            await EventAggregator.PublishAsync(new ResumeUpdatedEvent(resume));
+
             NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resume.Id}");
         }
     }

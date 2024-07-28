@@ -10,7 +10,7 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.App.Pages.Bases;
 
-public abstract class PersonPageBase : ComponentBase
+public abstract class PersonPageBase : AuthenticatedPageBase
 {
     [Inject] public IPeopleController PeopleController { get; set; }
 

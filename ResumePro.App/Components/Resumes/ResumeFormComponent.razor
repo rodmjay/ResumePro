@@ -1,4 +1,5 @@
-﻿@inherits ResumePro.App.Components.Bases.FormComponent<ResumeOptions>
+﻿@using ResumePro.Shared.Models
+@inherits ResumePro.App.Components.Bases.FormComponent<ResumeOptions>
 
 <FormCard TOptions="ResumeOptions" Title="@Title" Options="@Options" OnCancelled="OnCancelled" OnSaved="OnSaved">
     <Validation>
@@ -36,7 +37,7 @@
             </CardHeader>
             <CardBody>
 
-                @foreach (var job in JobDetailsList)
+                @foreach (JobDetails job in JobDetailsList)
                 {
                     <Field>
                         <Check TValue="bool" @bind-Checked="@JobCheckStates[job.Id]"
@@ -58,13 +59,13 @@
         </CardHeader>
         <CardBody>
 
-            @foreach (var entry in CategorySkills)
+            @foreach (KeyValuePair<string, Dictionary<string, int>> entry in CategorySkills)
             {
                 <Heading Size="HeadingSize.Is5">
                     @entry.Key
                 </Heading>
 
-                @foreach (var entry2 in entry.Value)
+                @foreach (KeyValuePair<string, int> entry2 in entry.Value)
                 {
                     <Field>
                         <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"

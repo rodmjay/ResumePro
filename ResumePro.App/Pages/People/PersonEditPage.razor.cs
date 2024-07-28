@@ -4,21 +4,18 @@
 
 #endregion
 
-using AutoMapper;
-using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages.People;
 
 public partial class PersonEditPage : PersonPageBase
 {
-    [Inject] public IMapper Mapper { get; set; }
-
     public PersonOptions Options { get; set; } = new();
-
-    [Inject] public NavigationManager NavigationManager { get; set; }
 
     protected override async Task OnParametersSetAsync()
     {
@@ -29,9 +26,14 @@ public partial class PersonEditPage : PersonPageBase
 
     private async Task HandleValidSubmit(PersonOptions savedPerson)
     {
-        var response = await PeopleController.UpdatePerson(PersonId, savedPerson);
-        if (response.IsSuccessStatusCode()) 
+        ActionResult<PersonaDetails> response = await PeopleController.UpdatePerson(PersonId, savedPerson);
+        if (response.IsSuccessStatusCode())
+        {
+            var person = response.GetObject();
+            await EventAggregator.PublishAsync(new PersonUpdatedEvent(person));
+
             NavigationManager.NavigateTo($"/people/{PersonId}");
+        }
     }
 
     private void HandleCancelled()

@@ -39,17 +39,17 @@ public class TokenExpirationService
 
     private async void CheckExpiration(object state)
     {
-        var authValue = await _sessionStorage.LoadFromSessionStorage<string>(AuthSessionKey);
+        string authValue = await _sessionStorage.LoadFromSessionStorage<string>(AuthSessionKey);
         if (authValue != null)
         {
-            var obj = JObject.Parse(authValue);
+            JObject obj = JObject.Parse(authValue);
 
-            var expiration = obj["expires_at"].Value<string>();
+            string expiration = obj["expires_at"].Value<string>();
 
-            if (expiration != null && long.TryParse(expiration, out var expirationTime))
+            if (expiration != null && long.TryParse(expiration, out long expirationTime))
             {
-                var currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
-                var timeUntilExpiration = expirationTime - currentTime;
+                long currentTime = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                long timeUntilExpiration = expirationTime - currentTime;
 
                 if (timeUntilExpiration <= 300)
                 {

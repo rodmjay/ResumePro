@@ -39,25 +39,25 @@ namespace ResumePro.App.Components.People
             Skills = await SkillsController.GetSkills();
             PersonSkills = await PersonSkillsController.GetSkills(PersonId);
 
-            var categories = Skills.SelectMany(x => x.Categories).Distinct()
+            List<string> categories = Skills.SelectMany(x => x.Categories).Distinct()
                 .ToList();
 
-            foreach (var personSkill in PersonSkills)
+            foreach (PersonaSkillDto personSkill in PersonSkills)
             {
                 SkillCheckStates.Add(personSkill.SkillId, true);
             }
 
-            foreach (var category in categories)
+            foreach (string category in categories)
             {
                 CategorySkills[category] = new Dictionary<string, int>();
             }
 
-            foreach (var skill in Skills)
+            foreach (SkillDto skill in Skills)
             {
 
                 SkillCheckStates.TryAdd(skill.Id, false);
 
-                foreach (var category in skill.Categories)
+                foreach (string category in skill.Categories)
                 {
                     if (!CategorySkills[category].ContainsKey(skill.Title))
                     {

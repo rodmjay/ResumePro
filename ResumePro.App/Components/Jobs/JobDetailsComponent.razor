@@ -1,4 +1,5 @@
-﻿@if (JobDetails != null)
+﻿@using ResumePro.Shared.Models
+@if (JobDetails != null)
 {
     
     <div class="job-section">
@@ -10,7 +11,7 @@
         @if (JobDetails.Highlights != null && JobDetails.Highlights.Any())
         {
             <UnorderedList>
-                @foreach (var highlight in JobDetails.Highlights)
+                @foreach (HighlightDto highlight in JobDetails.Highlights)
                 {
                     <UnorderedListItem>@highlight.Text</UnorderedListItem>
                 }
@@ -19,7 +20,7 @@
 
         @if (JobDetails.Projects != null && JobDetails.Projects.Any())
         {
-            @foreach (var project in JobDetails.Projects)
+            @foreach (ProjectDetails project in JobDetails.Projects)
             {
                 <div>
                     <Heading Size="HeadingSize.Is6">Project: @project.Name</Heading>
@@ -27,7 +28,7 @@
                     @if (project.Highlights != null && project.Highlights.Any())
                     {
                         <UnorderedList>
-                            @foreach (var ph in project.Highlights)
+                            @foreach (HighlightDto ph in project.Highlights)
                             {
                                 <UnorderedListItem>@ph.Text</UnorderedListItem>
                             }

@@ -285,17 +285,17 @@
         {
             <Card Margin="Margin.Is3.FromBottom">
                 <CardHeader>
-                    Skills
+                    <Strong>Skills</Strong>
                 </CardHeader>
                 <CardBody>
 
-                    @foreach (var entry in CategorySkills)
+                    @foreach (KeyValuePair<string, Dictionary<string, int>> entry in CategorySkills)
                     {
                         <Heading Size="HeadingSize.Is5">
                             @entry.Key
                         </Heading>
 
-                        @foreach (var entry2 in entry.Value)
+                        @foreach (KeyValuePair<string, int> entry2 in entry.Value)
                         {
                             <Field>
                                 <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"
@@ -312,7 +312,7 @@
                             Other Skills
                         </Heading>
 
-                        @foreach (var entry2 in OtherSkills)
+                        @foreach (KeyValuePair<string, int> entry2 in OtherSkills)
                         {
                             <Field>
                                 <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"

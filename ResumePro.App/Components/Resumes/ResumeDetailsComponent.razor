@@ -1,4 +1,5 @@
-﻿<div class="resume-details">
+﻿@using ResumePro.Shared.Models
+<div class="resume-details">
 
     <h3>@Resume.FirstName @Resume.LastName, @Resume.JobTitle</h3>
     <p>@Resume.Description</p>
@@ -13,7 +14,7 @@
     @if (Resume.Jobs != null && Resume.Jobs.Any())
     {
         <h4>Experience</h4>
-        @foreach (var job in Resume.Jobs)
+        @foreach (JobDetails job in Resume.Jobs)
         {
             <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
         }
@@ -24,7 +25,7 @@
         <h4>Education</h4>
         @if (Resume.Education != null)
         {
-            foreach (var edu in Resume.Education)
+            foreach (SchoolDetails edu in Resume.Education)
             {
                 <SchoolDetailsComponent School="@edu"></SchoolDetailsComponent>
             }
@@ -37,7 +38,7 @@
         <h4>Certifications</h4>
         @if (Resume.Certifications != null)
         {
-            foreach (var cert in Resume.Certifications)
+            foreach (CertificationDto cert in Resume.Certifications)
             {
                 <CertificationCard Certification="cert"></CertificationCard>
             }

@@ -26,7 +26,7 @@ public partial class SchoolFormComponent : FormComponent<SchoolOptions>
     {
         if (index >= 0 && index < Options.DegreeOptions.Count - 1)
         {
-            var item = Options.DegreeOptions[index];
+            DegreeOptions item = Options.DegreeOptions[index];
             Options.DegreeOptions.RemoveAt(index);
             Options.DegreeOptions.Insert(index + 1, item);
         }
@@ -36,7 +36,7 @@ public partial class SchoolFormComponent : FormComponent<SchoolOptions>
     {
         if (index >= 0 && index < Options.DegreeOptions.Count - 1)
         {
-            var item = Options.DegreeOptions[index];
+            DegreeOptions item = Options.DegreeOptions[index];
             Options.DegreeOptions.RemoveAt(index);
             Options.DegreeOptions.Insert(index + 1, item);
         }

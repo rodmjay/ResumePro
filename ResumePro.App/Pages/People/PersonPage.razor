@@ -90,7 +90,7 @@
                     @if (Person.Resumes is {Count: > 0})
                     {
                         <div class="row row-cols-1 row-cols-md-2 g-4">
-                            @foreach (var resume in Person.Resumes)
+                            @foreach (ResumeDto resume in Person.Resumes)
                             {
                                 <div class="col">
                                     <div @onclick="@(() => GoToResume(resume.Id))" style="cursor: pointer;">
@@ -118,7 +118,7 @@
                     @if (Person.Jobs != null && Person.Jobs.Any())
                     {
                         <div class="row row-cols-1 row-cols-md-1 g-4">
-                            @foreach (var job in Person.Jobs)
+                            @foreach (JobDetails job in Person.Jobs)
                             {
                                 <div class="col">
                                     <div @onclick="@(() => EditJob(job.Id))" style="cursor: pointer;">
@@ -143,7 +143,7 @@
                     </div>
                     @if (Person.Education != null && Person.Education.Any())
                     {
-                        foreach (var school in Person.Education)
+                        foreach (SchoolDetails school in Person.Education)
                         {
                             <div @onclick="@(() => EditSchool(school.Id))" style="cursor: pointer;">
 
@@ -199,7 +199,7 @@
                     </div>
                     @if (Person.Certifications != null && Person.Certifications.Any())
                     {
-                        foreach (var certification in Person.Certifications)
+                        foreach (CertificationDto certification in Person.Certifications)
                         {
                             <div @onclick="@(() => EditCertification(certification.Id))" style="cursor: pointer;">
                                 <CertificationCard Certification="certification"></CertificationCard>

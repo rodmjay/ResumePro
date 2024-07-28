@@ -7,6 +7,7 @@
 using System.Web;
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -22,14 +23,12 @@ public partial class PersonPage : PersonPageBase
 
     [Inject] public IReferencesController ReferencesController { get; set; }
 
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
     private async Task ItemDropped(DraggableDroppedEventArgs<ReferenceDto> dropItem)
     {
         dropItem.Item.Order = dropItem.IndexInZone + 1;
 
-        var referenceOptions = Mapper.Map<ReferenceOptions>(dropItem.Item);
-        var result = await ReferencesController.UpdateReference(PersonId, dropItem.Item.Id, referenceOptions);
+        ReferenceOptions referenceOptions = Mapper.Map<ReferenceOptions>(dropItem.Item);
+        ActionResult<ReferenceDto> result = await ReferencesController.UpdateReference(PersonId, dropItem.Item.Id, referenceOptions);
     }
 
     private string ActiveTabClass(string tabName)
@@ -44,7 +43,7 @@ public partial class PersonPage : PersonPageBase
 
     protected override void OnInitialized()
     {
-        var uri = new Uri(NavigationManager.Uri);
+        Uri uri = new Uri(NavigationManager.Uri);
         currentTab = HttpUtility.ParseQueryString(uri.Query).Get("tab") ?? "basicInfo";
     }
 

@@ -1,5 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @using ResumePro.App.Components.Layout
+@using Blazorise.Snackbar
 @inherits LayoutComponentBase
 @attribute [Authorize]
 @if (layoutType == "fixed-header")
@@ -62,6 +63,7 @@ else if (layoutType == "sider-with-header-on-top")
                 <LayoutContent Padding="Padding.Is4.OnX.Is4.FromTop">
                     @Body
                 </LayoutContent>
+            
             </Layout>
         </Layout>
     </Layout>

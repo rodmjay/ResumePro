@@ -6,19 +6,19 @@
 
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Common;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages.Certifications;
 
 public partial class CertificationEditPage : PersonPageBase
 {
-    [Inject] public IMapper Mapper { get; set; }
-
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
     [Parameter] public int CertificationId { get; set; }
 
     [Inject] public ICertificationsController CertificationsController { get; set; }
@@ -27,7 +27,7 @@ public partial class CertificationEditPage : PersonPageBase
 
     protected override async Task OnParametersSetAsync()
     {
-        var certification = await CertificationsController.Get(PersonId, CertificationId);
+        CertificationDto certification = await CertificationsController.Get(PersonId, CertificationId);
 
         Options = Mapper.Map<CertificationOptions>(certification);
 
@@ -36,14 +36,23 @@ public partial class CertificationEditPage : PersonPageBase
 
     private async Task HandleValidSubmit(CertificationOptions options)
     {
-        var response = await CertificationsController.Update(PersonId, CertificationId, options);
-        if (response.IsSuccessStatusCode()) NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+        ActionResult<CertificationDto> response = await CertificationsController.Update(PersonId, CertificationId, options);
+        if (response.IsSuccessStatusCode())
+        {
+            CertificationDto certification = response.GetObject();
+            await EventAggregator.PublishAsync(new CertificationUpdatedEvent(certification));
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+        }
     }
 
     private async Task HandleDelete()
     {
-        var response = await CertificationsController.Delete(PersonId, CertificationId);
-        if (response.Succeeded) NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+        Result response = await CertificationsController.Delete(PersonId, CertificationId);
+        if (response.Succeeded)
+        {
+            await EventAggregator.PublishAsync(new CertificationDeletedEvent());
+            NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+        }
     }
 
     private void HandleCancelled()

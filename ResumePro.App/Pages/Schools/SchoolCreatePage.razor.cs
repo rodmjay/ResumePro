@@ -5,27 +5,29 @@
 #endregion
 
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
+using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 
 namespace ResumePro.App.Pages.Schools;
 
 public partial class SchoolCreatePage : PersonPageBase
 {
-    [Inject] public NavigationManager NavigationManager { get; set; }
-
     [Inject] public ISchoolsController SchoolsController { get; set; }
 
     public SchoolOptions Options { get; set; } = new();
 
     private async Task HandleValidSubmit(SchoolOptions options)
     {
-        var response = await SchoolsController.CreateSchool(PersonId, options);
+        ActionResult<SchoolDetails> response = await SchoolsController.CreateSchool(PersonId, options);
         if (response.IsSuccessStatusCode())
         {
-            var job = response.GetObject();
+            SchoolDetails school = response.GetObject();
+            await EventAggregator.PublishAsync(new SchoolCreatedEvent(school));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
         }
     }

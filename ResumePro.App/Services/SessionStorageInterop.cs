@@ -12,7 +12,7 @@ public class SessionStorageInterop(IJSRuntime jsRuntime)
 {
     public async Task<T> LoadFromSessionStorage<T>(string key)
     {
-        var value = await jsRuntime.InvokeAsync<T>("blazorSessionStorage.getItem", key);
+        T value = await jsRuntime.InvokeAsync<T>("blazorSessionStorage.getItem", key);
         return value;
     }
 

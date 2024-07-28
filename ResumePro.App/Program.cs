@@ -4,6 +4,7 @@
 
 #endregion
 
+using System.Reflection;
 using AutoMapper;
 using Blazorise.Bootstrap5;
 using Blazorise.Icons.FontAwesome;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using ResumePro.App.Extensions;
 using System.Security.Claims;
+using EventAggregator.Blazor;
 
 namespace ResumePro.App;
 
@@ -19,21 +21,27 @@ public class Program
 {
     public static async Task Main(string[] args)
     {
-        var builder = WebAssemblyHostBuilder.CreateDefault(args);
+        WebAssemblyHostBuilder builder = WebAssemblyHostBuilder.CreateDefault(args);
 
         builder.RootComponents.Add<App>("#app");
         builder.RootComponents.Add<HeadOutlet>("head::after");
 
-        var assembly = typeof(Program).Assembly;
+        Assembly assembly = typeof(Program).Assembly;
 
-        var config = new MapperConfiguration(x => x.AddMaps(assembly));
+        MapperConfiguration config = new MapperConfiguration(x => x.AddMaps(assembly));
 
-        var mapper = config.CreateMapper();
+        IMapper mapper = config.CreateMapper();
 
         builder.Services.TryAddSingleton(config);
         builder.Services.TryAddScoped(sp => mapper);
 
         builder.Services.AddScoped(sp => new HttpClient {BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)});
+
+
+        builder.Services.AddScoped<IEventAggregator, EventAggregator.Blazor.EventAggregator>();
+        builder.Services.Configure<EventAggregatorOptions>(x => x.AutoRefresh = true);
+
+
 
         builder.Services.AddOidcAuthentication(options =>
         {

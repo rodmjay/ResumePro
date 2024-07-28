@@ -10,7 +10,7 @@
         </TableRow>
     </TableHeader>
     <TableBody>
-        @foreach (var kvp in SkillDictionary)
+        @foreach (KeyValuePair<string, List<string>> kvp in SkillDictionary)
         {
             <TableRow>
                 <TableRowHeader>

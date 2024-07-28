@@ -39,7 +39,7 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
     {
         JobDetailsList = await JobsController.GetJobs(PersonId);
 
-        foreach (var job in JobDetailsList)
+        foreach (JobDetails job in JobDetailsList)
         {
             JobCheckStates[job.Id] = Options.JobIds.Contains(job.Id);
         }
@@ -50,17 +50,17 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
 
         PersonSkills = await PersonSkillsController.GetSkills(PersonId);
 
-        var categories = PersonSkills.SelectMany(x => x.Categories).Distinct();
+        IEnumerable<string> categories = PersonSkills.SelectMany(x => x.Categories).Distinct();
 
 
-        foreach (var category in categories)
+        foreach (string category in categories)
         {
             CategorySkills[category] = new Dictionary<string, int>();
         }
 
-        foreach (var skill in PersonSkills)
+        foreach (PersonaSkillDto skill in PersonSkills)
         {
-            foreach (var category in skill.Categories)
+            foreach (string category in skill.Categories)
             {
                 if (!CategorySkills[category].ContainsKey(skill.Name))
                 {
@@ -69,7 +69,7 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
             }
         }
 
-        foreach (var skill in PersonSkills)
+        foreach (PersonaSkillDto skill in PersonSkills)
         {
             SkillCheckStates[skill.SkillId] = Options.SkillIds.Contains(skill.SkillId);
         }
@@ -78,7 +78,7 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
 
     private async Task RephraseDescription(ResumeOptions resume)
     {
-        var result = await TextController.Professionalize(new ChatOptions()
+        ChatResult result = await TextController.Professionalize(new ChatOptions()
         {
             InputText = resume.Description
         });

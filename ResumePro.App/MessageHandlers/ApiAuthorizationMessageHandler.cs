@@ -27,7 +27,7 @@ public class AiApiAuthorizationMessageHandler : AuthorizationMessageHandler
         IAccessTokenProvider provider, NavigationManager navigation, IConfiguration config)
         : base(provider, navigation)
     {
-        var api = config["AIApiBase"];
+        string api = config["AIApiBase"];
         ConfigureHandler(
             new[] { api });
     }
