@@ -13,6 +13,7 @@ namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumePage
 {
+    private bool ShowModal = false;
     private string currentTab;
     [Inject] private IResumeController ResumeController { get; set; }
 

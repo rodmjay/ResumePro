@@ -52,7 +52,7 @@
                                 <Icon Name="IconName.Edit"/>
                                 Edit Resume
                             </Button>
-                            <Button Color="Color.Danger" Clicked="@DeleteResume">
+                            <Button Color="Color.Danger" Clicked="@(()=>ShowModal = true)">
                                 <Icon Name="IconName.Delete"/>
                                 Delete Resume
                             </Button>
@@ -80,6 +80,24 @@
            
         </div>
     </div>
+
+    
+
+    <Modal @bind-Visible="ShowModal">
+        <ModalContent Centered>
+            <ModalHeader>
+                <h5>Confirm Delete</h5>
+            </ModalHeader>
+            <ModalBody>
+                Are you sure you want to delete this item?
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Danger" Clicked="@DeleteResume">Confirm Delete</Button>
+                <Button Color="Color.Secondary" Clicked="@(() => ShowModal = false)">Cancel</Button>
+            </ModalFooter>
+        </ModalContent>
+
+    </Modal>
 }
 else
 {

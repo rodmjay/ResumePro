@@ -10,6 +10,10 @@ namespace ResumePro.App.Components;
 
 public partial class FormCard<TOptions> : ComponentBase where TOptions : class, new()
 {
+    private Modal modalRef;
+
+    private bool showModal = false;
+    
     protected Validations validationsRef;
     [Parameter] public string Title { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
