@@ -1,0 +1,332 @@
+﻿@inherits ResumePro.App.Components.Bases.FormComponent<JobOptions>
+
+<FormCard TOptions="JobOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
+
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Title</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <TextEdit Placeholder="Enter title" @bind-Text="Options.JobTitle">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+            </FieldBody>
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Company</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <TextEdit Placeholder="Enter company" @bind-Text="Options.Company">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Location</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <TextEdit Placeholder="Enter location" @bind-Text="Options.Location">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </TextEdit>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Start Date</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <DatePicker @bind-Date="@Options.StartDate">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </DatePicker>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">End Date</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is4">
+                <DatePicker @bind-Date="@Options.EndDate">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </DatePicker>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+    <Validation>
+        <Field Horizontal>
+            <FieldLabel ColumnSize="ColumnSize.Is2">Description</FieldLabel>
+            <FieldBody ColumnSize="ColumnSize.Is8">
+                <MemoEdit Rows="2" Placeholder="Enter description" @bind-Text="Options.Description">
+                    <Feedback>
+                        <ValidationError />
+                    </Feedback>
+                </MemoEdit>
+                <Button Color="Color.Primary" Clicked="@(()=>Rephrase(Options))">Rephrase</Button>
+            </FieldBody>
+
+        </Field>
+    </Validation>
+
+    <CardText>
+        @* Highlights *@
+        <Card Margin="Margin.Is3.FromBottom">
+            <CardHeader>
+                <Strong>Highlights</Strong>
+            </CardHeader>
+            <CardBody>
+                <CardText>
+                    @foreach (var highlight in Options.HighlightOptions.Select((value, index) => new { value, index }))
+                    {
+                        <Column ColumnSize="ColumnSize.Is11">
+                            <Addons>
+                                <Addon AddonType="AddonType.Body">
+                                    <Validation>
+                                        <Field ColumnSize="ColumnSize.Is8">
+                                            <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
+                                                <Feedback>
+                                                    <ValidationError />
+                                                </Feedback>
+                                            </MemoEdit>
+
+                                        </Field>
+                                    </Validation>
+                                </Addon>
+                                <Addon AddonType="AddonType.End">
+                                    <Field>
+                                        <Button Color="Color.Primary" Clicked="@(() => Rephrase(highlight.value))">
+                                            Rephrase
+                                        </Button>
+                                        <Buttons>
+                                            <Button Color="Color.Light" Clicked="@(() => MoveHighlightUp(highlight.index))" Disabled="@(highlight.index == 0)">
+                                                <Icon Name="IconName.ArrowUp"/>
+                                            </Button>
+                                            <Button Color="Color.Light" Clicked="@(() => MoveHighlightDown(highlight.index))" Disabled="@(highlight.index == Options.HighlightOptions.Count - 1)">
+                                                <Icon Name="IconName.ArrowDown"/>
+                                            </Button>
+                                            <Button Color="Color.Danger" Clicked="@(() => RemoveHighlight(highlight.value))">
+                                                <Icon Name="IconName.Delete"/>
+                                            </Button>
+
+
+                                        </Buttons>
+                                    </Field>
+
+                                </Addon>
+                            </Addons>
+                        </Column>
+                    }
+                </CardText>
+                <Button Color="Color.Primary" Clicked="@AddHighlight">Add Highlight</Button>
+
+            </CardBody>
+        </Card>
+
+        @* Projects *@
+        <Card Margin="Margin.Is3.FromBottom">
+            <CardHeader>
+                <Strong>Projects</Strong>
+            </CardHeader>
+            <CardBody>
+                <CardText>
+                    @foreach (var project in Options.ProjectOptions.Select((value, index) => new { value, index }))
+                    {
+                        <Card Margin="Margin.Is3">
+                            <CardHeader>
+                                <Strong>Project @(project.index + 1)</Strong>
+                            </CardHeader>
+                            <CardBody>
+                                <CardText>
+
+                                    <Validation>
+                                        <Field Horizontal>
+                                            <FieldLabel ColumnSize="ColumnSize.Is2">
+                                                Project Name
+                                            </FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is4">
+                                                <TextEdit @bind-Text="project.value.Name" Placeholder="Enter name">
+                                                    <Feedback>
+                                                        <ValidationError />
+                                                    </Feedback>
+                                                </TextEdit>
+                                            </FieldBody>
+                                        </Field>
+                                    </Validation>
+                                    <Validation>
+                                        <Field Horizontal>
+                                            <FieldLabel ColumnSize="ColumnSize.Is2">
+                                                Budget (options)
+                                            </FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is4">
+                                                <NumericEdit @bind-Value="project.value.Budget" Placeholder="Enter budget">
+                                                    <Feedback>
+                                                        <ValidationError />
+                                                    </Feedback>
+                                                </NumericEdit>
+                                            </FieldBody>
+                                        </Field>
+                                    </Validation>
+
+                                    <Validation>
+                                        <Field Horizontal>
+                                            <FieldLabel ColumnSize="ColumnSize.Is2">
+                                                Description
+                                            </FieldLabel>
+                                            <FieldBody ColumnSize="ColumnSize.Is8">
+
+                                                <MemoEdit Rows="2" @bind-Text="project.value.Description" Placeholder="Enter description">
+                                                    <Feedback>
+                                                        <ValidationError />
+                                                    </Feedback>
+                                                </MemoEdit>
+                                                <Button Color="Color.Primary" Clicked="@(()=>Rephrase(project.value))">Rephrase</Button>
+
+                                            </FieldBody>
+
+                                        </Field>
+
+
+                                    </Validation>
+
+
+                                    <Card Margin="Margin.Is3.FromBottom">
+                                        <CardHeader>
+                                            <Strong>Project Highlights</Strong>
+                                        </CardHeader>
+                                        <CardBody>
+
+                                            <CardText>
+
+
+                                                @foreach (var highlight in project.value.HighlightOptions.Select((value, index) => new { value, index }))
+                                                {
+                                                    <Addons>
+                                                        <Addon AddonType="AddonType.Body">
+
+                                                            <Validation>
+                                                                <Field ColumnSize="ColumnSize.Is8">
+                                                                    <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
+                                                                        <Feedback>
+                                                                            <ValidationError />
+                                                                        </Feedback>
+                                                                    </MemoEdit>
+
+                                                                </Field>
+                                                            </Validation>
+                                                        </Addon>
+                                                        <Addon AddonType="AddonType.End">
+                                                            <Field>
+                                                                <Field>
+                                                                    <Button Color="Color.Primary" Clicked="@(() => Rephrase(highlight.value))">
+                                                                        Rephrase
+                                                                    </Button>
+                                                                    <Buttons>
+                                                                        <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightUp(project.value, highlight.index))" Disabled="@(highlight.index == 0)">
+                                                                            <Icon Name="IconName.ArrowUp"/>
+
+                                                                        </Button>
+                                                                        <Button Color="Color.Light" Clicked="@(() => MoveProjectHighlightDown(project.value, highlight.index))" Disabled="@(highlight.index == project.value.HighlightOptions.Count - 1)">
+                                                                            <Icon Name="IconName.ArrowDown"/>
+                                                                        </Button>
+                                                                        <Button Color="Color.Danger" Clicked="@(() => RemoveProjectHighlight(project.value, highlight.value))">
+                                                                            <Icon Name="IconName.Delete"/>
+                                                                        </Button>
+                                                                    </Buttons>
+                                                                </Field>
+
+                                                            </Field>
+                                                        </Addon>
+                                                    </Addons>
+                                                }
+                                            </CardText>
+                                            <Button Color="Color.Primary" Clicked="@(() => AddProjectHighlight(project.value))">Add Project Highlight</Button>
+
+                                        </CardBody>
+                                    </Card>
+
+                                </CardText>
+                                <Buttons>
+                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectUp(project.index))" Disabled="@(project.index == 0)">
+                                        <Icon Name="IconName.ArrowUp" />
+                                    </Button>
+                                    <Button Color="Color.Light" Clicked="@(() => MoveProjectDown(project.index))" Disabled="@(project.index == Options.ProjectOptions.Count - 1)">
+                                        <Icon Name="IconName.ArrowDown" />
+                                    </Button>
+                                    <Button Color="Color.Danger" Clicked="@(() => RemoveProject(project.value))">
+                                        <Icon Name="IconName.Delete" />
+                                    </Button>
+                                </Buttons>
+
+                            </CardBody>
+
+                        </Card>
+                    }
+
+                </CardText>
+                <Button Color="Color.Primary" Clicked="@AddProject">Add Project</Button>
+
+            </CardBody>
+        </Card>
+
+        @if (PersonSkills != null)
+        {
+            <Card Margin="Margin.Is3.FromBottom">
+                <CardHeader>
+                    Skills
+                </CardHeader>
+                <CardBody>
+
+                    @foreach (var entry in CategorySkills)
+                    {
+                        <Heading Size="HeadingSize.Is5">
+                            @entry.Key
+                        </Heading>
+
+                        @foreach (var entry2 in entry.Value)
+                        {
+                            <Field>
+                                <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"
+                                       @onchange="(() => ToggleSelection(entry2.Value))">
+                                    @entry2.Key
+                                </Check>
+                            </Field>
+                        }
+                    }
+                    
+                    @if (OtherSkills.Any())
+                    {
+                        <Heading Size="HeadingSize.Is5">
+                            Other Skills
+                        </Heading>
+
+                        @foreach (var entry2 in OtherSkills)
+                        {
+                            <Field>
+                                <Check TValue="bool" @bind-Checked="@SkillCheckStates[entry2.Value]"
+                                       @onchange="(() => ToggleSelection(entry2.Value))">
+                                    @entry2.Key
+                                </Check>
+                            </Field>
+                        }
+                    }
+
+                </CardBody>
+            </Card>
+        }
+
+    </CardText>
+
+</FormCard>

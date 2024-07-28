@@ -14,7 +14,7 @@ public partial class MainLayout
     //[Inject]
     //private TokenExpirationService tokenExpirationService { get; set; }
     
-    protected string layoutType = "fixed-header-footer-only";
+    protected string layoutType = "sider-with-header-on-top";
     [Inject] protected ITextLocalizerService? LocalizationService { get; set; }
 
     [CascadingParameter] protected Theme? Theme { get; set; }
