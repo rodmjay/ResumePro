@@ -1,14 +1,16 @@
-﻿@using ResumePro.Shared.Models
+﻿@using ResumePro.Shared.Enums
+@using ResumePro.Shared.Extensions
+@using ResumePro.Shared.Models
 @inherits ResumePro.App.Components.Bases.FormComponent<PersonOptions>
 
 <FormCard TOptions="PersonOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
     <Validation>
-        <Field Horizontal> 
+        <Field Horizontal>
             <FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter first name" @bind-Text="Options.FirstName">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
@@ -20,11 +22,11 @@
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter last name" @bind-Text="Options.LastName">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-            
+
         </Field>
     </Validation>
     <Validation>
@@ -35,11 +37,11 @@
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter city" @bind-Text="Options.City">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-            
+
         </Field>
     </Validation>
     <Validation>
@@ -47,7 +49,7 @@
             <FieldLabel ColumnSize="ColumnSize.Is2">State</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <Select TValue="int" @bind-SelectedValue="@Options.StateId">
-                    @foreach (StateProvinceOutput state in DropdownItems)
+                    @foreach (StateProvinceOutput state in States)
                     {
                         <SelectItem Value="@state.Id">@state.Name</SelectItem>
                     }
@@ -55,18 +57,18 @@
                 </Select>
             </FieldBody>
         </Field>
-        </Validation>
+    </Validation>
     <Validation>
         <Field Horizontal>
             <FieldLabel ColumnSize="ColumnSize.Is2">Email</FieldLabel>
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter email" @bind-Text="Options.Email">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-           
+
         </Field>
     </Validation>
     <Validation>
@@ -75,11 +77,11 @@
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter phone" @bind-Text="Options.PhoneNumber">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-           
+
         </Field>
     </Validation>
     <Validation>
@@ -88,11 +90,11 @@
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter linkedin" @bind-Text="Options.LinkedIn">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-          
+
         </Field>
     </Validation>
     <Validation>
@@ -101,11 +103,88 @@
             <FieldBody ColumnSize="ColumnSize.Is4">
                 <TextEdit Placeholder="Enter GitHub" @bind-Text="Options.GitHub">
                     <Feedback>
-                        <ValidationError/>
+                        <ValidationError />
                     </Feedback>
                 </TextEdit>
             </FieldBody>
-           
+
         </Field>
     </Validation>
+
+
+    <CardText>
+        @* Highlights *@
+        <Card Margin="Margin.Is3.FromBottom">
+            <CardHeader>
+                <Strong>Languages</Strong>
+            </CardHeader>
+            <CardBody>
+                <CardText>
+                    @foreach (var language in Options.LanguageOptions.Select((value, index) => new { value, index }))
+                    {
+                        <Column ColumnSize="ColumnSize.Is10">
+                            <Addons>
+                                <Addon AddonType="AddonType.Body">
+
+                                    <Fields>
+                                        <Validation>
+                                            <Field ColumnSize="ColumnSize.Is4">
+                                                <FieldLabel>
+                                                    Language
+                                                </FieldLabel>
+                                                <FieldBody >
+                                                    <Select TValue="string" @bind-SelectedValue="@language.value.LanguageId">
+                                                        @foreach (var languageDropdownItem in Languages)
+                                                        {
+                                                            <SelectItem Value="languageDropdownItem.Code3">@languageDropdownItem.Name</SelectItem>
+                                                        }
+                                                    </Select>
+
+                                                </FieldBody>
+                                            </Field>
+                                        </Validation>
+                                        <Validation>
+                                            <Field ColumnSize="ColumnSize.Is4">
+                                                <FieldLabel >
+                                                    Proficiency
+                                                </FieldLabel>
+                                                <FieldBody>
+                                                    <Select TValue="LanguageLevel" @bind-SelectedValue="@language.value.Proficiency">
+                                                        @foreach (var enumValue in Enum.GetValues<LanguageLevel>())
+                                                        {
+                                                            <SelectItem @key="enumValue" Value="@enumValue">@enumValue.GetDescription()</SelectItem>
+                                                        }
+                                                    </Select>
+                                                </FieldBody>
+                                            </Field>
+
+                                        </Validation>
+                                    </Fields>
+
+                                </Addon>
+                                <Addon AddonType="AddonType.End">
+                                    <Field>
+
+                                        <Buttons>
+
+                                            <Button Color="Color.Danger">
+                                                <Icon Name="IconName.Delete" />
+                                            </Button>
+
+
+                                        </Buttons>
+                                    </Field>
+
+                                </Addon>
+                            </Addons>
+                        </Column>
+                    }
+                </CardText>
+                <Button Color="Color.Primary" Clicked="@AddLanguage">Add Language</Button>
+
+            </CardBody>
+        </Card>
+    </CardText>
+
+
 </FormCard>

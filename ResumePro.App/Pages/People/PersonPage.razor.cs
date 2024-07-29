@@ -19,9 +19,7 @@ public partial class PersonPage : PersonPageBase
 {
     private string currentTab;
 
-    [Inject] public IMapper Mapper { get; set; }
-
-    [Inject] public IReferencesController ReferencesController { get; set; }
+    [Inject] private IReferencesController ReferencesController { get; set; }
 
     private async Task ItemDropped(DraggableDroppedEventArgs<ReferenceDto> dropItem)
     {

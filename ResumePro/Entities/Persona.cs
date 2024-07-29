@@ -12,12 +12,12 @@ namespace ResumePro.Entities;
 
 public sealed class Persona : BaseEntity<Persona>, IPersona
 {
-    public ICollection<PersonaSkill> Skills { get; set; }
-    public ICollection<Resume> Resumes { get; set; }
-    public ICollection<Job> Jobs { get; set; }
-    public ICollection<School> Schools { get; set; }
-    public ICollection<Certification> Certifications { get; set; }
-    public ICollection<PersonaLanguage> Languages { get; set; }
+    public ICollection<PersonaSkill> Skills { get; set; } = new List<PersonaSkill>();
+    public ICollection<Resume> Resumes { get; set; } = new List<Resume>();
+    public ICollection<Job> Jobs { get; set; } = new List<Job>();
+    public ICollection<School> Schools { get; set; } = new List<School>();
+    public ICollection<Certification> Certifications { get; set; } = new List<Certification>();
+    public ICollection<PersonaLanguage> Languages { get; set; } = new List<PersonaLanguage>();
     public StateProvince State { get; set; }
     public int StateId { get; set; }
     public bool IsDeleted { get; set; }

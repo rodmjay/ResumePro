@@ -4,10 +4,12 @@
 
 #endregion
 
+using ResumePro.Shared.Enums;
+
 namespace ResumePro.Shared.Options;
 
 public class PersonLanguageOptions
 {
     public string LanguageId { get; set; }
-    public int Proficiency { get; set; }
+    public LanguageLevel Proficiency { get; set; }
 }

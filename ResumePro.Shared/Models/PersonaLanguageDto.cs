@@ -4,6 +4,7 @@
 
 #endregion
 
+using ResumePro.Shared.Enums;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Shared.Models;
@@ -17,5 +18,5 @@ public class PersonaLanguageDto : IPersonaLanguage
     [JsonIgnore] public int PersonaId { get; set; }
 
     public string Code3 { get; set; }
-    public int Proficiency { get; set; }
+    public LanguageLevel Proficiency { get; set; }
 }

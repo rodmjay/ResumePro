@@ -6,7 +6,7 @@
 
 using System.ComponentModel;
 
-namespace ResumePro.Core.Extensions;
+namespace ResumePro.Shared.Extensions;
 
 public static class EnumExtensions
     // ReSharper restore CheckNamespace

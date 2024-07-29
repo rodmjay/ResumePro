@@ -4,11 +4,11 @@
 
 #endregion
 
-using ResumePro.Languages.Interfaces;
+using ResumePro.Shared.Interfaces;
 
-namespace ResumePro.Languages.Models;
+namespace ResumePro.Shared.Models;
 
-public class LanguageOutput : ILanguage
+public class LanguageDto : ILanguage
 {
     public string Name { get; set; }
     public string Code2 { get; set; }

@@ -7,6 +7,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;
+using ResumePro.Shared.Enums;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -19,7 +20,7 @@ public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>, IPersonaLangu
     public int PersonaId { get; set; }
     public string Code3 { get; set; }
 
-    public int Proficiency { get; set; }
+    public LanguageLevel Proficiency { get; set; }
 
     public override void Configure(EntityTypeBuilder<PersonaLanguage> builder)
     {
@@ -29,7 +30,7 @@ public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>, IPersonaLangu
             .WithMany(x => x.Languages)
             .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction);
+            .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasOne(x => x.Language)
             .WithMany(x => x.People)

@@ -14,13 +14,13 @@ namespace ResumePro.App.Components.People;
 
 public partial class PeopleListComponent
 {
-    [Inject] protected NavigationManager NavManager { get; set; }
+    [Inject] private NavigationManager NavManager { get; set; }
 
     [Inject] private IPeopleController PeopleController { get; set; }
 
-    public PagedList<PersonaDto> PagedList { get; set; }
+    private PagedList<PersonaDto> PagedList { get; set; } = new();
 
-    protected PagingQuery PagingQuery { get; set; } = new();
+    private PagingQuery PagingQuery { get; set; } = new();
 
     [Parameter]
     public PersonaFilters PersonFilters { get; set; }
@@ -31,7 +31,7 @@ public partial class PeopleListComponent
         await LoadData();
     }
 
-    public async Task LoadData()
+    private async Task LoadData()
     {
         PagedList = await PeopleController.GetPeople(PersonFilters, PagingQuery);
     }

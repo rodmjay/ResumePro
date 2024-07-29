@@ -4,6 +4,7 @@
 
 #endregion
 
+using ResumePro.Languages.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -12,6 +13,7 @@ namespace ResumePro.Services;
 public sealed class FilterManager(
     IServiceProvider serviceProvider,
     ISkillService skillService,
+    ILanguageService languageService,
     IStateService stateService)
     : BaseService(serviceProvider), IFilterManager
 {
@@ -20,7 +22,8 @@ public sealed class FilterManager(
         var retVal = new FilterContainer
         {
             States = await stateService.GetStatesDropdown("US"),
-            Skills = await skillService.GetSkillsDropdown()
+            Skills = await skillService.GetSkillsDropdown(),
+            Languages = await languageService.GetLanguageDropdown()
         };
 
         return retVal;

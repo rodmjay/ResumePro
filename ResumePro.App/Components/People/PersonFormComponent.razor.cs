@@ -19,12 +19,18 @@ public partial class PersonFormComponent : FormComponent<PersonOptions>
     [Inject]
     public IFiltersController FiltersController { get; set; }
 
-    public List<StateProvinceOutput> DropdownItems { get; set; } = new();
+    public List<StateProvinceOutput> States { get; set; } = new();
+    private List<LanguageDto> Languages { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
         filterContainer = await FiltersController.GetFilters();
-        DropdownItems = filterContainer.States;
-        // Use the filters to populate dropdowns or perform other initialization logic
+        States = filterContainer.States;
+        Languages = filterContainer.Languages;
+    }
+
+    void AddLanguage()
+    {
+        Options.LanguageOptions.Add(new PersonLanguageOptions());
     }
 }

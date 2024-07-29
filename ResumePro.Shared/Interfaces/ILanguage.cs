@@ -4,7 +4,7 @@
 
 #endregion
 
-namespace ResumePro.Languages.Interfaces;
+namespace ResumePro.Shared.Interfaces;
 
 public interface ILanguage
 {

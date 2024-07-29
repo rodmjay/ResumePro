@@ -4,6 +4,8 @@
 
 #endregion
 
+using ResumePro.Shared.Enums;
+
 namespace ResumePro.Shared.Interfaces;
 
 public interface IPersonaLanguage
@@ -11,5 +13,5 @@ public interface IPersonaLanguage
     int OrganizationId { get; set; }
     int PersonaId { get; set; }
     string Code3 { get; set; }
-    int Proficiency { get; set; }
+    LanguageLevel Proficiency { get; set; }
 }

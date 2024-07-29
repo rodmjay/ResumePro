@@ -24,8 +24,6 @@ public partial class ResumeEditPage : PersonPageBase
 
     [Inject] public IResumeController ResumeController { get; set; }
 
-    [Inject] public IMapper Mapper { get; set; }
-
     private ResumeDetails ResumeDetails { get; set; }
 
     protected override async Task OnParametersSetAsync()

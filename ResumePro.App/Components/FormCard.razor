@@ -19,8 +19,17 @@
 
     </CardBody>
     <CardFooter>
-        <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>
-        <Button Color="Color.Secondary" Clicked="@Cancel">Cancel</Button>
+        
+        @if (OnSaved.HasDelegate)
+        {
+            <Button Color="Color.Primary" Clicked="@HandleValidSubmit">Submit</Button>
+        }
+    
+        @if (OnCancelled.HasDelegate)
+        {
+            <Button Color="Color.Secondary" Clicked="@Cancel">Cancel</Button>
+        }
+
     </CardFooter>
     
 

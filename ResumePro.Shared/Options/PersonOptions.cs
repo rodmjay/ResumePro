@@ -36,4 +36,6 @@ public class PersonOptions : ICity, IPhoneNumber, IFirstAndLastName, IEmail, IGi
     [MaxLength(64)]
     [Url]
     public string LinkedIn { get; set; }
+
+    public List<PersonLanguageOptions> LanguageOptions { get; set; } = new();
 }

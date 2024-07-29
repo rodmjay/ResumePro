@@ -31,6 +31,10 @@ public static class WebAssemblyHostBuilderExtensions
                 client => client.BaseAddress = aiApiUrl)
             .AddHttpMessageHandler<AiApiAuthorizationMessageHandler>();
 
+        builder.Services.AddHttpClient<IResumeSettingsController, ResumeSettingsProxy>(
+                client => client.BaseAddress = resumeProApiUrl)
+            .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
+
         builder.Services.AddHttpClient<IPeopleController, PeopleProxy>(
                 client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();

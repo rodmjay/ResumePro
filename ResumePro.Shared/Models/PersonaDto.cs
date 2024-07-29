@@ -21,6 +21,7 @@ public class PersonaDto : IPersona
     public int SkillCount { get; set; }
     public int ResumeCount { get; set; }
     public int JobCount { get; set; }
+    public int ReferencesCount { get; set; }
     public int CertificationCount { get; set; }
     public string Country { get; set; }
     public int Id { get; set; }

@@ -91,6 +91,20 @@ public sealed class PeopleService(
             LinkedIn = options.LinkedIn
         };
 
+        foreach (var lang in options.LanguageOptions)
+        {
+            if (!person.Languages.Select(x => x.Code3).Contains(lang.LanguageId))
+            {
+                person.Languages.Add(new PersonaLanguage()
+                {
+                    Code3 = lang.LanguageId,
+                    OrganizationId = organizationId,
+                    ObjectState = ObjectState.Added,
+                    Proficiency = lang.Proficiency
+                });
+            }
+        }
+
         var result = Repository.InsertOrUpdateGraph(person, true);
         if (result > 0) return await GetPerson<PersonaDetails>(organizationId, person.Id);
 
@@ -104,8 +118,11 @@ public sealed class PeopleService(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
-        var person = await People.Where(x => x.OrganizationId == organizationId && x.Id == personId)
+        var person = await People
+            .Include(x=>x.Languages)
+            .Where(x => x.OrganizationId == organizationId && x.Id == personId)
             .FirstOrDefaultAsync();
+
 
         if (person == null)
             return Result.Failed(personErrors.PersonNotFound(personId));
@@ -117,6 +134,11 @@ public sealed class PeopleService(
         if (errors.Any())
             return Result.Failed(errors.ToArray());
 
+        foreach (var lang in person.Languages)
+        {
+            lang.ObjectState = ObjectState.Deleted;
+        }
+
         person.ObjectState = ObjectState.Modified;
         person.Email = options.Email;
         person.FirstName = options.FirstName;
@@ -125,6 +147,29 @@ public sealed class PeopleService(
         person.PhoneNumber = options.PhoneNumber;
         person.StateId = options.StateId;
         person.City = options.City;
+
+        foreach (var lang in options.LanguageOptions)
+        {
+            var language = person.Languages.FirstOrDefault(x => x.Code3 == lang.LanguageId);
+            if (language == null)
+            {
+                language = new PersonaLanguage()
+                {
+                    ObjectState = ObjectState.Added,
+                    OrganizationId = organizationId,
+                    PersonaId = personId,
+                    Code3 = lang.LanguageId
+                };
+                
+                person.Languages.Add(language);
+            }
+            else
+            {
+                language.ObjectState = ObjectState.Modified;
+            }
+
+            language.Proficiency = lang.Proficiency;
+        }
 
         var results = Repository.InsertOrUpdateGraph(person, true);
         if (results > 0)

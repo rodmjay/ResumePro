@@ -27,7 +27,8 @@ public partial class App : IHandle<ResumeCreatedEvent>,
     IHandle<CertificationDeletedEvent>,
     IHandle<PersonCreatedEvent>,
     IHandle<PersonUpdatedEvent>,
-    IHandle<PersonDeletedEvent>
+    IHandle<PersonDeletedEvent>,
+    IHandle<ResumeSettingsUpdatedEvent>
 {
     public async Task HandleAsync(ResumeCreatedEvent message)
     {
@@ -120,6 +121,11 @@ public partial class App : IHandle<ResumeCreatedEvent>,
     }
 
     public async Task HandleAsync(PersonDeletedEvent message)
+    {
+        await HandleEvent(message);
+    }
+
+    public async Task HandleAsync(ResumeSettingsUpdatedEvent message)
     {
         await HandleEvent(message);
     }
