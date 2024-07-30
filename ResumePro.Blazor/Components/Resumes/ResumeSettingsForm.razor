@@ -1,0 +1,23 @@
+﻿@inherits ResumePro.Blazor.Components.Bases.FormComponent<ResumeSettingsOptions>
+
+<FormCard    @ref="Form"
+             Title="@Title" TOptions="ResumeSettingsOptions" OnCancelled="OnCancelled" OnSaved="OnSaved" Options="Options">
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.ShowTechnologyPerJob">Show Technology Per Job</Check>
+    </Field>
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.AttachAllJobs">Attach All Jobs</Check>
+    </Field>
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.AttachAllSkills">Attach All Skills</Check>
+    </Field>
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.ShowRatings">Show Ratings</Check>
+    </Field>
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.ShowDuration">Show Duration</Check>
+    </Field>
+    <Field>
+        <Check TValue="bool?" @bind-Checked="@Options.ShowContactInfo">Show Contact Info</Check>
+    </Field>
+</FormCard>

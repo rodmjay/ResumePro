@@ -30,7 +30,7 @@ public abstract class BaseApiTest : IntegrationTest<BaseApiTest, Startup>
     protected ISkillsController SkillsProxy => new SkillsProxy(ApiClient);
     protected ITemplatesController TemplatesProxy => new TemplatesProxy(ApiClient);
     protected IPersonSkillsController PersonSkillsProxy => new PersonSkillsProxy(ApiClient);
-    protected IPersonLanguagesController PersonLanguagesProxy => new PersonLanguagesProxy(ApiClient);
+    protected ILanguagesController PersonLanguagesProxy => new PersonLanguagesProxy(ApiClient);
 
     [OneTimeSetUp]
     public virtual async Task SetupFixture()

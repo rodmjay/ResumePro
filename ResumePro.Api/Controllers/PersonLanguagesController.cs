@@ -13,7 +13,7 @@ namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/languages")]
 public sealed class PersonLanguagesController(IServiceProvider serviceProvider, IPersonaLanguageService languageService)
-    : BaseController(serviceProvider), IPersonLanguagesController
+    : BaseController(serviceProvider), ILanguagesController
 {
     [HttpGet]
     public async Task<List<PersonaLanguageDto>> GetPersonLanguages([FromRoute] int personId)

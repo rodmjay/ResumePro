@@ -10,7 +10,7 @@ using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Api.Controllers;
 
-[Route("v1.0/people/{personId}/resume/{resumeId}/skills")]
+[Route("v1.0/people/{personId}/resumes/{resumeId}/skills")]
 public sealed class ResumeSkillsController(IServiceProvider serviceProvider, IResumeSkillService resumeSkillService)
     : BaseController(serviceProvider), IResumeSkillsController
 {

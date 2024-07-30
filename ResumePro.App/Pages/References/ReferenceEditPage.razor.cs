@@ -7,8 +7,8 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.App.Components.References;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Blazor.Components.References;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;

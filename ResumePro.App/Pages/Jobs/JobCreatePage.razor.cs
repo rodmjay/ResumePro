@@ -6,8 +6,8 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.App.Components.Jobs;
 using ResumePro.App.Pages.Bases;
+using ResumePro.Blazor.Components.Jobs;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;

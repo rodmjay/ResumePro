@@ -1,7 +1,7 @@
 ﻿using EventAggregator.Blazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.App.Components.People;
+using ResumePro.Blazor.Components.People;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;

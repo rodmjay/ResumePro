@@ -9,7 +9,7 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Proxies;
 
-public sealed class PersonLanguagesProxy(HttpClient httpClient) : BaseProxy(httpClient), IPersonLanguagesController
+public sealed class PersonLanguagesProxy(HttpClient httpClient) : BaseProxy(httpClient), ILanguagesController
 {
     public async Task<List<PersonaLanguageDto>> GetPersonLanguages(int personId)
     {
