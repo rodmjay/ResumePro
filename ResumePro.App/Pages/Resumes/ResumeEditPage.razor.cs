@@ -7,6 +7,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Resumes;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -18,6 +19,7 @@ namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumeEditPage : PersonPageBase
 {
+    public ResumeFormComponent Form { get; set; }
     private ResumeOptions Options = new();
 
     [Parameter] public int ResumeId { get; set; }
@@ -44,6 +46,10 @@ public partial class ResumeEditPage : PersonPageBase
             await EventAggregator.PublishAsync(new ResumeUpdatedEvent(resume));
 
             NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resume.Id}");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

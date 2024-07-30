@@ -19,7 +19,9 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <ReferenceFormComponent Title="Edit Reference"
+                <ReferenceFormComponent
+                    @ref="Form"
+                    Title="Edit Reference"
                                         OnDeleted="HandleDelete"
                                         OnSaved="HandleValidSubmit"
                                         OnCancelled="HandleCancelled"

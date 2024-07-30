@@ -15,7 +15,7 @@
 <Container>
     <Row>
         <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-            <PersonFormComponent Title="Create Person" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
+            <PersonFormComponent @ref="Form" Title="Create Person" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
         </Column>
     </Row>
 

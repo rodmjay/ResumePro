@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Schools;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
@@ -18,6 +19,8 @@ namespace ResumePro.App.Pages.Schools;
 
 public partial class SchoolEditPage : PersonPageBase
 {
+    private SchoolFormComponent Form { get; set; }
+
     [Inject] public ISchoolsController SchoolsController { get; set; }
 
     [Parameter] public int SchoolId { get; set; }
@@ -35,11 +38,15 @@ public partial class SchoolEditPage : PersonPageBase
 
     private async Task HandleDelete()
     {
-        Result response = await SchoolsController.DeleteSchool(PersonId, SchoolId);
-        if (response.Succeeded)
+        Result result = await SchoolsController.DeleteSchool(PersonId, SchoolId);
+        if (result.Succeeded)
         {
             await EventAggregator.PublishAsync(new SchoolDeletedEvent());
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        }
+        else
+        {
+            Form.HandleErrors(result);
         }
     }
 
@@ -48,9 +55,12 @@ public partial class SchoolEditPage : PersonPageBase
         ActionResult<SchoolDetails> response = await SchoolsController.UpdateSchool(PersonId, SchoolId, options);
         if (response.IsSuccessStatusCode())
         {
-            SchoolDetails school = response.GetObject();
-            await EventAggregator.PublishAsync(new SchoolUpdatedEvent(school));
+            await EventAggregator.PublishAsync(new SchoolUpdatedEvent(response.GetObject()));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=education");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

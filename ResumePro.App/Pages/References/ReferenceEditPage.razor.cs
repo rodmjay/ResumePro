@@ -7,6 +7,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.References;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
@@ -19,6 +20,7 @@ namespace ResumePro.App.Pages.References;
 
 public partial class ReferenceEditPage : PersonPageBase
 {
+    public ReferenceFormComponent Form { get; set; }
 
     [Parameter] public int ReferenceId { get; set; }
 
@@ -45,6 +47,10 @@ public partial class ReferenceEditPage : PersonPageBase
 
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
         }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
+        }
     }
 
     private void HandleCancelled()
@@ -59,6 +65,10 @@ public partial class ReferenceEditPage : PersonPageBase
         {
             await EventAggregator.PublishAsync(new ReferenceDeletedEvent());
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=references");
+        }
+        else
+        {
+            Form.HandleErrors(result);
         }
     }
 }

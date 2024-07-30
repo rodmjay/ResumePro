@@ -22,7 +22,7 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <ResumeFormComponent PersonId="@PersonId" Title="Create Resume" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="ResumeOptions">
+                <ResumeFormComponent @ref="Form" PersonId="@PersonId" Title="Create Resume" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="ResumeOptions">
 
                 </ResumeFormComponent>
             </Column>

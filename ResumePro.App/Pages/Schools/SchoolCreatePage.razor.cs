@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Schools;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -17,6 +18,7 @@ namespace ResumePro.App.Pages.Schools;
 
 public partial class SchoolCreatePage : PersonPageBase
 {
+    private SchoolFormComponent Form { get; set; }
     [Inject] public ISchoolsController SchoolsController { get; set; }
 
     public SchoolOptions Options { get; set; } = new();

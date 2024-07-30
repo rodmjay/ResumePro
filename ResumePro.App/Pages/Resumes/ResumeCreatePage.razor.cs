@@ -7,6 +7,7 @@
 using EventAggregator.Blazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Resumes;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -18,6 +19,8 @@ namespace ResumePro.App.Pages.Resumes;
 
 public partial class ResumeCreatePage : PersonPageBase
 {
+    public ResumeFormComponent Form { get; set; }
+
     private readonly ResumeOptions ResumeOptions = new();
 
     [Inject] public IResumeController ResumeController { get; set; }
@@ -32,6 +35,10 @@ public partial class ResumeCreatePage : PersonPageBase
             await EventAggregator.PublishAsync(new ResumeCreatedEvent(resume));
 
             NavigationManager.NavigateTo($"/people/{PersonId}/resumes/{resume.Id}");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

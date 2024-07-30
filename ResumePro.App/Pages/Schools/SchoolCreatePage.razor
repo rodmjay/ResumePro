@@ -21,7 +21,7 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <SchoolFormComponent Title="Create School"
+                <SchoolFormComponent @ref="Form" Title="Create School"
                                      Options="Options"
                                      OnSaved="HandleValidSubmit"
                                      OnCancelled="HandleCancelled">

@@ -22,7 +22,7 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <PersonFormComponent Title="Edit Person" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
+                <PersonFormComponent @ref="Form" Title="Edit Person" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></PersonFormComponent>
             </Column>
         </Row>
 

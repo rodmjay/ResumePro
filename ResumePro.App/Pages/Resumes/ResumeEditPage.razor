@@ -27,7 +27,7 @@
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
 
-                <ResumeFormComponent PersonId="@PersonId" Title="Edit Resume" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="Options">
+                <ResumeFormComponent @ref="Form" PersonId="@PersonId" Title="Edit Resume" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled" Options="Options">
 
                 </ResumeFormComponent>
             </Column>

@@ -1,6 +1,7 @@
 ﻿using EventAggregator.Blazor;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.People;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Interfaces;
@@ -11,6 +12,8 @@ namespace ResumePro.App.Pages.People
 {
     public partial class PersonCreatePage
     {
+        public PersonFormComponent Form { get; set; }
+
         [Inject] public IEventAggregator EventAggregator { get; set; }
         
         [Inject] public NavigationManager NavigationManager { get; set; }
@@ -32,6 +35,10 @@ namespace ResumePro.App.Pages.People
                 PersonaDetails person = response.GetObject();
                 await EventAggregator.PublishAsync(new PersonCreatedEvent(person));
                 NavigationManager.NavigateTo($"/people/{person.Id}");
+            }
+            else
+            {
+                Form.HandleErrors(response.GetErrorResult());
             }
         }
 

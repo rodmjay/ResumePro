@@ -5,6 +5,7 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.People;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -15,6 +16,7 @@ namespace ResumePro.App.Pages.People;
 
 public partial class PersonEditPage : PersonPageBase
 {
+    public PersonFormComponent Form { get; set; }
     public PersonOptions Options { get; set; } = new();
 
     protected override async Task OnParametersSetAsync()
@@ -33,6 +35,10 @@ public partial class PersonEditPage : PersonPageBase
             await EventAggregator.PublishAsync(new PersonUpdatedEvent(person));
 
             NavigationManager.NavigateTo($"/people/{PersonId}");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.References;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -17,6 +18,7 @@ namespace ResumePro.App.Pages.References;
 
 public partial class ReferenceCreatePage : PersonPageBase
 {
+    public ReferenceFormComponent Form { get; set; }
     [Inject] public IReferencesController Controller { get; set; }
 
     public ReferenceOptions Options { get; set; } = new();
