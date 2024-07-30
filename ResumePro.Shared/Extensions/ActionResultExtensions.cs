@@ -22,7 +22,7 @@ public static class ActionResultExtensions
         return myResult;
     }
 
-    public static Result GetResult<TOrig>(this ActionResult<TOrig> response)
+    public static Result GetErrorResult<TOrig>(this ActionResult<TOrig> response)
     {
         var myResult = (((BadRequestObjectResult) response.Result!)!.Value as Result)!;
         return myResult;

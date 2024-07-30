@@ -7,6 +7,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Jobs;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
@@ -19,6 +20,8 @@ namespace ResumePro.App.Pages.Jobs;
 
 public partial class JobEditPage : PersonPageBase
 {
+    public JobFormComponent Form { get; set; }
+
     [Inject] public IJobsController JobsController { get; set; }
 
     [Parameter] public int JobId { get; set; }
@@ -45,6 +48,10 @@ public partial class JobEditPage : PersonPageBase
             await EventAggregator.PublishAsync(new JobDeletedEvent());
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
         }
+        else
+        {
+            Form.HandleErrors(response);
+        }
     }
 
     private async Task HandleValidSubmit(JobOptions options)
@@ -55,6 +62,10 @@ public partial class JobEditPage : PersonPageBase
             JobDetails job = response.GetObject();
             await EventAggregator.PublishAsync(new JobUpdatedEvent(job));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

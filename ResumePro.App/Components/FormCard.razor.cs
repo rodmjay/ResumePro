@@ -5,16 +5,29 @@
 #endregion
 
 using Microsoft.AspNetCore.Components;
+using ResumePro.Shared.Common;
 
 namespace ResumePro.App.Components;
 
 public partial class FormCard<TOptions> : ComponentBase where TOptions : class, new()
 {
-    private Modal modalRef;
+    public List<Error> Errors { get; set; } = new();
 
+    public void ClearErrors()
+    {
+        this.Errors.Clear();
+    }
+    public void HandleErrors(Result result)
+    {
+        this.Errors = result.Errors.ToList();
+        StateHasChanged();
+    }
+    
     private bool showModal = false;
     
-    protected Validations validationsRef;
+    private Validations validationsRef;
+
+    
     [Parameter] public string Title { get; set; }
     [Parameter] public RenderFragment ChildContent { get; set; }
     [Parameter] public TOptions Options { get; set; }
@@ -22,6 +35,7 @@ public partial class FormCard<TOptions> : ComponentBase where TOptions : class, 
     [Parameter] public EventCallback OnCancelled { get; set; }
 
     [Parameter] public EventCallback OnDeleted { get; set; }
+    
 
     private void Cancel()
     {
@@ -35,6 +49,7 @@ public partial class FormCard<TOptions> : ComponentBase where TOptions : class, 
 
     private async Task HandleValidSubmit()
     {
-        if (await validationsRef.ValidateAll()) await OnSaved.InvokeAsync(Options);
+        if (await validationsRef.ValidateAll()) 
+            await OnSaved.InvokeAsync(Options);
     }
 }

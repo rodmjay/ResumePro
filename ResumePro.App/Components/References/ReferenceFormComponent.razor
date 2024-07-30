@@ -1,6 +1,7 @@
 ﻿@inherits ResumePro.App.Components.Bases.FormComponent<ReferenceOptions>
 
-<FormCard TOptions="ReferenceOptions"
+<FormCard    @ref="Form"
+             TOptions="ReferenceOptions"
           Options="@Options"
           Title="@Title"
           OnDeleted="@OnDeleted"

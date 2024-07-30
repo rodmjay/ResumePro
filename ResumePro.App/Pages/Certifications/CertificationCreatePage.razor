@@ -21,7 +21,9 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <CertificationFormComponent Title="Create Certification"
+                <CertificationFormComponent
+                    @ref="Form"
+                    Title="Create Certification"
                                             Options="Options"
                                             OnSaved="HandleValidSubmit"
                                             OnCancelled="HandleCancelled">

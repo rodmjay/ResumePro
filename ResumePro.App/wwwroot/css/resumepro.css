@@ -55,3 +55,13 @@ iframe {
 .button-group-right {
   justify-content: flex-end; /* Aligns the delete button to the right */
 }
+
+.validation-summary-errors {
+  background-color: #ffe3e3; /* Light red background */
+  color: #721c24; /* Dark red text color */
+  border: 1px solid #f5c6cb; /* Light red border */
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 20px;
+  list-style: none; /* Remove default list styling */
+}

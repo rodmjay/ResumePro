@@ -20,7 +20,7 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <JobFormComponent PersonId="@PersonId" Title="Create Job" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
+                <JobFormComponent @ref="Form" PersonId="@PersonId" Title="Create Job" Options="Options" OnSaved="HandleValidSubmit" OnCancelled="HandleCancelled"></JobFormComponent>
             </Column>
         </Row>
     </Container>

@@ -1,6 +1,7 @@
 ﻿@inherits ResumePro.App.Components.Bases.FormComponent<JobOptions>
 
-<FormCard TOptions="JobOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
+<FormCard    @ref="Form"
+             TOptions="JobOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
 
     <Validation>
         <Field Horizontal>
@@ -98,7 +99,7 @@
                                         <Field ColumnSize="ColumnSize.Is8">
                                             <MemoEdit Rows="2" @bind-Text="highlight.value.Text" Placeholder="Enter highlight">
                                                 <Feedback>
-                                                    <ValidationError />
+                                                    <ValidationError>The Highlight field is required.</ValidationError>
                                                 </Feedback>
                                             </MemoEdit>
 

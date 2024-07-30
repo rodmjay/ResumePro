@@ -16,6 +16,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using ResumePro.Core.Extensions;
 using ResumePro.Core.Validation;
+using ResumePro.Shared.Common;
 
 namespace ResumePro.Core.Middleware;
 
@@ -63,19 +64,23 @@ public class ExceptionMiddleware(
         }
     }
 
-    private void LogAndAddException(ValidationResultModel modelResult, Exception exception)
+    private void LogAndAddException(Result modelResult, Exception exception)
     {
         Guard.Argument(exception)
             .NotNull();
-        
-        var exLogger = loggerFactory.CreateLogger(exception.TargetSite.DeclaringType.FullName);
+
+        var exLogger = loggerFactory.CreateLogger(exception.TargetSite!.DeclaringType!.FullName!);
         exLogger?.LogError(exception, exception.Message);
-        modelResult.Errors.Add(new ValidationError(null, exception.Message));
+        modelResult.Errors.Add(new Error
+        {
+            Code = GetErrorCode(exception).ToString(),
+            Description = exception.Message
+        });
     }
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        var modelResult = new ValidationResultModel();
+        var modelResult = new Result();
 
         if (exception is AggregateException exceptions)
             foreach (var ex in exceptions.InnerExceptions)
@@ -84,7 +89,7 @@ public class ExceptionMiddleware(
             LogAndAddException(modelResult, exception);
 
         context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int) GetErrorCode(exception);
+        context.Response.StatusCode = (int)GetErrorCode(exception);
 
         return context.Response.WriteAsync(modelResult.ToJson(_jsonSerializerSettings));
     }

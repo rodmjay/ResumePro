@@ -7,6 +7,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Certifications;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
@@ -19,6 +20,7 @@ namespace ResumePro.App.Pages.Certifications;
 
 public partial class CertificationEditPage : PersonPageBase
 {
+    public CertificationFormComponent Form { get; set; }
     [Parameter] public int CertificationId { get; set; }
 
     [Inject] public ICertificationsController CertificationsController { get; set; }
@@ -42,6 +44,11 @@ public partial class CertificationEditPage : PersonPageBase
             CertificationDto certification = response.GetObject();
             await EventAggregator.PublishAsync(new CertificationUpdatedEvent(certification));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=certifications");
+        }
+        else
+        {
+            var result = response.GetErrorResult();
+            Form.HandleErrors(result);
         }
     }
 

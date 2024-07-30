@@ -23,7 +23,9 @@
     <Container>
         <Row>
             <Column ColumnSize="ColumnSize.IsFull.OnDesktop">
-                <CertificationFormComponent Title="Edit Certification"
+                <CertificationFormComponent 
+                    @ref="Form"
+                    Title="Edit Certification"
                                             Options="Options"
                                             OnDeleted="HandleDelete"
                                             OnSaved="HandleValidSubmit"

@@ -16,7 +16,7 @@ public class Result
     [JsonProperty("id")] public object Id { get; protected set; }
 
     [JsonProperty]
-    public IEnumerable<Error> Errors
+    public List<Error> Errors
     {
         get
         {

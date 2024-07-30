@@ -1,7 +1,7 @@
 ﻿@inherits ResumePro.App.Components.Bases.FormComponent<SchoolOptions>
 
 
-<FormCard TOptions="SchoolOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
+<FormCard @ref="Form" TOptions="SchoolOptions" Title="@Title" Options="@Options" OnSaved="@OnSaved" OnCancelled="@OnCancelled" OnDeleted="@OnDeleted">
 
     <Validation>
         <Field Horizontal>

@@ -11,8 +11,14 @@
         </div>
     </CardHeader>
     <CardBody>
+        
         <CardText>
             <Validations @ref="validationsRef" Mode="ValidationMode.Manual" Model="@Options" ValidateOnLoad="false">
+                
+                <Blazorise.ValidationSummary Class="validation-summary-errors" Label="The following errors occurred..." Errors="@Errors.Select(x=>x.Description).ToArray()" c>
+                    
+                </Blazorise.ValidationSummary>
+
                 @ChildContent
             </Validations>
         </CardText>

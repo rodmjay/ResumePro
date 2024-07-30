@@ -3,7 +3,8 @@
 @using ResumePro.Shared.Models
 @inherits ResumePro.App.Components.Bases.FormComponent<PersonOptions>
 
-<FormCard TOptions="PersonOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
+<FormCard     @ref="Form"
+              TOptions="PersonOptions" Title="@Title" Options="Options" OnCancelled="@OnCancelled" OnSaved="@OnSaved">
     <Validation>
         <Field Horizontal>
             <FieldLabel ColumnSize="ColumnSize.Is2">First Name</FieldLabel>

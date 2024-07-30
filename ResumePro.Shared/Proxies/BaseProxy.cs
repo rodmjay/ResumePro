@@ -43,14 +43,11 @@ public abstract class BaseProxy(HttpClient httpClient)
             var result = response.Content.DeserializeObject<TOutput>();
             return new OkObjectResult(result);
         }
-
-        if (response.StatusCode == HttpStatusCode.BadRequest)
+        else
         {
             var result = response.Content.DeserializeObject<Result>();
             return new BadRequestObjectResult(result);
         }
-
-        return new StatusCodeResult((int) response.StatusCode);
     }
 
     protected async Task<ActionResult<TOutput>> DoPostActionResult<TInput, TOutput>(string url, TInput input)
@@ -64,14 +61,11 @@ public abstract class BaseProxy(HttpClient httpClient)
             var result = response.Content.DeserializeObject<TOutput>();
             return new OkObjectResult(result);
         }
-
-        if (response.StatusCode == HttpStatusCode.BadRequest)
+        else
         {
             var result = response.Content.DeserializeObject<Result>();
             return new BadRequestObjectResult(result);
         }
-
-        return new StatusCodeResult((int) response.StatusCode);
     }
 
 
@@ -86,14 +80,11 @@ public abstract class BaseProxy(HttpClient httpClient)
             var result = response.Content.DeserializeObject<TOutput>();
             return new OkObjectResult(result);
         }
-
-        if (response.StatusCode == HttpStatusCode.BadRequest)
+        else
         {
             var result = response.Content.DeserializeObject<Result>();
             return new BadRequestObjectResult(result);
         }
-
-        return new StatusCodeResult((int) response.StatusCode);
     }
 
     protected async Task<TOutput> DoGet<TOutput>(string url)

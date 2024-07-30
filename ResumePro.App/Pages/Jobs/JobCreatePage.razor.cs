@@ -6,6 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
+using ResumePro.App.Components.Jobs;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -17,6 +18,8 @@ namespace ResumePro.App.Pages.Jobs;
 
 public partial class JobCreatePage : PersonPageBase
 {
+    public JobFormComponent Form { get; set; }
+    
     private readonly JobOptions Options = new();
 
     [Inject] public IJobsController JobsProxy { get; set; }
@@ -29,6 +32,10 @@ public partial class JobCreatePage : PersonPageBase
             JobDetails job = response.GetObject();
             await EventAggregator.PublishAsync(new JobCreatedEvent(job));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
+        }
+        else
+        {
+            Form.HandleErrors(response.GetErrorResult());
         }
     }
 

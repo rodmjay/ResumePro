@@ -1,6 +1,8 @@
 ﻿@inherits ResumePro.App.Components.Bases.FormComponent<CertificationOptions>
 
-<FormCard TOptions="CertificationOptions"
+<FormCard
+    @ref="Form"
+    TOptions="CertificationOptions"
           Title="@Title"
           OnCancelled="OnCancelled"
           OnDeleted="OnDeleted"

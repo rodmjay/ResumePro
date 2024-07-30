@@ -12,6 +12,7 @@ public class CertificationErrorDescriber
     {
         return new Error
         {
+            Description = "Certification not found",
             Code = nameof(CertificationNotFound)
         };
     }
@@ -21,6 +22,7 @@ public class CertificationErrorDescriber
     {
         return new Error
         {
+            Description = "Unable to save certification",
             Code = nameof(UnableToSaveCertification)
         };
     }

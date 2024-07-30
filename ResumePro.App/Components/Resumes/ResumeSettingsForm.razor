@@ -1,6 +1,7 @@
 ﻿@inherits ResumePro.App.Components.Bases.FormComponent<ResumeSettingsOptions>
 
-<FormCard Title="@Title" TOptions="ResumeSettingsOptions" OnCancelled="OnCancelled" OnSaved="OnSaved" Options="Options">
+<FormCard    @ref="Form"
+             Title="@Title" TOptions="ResumeSettingsOptions" OnCancelled="OnCancelled" OnSaved="OnSaved" Options="Options">
     <Field>
         <Check TValue="bool?" @bind-Checked="@Options.ShowTechnologyPerJob">Show Technology Per Job</Check>
     </Field>
