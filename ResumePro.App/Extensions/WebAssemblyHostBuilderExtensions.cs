@@ -5,7 +5,7 @@
 #endregion
 
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using ResumePro.App.MessageHandlers;
+using ResumePro.Blazor.MessageHandlers;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Proxies;
 

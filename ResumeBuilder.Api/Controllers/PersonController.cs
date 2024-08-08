@@ -14,7 +14,7 @@ namespace ResumeBuilder.Api.Controllers;
 public sealed class PersonController(IServiceProvider serviceProvider, IPeopleService peopleService)
     : BaseController(serviceProvider), IPersonController
 {
-    [HttpGet("{personId}")]
+    [HttpGet]
     public async Task<PersonaDetails> GetPerson()
     {
         return await peopleService.GetPerson<PersonaDetails>(OrganizationId, UserId)

@@ -6,8 +6,9 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
+using Microsoft.Extensions.Configuration;
 
-namespace ResumePro.App.MessageHandlers;
+namespace ResumePro.Blazor.MessageHandlers;
 
 public class ApiAuthorizationMessageHandler : AuthorizationMessageHandler
 {

@@ -1,0 +1,43 @@
+﻿@using EventAggregator.Blazor
+@using ResumeBuilder.App.Layouts
+@using Blazorise.Snackbar
+@inject IEventAggregator EventAggregator
+
+<Blazorise.ThemeProvider Theme="@theme">
+
+    <CascadingAuthenticationState>
+
+        <CascadingValue TValue="IEventAggregator" Value="@EventAggregator">
+            <Router AppAssembly="typeof(App).Assembly">
+                <Found Context="routeData">
+                    <AuthorizeRouteView RouteData="@routeData" DefaultLayout="typeof(MainLayout)">
+                        <NotAuthorized>
+                            @if (!context.User.Identity.IsAuthenticated)
+                            {
+                                <RedirectToLogin />
+                            }
+                            else
+                            {
+                                <p>You do not have permission to view this page.</p>
+                            }
+                        </NotAuthorized>
+
+                        <Authorizing>
+                            <div>Authenticating...</div>
+                        </Authorizing>
+
+                    </AuthorizeRouteView>
+                </Found>
+                <NotFound>
+                    <p>Sorry, there's nothing at this address.</p>
+                </NotFound>
+            </Router>
+        </CascadingValue>
+
+    </CascadingAuthenticationState>
+
+    <SnackbarStack @ref="snackbarStack" Location="SnackbarStackLocation.BottomEnd" />
+
+    <MessageProvider />
+    <PageProgressProvider />
+</Blazorise.ThemeProvider>

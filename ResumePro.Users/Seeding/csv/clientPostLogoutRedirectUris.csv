@@ -3,3 +3,4 @@
 3,https://localhost:44330/authentication/logout-callback,5
 4,https://resumepro-app-test.azurewebsites.net/authentication/logout-callback,5
 5,https://localhost:7243/authentication/logout-callback,5
+6,https://localhost:44388/authentication/logout-callback,6

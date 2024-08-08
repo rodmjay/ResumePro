@@ -17,7 +17,7 @@ namespace ResumePro.Users.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.6")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -650,6 +650,45 @@ namespace ResumePro.Users.Migrations
                             RequireRequestObject = false,
                             SlidingRefreshTokenLifetime = 1296000,
                             UpdateAccessTokenClaimsOnRefresh = false
+                        },
+                        new
+                        {
+                            Id = 6,
+                            AbsoluteRefreshTokenLifetime = 2592000,
+                            AccessTokenLifetime = 3600,
+                            AccessTokenType = 0,
+                            AllowAccessTokensViaBrowser = false,
+                            AllowOfflineAccess = false,
+                            AllowPlainTextPkce = false,
+                            AllowRememberConsent = true,
+                            AlwaysIncludeUserClaimsInIdToken = true,
+                            AlwaysSendClientClaims = false,
+                            AuthorizationCodeLifetime = 300,
+                            BackChannelLogoutSessionRequired = true,
+                            ClientClaimsPrefix = "client_",
+                            ClientId = "resumebuilder",
+                            ClientName = "ResumeBuilder",
+                            Created = new DateTime(2021, 9, 18, 13, 12, 13, 653, DateTimeKind.Unspecified).AddTicks(7956),
+                            DPoPClockSkew = new TimeSpan(0, 0, 5, 0, 0),
+                            DPoPValidationMode = 0,
+                            DeviceCodeLifetime = 300,
+                            EnableLocalLogin = true,
+                            Enabled = true,
+                            FrontChannelLogoutSessionRequired = true,
+                            IdentityTokenLifetime = 300,
+                            IncludeJwtId = true,
+                            NonEditable = false,
+                            ProtocolType = "oidc",
+                            RefreshTokenExpiration = 1,
+                            RefreshTokenUsage = 1,
+                            RequireClientSecret = false,
+                            RequireConsent = false,
+                            RequireDPoP = false,
+                            RequirePkce = true,
+                            RequirePushedAuthorization = false,
+                            RequireRequestObject = false,
+                            SlidingRefreshTokenLifetime = 1296000,
+                            UpdateAccessTokenClaimsOnRefresh = false
                         });
                 });
 
@@ -723,6 +762,12 @@ namespace ResumePro.Users.Migrations
                             Id = 4,
                             ClientId = 5,
                             Origin = "https://localhost:7243"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClientId = 6,
+                            Origin = "https://localhost:44388"
                         });
                 });
 
@@ -772,6 +817,12 @@ namespace ResumePro.Users.Migrations
                         {
                             Id = 5,
                             ClientId = 5,
+                            GrantType = "authorization_code"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClientId = 6,
                             GrantType = "authorization_code"
                         });
                 });
@@ -847,6 +898,12 @@ namespace ResumePro.Users.Migrations
                             Id = 5,
                             ClientId = 5,
                             PostLogoutRedirectUri = "https://localhost:7243/authentication/logout-callback"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClientId = 6,
+                            PostLogoutRedirectUri = "https://localhost:44388/authentication/logout-callback"
                         });
                 });
 
@@ -925,7 +982,13 @@ namespace ResumePro.Users.Migrations
                         {
                             Id = 5,
                             ClientId = 5,
-                            RedirectUri = "https://localhost:7243/authentication/login-callback"
+                            RedirectUri = "http://localhost:7243/authentication/login-callback"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClientId = 6,
+                            RedirectUri = "https://localhost:44388/authentication/login-callback"
                         });
                 });
 
@@ -1018,6 +1081,24 @@ namespace ResumePro.Users.Migrations
                             Id = 14,
                             ClientId = 1,
                             Scope = "organization"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ClientId = 6,
+                            Scope = "api1"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ClientId = 6,
+                            Scope = "profile"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ClientId = 6,
+                            Scope = "openid"
                         });
                 });
 

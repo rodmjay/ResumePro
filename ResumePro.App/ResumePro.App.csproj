@@ -25,18 +25,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.*" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.*" PrivateAssets="all" />
-		<PackageReference Include="EventAggregator.Blazor" Version="2.0.0" />
-		
-		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-
-		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.*" />
-		<PackageReference Include="System.Net.Http.Json" Version="8.0.*" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <ProjectReference Include="..\ResumePro.Blazor\ResumePro.Blazor.csproj" />
 	  <ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
 	</ItemGroup>

@@ -13,24 +13,18 @@ public abstract class FormComponent<TOptions> : ComponentBase where TOptions : c
 {
     public void ClearErrors()
     {
-        this.Form.ClearErrors();
+        Form.ClearErrors();
     }
     public void HandleErrors(Result result)
     {
-        this.Form.HandleErrors(result);
+        Form.HandleErrors(result);
     }
 
     public FormCard<TOptions> Form { get; set; }
     
     [Parameter] public string Title { get; set; }
-
     [Parameter] public TOptions Options { get; set; }
-
-
     [Parameter] public EventCallback<TOptions> OnSaved { get; set; }
-
-
     [Parameter] public EventCallback OnCancelled { get; set; }
-
     [Parameter] public EventCallback OnDeleted { get; set; }
 }

@@ -11,9 +11,9 @@ using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using ResumePro.App.Extensions;
 using System.Security.Claims;
 using EventAggregator.Blazor;
+using ResumePro.App.Extensions;
 
 namespace ResumePro.App;
 

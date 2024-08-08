@@ -52,6 +52,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeBuilder.Api", "Resume
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumePro.Blazor", "ResumePro.Blazor\ResumePro.Blazor.csproj", "{E0B1584C-5B2D-4FC7-9004-2E68648D5EF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResumeBuilder.App", "ResumeBuilder.App\ResumeBuilder.App\ResumeBuilder.App.csproj", "{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -118,6 +120,10 @@ Global
 		{E0B1584C-5B2D-4FC7-9004-2E68648D5EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0B1584C-5B2D-4FC7-9004-2E68648D5EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0B1584C-5B2D-4FC7-9004-2E68648D5EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,6 +144,7 @@ Global
 		{3E751DB0-414A-412F-82D6-3D497518F8FC} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 		{3E8A7771-1C38-401B-8192-DF88B80B3AF9} = {7D771D3C-A5FD-420C-825A-E5497F6D5876}
 		{E0B1584C-5B2D-4FC7-9004-2E68648D5EF6} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
+		{56BBA8E1-55C1-42D0-99AE-018A7B8CE17B} = {33782044-9F85-4B1A-8BDC-06240B5E6E1E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5EFF1137-0E11-4AC8-B099-BDE1C80E25FC}

@@ -16,11 +16,11 @@ public partial class FormCard<TOptions> : ComponentBase where TOptions : class, 
 
     public void ClearErrors()
     {
-        this.Errors.Clear();
+        Errors.Clear();
     }
     public void HandleErrors(Result result)
     {
-        this.Errors = result.Errors.ToList();
+        Errors = result.Errors.ToList();
         StateHasChanged();
     }
     
