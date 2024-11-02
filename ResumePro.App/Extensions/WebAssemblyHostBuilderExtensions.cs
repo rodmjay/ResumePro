@@ -47,7 +47,7 @@ public static class WebAssemblyHostBuilderExtensions
                 client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 
-        builder.Services.AddHttpClient<IJobsController, JobsProxy>(
+        builder.Services.AddHttpClient<ICompaniesController, CompaniesProxy>(
                 client => client.BaseAddress = resumeProApiUrl)
             .AddHttpMessageHandler<ApiAuthorizationMessageHandler>();
 

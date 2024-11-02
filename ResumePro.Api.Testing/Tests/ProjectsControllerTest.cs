@@ -22,7 +22,7 @@ public class ProjectsControllerTest : BaseApiTest
         [TestCaseSource(typeof(ProjectTestData), nameof(ProjectTestData.ValidOptions))]
         public async Task CanCreateProject(ProjectOptions options)
         {
-            var response = await ProjectsProxy.CreateProject(1, 1, options);
+            var response = await ProjectsProxy.CreateProject(1, 1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
         }
     }

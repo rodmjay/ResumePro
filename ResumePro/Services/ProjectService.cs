@@ -15,31 +15,41 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
 {
     private IQueryable<Project> Projects => Repository.Queryable();
 
-    public Task<List<T>> GetProjects<T>(int organizationId, int jobId) where T : ProjectDto
+    public Task<List<T>> GetProjects<T>(int organizationId, int personId, int companyId, int positionId) where T : ProjectDto
     {
         return Projects.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .Where(x => x.OrganizationId == organizationId 
+                        && x.PersonId == personId 
+                        && x.CompanyId == companyId 
+                        && x.PositionId == positionId)
             .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 
-    public Task<T> GetProject<T>(int organizationId, int projectId) where T : ProjectDto
+    public Task<T> GetProject<T>(int organizationId, int personId, int companyId, int positionId, int projectId) where T : ProjectDto
     {
         return Projects.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
+            .Where(x => x.OrganizationId == organizationId 
+                        && x.PersonId == personId 
+                        && x.CompanyId == companyId 
+                        && x.PositionId == positionId 
+                        && x.Id == projectId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int jobId,
+    public async Task<OneOf<ProjectDetails, Result>> CreateProject(int organizationId, int companyId, int personId, int positionId,
         ProjectOptions options)
     {
-        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, Options: {@options}"),
-            organizationId, jobId, options);
+        Logger.LogInformation(GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, PositionId, {@positionId}, Options: {@options}"),
+            organizationId, personId, companyId, positionId, options);
 
         var lastProjectOrder = await
-            Projects.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            Projects.Where(x => x.OrganizationId == organizationId 
+                                && x.PersonId == personId 
+                                && x.CompanyId == companyId 
+                                && x.PositionId == positionId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
                 .Select(x => x.Order)
@@ -47,32 +57,37 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
 
         var project = new Project
         {
-            Id = await GetNextProjectId(organizationId),
+            Id = await GetNextProjectId(organizationId, personId, companyId, positionId),
             OrganizationId = organizationId,
             ObjectState = ObjectState.Added,
             Budget = options.Budget,
+            PersonId = personId,
+            PositionId = positionId,
             Description = options.Description,
-            JobId = jobId,
+            CompanyId = companyId,
             Name = options.Name,
             Order = lastProjectOrder + 1
         };
 
         var results = Repository.InsertOrUpdateGraph(project, true);
-        if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
+        if (results > 0) return await GetProject<ProjectDetails>(organizationId, personId, companyId, positionId, project.Id);
 
         return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
-    public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int jobId, int projectId,
+    public async Task<OneOf<ProjectDetails, Result>> UpdateProject(int organizationId, int personId, int companyId, int positionId, int projectId,
         ProjectOptions options)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {@organizationId}, JobId: {@jobId}, ProjectId: {@projectId}, Options: {@options}"),
-            organizationId, jobId, projectId, options);
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, PositionId: {@positionId}, ProjectId: {@projectId}, Options: {@options}"),
+            organizationId, personId, companyId, positionId, projectId, options);
 
         var projects = await Projects
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .Where(x => x.OrganizationId == organizationId 
+                        && x.PersonId == personId 
+                        && x.CompanyId == companyId
+                        && x.PositionId == positionId)
             .OrderBy(x => x.Order)
             .ToListAsync();
 
@@ -86,7 +101,7 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
         project.ObjectState = ObjectState.Modified;
         project.Budget = options.Budget;
         project.Description = options.Description;
-        project.JobId = jobId;
+        project.CompanyId = companyId;
         project.Name = options.Name;
         project.Order = options.Order;
 
@@ -106,27 +121,31 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
         }
 
         var results = Repository.Commit();
-        if (results > 0) return await GetProject<ProjectDetails>(organizationId, project.Id);
+        if (results > 0) return await GetProject<ProjectDetails>(organizationId, personId, companyId, positionId, project.Id);
 
         return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
-    public async Task<Result> DeleteProject(int organizationId, int jobId, int projectId)
+    public async Task<Result> DeleteProject(int organizationId, int personId, int companyId, int positionId, int projectId)
     {
         Logger.LogInformation(
-            GetLogMessage("OrganizationId: {@organizationId}, JobId: {@jobId}, ProjectId: {@projectId}"),
-            organizationId, jobId, projectId);
+            GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, PositionId: {@positionId}, ProjectId: {@projectId}"),
+            organizationId, personId, companyId, positionId, projectId);
 
         var project = await Projects
             .Include(x => x.Highlights)
-            .Where(x => x.OrganizationId == organizationId && x.Id == projectId)
+            .Where(x => x.OrganizationId == organizationId 
+                        && x.PersonId == personId 
+                        && x.CompanyId == companyId 
+                        && x.PositionId == positionId 
+                        && x.Id == projectId)
             .FirstOrDefaultAsync();
 
         if (project == null)
             return Result.Failed(projectErrors.ProjectNotFound(projectId));
 
         var projects = await Projects
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            .Where(x => x.OrganizationId == organizationId && x.CompanyId == companyId)
             .OrderBy(x => x.Order).ToListAsync();
 
         projects.Remove(project);
@@ -152,11 +171,11 @@ public sealed class ProjectService(IServiceProvider serviceProvider, ProjectErro
         return Result.Failed(projectErrors.UnableToSaveProject());
     }
 
-    private async Task<int> GetNextProjectId(int organizationId)
+    private async Task<int> GetNextProjectId(int organizationId, int personId, int companyId, int positionId)
     {
         var id = await Projects.AsNoTracking()
             .IgnoreQueryFilters()
-            .Where(x => x.OrganizationId == organizationId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.CompanyId == companyId && x.PositionId == positionId)
             .OrderByDescending(x => x.Id)
             .Select(x => x.Id)
             .FirstOrDefaultAsync();

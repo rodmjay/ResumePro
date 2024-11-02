@@ -10,7 +10,7 @@ namespace ResumePro.Shared.Models;
 
 public class ResumeDetails : ResumeDto
 {
-    public List<JobDetails> Jobs { get; set; }
+    public List<CompanyDetails> Companies { get; set; }
 
     public List<ResumeSkillDto> Skills { get; set; }
     public List<ReferenceDto> References { get; set; }

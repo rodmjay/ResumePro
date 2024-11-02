@@ -17,7 +17,7 @@ public class ResumeTestData
             new()
             {
                 Description = "test",
-                JobIds = null,
+                CompanyIds = null,
                 Settings = new ResumeSettingsOptions
                 {
                     AttachAllJobs = true,

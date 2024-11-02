@@ -28,6 +28,9 @@ public sealed class ApplicationContext(DbContextOptions<ApplicationContext> opti
     protected override void ConfigureDatabase(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
+
+        //builder.Ignore<Highlight>();
+        //builder.Ignore<Project>();
     }
 
     private void SeedEntities(ModelBuilder builder)
@@ -43,14 +46,16 @@ public sealed class ApplicationContext(DbContextOptions<ApplicationContext> opti
         builder.Entity<ResumeSettings>().Seed("resume_settings.csv");
         builder.Entity<OrganizationSettings>().Seed("organization_settings.csv");
         builder.Entity<ResumeSkill>().Seed("resume_skills.csv");
-        builder.Entity<Job>().Seed("jobs.csv");
+        builder.Entity<Company>().Seed("companies.csv");
+        builder.Entity<Position>().Seed("positions.csv");
         builder.Entity<Highlight>().Seed("highlights.csv");
-        builder.Entity<JobSkill>().Seed("job_skills.csv");
+        builder.Entity<ProjectHighlight>().Seed("project_highlights.csv");
+        builder.Entity<CompanySkill>().Seed("company_skills.csv");
         builder.Entity<Project>().Seed("projects.csv");
         builder.Entity<Reference>().Seed("references.csv");
         builder.Entity<School>().Seed("schools.csv");
         builder.Entity<Degree>().Seed("degrees.csv");
-        builder.Entity<ResumeJob>().Seed("resume_jobs.csv");
+        builder.Entity<ResumeCompany>().Seed("resume_companies.csv");
         builder.Entity<Language>().Seed("languages.csv");
         builder.Entity<PersonaLanguage>().Seed("persona_language.csv");
         builder.Entity<SkillCategory>().Seed("skill_categories.csv");

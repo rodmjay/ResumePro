@@ -14,35 +14,35 @@ namespace ResumePro.Shared.Proxies;
 
 public sealed class ProjectsProxy(HttpClient httpClient) : BaseProxy(httpClient), IProjectsController
 {
-    public async Task<ProjectDetails> GetProject(int personId, int jobId, int projectId)
+    public async Task<ProjectDetails> GetProject(int personId, int companyId, int positionId, int projectId)
     {
-        return await DoGet<ProjectDetails>($"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}")
+        return await DoGet<ProjectDetails>($"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/projects/{projectId}")
             .ConfigureAwait(false);
     }
 
-    public async Task<List<ProjectDetails>> GetList(int personId, int jobId)
+    public async Task<List<ProjectDetails>> GetList(int personId, int companyId, int positionId)
     {
-        return await DoGet<List<ProjectDetails>>($"v1.0/people/{personId}/jobs/{jobId}/projects")
+        return await DoGet<List<ProjectDetails>>($"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/projects")
             .ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ProjectDetails>> CreateProject(int personId, int jobId, ProjectOptions options)
+    public async Task<ActionResult<ProjectDetails>> CreateProject(int personId, int companyId, int positionId, ProjectOptions options)
     {
-        return await DoPostActionResult<ProjectOptions, ProjectDetails>($"v1.0/people/{personId}/jobs/{jobId}/projects",
+        return await DoPostActionResult<ProjectOptions, ProjectDetails>($"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/projects",
             options).ConfigureAwait(false);
     }
 
-    public async Task<ActionResult<ProjectDetails>> Update(int personId, int jobId, int projectId,
+    public async Task<ActionResult<ProjectDetails>> Update(int personId, int companyId, int positionId, int projectId,
         ProjectOptions options)
     {
         return await DoPutActionResult<ProjectOptions, ProjectDetails>(
-                $"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}", options)
+                $"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/projects/{projectId}", options)
             .ConfigureAwait(false);
     }
 
-    public async Task<Result> Delete(int personId, int jobId, int projectId)
+    public async Task<Result> Delete(int personId, int companyId, int positionId, int projectId)
     {
-        return await DoDelete<Result>($"v1.0/people/{personId}/jobs/{jobId}/projects/{projectId}")
+        return await DoDelete<Result>($"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/projects/{projectId}")
             .ConfigureAwait(false);
     }
 }

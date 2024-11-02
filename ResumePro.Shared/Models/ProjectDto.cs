@@ -19,7 +19,7 @@ public class ProjectDto : IProject
 {
     public int Id { get; set; }
 
-    [JsonIgnore] public int JobId { get; set; }
+    [JsonIgnore] public int CompanyId { get; set; }
 
     public int Order { get; set; }
 

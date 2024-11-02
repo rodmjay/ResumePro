@@ -6,7 +6,7 @@
 
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.App.Components.Jobs;
+using ResumePro.App.Components.Companies;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Events;
 using ResumePro.Shared.Extensions;
@@ -20,17 +20,17 @@ public partial class JobCreatePage : PersonPageBase
 {
     public JobFormComponent Form { get; set; }
     
-    private readonly JobOptions Options = new();
+    private readonly CompanyOptions Options = new();
 
-    [Inject] public IJobsController JobsProxy { get; set; }
+    [Inject] public ICompaniesController CompaniesProxy { get; set; }
 
-    private async Task HandleValidSubmit(JobOptions savedJob)
+    private async Task HandleValidSubmit(CompanyOptions savedCompany)
     {
-        ActionResult<JobDetails> response = await JobsProxy.CreateJob(PersonId, savedJob);
+        ActionResult<CompanyDetails> response = await CompaniesProxy.CreateCompany(PersonId, savedCompany);
         if (response.IsSuccessStatusCode())
         {
-            JobDetails job = response.GetObject();
-            await EventAggregator.PublishAsync(new JobCreatedEvent(job));
+            CompanyDetails company = response.GetObject();
+            await EventAggregator.PublishAsync(new JobCreatedEvent(company));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
         }
         else

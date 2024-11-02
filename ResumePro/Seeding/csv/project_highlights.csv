@@ -1,0 +1,21 @@
+﻿Id,OrganizationId,PersonId,CompanyId,ProjectId,Order,Text
+1,1,1,1,1,1,"Spearheaded the architecture of a model MicroService, setting new standards for future developments."
+2,1,1,1,1,2,"Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities."
+3,1,1,1,1,3,"Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability."
+1,1,1,1,2,1,"Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly."
+2,1,1,1,2,2,"Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department."
+3,1,1,1,2,3,"Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights."
+4,1,1,1,2,4,"Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes."
+5,1,1,1,2,5,Responsible for implementing integration testing patterns across multiple applications.
+6,1,1,1,2,6,Optimized ChatGPT training models to meet internal business needs.
+1,1,1,2,3,1,"Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability."
+2,1,1,2,3,2,"Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency."
+3,1,1,2,3,3,"Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication."
+1,1,1,2,1,1,Responsible for the architecture and development of the .NET Core backend.
+2,1,1,2,1,2,Developed advanced medication and activity scheduling systems to accommodate complex care requirements.
+3,1,1,2,1,3,Made critical technology decisions that kept the project on track and within budgetary constraints.
+4,1,1,2,1,4,"Maintained a code coverage of 90%, ensuring high reliability and quality of the software."
+1,1,1,2,2,1,"Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend."
+2,1,1,2,2,2,"Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow."
+3,1,1,2,2,3,Maintained 75% code coverage.
+4,1,1,2,2,4,Made key technology decisions to ensure the project remained on schedule and within budget.

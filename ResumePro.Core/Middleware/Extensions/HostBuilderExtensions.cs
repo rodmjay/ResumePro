@@ -6,6 +6,7 @@
 
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -54,8 +55,6 @@ public static class HostBuilderExtensions
 
     public static void Configure(IConfigurationBuilder config, string environmentName)
     {
-        var assembly = typeof(HostBuilderExtensions).Assembly;
-
         config
             .AddJsonFile("appsettings.json", true)
             .AddJsonFile($"appsettings.{environmentName}.json", true);
@@ -73,23 +72,34 @@ public static class HostBuilderExtensions
             Debug.Print(msg);
             Debugger.Break();
         });
-        return new LoggerConfiguration()
+
+        var telemetryConfig = serviceProvider.GetService<TelemetryConfiguration>();
+
+        var loggerConfig = new LoggerConfiguration()
             .MinimumLevel
             .Debug()
             .Enrich
             .FromLogContext()
             .WriteTo
             .Console(LogEventLevel.Debug,
-                "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")
-            .WriteTo
-            .File(@"c:\home\logfiles\application\myapp.txt",
-                outputTemplate:
-                "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
-                fileSizeLimitBytes: 1_000_000,
-                rollOnFileSizeLimit: true,
-                shared: true,
-                flushToDiskInterval: TimeSpan.FromSeconds(1))
-            .CreateLogger();
+                "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}");
+           
+            //.WriteTo
+            //.File(@"c:\home\logfiles\application\myapp.txt",
+            //    outputTemplate:
+            //    "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}",
+            //    fileSizeLimitBytes: 1_000_000,
+            //    rollOnFileSizeLimit: true,
+            //    shared: true,
+            //    flushToDiskInterval: TimeSpan.FromSeconds(1));
+
+        if (telemetryConfig != null)
+        {
+            loggerConfig.WriteTo.ApplicationInsights(telemetryConfig,
+                    TelemetryConverter.Traces);
+        }
+
+        return loggerConfig.CreateLogger();
     }
 
 

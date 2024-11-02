@@ -19,7 +19,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public Task<List<T>> GetCertifications<T>(int organizationId, int personId) where T : CertificationDto
     {
         return Certifications.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -27,7 +27,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     public Task<T> GetCertification<T>(int organizationId, int personId, int certificationId) where T : CertificationDto
     {
         return Certifications.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
@@ -46,7 +46,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
             OrganizationId = organizationId,
             Id = await GetNextCertificationId(organizationId, personId),
             Body = options.Body,
-            PersonaId = personId,
+            PersonId = personId,
             Date = options.Date.Value,
             Name = options.Name
         };
@@ -66,7 +66,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
             organizationId, personId, certificationId, options);
 
         var certification = await Certifications.Where(x =>
-                x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
+                x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
 
         if (certification == null)
@@ -91,7 +91,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
             organizationId, personId, certificationId);
 
         var certification = await Certifications.Where(x =>
-                x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == certificationId)
+                x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
 
         if (certification == null)
@@ -109,7 +109,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
     {
         var id = await Certifications.AsNoTracking()
             .IgnoreQueryFilters()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .OrderByDescending(x => x.Id)
             .Select(x => x.Id)
             .FirstOrDefaultAsync();

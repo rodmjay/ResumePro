@@ -17,7 +17,7 @@ public sealed class Certification : BaseEntity<Certification>, ICertification
     public string Name { get; set; }
     public string Body { get; set; }
     public DateTime Date { get; set; }
-    public int PersonaId { get; set; }
+    public int PersonId { get; set; }
     public int Id { get; set; }
 
     public override void Configure(EntityTypeBuilder<Certification> builder)
@@ -32,7 +32,7 @@ public sealed class Certification : BaseEntity<Certification>, ICertification
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Certifications)
-            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }

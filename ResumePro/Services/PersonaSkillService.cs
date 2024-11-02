@@ -19,7 +19,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
     public Task<List<T>> GetPersonaSkills<T>(int organizationId, int personId) where T : PersonaSkillDto
     {
         return PersonalSkills.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -32,7 +32,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
 
         var personalSkill =
             await PersonalSkills.Where(x =>
-                    x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == skillId)
+                    x.OrganizationId == organizationId && x.PersonId == personId && x.SkillId == skillId)
                 .FirstOrDefaultAsync();
 
         if (personalSkill == null)
@@ -40,7 +40,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
             {
                 ObjectState = ObjectState.Added,
                 OrganizationId = organizationId,
-                PersonaId = personId,
+                PersonId = personId,
                 SkillId = skillId
             };
         else
@@ -57,7 +57,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                     .ThenInclude(x => x.OrganizationSettings)
                     .Include(x => x.Skills)
                     .ThenInclude(x => x.Skill)
-                    .Where(x => x.PersonaId == personId && x.OrganizationId == organizationId)
+                    .Where(x => x.PersonId == personId && x.OrganizationId == organizationId)
                     .ToListAsync();
 
                 foreach (var resume in resumes)
@@ -69,7 +69,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
                         resume.Skills.Add(new ResumeSkill
                         {
                             SkillId = personalSkill.SkillId,
-                            PersonaId = personalSkill.PersonaId,
+                            PersonId = personalSkill.PersonId,
                             ResumeId = resume.Id,
                             OrganizationId = organizationId,
                             ObjectState = ObjectState.Added
@@ -95,7 +95,7 @@ public sealed class PersonaSkillService(IServiceProvider serviceProvider, IRepos
             organizationId, personId, skillId);
 
         var changes = await Repository.DeleteAsync(x =>
-            x.OrganizationId == organizationId && x.PersonaId == personId && x.SkillId == skillId);
+            x.OrganizationId == organizationId && x.PersonId == personId && x.SkillId == skillId);
 
         return changes ? Result.Success() : Result.Failed();
     }

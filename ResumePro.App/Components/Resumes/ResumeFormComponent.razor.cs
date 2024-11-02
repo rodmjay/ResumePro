@@ -31,17 +31,17 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
     public IPersonSkillsController PersonSkillsController { get; set; }
 
     [Inject]
-    public IJobsController JobsController { get; set; }
+    public ICompaniesController CompaniesController { get; set; }
     
-    public List<JobDetails> JobDetailsList { get; set; }
+    public List<CompanyDetails> JobDetailsList { get; set; }
     
     private async Task LoadJobData()
     {
-        JobDetailsList = await JobsController.GetJobs(PersonId);
+        JobDetailsList = await CompaniesController.GetCompanies(PersonId);
 
-        foreach (JobDetails job in JobDetailsList)
+        foreach (CompanyDetails job in JobDetailsList)
         {
-            JobCheckStates[job.Id] = Options.JobIds.Contains(job.Id);
+            JobCheckStates[job.Id] = Options.CompanyIds.Contains(job.Id);
         }
     }
     
@@ -92,13 +92,13 @@ public partial class ResumeFormComponent : FormComponent<ResumeOptions>
     }
     void ToggleSelectionJob(int jobId)
     {
-        if (Options.JobIds.Contains(jobId))
+        if (Options.CompanyIds.Contains(jobId))
         {
-            Options.JobIds.Remove(jobId);
+            Options.CompanyIds.Remove(jobId);
         }
         else
         {
-            Options.JobIds.Add(jobId);
+            Options.CompanyIds.Add(jobId);
         }
     }
     void ToggleSelection(int skillId)

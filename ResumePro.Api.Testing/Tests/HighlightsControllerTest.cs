@@ -23,7 +23,7 @@ public class HighlightsControllerTest : BaseApiTest
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
         public async Task CanCreateHighlight(HighlightOptions options)
         {
-            var response = await HighlightsProxy.CreateHighlight(1, 1, options);
+            var response = await HighlightsProxy.CreateHighlight(1, 1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var highlight = response.GetObject();
@@ -38,7 +38,7 @@ public class HighlightsControllerTest : BaseApiTest
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
         public async Task CanUpdateHighlight(HighlightOptions options)
         {
-            var response = await HighlightsProxy.CreateHighlight(1, 1, options);
+            var response = await HighlightsProxy.CreateHighlight(1, 1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var highlightId = response.GetObject().Id;
@@ -49,7 +49,7 @@ public class HighlightsControllerTest : BaseApiTest
                 Text = options.Text + "_updated"
             };
 
-            var updateResponse = await HighlightsProxy.UpdateHighlight(1, 1, highlightId, updateOptions);
+            var updateResponse = await HighlightsProxy.UpdateHighlight(1, 1, 1, highlightId, updateOptions);
             Assert.That(updateResponse.Result is OkObjectResult, Is.True);
 
             var highlight = updateResponse.GetObject();
@@ -64,7 +64,7 @@ public class HighlightsControllerTest : BaseApiTest
         [Test]
         public async Task CanGetHighlights()
         {
-            var response = await HighlightsProxy.GetHighlights(1, 2);
+            var response = await HighlightsProxy.GetHighlights(1, 2, 1);
             Assert.That(response.Count, Is.GreaterThan(0));
         }
     }
@@ -75,12 +75,12 @@ public class HighlightsControllerTest : BaseApiTest
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
         public async Task CanGetHighlight(HighlightOptions options)
         {
-            var response = await HighlightsProxy.CreateHighlight(1, 1, options);
+            var response = await HighlightsProxy.CreateHighlight(1, 1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var highlightId = response.GetObject().Id;
 
-            var highlight = await HighlightsProxy.GetHighlight(1, 1, highlightId);
+            var highlight = await HighlightsProxy.GetHighlight(1, 1, 1, highlightId);
             Assert.That(highlight.Id, Is.EqualTo(highlightId));
             Assert.That(highlight.Text, Is.EqualTo(options.Text));
         }
@@ -92,12 +92,12 @@ public class HighlightsControllerTest : BaseApiTest
         [TestCaseSource(typeof(HighlightsTestData), nameof(HighlightsTestData.ValidCreateOptions))]
         public async Task CanDeleteHighlight(HighlightOptions options)
         {
-            var response = await HighlightsProxy.CreateHighlight(1, 1, options);
+            var response = await HighlightsProxy.CreateHighlight(1, 1, 1, options);
             Assert.That(response.Result is OkObjectResult, Is.True);
 
             var highlightId = response.GetObject().Id;
 
-            var result = await HighlightsProxy.DeleteHighlight(1, 1, highlightId);
+            var result = await HighlightsProxy.DeleteHighlight(1, 1, 1, highlightId);
             Assert.That(result.Succeeded, Is.EqualTo(true));
         }
     }

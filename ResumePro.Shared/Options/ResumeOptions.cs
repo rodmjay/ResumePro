@@ -19,5 +19,5 @@ public class ResumeOptions : IDescription, IJobTitle
 
     public List<int> SkillIds { get; set; } = new();
 
-    public List<int> JobIds { get; set; } = new();
+    public List<int> CompanyIds { get; set; } = new();
 }

@@ -1,0 +1,10 @@
+﻿Id,OrganizationId,PersonId,StartDate,EndDate,CompanyName,Location,Description
+1,1,1,4/1/2022,NULL,Infosys,"Salt Lake City, UT",NULL
+2,1,1,11/1/2020,3/1/2022,Solution Stream,"American Fork, UT",NULL
+3,1,1,11/1/2017,11/1/2020,IdeaFortune,"American Fork, UT",NULL
+4,1,1,1/1/2016,10/1/2017,"Agile Software and Marketing","Cameron Park, CA",NULL
+5,1,1,1/1/2014,1/1/2015,"Access Softek","West Jordan, UT",NULL
+6,1,1,5/1/2012,12/1/2013,"Netchex","Mandeville, LA",NULL
+7,1,1,8/1/2010,5/1/2012,"Ancestry.com","Provo, UT",NULL
+8,1,1,1/1/2008,8/1/2010,"Cathexis","Provo, UT",NULL
+9,1,1,1/1/2007,1/1/2008,"Motorola Public Safety","Salt Lake City, UT",NULL

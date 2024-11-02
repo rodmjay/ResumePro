@@ -8,6 +8,6 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IProject : IId, IOrder, IName, IDescription, IJobId, IBudget
+public interface IProject : IId, IOrder, IName, IDescription, ICompanyId, IBudget
 {
 }

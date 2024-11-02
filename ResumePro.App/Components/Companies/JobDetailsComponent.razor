@@ -1,0 +1,47 @@
+﻿@using ResumePro.Shared.Models
+@if (CompanyDetails != null)
+{
+    
+    <div class="job-section">
+        <Heading Size="HeadingSize.Is5">@CompanyDetails.JobTitle @("@") @CompanyDetails.CompanyName @CompanyDetails.Location</Heading>
+        <Paragraph>@CompanyDetails.StartDate.ToShortDateString() - @(CompanyDetails.DisplayEndDate) (@CompanyDetails.Duration)</Paragraph>
+        <Paragraph>@CompanyDetails.Description</Paragraph>
+
+
+        @if (CompanyDetails.Positions != null && CompanyDetails.Positions.Any())
+        {
+            <UnorderedList>
+                @foreach (PositionDetails position in CompanyDetails.Positions)
+                {
+                    <UnorderedListItem>@position.JobTitle</UnorderedListItem>
+                }
+            </UnorderedList>
+        }
+
+        @if (CompanyDetails.Projects != null && CompanyDetails.Projects.Any())
+        {
+            @foreach (ProjectDetails project in CompanyDetails.Projects)
+            {
+                <div>
+                    <Heading Size="HeadingSize.Is6">Project: @project.Name</Heading>
+                    <Paragraph>@project.Description</Paragraph>
+                    @if (project.Highlights != null && project.Highlights.Any())
+                    {
+                        <UnorderedList>
+                            @foreach (HighlightDto ph in project.Highlights)
+                            {
+                                <UnorderedListItem>@ph.Text</UnorderedListItem>
+                            }
+                        </UnorderedList>
+                    }
+                </div>
+            }
+        }
+    
+        @if (CompanyDetails.Skills != null && CompanyDetails.Skills.Any())
+        {
+            <Strong>Technologies Used:</Strong>
+            <p>@String.Join(", ", CompanyDetails.Skills.Select(x => x.Name))</p>
+        }
+    </div>
+}

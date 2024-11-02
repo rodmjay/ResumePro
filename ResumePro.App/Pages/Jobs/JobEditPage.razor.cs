@@ -7,7 +7,7 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.App.Components.Jobs;
+using ResumePro.App.Components.Companies;
 using ResumePro.App.Pages.Bases;
 using ResumePro.Shared.Common;
 using ResumePro.Shared.Events;
@@ -22,27 +22,27 @@ public partial class JobEditPage : PersonPageBase
 {
     public JobFormComponent Form { get; set; }
 
-    [Inject] public IJobsController JobsController { get; set; }
+    [Inject] public ICompaniesController CompaniesController { get; set; }
 
     [Parameter] public int JobId { get; set; }
 
-    public JobDetails Job { get; set; }
+    public CompanyDetails Company { get; set; }
 
-    public JobOptions Options { get; set; } = new();
+    public CompanyOptions Options { get; set; } = new();
 
 
     protected override async Task OnParametersSetAsync()
     {
-        Job = await JobsController.GetJob(PersonId, JobId);
+        Company = await CompaniesController.GetCompany(PersonId, JobId);
 
-        Options = Mapper.Map<JobOptions>(Job);
+        Options = Mapper.Map<CompanyOptions>(Company);
 
         await base.OnParametersSetAsync();
     }
 
     private async Task HandleDelete()
     {
-        Result response = await JobsController.DeleteJob(PersonId, JobId);
+        Result response = await CompaniesController.DeleteCompany(PersonId, JobId);
         if (response.Succeeded)
         {
             await EventAggregator.PublishAsync(new JobDeletedEvent());
@@ -54,13 +54,13 @@ public partial class JobEditPage : PersonPageBase
         }
     }
 
-    private async Task HandleValidSubmit(JobOptions options)
+    private async Task HandleValidSubmit(CompanyOptions options)
     {
-        ActionResult<JobDetails> response = await JobsController.UpdateJob(PersonId, JobId, options);
+        ActionResult<CompanyDetails> response = await CompaniesController.UpdateCompany(PersonId, JobId, options);
         if (response.IsSuccessStatusCode())
         {
-            JobDetails job = response.GetObject();
-            await EventAggregator.PublishAsync(new JobUpdatedEvent(job));
+            CompanyDetails company = response.GetObject();
+            await EventAggregator.PublishAsync(new JobUpdatedEvent(company));
             NavigationManager.NavigateTo($"/people/{PersonId}?tab=jobs");
         }
         else

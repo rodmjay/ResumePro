@@ -1,0 +1,11 @@
+﻿OrganizationId,Id,CompanyId,Name,Order,Description,Budget
+1,1,1,"BASF-Refinity",1,"Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
+1,2,1,"Microsoft",2,"The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.",
+1,3,2,"Elder Care Management Platform",1,"ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.",500000
+1,4,2,"Real Estate Accounting Platform",2,"Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.",500000
+1,5,2,"Major Food Distribution System",3,"Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.",3000000
+1,6,3,"Professional Services Management Platform",1,NULL,500000
+1,7,4,"Family Entertainment Center Platform",1,"Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.",500000
+1,8,7,"Small Collections Self-Management Platform",1,NULL,2000000
+1,9,8,"Affiliate Marketing Platform",1,"Cathexis is a platform that hosts extensive affiliate marketing campaigns, tracking clicks and conversions to inform business decisions.",2000000
+1,10,8,"E-Learning Platform",1,"Monaco Classroom is a virtual learning environment that offers access to digital training materials purchased online.",500000

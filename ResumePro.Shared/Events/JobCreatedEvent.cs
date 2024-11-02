@@ -2,8 +2,8 @@
 
 namespace ResumePro.Shared.Events;
 
-public class JobCreatedEvent(JobDetails job) : BaseEvent(EventType.Created)
+public class JobCreatedEvent(CompanyDetails company) : BaseEvent(EventType.Created)
 {
-    public JobDetails Job { get; } = job;
-    protected override string Name => $"Job: '{Job.JobTitle}";
+    public CompanyDetails Company { get; } = company;
+    protected override string Name => $"Job: '{Company.JobTitle}";
 }

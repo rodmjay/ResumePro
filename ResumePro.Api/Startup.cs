@@ -30,6 +30,7 @@ public sealed class Startup(
         var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
             .AddAutomapperProfilesFromAssemblies()
             .RegisterHandlebarsExtensions()
+            .AddAppInsights()
             .RegisterPdfGeneration()
             .RegisterAllServices(businessAssembly);
 

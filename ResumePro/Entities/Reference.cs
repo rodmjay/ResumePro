@@ -15,7 +15,7 @@ public sealed class Reference : BaseEntity<Reference>, IReference
 {
     public int OrganizationId { get; set; }
  
-    public int PersonaId { get; set; }
+    public int PersonId { get; set; }
     public Persona Persona { get; set; }
 
     public int Id { get; set; }
@@ -27,7 +27,7 @@ public sealed class Reference : BaseEntity<Reference>, IReference
     public override void Configure(EntityTypeBuilder<Reference> builder)
     {
 
-        builder.HasKey(x => new{x.OrganizationId, x.PersonaId, x.Id});
+        builder.HasKey(x => new{x.OrganizationId, x.PersonId, x.Id});
 
         builder.Property(x => x.Name)
             .ConfigureColumn(StringColumnSize.Small);
@@ -37,7 +37,7 @@ public sealed class Reference : BaseEntity<Reference>, IReference
         
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.References)
-            .HasForeignKey(x => new{x.OrganizationId, x.PersonaId})
+            .HasForeignKey(x => new{x.OrganizationId, x.PersonId})
             .HasPrincipalKey(x=>new{x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }

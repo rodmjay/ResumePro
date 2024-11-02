@@ -102,7 +102,7 @@ public class PdfResumeGenerator(PdfSettings settings) : IResumeGenerator
                 if (showDuration) text += $" ({job.Duration})";
 
                 yield return new ResumeSection
-                    {SectionType = ResumeSectionType.BoldText, Text = $"{job.Company} - {job.JobTitle}", Indentation = 10};
+                    {SectionType = ResumeSectionType.BoldText, Text = $"{job.CompanyName} - {job.JobTitle}", Indentation = 10};
                 yield return new ResumeSection
                 {
                     SectionType = ResumeSectionType.Text,

@@ -11,26 +11,28 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 
+
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public sealed class ResumeService(
     ResumeErrorDescriber resumeErrors,
     TemplateErrorDescriber templateErrors,
-    IRepositoryAsync<Job> jobRepo,
+    IRepositoryAsync<Company> jobRepo,
     IRepositoryAsync<PersonaSkill> personalSkillsRepo,
     IRepositoryAsync<Rendering> renderingRepo,
     IRepositoryAsync<Template> templateRepo,
+    IIdGenerationService idGenerationService,
     IServiceProvider serviceProvider)
     : BaseService<Resume>(serviceProvider), IResumeService
 {
     private IQueryable<Resume> Resumes => Repository.Queryable();
-    private IQueryable<Job> Jobs => jobRepo.Queryable();
+    private IQueryable<Company> Companies => jobRepo.Queryable();
     private IQueryable<PersonaSkill> PersonalSkills => personalSkillsRepo.Queryable();
     private IQueryable<Template> Templates => templateRepo.Queryable();
     private IQueryable<Rendering> Renderings => renderingRepo.Queryable();
 
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
-        var resume = await Resumes.Where(x => x.Id == resumeId && x.PersonaId == personId
+        var resume = await Resumes.Where(x => x.Id == resumeId && x.PersonId == personId
                                                                && x.OrganizationId == organizationId)
             .AsNoTracking()
             .AsSplitQuery()
@@ -42,7 +44,7 @@ public sealed class ResumeService(
 
     public Task<List<T>> GetResumes<T>(int organizationId, int personId) where T : ResumeDto
     {
-        return Resumes.Where(x => x.PersonaId == personId
+        return Resumes.Where(x => x.PersonId == personId
                                   && x.OrganizationId == organizationId)
             .AsNoTracking()
             .AsSplitQuery()
@@ -59,10 +61,10 @@ public sealed class ResumeService(
 
         var resume = new Resume
         {
-            Id = await GetNextResumeId(organizationId),
+            Id = await idGenerationService.GetNextResumeId(organizationId),
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
-            PersonaId = personId,
+            PersonId = personId,
             JobTitle = options.JobTitle,
             Description = options.Description,
             ResumeSettings = new ResumeSettings
@@ -89,34 +91,34 @@ public sealed class ResumeService(
 
             if (resumeDto.Settings.AttachAllJobs)
             {
-                var jobs = await Jobs
+                var jobs = await Companies
                     .AsNoTracking()
-                    .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+                    .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
                     .ToListAsync();
 
                 foreach (var job in jobs)
-                    resume.Jobs.Add(new ResumeJob
+                    resume.Companies.Add(new ResumeCompany
                     {
                         ObjectState = ObjectState.Added,
                         OrganizationId = organizationId,
                         ResumeId = resume.Id,
-                        JobId = job.Id
+                        CompanyId = job.Id
                     });
             }
             else
             {
-                if (options.JobIds?.Any() == true)
+                if (options.CompanyIds?.Any() == true)
                 {
-                    var jobs = await Jobs.AsNoTracking()
-                        .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
-                        .Where(x => options.JobIds.Contains(x.Id))
+                    var jobs = await Companies.AsNoTracking()
+                        .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
+                        .Where(x => options.CompanyIds.Contains(x.Id))
                         .ToListAsync();
 
                     foreach (var job in jobs)
-                        resume.Jobs.Add(new ResumeJob
+                        resume.Companies.Add(new ResumeCompany
                         {
                             ObjectState = ObjectState.Added,
-                            JobId = job.Id,
+                            CompanyId = job.Id,
                             ResumeId = resume.Id,
                             OrganizationId = organizationId
                         });
@@ -128,7 +130,7 @@ public sealed class ResumeService(
             {
                 var skills = await PersonalSkills
                     .AsNoTracking()
-                    .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+                    .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
                     .ToListAsync();
 
                 foreach (var skill in skills)
@@ -145,7 +147,7 @@ public sealed class ResumeService(
                 {
                     var skills = await PersonalSkills
                         .AsNoTracking()
-                        .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+                        .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
                         .Where(x => options.SkillIds.Contains(x.SkillId))
                         .ToListAsync();
 
@@ -180,16 +182,16 @@ public sealed class ResumeService(
             organizationId, personId, resumeId, options);
 
         var resume = await Resumes
-            .Include(x => x.Jobs)
+            .Include(x => x.Companies)
             .Include(x => x.Skills)
             .Include(x => x.ResumeSettings)
-            .Where(x => x.OrganizationId == organizationId && x.Id == resumeId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.Id == resumeId && x.PersonId == personId)
             .FirstOrDefaultAsync();
 
         if (resume == null)
             return Result.Failed(resumeErrors.ResumeNotFound(resumeId));
 
-        foreach (var job in resume.Jobs) job.ObjectState = ObjectState.Deleted;
+        foreach (var job in resume.Companies) job.ObjectState = ObjectState.Deleted;
 
         foreach (var skill in resume.Skills) skill.ObjectState = ObjectState.Deleted;
 
@@ -217,23 +219,23 @@ public sealed class ResumeService(
         resume.ResumeSettings.SkillView = options.Settings.SkillView;
 
 
-        var allJobIds = await Jobs
+        var allJobIds = await Companies
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .Select(x => x.Id)
             .ToListAsync();
 
-        var actualJobIds = allJobIds.Where(x => options.JobIds.Contains(x)).ToList();
+        var actualJobIds = allJobIds.Where(x => options.CompanyIds.Contains(x)).ToList();
 
-        foreach (var jobId in actualJobIds)
+        foreach (var companyId in actualJobIds)
         {
-            var resumeJob = resume.Jobs.FirstOrDefault(x => x.JobId == jobId);
+            var resumeJob = resume.Companies.FirstOrDefault(x => x.CompanyId == companyId);
             if (resumeJob == null)
-                resume.Jobs.Add(new ResumeJob
+                resume.Companies.Add(new ResumeCompany
                 {
                     ObjectState = ObjectState.Added,
                     OrganizationId = organizationId,
-                    JobId = jobId
+                    CompanyId = companyId
                 });
             else
                 resumeJob.ObjectState = ObjectState.Unchanged;
@@ -241,7 +243,7 @@ public sealed class ResumeService(
 
         var allSkillIds = await PersonalSkills
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .Select(x => x.SkillId)
             .ToListAsync();
 
@@ -271,14 +273,15 @@ public sealed class ResumeService(
 
     public Task<MemoryStream> Generate2(ResumeDetails resume)
     {
-        var resumeGenerator = new PdfResumeGenerator(new PdfSettings
-        {
-            DisplayInExplorer = false,
-            CreateUpdatePdf = true,
-            FontFamily = "Verdana"
-        });
+        throw new NotImplementedException();
+        //var resumeGenerator = new PdfResumeGenerator(new PdfSettings
+        //{
+        //    DisplayInExplorer = false,
+        //    CreateUpdatePdf = true,
+        //    FontFamily = "Verdana"
+        //});
 
-        return Task.FromResult(resumeGenerator.ExecuteOperation(resume));
+        //return Task.FromResult(resumeGenerator.ExecuteOperation(resume));
     }
 
     public async Task<ResumeDetails> Generate(int organizationId, int personId, int resumeId)
@@ -348,7 +351,7 @@ public sealed class ResumeService(
 
         var resume = await Resumes
             .Where(x => x.OrganizationId == organizationId && x.Id == resumeId)
-            .Include(x => x.Jobs)
+            .Include(x => x.Companies)
             .Include(x => x.Skills)
             .FirstOrDefaultAsync();
 
@@ -357,7 +360,7 @@ public sealed class ResumeService(
 
         resume.ObjectState = ObjectState.Deleted;
 
-        foreach (var job in resume.Jobs) job.ObjectState = ObjectState.Deleted;
+        foreach (var job in resume.Companies) job.ObjectState = ObjectState.Deleted;
 
         foreach (var skill in resume.Skills) skill.ObjectState = ObjectState.Deleted;
 
@@ -367,14 +370,4 @@ public sealed class ResumeService(
         return Result.Failed();
     }
 
-    private async Task<int> GetNextResumeId(int organizationId)
-    {
-        var id = await Resumes.AsNoTracking()
-            .IgnoreQueryFilters()
-            .Where(x => x.OrganizationId == organizationId)
-            .OrderByDescending(x => x.Id)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
-        return id + 1;
-    }
 }

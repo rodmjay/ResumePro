@@ -1,0 +1,4 @@
+﻿Id,OrganizationId,PersonId,CompanyId,StartDate,EndDate,JobTitle
+1,1,1,1,4/1/2022,NULL,Technical Architect
+1,1,1,2,11/1/2020,3/1/2022,".Net Architect"
+2,1,1,2,11/1/2020,3/1/2022,"Sr. Software Architect"

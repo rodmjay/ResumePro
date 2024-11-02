@@ -1,2 +1,2 @@
-﻿OrganizationId,Id,PersonaId,Name,Location,StartDate,EndDate
+﻿OrganizationId,Id,PersonId,Name,Location,StartDate,EndDate
 1,1,1,"Portland Community College","Portland, OR",1/1/2004,5/1/2005

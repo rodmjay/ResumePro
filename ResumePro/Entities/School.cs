@@ -16,7 +16,7 @@ public sealed class School : BaseEntity<School>, ISchool
     public Persona Persona { get; set; }
     public ICollection<Degree> Degrees { get; set; } = new List<Degree>();
     public int Id { get; set; }
-    public int PersonaId { get; set; }
+    public int PersonId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }
     public string Name { get; set; }
@@ -28,7 +28,7 @@ public sealed class School : BaseEntity<School>, ISchool
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Schools)
-            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
     }

@@ -11,7 +11,7 @@ namespace ResumePro.Shared.Interfaces;
 public interface IPersonaLanguage
 {
     int OrganizationId { get; set; }
-    int PersonaId { get; set; }
+    int PersonId { get; set; }
     string Code3 { get; set; }
     LanguageLevel Proficiency { get; set; }
 }

@@ -6,6 +6,6 @@
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IResume : IPersonaId, IId, IJobTitle, IDescription, IOrganizationId
+public interface IResume : IPersonId, IId, IJobTitle, IDescription, IOrganizationId
 {
 }

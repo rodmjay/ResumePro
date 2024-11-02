@@ -21,7 +21,7 @@ public sealed class SchoolService(
 
     public Task<List<T>> GetSchools<T>(int organizationId, int personId) where T : SchoolDto
     {
-        return Schools.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+        return Schools.Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .AsNoTracking()
             .ProjectTo<T>(Mapper)
             .ToListAsync();
@@ -29,7 +29,7 @@ public sealed class SchoolService(
 
     public Task<T> GetSchool<T>(int organizationId, int personId, int schoolId) where T : SchoolDto
     {
-        return Schools.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == schoolId)
+        return Schools.Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == schoolId)
             .AsNoTracking()
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
@@ -49,7 +49,7 @@ public sealed class SchoolService(
             EndDate = options.EndDate,
             StartDate = options.StartDate.Value,
             Name = options.Name,
-            PersonaId = personId,
+            PersonId = personId,
             OrganizationId = organizationId
         };
 

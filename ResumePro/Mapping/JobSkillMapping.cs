@@ -13,10 +13,10 @@ public class JobSkillMapping : Profile
 {
     public JobSkillMapping()
     {
-        CreateMap<JobSkill, JobSkillDto>()
+        CreateMap<CompanySkill, CompanySkillDto>()
             .ForMember(x => x.OrganizationId, opt => opt.Ignore())
-            .ForMember(x => x.JobId, opt => opt.Ignore())
-            .ForMember(x => x.PersonaId, opt => opt.Ignore())
+            .ForMember(x => x.CompanyId, opt => opt.Ignore())
+            .ForMember(x => x.PersonId, opt => opt.Ignore())
             .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Skill.Skill.Title));
     }
 }

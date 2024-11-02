@@ -1,0 +1,49 @@
+﻿@using ResumePro.Shared.Models
+<Card Margin="Margin.Is2.FromBottom">
+    <CardHeader>
+        <strong>@Company.JobTitle</strong> at @Company.CompanyName
+    </CardHeader>
+    <CardBody>
+
+        <CardSubtitle Margin="Margin.Is2.FromBottom" Italic="true">
+            @Company.StartDate.ToShortDateString() - @(Company.DisplayEndDate) (@Company.Duration)
+        </CardSubtitle>
+        <CardText>
+            @Company.Description
+        </CardText>
+
+        @if (Company.Positions.Any())
+        {
+            <UnorderedList>
+                @foreach (PositionDetails position in Company.Positions)
+                {
+                    <UnorderedListItem>@position.JobTitle</UnorderedListItem>
+                }
+            </UnorderedList>
+        }
+
+        @if (Company.Projects.Any())
+        {
+            <CardText>
+                @foreach (ProjectDetails project in Company.Projects)
+                {
+                    <Heading Size="HeadingSize.Is5">Project: @project.Name</Heading>
+                    <Paragraph>@project.Description</Paragraph>
+
+                    @if (project.Highlights.Any())
+                    {
+                        <UnorderedList>
+                            @foreach (HighlightDto highlight in project.Highlights)
+                            {
+                                <UnorderedListItem>@highlight.Text</UnorderedListItem>
+                            }
+                        </UnorderedList>
+                    }
+                }
+            </CardText>
+        }
+        <CardText>
+            <strong>Skills:</strong> @string.Join(", ", Company.Skills.Select(s => s.Name))
+        </CardText>
+    </CardBody>
+</Card>

@@ -15,7 +15,7 @@ public class CertificationDto : ICertification
     public string Name { get; set; }
     public string Body { get; set; }
 
-    [JsonIgnore] public int PersonaId { get; set; }
+    [JsonIgnore] public int PersonId { get; set; }
 
     public int Id { get; set; }
     public DateTime Date { get; set; }

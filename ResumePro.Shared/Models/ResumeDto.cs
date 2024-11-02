@@ -24,7 +24,7 @@ public class ResumeDto : IResume
     public int JobCount { get; set; }
     public int SkillCount { get; set; }
 
-    [JsonIgnore] public int PersonaId { get; set; }
+    [JsonIgnore] public int PersonId { get; set; }
 
     public int Id { get; set; }
 

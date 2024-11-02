@@ -23,13 +23,13 @@ public class ResumeMapping : Profile
             .ForMember(x => x.City, opt => opt.MapFrom(x => x.Persona.City))
             .ForMember(x => x.State, opt => opt.MapFrom(x => x.Persona.State.Code))
             .ForMember(x => x.Country, opt => opt.MapFrom(x => x.Persona.State.Country.Iso2))
-            .ForMember(x => x.JobCount, opt => opt.MapFrom(x => x.Jobs.Count))
+            .ForMember(x => x.JobCount, opt => opt.MapFrom(x => x.Companies.Count))
             .ForMember(x => x.SkillCount, opt => opt.MapFrom(x => x.Skills.Count))
             .ForMember(x => x.PhoneNumber, opt => opt.MapFrom(x => x.Persona.PhoneNumber))
             .IncludeAllDerived();
 
         CreateMap<Resume, ResumeDetails>()
-            .ForMember(x => x.Jobs, opt => opt.MapFrom(x => x.Jobs.OrderByDescending(a => a.Job.StartDate)))
+            .ForMember(x => x.Companies, opt => opt.MapFrom(x => x.Companies.OrderByDescending(a => a.Company.StartDate)))
             .ForMember(x => x.References, opt => opt.MapFrom(x => x.Persona.References.OrderBy(a => a.Order)))
             .ForMember(x => x.Renderings, opt => opt.MapFrom(x => x.Renderings))
             .ForMember(x => x.Languages,

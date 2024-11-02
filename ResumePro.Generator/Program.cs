@@ -39,32 +39,34 @@ internal class Program
 
     private static async Task Main(string[] args)
     {
-        int GetArgValue(int position, int defaultValue)
-        {
-            var index = position - 1;
-            return args.Length > index && int.TryParse(args[index], out var parsedValue) ? parsedValue : defaultValue;
-        }
+        //int GetArgValue(int position, int defaultValue)
+        //{
+        //    var index = position - 1;
+        //    return args.Length > index && int.TryParse(args[index], out var parsedValue) ? parsedValue : defaultValue;
+        //}
 
-        var organizationId = GetArgValue(1, 1);
-        var personaId = GetArgValue(2, 1);
-        var resumeId = GetArgValue(3, 1);
+        //var organizationId = GetArgValue(1, 1);
+        //var personaId = GetArgValue(2, 1);
+        //var resumeId = GetArgValue(3, 1);
 
-        var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
+        //var resumeService = ServiceProvider.GetRequiredService<IResumeService>();
 
-        var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId);
+        //var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personaId, resumeId);
 
-        var pdfGenerator = new PdfResumeGenerator(new PdfSettings
-        {
-            CreateUpdatePdf = true,
-            DisplayInExplorer = true,
-            FontFamily = "Verdana"
-        });
+        //var pdfGenerator = new PdfResumeGenerator(new PdfSettings
+        //{
+        //    CreateUpdatePdf = true,
+        //    DisplayInExplorer = true,
+        //    FontFamily = "Verdana"
+        //});
 
-        UpdateReadMe(resume.Renderings.First(x => x.Format == "md").Text);
+        //UpdateReadMe(resume.Renderings.First(x => x.Format == "md").Text);
 
-        pdfGenerator.ExecuteOperation(resume);
+        //pdfGenerator.ExecuteOperation(resume);
 
-        Console.ReadLine();
+        //Console.ReadLine();
+
+        throw new NotImplementedException();
     }
 
     private static void UpdateReadMe(string resumeText)

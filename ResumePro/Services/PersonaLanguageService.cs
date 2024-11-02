@@ -23,7 +23,7 @@ public sealed class PersonaLanguageService(
     public Task<T> GetPersonaLanguage<T>(int organizationId, int personId, string language) where T : PersonaLanguageDto
     {
         return PersonaLanguages.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
@@ -31,7 +31,7 @@ public sealed class PersonaLanguageService(
     public Task<List<T>> GetPersonaLanguages<T>(int organizationId, int personId) where T : PersonaLanguageDto
     {
         return PersonaLanguages.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
@@ -50,14 +50,14 @@ public sealed class PersonaLanguageService(
             return Result.Failed(errors.ToArray());
 
         var pl = await PersonaLanguages.Where(x =>
-                x.OrganizationId == organizationId && x.PersonaId == personId && x.Code3 == options.LanguageId)
+                x.OrganizationId == organizationId && x.PersonId == personId && x.Code3 == options.LanguageId)
             .FirstOrDefaultAsync();
 
         if (pl == null)
             pl = new PersonaLanguage
             {
                 ObjectState = ObjectState.Added,
-                PersonaId = personId,
+                PersonId = personId,
                 OrganizationId = organizationId
             };
         else

@@ -15,7 +15,7 @@ public class PersonaLanguageDto : IPersonaLanguage
 
     [JsonIgnore] public int OrganizationId { get; set; }
 
-    [JsonIgnore] public int PersonaId { get; set; }
+    [JsonIgnore] public int PersonId { get; set; }
 
     public string Code3 { get; set; }
     public LanguageLevel Proficiency { get; set; }

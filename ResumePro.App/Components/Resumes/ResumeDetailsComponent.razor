@@ -14,9 +14,9 @@
     @if (Resume.Jobs != null && Resume.Jobs.Any())
     {
         <h4>Experience</h4>
-        @foreach (JobDetails job in Resume.Jobs)
+        @foreach (CompanyDetails job in Resume.Jobs)
         {
-            <JobDetailsComponent JobDetails="@job"></JobDetailsComponent>
+            <JobDetailsComponent CompanyDetails="@job"></JobDetailsComponent>
         }
     }
 

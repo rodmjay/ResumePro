@@ -24,7 +24,7 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
 
         var resumeSkill = await ResumeSkills.Where(x => x.OrganizationId == organizationId
                                                         && x.ResumeId == resumeId
-                                                        && x.PersonaId == personId
+                                                        && x.PersonId == personId
                                                         && x.SkillId == skillId)
             .FirstOrDefaultAsync();
 
@@ -34,7 +34,7 @@ public sealed class ResumeSkillService(IServiceProvider serviceProvider)
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
-            PersonaId = personId,
+            PersonId = personId,
             ResumeId = resumeId
         };
 

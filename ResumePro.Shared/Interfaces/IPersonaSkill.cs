@@ -8,6 +8,6 @@ namespace ResumePro.Shared.Interfaces;
 
 public interface IPersonaSkill
 {
-    int PersonaId { get; set; }
+    int PersonId { get; set; }
     int SkillId { get; set; }
 }

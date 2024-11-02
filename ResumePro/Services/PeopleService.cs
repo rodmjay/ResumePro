@@ -157,7 +157,7 @@ public sealed class PeopleService(
                 {
                     ObjectState = ObjectState.Added,
                     OrganizationId = organizationId,
-                    PersonaId = personId,
+                    PersonId = personId,
                     Code3 = lang.LanguageId
                 };
                 

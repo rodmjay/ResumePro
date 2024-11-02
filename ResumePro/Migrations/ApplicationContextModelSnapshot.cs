@@ -41,14 +41,379 @@ namespace ResumePro.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("OrganizationId", "PersonaId");
+                    b.HasIndex("OrganizationId", "PersonId");
 
                     b.ToTable("Certification");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Company", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("CompanyName")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(1024)");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("OrganizationId", "PersonId", "Id");
+
+                    b.ToTable("Company");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            Id = 1,
+                            CompanyName = "Infosys",
+                            Location = "Salt Lake City, UT",
+                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            Id = 2,
+                            CompanyName = "Solution Stream",
+                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Location = "American Fork, UT",
+                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.CompanySkill", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "SkillId");
+
+                    b.HasIndex("OrganizationId", "CompanyId");
+
+                    b.HasIndex("OrganizationId", "PersonId", "SkillId");
+
+                    b.ToTable("CompanySkill");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 1
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 18
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 19
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 20
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 21
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 22
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 7
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 23
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 24
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 17
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 16
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 2
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 7
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 8
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 9
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 10
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 11
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 34
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 3
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 4
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 5
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 6
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 31
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 36
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 36
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 37
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            SkillId = 38
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 38
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 12
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 13
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 14
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 22
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 34
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 44
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            SkillId = 43
+                        });
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Country", b =>
@@ -2264,27 +2629,26 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
                     b.Property<int>("Order")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ProjectId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("varchar(512)");
 
-                    b.HasKey("OrganizationId", "Id");
-
-                    b.HasIndex("OrganizationId", "JobId");
-
-                    b.HasIndex("ProjectId", "JobId");
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "PositionId", "Id");
 
                     b.ToTable("Highlight");
 
@@ -2292,1349 +2656,42 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            PositionId = 2,
                             Id = 1,
-                            JobId = 1,
-                            Order = 1,
-                            ProjectId = 2,
-                            Text = "Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 2,
-                            JobId = 1,
-                            Order = 2,
-                            ProjectId = 2,
-                            Text = "Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 3,
-                            JobId = 1,
-                            Order = 3,
-                            ProjectId = 2,
-                            Text = "Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 4,
-                            JobId = 1,
-                            Order = 4,
-                            ProjectId = 2,
-                            Text = "Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 5,
-                            JobId = 1,
-                            Order = 5,
-                            ProjectId = 2,
-                            Text = "Responsible for implementing integration testing patterns across multiple applications."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 6,
-                            JobId = 2,
                             Order = 1,
                             Text = "Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 7,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            PositionId = 2,
+                            Id = 2,
                             Order = 2,
                             Text = "Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 8,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            PositionId = 2,
+                            Id = 3,
                             Order = 3,
                             Text = "Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 9,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            PositionId = 2,
+                            Id = 4,
                             Order = 4,
                             Text = "Awarded 'Top Developer of 2021' for exceptional productivity and innovation."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 10,
-                            JobId = 1,
-                            Order = 1,
-                            ProjectId = 1,
-                            Text = "Spearheaded the architecture of a model MicroService, setting new standards for future developments."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 11,
-                            JobId = 1,
-                            Order = 2,
-                            ProjectId = 1,
-                            Text = "Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 12,
-                            JobId = 2,
-                            Order = 1,
-                            ProjectId = 5,
-                            Text = "Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 13,
-                            JobId = 2,
-                            Order = 2,
-                            ProjectId = 5,
-                            Text = "Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 14,
-                            JobId = 2,
-                            Order = 3,
-                            ProjectId = 5,
-                            Text = "Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 15,
-                            JobId = 1,
-                            Order = 5,
-                            ProjectId = 1,
-                            Text = "Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 17,
-                            JobId = 5,
-                            Order = 1,
-                            Text = "Managed four developers directly using Agile Scrum methodologies."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 18,
-                            JobId = 5,
-                            Order = 2,
-                            Text = "Responsible for the architecture and development of components within a banking platform."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 19,
-                            JobId = 5,
-                            Order = 3,
-                            Text = "Developed Fingerprint Login and Friends and Family Shared Banking components."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 20,
-                            JobId = 2,
-                            Order = 1,
-                            ProjectId = 3,
-                            Text = "Responsible for the architecture and development of the .NET Core backend."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 21,
-                            JobId = 2,
-                            Order = 2,
-                            ProjectId = 3,
-                            Text = "Developed advanced medication and activity scheduling systems to accommodate complex care requirements."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 22,
-                            JobId = 2,
-                            Order = 3,
-                            ProjectId = 3,
-                            Text = "Made critical technology decisions that kept the project on track and within budgetary constraints."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 23,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 3,
-                            Text = "Maintained a code coverage of 90%, ensuring high reliability and quality of the software."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 24,
-                            JobId = 2,
-                            Order = 1,
-                            ProjectId = 4,
-                            Text = "Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 25,
-                            JobId = 2,
-                            Order = 2,
-                            ProjectId = 4,
-                            Text = "Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 26,
-                            JobId = 2,
-                            Order = 4,
-                            ProjectId = 4,
-                            Text = "Maintained 75% code coverage."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 27,
-                            JobId = 2,
-                            Order = 3,
-                            ProjectId = 4,
-                            Text = "Made key technology decisions to ensure the project remained on schedule and within budget."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 28,
-                            JobId = 9,
-                            Order = 1,
-                            Text = "Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 29,
-                            JobId = 9,
-                            Order = 2,
-                            Text = "Received extensive training in .NET, JavaScript, and WCF directly from Microsoft."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 30,
-                            JobId = 1,
-                            Order = 2,
-                            ProjectId = 2,
-                            Text = "Optimized ChatGPT training models to meet internal business needs."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 31,
-                            JobId = 3,
-                            Order = 1,
-                            Text = "Responsible for the ideation, design, and delivery of a comprehensive professional services platform."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 32,
-                            JobId = 3,
-                            Order = 2,
-                            Text = "Raised startup capital to fund company operations for three years."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 33,
-                            JobId = 3,
-                            Order = 3,
-                            Text = "Managed a team of five developers to implement the flagship product."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 34,
-                            JobId = 3,
-                            Order = 1,
-                            ProjectId = 6,
-                            Text = "Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 36,
-                            JobId = 3,
-                            Order = 3,
-                            ProjectId = 6,
-                            Text = "Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 37,
-                            JobId = 4,
-                            Order = 1,
-                            Text = "Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and improve scalability."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 38,
-                            JobId = 4,
-                            Order = 2,
-                            Text = "Developed a comprehensive order and scheduling system with full functionality."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 39,
-                            JobId = 4,
-                            Order = 3,
-                            Text = "Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 40,
-                            JobId = 4,
-                            Order = 4,
-                            Text = "Developed a comprehensive DevOps strategy to ensure compliance with international regulations."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 41,
-                            JobId = 4,
-                            Order = 1,
-                            ProjectId = 7,
-                            Text = "Oversaw and managed the complete backend development process."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 42,
-                            JobId = 4,
-                            Order = 2,
-                            ProjectId = 7,
-                            Text = "Integrated with multiple bowling and card-reading systems to enhance overall system functionality."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 43,
-                            JobId = 4,
-                            Order = 3,
-                            ProjectId = 7,
-                            Text = "Developed a fully-featured order and scheduling system."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 44,
-                            JobId = 6,
-                            Order = 1,
-                            Text = "Redesigned the flagship product by integrating advanced technology to enhance performance and functionality."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 45,
-                            JobId = 6,
-                            Order = 2,
-                            Text = "Collaborated directly with the onsite team, providing mentorship to enhance skills and foster professional growth."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 46,
-                            JobId = 6,
-                            Order = 3,
-                            Text = "Engineered numerous innovative features into the existing platform, significantly enhancing its capabilities and user experience."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 47,
-                            JobId = 6,
-                            Order = 4,
-                            Text = "Specialized expertise in PCI Compliance and payment processing systems."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 48,
-                            JobId = 7,
-                            Order = 1,
-                            ProjectId = 8,
-                            Text = "Developed tools to facilitate the indexing of library archives."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 49,
-                            JobId = 7,
-                            Order = 2,
-                            Text = "Spearheaded companywide adoption and training of jQuery."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 50,
-                            JobId = 7,
-                            Order = 3,
-                            ProjectId = 8,
-                            Text = "Collaborated as a member of an 8-person development team utilizing Agile/Scrum methodologies."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 51,
-                            JobId = 7,
-                            Order = 4,
-                            ProjectId = 8,
-                            Text = "Maintained 100% code coverage."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 53,
-                            JobId = 8,
-                            Order = 1,
-                            ProjectId = 9,
-                            Text = "Oversaw the architecture, development, and deployment of a comprehensive affiliate marketing platform."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 54,
-                            JobId = 8,
-                            Order = 1,
-                            ProjectId = 10,
-                            Text = "Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 55,
-                            JobId = 8,
-                            Order = 2,
-                            ProjectId = 10,
-                            Text = "Oversaw the architecture, development, and deployment of a comprehensive e-learning platform."
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 56,
-                            JobId = 8,
-                            Order = 2,
-                            ProjectId = 9,
-                            Text = "Ensured 99% uptime to maintain smooth business operations."
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.Job", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("varchar(1024)");
-
-                    b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("JobTitle")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("OrganizationId", "Id");
-
-                    b.HasIndex("OrganizationId", "PersonaId");
-
-                    b.ToTable("Job");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 1,
-                            Company = "Infosys",
-                            JobTitle = "Technical Architect",
-                            Location = "Salt Lake City, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 2,
-                            Company = "Solution Stream",
-                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Sr. Software Architect",
-                            Location = "American Fork, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 3,
-                            Company = "IdeaFortune",
-                            EndDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Founder/Architect",
-                            Location = "American Fork, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2017, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 4,
-                            Company = "Agile Software and Marketing",
-                            EndDate = new DateTime(2017, 10, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Architect",
-                            Location = "Cameron Park, CA",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2016, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 5,
-                            Company = "Access Softek",
-                            EndDate = new DateTime(2015, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Sr. Engineer Dev Lead",
-                            Location = "West Jordan, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2014, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 6,
-                            Company = "Netchex",
-                            EndDate = new DateTime(2013, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Architect Consultant",
-                            Location = "Mandeville, LA",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 7,
-                            Company = "Ancestry.com",
-                            EndDate = new DateTime(2012, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Sr. Engineer",
-                            Location = "Provo, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 8,
-                            Company = "Cathexis",
-                            EndDate = new DateTime(2010, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Architect/Dev Manager",
-                            Location = "Provo, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            Id = 9,
-                            Company = "Motorola Public Safety",
-                            EndDate = new DateTime(2008, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            JobTitle = "Engineer",
-                            Location = "Salt Lake City, UT",
-                            PersonaId = 1,
-                            StartDate = new DateTime(2007, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
-                {
-                    b.Property<int>("OrganizationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PersonaId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SkillId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "PersonaId", "JobId", "SkillId");
-
-                    b.HasIndex("OrganizationId", "JobId");
-
-                    b.HasIndex("OrganizationId", "PersonaId", "SkillId");
-
-                    b.ToTable("JobSkill");
-
-                    b.HasData(
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 18
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 19
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 20
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 21
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 22
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 23
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 24
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 17
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 16
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 10
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 11
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 25
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 26
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 27
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 30
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 33
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 29
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 32
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 31
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 5,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 7,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 36
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 37
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 1,
-                            SkillId = 38
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 38
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 39
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 40
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 41
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 42
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 31
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 25
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 10
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 4,
-                            SkillId = 42
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 44
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 43
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 6,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 7,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 7,
-                            SkillId = 44
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 7,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 7,
-                            SkillId = 43
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 33
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 8,
-                            SkillId = 46
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 1
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 2
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 4
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 5
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 6
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 7
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 8
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 9
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 10
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 11
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 12
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 13
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 14
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 22
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 22
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 34
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 44
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 3,
-                            SkillId = 44
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 2,
-                            SkillId = 43
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 44
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            PersonaId = 1,
-                            JobId = 9,
-                            SkillId = 47
                         });
                 });
 
@@ -3760,7 +2817,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<string>("Code3")
@@ -3769,7 +2826,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("Proficiency")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "PersonaId", "Code3");
+                    b.HasKey("OrganizationId", "PersonId", "Code3");
 
                     b.HasIndex("Code3");
 
@@ -3779,14 +2836,14 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Code3 = "eng",
                             Proficiency = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Code3 = "spa",
                             Proficiency = 4
                         });
@@ -3797,13 +2854,13 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "PersonaId", "SkillId");
+                    b.HasKey("OrganizationId", "PersonId", "SkillId");
 
                     b.HasIndex("SkillId");
 
@@ -3813,290 +2870,350 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 7
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 8
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 9
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 11
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 12
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 13
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 14
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 15
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 16
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 17
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 18
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 19
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 20
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 21
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 22
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 23
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 24
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 25
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 26
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 27
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 29
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 30
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 31
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 32
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 33
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 35
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 37
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 39
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 40
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 41
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 42
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 43
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 45
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 46
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 47
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 95
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             SkillId = 96
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Position", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("JobTitle")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "Id");
+
+                    b.ToTable("Position");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            Id = 1,
+                            JobTitle = "Technical Architect",
+                            StartDate = new DateTime(2022, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            Id = 1,
+                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = ".Net Architect",
+                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            Id = 2,
+                            EndDate = new DateTime(2022, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            JobTitle = "Sr. Software Architect",
+                            StartDate = new DateTime(2020, 11, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -4105,10 +3222,13 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Id")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobId")
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
                     b.Property<decimal?>("Budget")
@@ -4124,9 +3244,12 @@ namespace ResumePro.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "Id", "JobId");
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("OrganizationId", "JobId");
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "Id");
+
+                    b.HasIndex("OrganizationId", "PersonId", "CompanyId", "PositionId");
 
                     b.ToTable("Project");
 
@@ -4134,98 +3257,290 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
                             Id = 1,
-                            JobId = 1,
                             Description = "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
                             Name = "BASF-Refinity",
-                            Order = 1
+                            Order = 1,
+                            PositionId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
                             Id = 2,
-                            JobId = 1,
                             Description = "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.",
                             Name = "Microsoft",
-                            Order = 2
+                            Order = 2,
+                            PositionId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 3,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            Id = 1,
                             Budget = 500000m,
                             Description = "ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.",
                             Name = "Elder Care Management Platform",
-                            Order = 1
+                            Order = 1,
+                            PositionId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 4,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            Id = 2,
                             Budget = 500000m,
                             Description = "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.",
                             Name = "Real Estate Accounting Platform",
-                            Order = 2
+                            Order = 2,
+                            PositionId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 5,
-                            JobId = 2,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            Id = 3,
                             Budget = 3000000m,
                             Description = "Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.",
                             Name = "Major Food Distribution System",
-                            Order = 3
+                            Order = 3,
+                            PositionId = 2
+                        });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.ProjectHighlight", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PersonId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CompanyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProjectId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Order")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "ProjectId", "Id");
+
+                    b.ToTable("ProjectHighlight");
+
+                    b.HasData(
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 1,
+                            Id = 1,
+                            Order = 1,
+                            Text = "Spearheaded the architecture of a model MicroService, setting new standards for future developments."
                         },
                         new
                         {
                             OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 1,
+                            Id = 2,
+                            Order = 2,
+                            Text = "Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 1,
+                            Id = 3,
+                            Order = 3,
+                            Text = "Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
+                            Id = 1,
+                            Order = 1,
+                            Text = "Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
+                            Id = 2,
+                            Order = 2,
+                            Text = "Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
+                            Id = 3,
+                            Order = 3,
+                            Text = "Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
+                            Id = 4,
+                            Order = 4,
+                            Text = "Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
+                            Id = 5,
+                            Order = 5,
+                            Text = "Responsible for implementing integration testing patterns across multiple applications."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 1,
+                            ProjectId = 2,
                             Id = 6,
-                            JobId = 3,
-                            Budget = 500000m,
-                            Name = "Professional Services Management Platform",
-                            Order = 1
+                            Order = 6,
+                            Text = "Optimized ChatGPT training models to meet internal business needs."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 7,
-                            JobId = 4,
-                            Budget = 500000m,
-                            Description = "Party Center Software is the number 1 online booking and facility management tool for the family entertainment industry.",
-                            Name = "Family Entertainment Center Platform",
-                            Order = 1
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 3,
+                            Id = 1,
+                            Order = 1,
+                            Text = "Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 8,
-                            JobId = 7,
-                            Budget = 2000000m,
-                            Name = "Small Collections Self-Management Platform",
-                            Order = 1
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 3,
+                            Id = 2,
+                            Order = 2,
+                            Text = "Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 9,
-                            JobId = 8,
-                            Budget = 2000000m,
-                            Description = "Cathexis is a platform that hosts extensive affiliate marketing campaigns, tracking clicks and conversions to inform business decisions.",
-                            Name = "Affiliate Marketing Platform",
-                            Order = 1
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 3,
+                            Id = 3,
+                            Order = 3,
+                            Text = "Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication."
                         },
                         new
                         {
                             OrganizationId = 1,
-                            Id = 10,
-                            JobId = 8,
-                            Budget = 500000m,
-                            Description = "Monaco Classroom is a virtual learning environment that offers access to digital training materials purchased online.",
-                            Name = "E-Learning Platform",
-                            Order = 1
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 1,
+                            Id = 1,
+                            Order = 1,
+                            Text = "Responsible for the architecture and development of the .NET Core backend."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 1,
+                            Id = 2,
+                            Order = 2,
+                            Text = "Developed advanced medication and activity scheduling systems to accommodate complex care requirements."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 1,
+                            Id = 3,
+                            Order = 3,
+                            Text = "Made critical technology decisions that kept the project on track and within budgetary constraints."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 1,
+                            Id = 4,
+                            Order = 4,
+                            Text = "Maintained a code coverage of 90%, ensuring high reliability and quality of the software."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 2,
+                            Id = 1,
+                            Order = 1,
+                            Text = "Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 2,
+                            Id = 2,
+                            Order = 2,
+                            Text = "Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 2,
+                            Id = 3,
+                            Order = 3,
+                            Text = "Maintained 75% code coverage."
+                        },
+                        new
+                        {
+                            OrganizationId = 1,
+                            PersonId = 1,
+                            CompanyId = 2,
+                            ProjectId = 2,
+                            Id = 4,
+                            Order = 4,
+                            Text = "Made key technology decisions to ensure the project remained on schedule and within budget."
                         });
                 });
 
@@ -4234,7 +3549,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("Id")
@@ -4254,7 +3569,7 @@ namespace ResumePro.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(1024)");
 
-                    b.HasKey("OrganizationId", "PersonaId", "Id");
+                    b.HasKey("OrganizationId", "PersonId", "Id");
 
                     b.ToTable("Reference");
 
@@ -4262,7 +3577,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 1,
                             Name = "Joseph Cotton",
                             Order = 1,
@@ -4271,7 +3586,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 2,
                             Name = "Cameo Doran",
                             Order = 2,
@@ -4280,7 +3595,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 5,
                             Name = "Rob Atlas",
                             Order = 3,
@@ -4289,7 +3604,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 6,
                             Name = "Robert Clymer",
                             Order = 4,
@@ -4298,7 +3613,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 7,
                             Name = "Daniel Schulz",
                             Order = 5,
@@ -4307,7 +3622,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 8,
                             Name = "Ryan Done",
                             Order = 6,
@@ -4316,7 +3631,7 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             Id = 9,
                             Name = "Gregg B. Jensen",
                             Order = 7,
@@ -4365,7 +3680,7 @@ namespace ResumePro.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.HasKey("OrganizationId", "Id");
@@ -4379,11 +3694,11 @@ namespace ResumePro.Migrations
                             Id = 1,
                             Description = "Rod is an enterprise architect with deep expertise in the latest .NET and web technologies. With 19 years of experience as a professional developer and architect, he has mastered the complete software development lifecycle, from ideation to implementation. Rod is frequently praised as a 10x developer, consistently delivering high-end software solutions from the ground up.",
                             JobTitle = "Enterprise Application Architect",
-                            PersonaId = 1
+                            PersonId = 1
                         });
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.ResumeJob", b =>
+            modelBuilder.Entity("ResumePro.Entities.ResumeCompany", b =>
                 {
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
@@ -4391,69 +3706,27 @@ namespace ResumePro.Migrations
                     b.Property<int>("ResumeId")
                         .HasColumnType("int");
 
-                    b.Property<int>("JobId")
+                    b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "ResumeId", "JobId");
+                    b.HasKey("OrganizationId", "ResumeId", "CompanyId");
 
-                    b.HasIndex("OrganizationId", "JobId");
+                    b.HasIndex("OrganizationId", "CompanyId");
 
-                    b.ToTable("ResumeJob");
+                    b.ToTable("ResumeCompany");
 
                     b.HasData(
                         new
                         {
                             OrganizationId = 1,
                             ResumeId = 1,
-                            JobId = 1
+                            CompanyId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
                             ResumeId = 1,
-                            JobId = 2
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 3
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 4
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 5
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 6
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 7
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 8
-                        },
-                        new
-                        {
-                            OrganizationId = 1,
-                            ResumeId = 1,
-                            JobId = 9
+                            CompanyId = 2
                         });
                 });
 
@@ -4511,7 +3784,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("OrganizationId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<int>("ResumeId")
@@ -4520,9 +3793,9 @@ namespace ResumePro.Migrations
                     b.Property<int>("SkillId")
                         .HasColumnType("int");
 
-                    b.HasKey("OrganizationId", "PersonaId", "ResumeId", "SkillId");
+                    b.HasKey("OrganizationId", "PersonId", "ResumeId", "SkillId");
 
-                    b.HasIndex("OrganizationId", "PersonaId", "SkillId");
+                    b.HasIndex("OrganizationId", "PersonId", "SkillId");
 
                     b.ToTable("ResumeSkill");
 
@@ -4530,119 +3803,119 @@ namespace ResumePro.Migrations
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 1
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 2
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 3
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 4
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 5
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 17
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 34
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 35
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 36
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 37
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 38
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 44
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 6
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 39
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 10
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 95
                         },
                         new
                         {
                             OrganizationId = 1,
-                            PersonaId = 1,
+                            PersonId = 1,
                             ResumeId = 1,
                             SkillId = 7
                         });
@@ -4665,7 +3938,7 @@ namespace ResumePro.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PersonaId")
+                    b.Property<int>("PersonId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
@@ -4673,7 +3946,7 @@ namespace ResumePro.Migrations
 
                     b.HasKey("OrganizationId", "Id");
 
-                    b.HasIndex("OrganizationId", "PersonaId");
+                    b.HasIndex("OrganizationId", "PersonId");
 
                     b.ToTable("School");
 
@@ -4685,9 +3958,25 @@ namespace ResumePro.Migrations
                             EndDate = new DateTime(2005, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Location = "Portland, OR",
                             Name = "Portland Community College",
-                            PersonaId = 1,
+                            PersonId = 1,
                             StartDate = new DateTime(2004, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Sequence", b =>
+                {
+                    b.Property<int>("OrganizationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrganizationId"));
+
+                    b.Property<int>("ResumeId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrganizationId");
+
+                    b.ToTable("Sequence");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Skill", b =>
@@ -7659,11 +6948,42 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Certifications")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Company", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Persona", "Persona")
+                        .WithMany("Companies")
+                        .HasForeignKey("OrganizationId", "PersonId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Persona");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.CompanySkill", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Company", "Company")
+                        .WithMany("Skills")
+                        .HasForeignKey("OrganizationId", "CompanyId")
+                        .HasPrincipalKey("OrganizationId", "Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
+                        .WithMany("Jobs")
+                        .HasForeignKey("OrganizationId", "PersonId", "SkillId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Skill");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Degree", b =>
@@ -7679,51 +6999,29 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Highlight", b =>
                 {
-                    b.HasOne("ResumePro.Entities.Job", "Job")
+                    b.HasOne("ResumePro.Entities.Persona", "Person")
                         .WithMany("Highlights")
-                        .HasForeignKey("OrganizationId", "JobId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ResumePro.Entities.Project", "Project")
+                    b.HasOne("ResumePro.Entities.Company", "Company")
                         .WithMany("Highlights")
-                        .HasForeignKey("ProjectId", "JobId")
-                        .HasPrincipalKey("Id", "JobId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.Navigation("Job");
-
-                    b.Navigation("Project");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.Job", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Persona", "Persona")
-                        .WithMany("Jobs")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Persona");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.JobSkill", b =>
-                {
-                    b.HasOne("ResumePro.Entities.Job", "Job")
-                        .WithMany("Skills")
-                        .HasForeignKey("OrganizationId", "JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("ResumePro.Entities.Position", "Position")
+                        .WithMany("Highlights")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "PositionId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
-                        .WithMany("Jobs")
-                        .HasForeignKey("OrganizationId", "PersonaId", "SkillId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Company");
 
-                    b.Navigation("Job");
+                    b.Navigation("Person");
 
-                    b.Navigation("Skill");
+                    b.Navigation("Position");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Persona", b =>
@@ -7747,7 +7045,7 @@ namespace ResumePro.Migrations
 
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Languages")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -7766,7 +7064,7 @@ namespace ResumePro.Migrations
 
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Skills")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -7775,22 +7073,52 @@ namespace ResumePro.Migrations
                     b.Navigation("Skill");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Project", b =>
+            modelBuilder.Entity("ResumePro.Entities.Position", b =>
                 {
-                    b.HasOne("ResumePro.Entities.Job", "Job")
-                        .WithMany("Projects")
-                        .HasForeignKey("OrganizationId", "JobId")
+                    b.HasOne("ResumePro.Entities.Company", "Company")
+                        .WithMany("Positions")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Job");
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Project", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Company", "Company")
+                        .WithMany("Projects")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("ResumePro.Entities.Position", "Position")
+                        .WithMany("Projects")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "PositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+
+                    b.Navigation("Position");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.ProjectHighlight", b =>
+                {
+                    b.HasOne("ResumePro.Entities.Project", "Project")
+                        .WithMany("Highlights")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Project");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.Reference", b =>
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("References")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -7820,28 +7148,29 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Persona");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.ResumeJob", b =>
+            modelBuilder.Entity("ResumePro.Entities.ResumeCompany", b =>
                 {
-                    b.HasOne("ResumePro.Entities.Job", "Job")
+                    b.HasOne("ResumePro.Entities.Company", "Company")
                         .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "JobId")
+                        .HasForeignKey("OrganizationId", "CompanyId")
+                        .HasPrincipalKey("OrganizationId", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
-                        .WithMany("Jobs")
+                        .WithMany("Companies")
                         .HasForeignKey("OrganizationId", "ResumeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Job");
+                    b.Navigation("Company");
 
                     b.Navigation("Resume");
                 });
@@ -7875,14 +7204,14 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Resume", "Resume")
                         .WithMany("Skills")
-                        .HasForeignKey("OrganizationId", "PersonaId", "ResumeId")
-                        .HasPrincipalKey("OrganizationId", "PersonaId", "Id")
+                        .HasForeignKey("OrganizationId", "PersonId", "ResumeId")
+                        .HasPrincipalKey("OrganizationId", "PersonId", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ResumePro.Entities.PersonaSkill", "Skill")
                         .WithMany("Resumes")
-                        .HasForeignKey("OrganizationId", "PersonaId", "SkillId")
+                        .HasForeignKey("OrganizationId", "PersonId", "SkillId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -7895,7 +7224,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Persona", "Persona")
                         .WithMany("Schools")
-                        .HasForeignKey("OrganizationId", "PersonaId")
+                        .HasForeignKey("OrganizationId", "PersonId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -7930,20 +7259,22 @@ namespace ResumePro.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("ResumePro.Entities.Country", b =>
-                {
-                    b.Navigation("StateProvinces");
-                });
-
-            modelBuilder.Entity("ResumePro.Entities.Job", b =>
+            modelBuilder.Entity("ResumePro.Entities.Company", b =>
                 {
                     b.Navigation("Highlights");
+
+                    b.Navigation("Positions");
 
                     b.Navigation("Projects");
 
                     b.Navigation("Resumes");
 
                     b.Navigation("Skills");
+                });
+
+            modelBuilder.Entity("ResumePro.Entities.Country", b =>
+                {
+                    b.Navigation("StateProvinces");
                 });
 
             modelBuilder.Entity("ResumePro.Entities.OrganizationSettings", b =>
@@ -7955,7 +7286,9 @@ namespace ResumePro.Migrations
                 {
                     b.Navigation("Certifications");
 
-                    b.Navigation("Jobs");
+                    b.Navigation("Companies");
+
+                    b.Navigation("Highlights");
 
                     b.Navigation("Languages");
 
@@ -7975,6 +7308,13 @@ namespace ResumePro.Migrations
                     b.Navigation("Resumes");
                 });
 
+            modelBuilder.Entity("ResumePro.Entities.Position", b =>
+                {
+                    b.Navigation("Highlights");
+
+                    b.Navigation("Projects");
+                });
+
             modelBuilder.Entity("ResumePro.Entities.Project", b =>
                 {
                     b.Navigation("Highlights");
@@ -7982,7 +7322,7 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Resume", b =>
                 {
-                    b.Navigation("Jobs");
+                    b.Navigation("Companies");
 
                     b.Navigation("Renderings");
 

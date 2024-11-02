@@ -7,14 +7,17 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using AutoMapper;
+using Microsoft.ApplicationInsights.Extensibility;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using ResumePro.Core.Configuration;
 using ResumePro.Core.Data;
 using ResumePro.Core.Data.Interfaces;
 using ResumePro.Core.Data.Repositories;
+using ResumePro.Core.Interceptors;
 using ResumePro.Core.Middleware.Builders;
 using Serilog;
 
@@ -41,11 +44,6 @@ public static class AppBuilderExtensions
         this AppBuilder builder)
         where TContext : DbContext
     {
-        //var dbConnectionString = builder.KeyVaultClient
-        //    .GetSecretAsync(
-        //        builder.Configuration.GetValue<string>("DbConnectionSecretUri"))
-        //    .Result.Value;
-
         Log.Logger.Debug(GetLogMessage("Adding SQL Connection"));
 
         builder.ConnectionString =
@@ -66,9 +64,10 @@ public static class AppBuilderExtensions
                 .UseSqlServer(builder.ConnectionString,
                     opts =>
                     {
-                        opts.EnableRetryOnFailure();
+                        opts.EnableRetryOnFailure(maxRetryCount:5, maxRetryDelay:TimeSpan.FromSeconds(20), errorNumbersToAdd:null );
                         opts.CommandTimeout(builder.AppSettings.Database.Timeout);
                     })
+                .AddInterceptors(new ConnectionTrackingInterceptor())
                 .Options;
 
 
@@ -88,6 +87,17 @@ public static class AppBuilderExtensions
         }
 
 
+        return builder;
+    }
+    public static AppBuilder AddAppInsights(this AppBuilder builder)
+    {
+        builder.Services.AddApplicationInsightsTelemetry(x =>
+        {
+            x.ConnectionString = builder.Configuration["ApplicationInsights:ConnectionString"];
+        });
+
+        builder.Services.AddSingleton<ITelemetryInitializer>(
+            new CloudRoleNameTelemetryInitializer(builder.Configuration["WEBSITE_CLOUD_ROLENAME"]!));
         return builder;
     }
 

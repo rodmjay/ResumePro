@@ -18,7 +18,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     public Task<List<T>> GetReferences<T>(int organizationId, int personId) where T : ReferenceDto
     {
         return References.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
@@ -27,7 +27,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     public Task<T> GetReference<T>(int organizationId, int personId, int referenceId) where T : ReferenceDto
     {
         return References.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == referenceId)
             .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
@@ -41,7 +41,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             organizationId, personId, options);
 
         var lastReferenceOrder = await
-            References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            References.Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
                 .Select(x => x.Order)
@@ -51,7 +51,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
         {
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
-            PersonaId = personId,
+            PersonId = personId,
             Text = options.Text,
             Name = options.Name,
             Id = await GetNextReferenceId(organizationId, personId),
@@ -74,14 +74,14 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             organizationId, personId, referenceId, options);
 
         var reference = await References.Where(x =>
-                x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
+                x.OrganizationId == organizationId && x.PersonId == personId && x.Id == referenceId)
             .FirstOrDefaultAsync();
 
         if (reference == null)
             return Result.Failed(referenceErrors.ReferenceNotFound(referenceId));
 
         var references = await References
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ToListAsync();
 
         references.Remove(reference);
@@ -117,13 +117,13 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
             organizationId, personId, referenceId);
 
         var reference = await References.Where(x =>
-                x.OrganizationId == organizationId && x.PersonaId == personId && x.Id == referenceId)
+                x.OrganizationId == organizationId && x.PersonId == personId && x.Id == referenceId)
             .FirstOrDefaultAsync();
 
         if (reference == null)
             return Result.Failed(referenceErrors.ReferenceNotFound(referenceId));
 
-        var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+        var references = await References.Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .OrderBy(x => x.Order).ToListAsync();
 
         references.Remove(reference);
@@ -150,7 +150,7 @@ public sealed class ReferenceService(IServiceProvider serviceProvider, Reference
     {
         var id = await References.AsNoTracking()
             .IgnoreQueryFilters()
-            .Where(x => x.OrganizationId == organizationId && x.PersonaId == personId)
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .OrderByDescending(x => x.Id)
             .Select(x => x.Id)
             .FirstOrDefaultAsync();

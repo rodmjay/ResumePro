@@ -13,11 +13,14 @@ namespace ResumePro.Entities;
 public sealed class Highlight : BaseEntity<Highlight>, IHighlight
 {
     public int OrganizationId { get; set; }
-    public Job Job { get; set; }
-    public int JobId { get; set; }
+    public Persona Person { get; set; }
+    public int PersonId { get; set; }
 
-    public Project Project { get; set; }
-    public int? ProjectId { get; set; }
+    public int CompanyId { get; set; }
+    public Company Company { get; set; }
+
+    public Position Position { get; set; }
+    public int PositionId { get; set; }
 
     public int Id { get; set; }
     public int Order { get; set; }
@@ -25,22 +28,30 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
 
     public override void Configure(EntityTypeBuilder<Highlight> builder)
     {
-        builder.HasKey(x => new {x.OrganizationId, x.Id});
+        builder.HasKey(x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId, x.Id });
 
         builder.Property(x => x.Text)
             .ConfigureColumn(StringColumnSize.Medium);
-        
-        builder.HasOne(x => x.Job)
-            .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new {x.OrganizationId, x.JobId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction);
 
-        builder.HasOne(x => x.Project)
+        builder.HasOne(x => x.Position)
             .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new {x.ProjectId, x.JobId})
-            .HasPrincipalKey(x => new {x.Id, x.JobId})
-            .OnDelete(DeleteBehavior.Cascade)
-            .IsRequired(false);
+            .HasForeignKey(x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId })
+            .HasPrincipalKey(x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.Id })
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(true);
+
+        builder.HasOne(x => x.Company)
+            .WithMany(x => x.Highlights)
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonId, x.CompanyId})
+            .HasPrincipalKey(x => new {x.OrganizationId, x.PersonId, x.Id})
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(true);
+
+        builder.HasOne(x => x.Person)
+            .WithMany(x => x.Highlights)
+            .HasForeignKey(x => new { x.OrganizationId, x.PersonId })
+            .HasPrincipalKey(x => new { x.OrganizationId, x.Id })
+            .OnDelete(DeleteBehavior.NoAction)
+            .IsRequired(true);
     }
 }

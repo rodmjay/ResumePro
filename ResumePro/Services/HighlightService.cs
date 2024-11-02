@@ -15,35 +15,35 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 {
     private IQueryable<Highlight> Highlights => Repository.Queryable();
 
-    public Task<List<T>> GetHighlights<T>(int organizationId, int jobId, int? projectId) where T : HighlightDto
+    public Task<List<T>> GetHighlights<T>(int organizationId, int companyId, int positionId, int? projectId) where T : HighlightDto
     {
         return Highlights
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.PositionId == positionId)
             .OrderBy(x => x.Order)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
     }
 
-    public Task<T> GetHighlight<T>(int organizationId, int highlightId, int? projectId) where T : HighlightDto
+    public Task<T> GetHighlight<T>(int organizationId, int companyId, int positionId, int highlightId) where T : HighlightDto
     {
         return Highlights
             .AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.Id == highlightId && x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.Id == highlightId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
 
-    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int jobId,
+    public async Task<OneOf<HighlightDto, Result>> CreateHighlight(int organizationId, int personId, int companyId, int positionId,
         int? projectId, HighlightOptions options)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, Options: {@options}"),
-            organizationId, personId, jobId, projectId, options);
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, ProjectId: {@projectId}, Options: {@options}"),
+            organizationId, personId, companyId, positionId, projectId, options);
 
         var lastHighlight = await
-            Highlights.Where(x => x.OrganizationId == organizationId && x.JobId == jobId)
+            Highlights.Where(x => x.OrganizationId == organizationId && x.PositionId == positionId)
                 .AsNoTracking()
                 .OrderByDescending(x => x.Order)
                 .FirstOrDefaultAsync();
@@ -53,8 +53,7 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
             ObjectState = ObjectState.Added,
             OrganizationId = organizationId,
             Text = options.Text,
-            ProjectId = projectId,
-            JobId = jobId,
+            PositionId = positionId,
             Id = await GetNextHighlightId(organizationId)
         };
 
@@ -65,29 +64,27 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 
         var results = Repository.InsertOrUpdateGraph(highlight, true);
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, projectId);
+            return await GetHighlight<HighlightDto>(organizationId, companyId, positionId, highlight.Id);
 
         return Result.Failed();
     }
 
-    public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int jobId,
-        int? projectId,
+    public async Task<OneOf<HighlightDto, Result>> UpdateHighlight(int organizationId, int personId, int companyId, int positionId,
         int highlightId, HighlightOptions options)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, HighlightId: {@highlightId}, Options: {@options}"),
-            organizationId, personId, jobId, projectId, highlightId, options);
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, PositionId: {@positionId}, HighlightId: {@highlightId}, Options: {@options}"),
+            organizationId, personId, companyId, positionId, highlightId, options);
 
         var highlight = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
-                        x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.PositionId == positionId && x.Id == highlightId)
             .FirstOrDefaultAsync();
 
         if (highlight == null) return Result.Failed();
 
         var highlights = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId)
             .OrderBy(x => x.Order)
             .ToListAsync();
 
@@ -113,28 +110,27 @@ public sealed class HighlightService(IServiceProvider serviceProvider)
 
         var results = Repository.Commit();
         if (results > 0)
-            return await GetHighlight<HighlightDto>(organizationId, highlight.Id, projectId);
+            return await GetHighlight<HighlightDto>(organizationId, companyId, positionId, highlight.Id);
 
         return Result.Failed();
     }
 
-    public async Task<Result> DeleteHighlight(int organizationId, int personId, int jobId, int? projectId,
+    public async Task<Result> DeleteHighlight(int organizationId, int personId, int companyId, int positionId, int? projectId,
         int highlightId)
     {
         Logger.LogInformation(
             GetLogMessage(
-                "OrganizationId: {@organizationId}, PersonId: {@personId}, JobId: {@jobId}, ProjectId: {@projectId}, HighlightId: {@highlightId}"),
-            organizationId, personId, jobId, projectId, highlightId);
+                "OrganizationId: {@organizationId}, PersonId: {@personId}, CompanyId: {@companyId}, Position: {@positionId}, ProjectId: {@projectId}, HighlightId: {@highlightId}"),
+            organizationId, personId, companyId, positionId, projectId, highlightId);
 
         var highlight = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.Id == highlightId &&
-                        x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.PositionId == positionId && x.Id == highlightId)
             .FirstOrDefaultAsync();
 
         if (highlight == null) return Result.Failed();
 
         var highlights = await Highlights
-            .Where(x => x.OrganizationId == organizationId && x.JobId == jobId && x.ProjectId == projectId)
+            .Where(x => x.OrganizationId == organizationId && x.PositionId == positionId)
             .OrderBy(x => x.Order)
             .ToListAsync();
 

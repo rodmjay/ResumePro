@@ -1,0 +1,54 @@
+﻿Id,OrganizationId,PersonId,CompanyId,PositionId,Order,ProjectId,Text
+1,1,1,1,1,1,2,"Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly."
+2,1,1,1,1,2,2,"Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department."
+3,1,1,1,1,3,2,"Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights."
+4,1,1,1,1,4,2,"Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes."
+5,1,1,1,1,5,2,Responsible for implementing integration testing patterns across multiple applications.
+6,1,1,2,2,1,NULL,"Emerged as the company-wide leader for .NET initiatives, steering pivotal technology decisions and strategies."
+7,1,1,2,2,2,NULL,"Revolutionized technical screenings and led numerous interviews, enhancing recruitment processes and team quality."
+8,1,1,2,2,3,NULL,"Created a shared .NET codebase, significantly reducing development redundancy and boosting project efficiency."
+9,1,1,2,2,4,NULL,Awarded 'Top Developer of 2021' for exceptional productivity and innovation.
+10,1,1,1,1,1,1,"Spearheaded the architecture of a model MicroService, setting new standards for future developments."
+11,1,1,1,1,2,1,"Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities."
+12,1,1,2,2,1,5,"Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability."
+13,1,1,2,2,2,5,"Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency."
+14,1,1,2,2,3,5,"Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication."
+15,1,1,1,2,4,1,"Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability."
+17,1,1,5,5,1,,Managed four developers directly using Agile Scrum methodologies.
+18,1,1,5,5,2,,Responsible for the architecture and development of components within a banking platform.
+19,1,1,5,5,3,,Developed Fingerprint Login and Friends and Family Shared Banking components.
+20,1,1,2,2,1,3,Responsible for the architecture and development of the .NET Core backend.
+21,1,1,2,2,2,3,Developed advanced medication and activity scheduling systems to accommodate complex care requirements.
+22,1,1,2,2,3,3,Made critical technology decisions that kept the project on track and within budgetary constraints.
+23,1,1,2,2,4,3,"Maintained a code coverage of 90%, ensuring high reliability and quality of the software."
+24,1,1,2,2,1,4,"Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend."
+25,1,1,2,2,2,4,"Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow."
+26,1,1,2,2,4,4,Maintained 75% code coverage.
+27,1,1,2,2,3,4,Made key technology decisions to ensure the project remained on schedule and within budget.
+28,1,1,9,9,1,,"Developed tools using C#, WCF, and XAML to support the Miami-Dade Police Department."
+29,1,1,9,9,2,,"Received extensive training in .NET, JavaScript, and WCF directly from Microsoft."
+30,1,1,1,1,2,2,Optimized ChatGPT training models to meet internal business needs.
+31,1,1,3,3,1,,"Responsible for the ideation, design, and delivery of a comprehensive professional services platform."
+32,1,1,3,3,2,,Raised startup capital to fund company operations for three years.
+33,1,1,3,3,3,,Managed a team of five developers to implement the flagship product.
+34,1,1,3,3,1,6,"Developed a role-based business model that facilitates complex, multi-partner payouts from hours billed."
+36,1,1,3,3,3,6,"Developed integrations with the Stripe payment system, PandaDoc document signing, and various other APIs."
+37,1,1,4,4,1,,"Reconstructed the flagship product, transitioning it from ASP to the .NET Framework to modernize infrastructure and improve scalability."
+38,1,1,4,4,2,,Developed a comprehensive order and scheduling system with full functionality.
+39,1,1,4,4,3,,"Recruited, interviewed, and mentored developers at various levels, fostering a skilled and cohesive team."
+40,1,1,4,4,4,,Developed a comprehensive DevOps strategy to ensure compliance with international regulations.
+41,1,1,4,4,1,7,Oversaw and managed the complete backend development process.
+42,1,1,4,4,2,7,Integrated with multiple bowling and card-reading systems to enhance overall system functionality.
+43,1,1,4,4,3,7,Developed a fully-featured order and scheduling system.
+44,1,1,6,6,1,,Redesigned the flagship product by integrating advanced technology to enhance performance and functionality.
+45,1,1,6,6,2,,"Collaborated directly with the onsite team, providing mentorship to enhance skills and foster professional growth."
+46,1,1,6,6,3,,"Engineered numerous innovative features into the existing platform, significantly enhancing its capabilities and user experience."
+47,1,1,6,6,4,,Specialized expertise in PCI Compliance and payment processing systems.
+48,1,1,7,7,1,8,Developed tools to facilitate the indexing of library archives.
+49,1,1,7,7,2,,Spearheaded companywide adoption and training of jQuery.
+50,1,1,7,7,3,8,Collaborated as a member of an 8-person development team utilizing Agile/Scrum methodologies.
+51,1,1,7,7,4,8,Maintained 100% code coverage.
+53,1,1,8,8,1,9,"Oversaw the architecture, development, and deployment of a comprehensive affiliate marketing platform."
+54,1,1,8,8,1,10,Directly managed a team of up to 9 developers utilizing Agile Scrum methodologies.
+55,1,1,8,8,2,10,"Oversaw the architecture, development, and deployment of a comprehensive e-learning platform."
+56,1,1,8,8,2,9,Ensured 99% uptime to maintain smooth business operations.

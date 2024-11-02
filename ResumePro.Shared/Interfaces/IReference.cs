@@ -8,6 +8,6 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Interfaces;
 
-public interface IReference : IPersonaId, IId, IName, IPhoneNumber, IOrder, IOrganizationId, IText
+public interface IReference : IPersonId, IId, IName, IPhoneNumber, IOrder, IOrganizationId, IText
 {
 }

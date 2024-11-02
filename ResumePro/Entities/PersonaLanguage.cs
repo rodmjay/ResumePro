@@ -17,18 +17,18 @@ public sealed class PersonaLanguage : BaseEntity<PersonaLanguage>, IPersonaLangu
     public Persona Persona { get; set; }
     public Language Language { get; set; }
     public int OrganizationId { get; set; }
-    public int PersonaId { get; set; }
+    public int PersonId { get; set; }
     public string Code3 { get; set; }
 
     public LanguageLevel Proficiency { get; set; }
 
     public override void Configure(EntityTypeBuilder<PersonaLanguage> builder)
     {
-        builder.HasKey(x => new {x.OrganizationId, x.PersonaId, x.Code3});
+        builder.HasKey(x => new {x.OrganizationId, x.PersonId, x.Code3});
 
         builder.HasOne(x => x.Persona)
             .WithMany(x => x.Languages)
-            .HasForeignKey(x => new {x.OrganizationId, x.PersonaId})
+            .HasForeignKey(x => new {x.OrganizationId, x.PersonId})
             .HasPrincipalKey(x => new {x.OrganizationId, x.Id})
             .OnDelete(DeleteBehavior.Cascade);
 

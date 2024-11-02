@@ -20,7 +20,7 @@ public class PersonaSkillDto : IPersonaSkill
 
     public string[] Categories { get; set; }
 
-    [JsonIgnore] public virtual int PersonaId { get; set; }
+    [JsonIgnore] public virtual int PersonId { get; set; }
 
     public virtual int SkillId { get; set; }
 }

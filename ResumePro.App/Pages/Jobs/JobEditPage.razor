@@ -1,8 +1,8 @@
-﻿@page "/people/{PersonId:int}/jobs/{JobId:int}/edit"
-@using ResumePro.App.Components.Jobs
+﻿@page "/people/{PersonId:int}/companies/{JobId:int}/edit"
+@using ResumePro.App.Components.Companies
 @inherits PersonPageBase
 
-@if (Job != null)
+@if (Company != null)
 {
     <div class="container sticky-top mt-3">
         <Breadcrumb>
@@ -13,7 +13,7 @@
                 <BreadcrumbLink To="@($"/people/{PersonId}")">@Person.LastName, @Person.FirstName</BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbItem Active>
-                <BreadcrumbLink To="#">Edit Job: @Job.JobTitle, @Job.Company</BreadcrumbLink>
+                <BreadcrumbLink To="#">Edit Job: @Company.JobTitle, @Company.CompanyName</BreadcrumbLink>
             </BreadcrumbItem>
         </Breadcrumb>
     </div>
