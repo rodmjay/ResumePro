@@ -20,7 +20,7 @@ public sealed class Position : BaseEntity<Position>, IPosition
     public DateTime? EndDate { get; set; }
     public Company Company { get; set; }
     public string JobTitle { get; set; }
-    public ICollection<Project> Projects { get; set; }
+    public ICollection<Project> Projects { get; set; } = new List<Project>();
 
     public ICollection<Highlight> Highlights { get; set; } = new List<Highlight>();
     public override void Configure(EntityTypeBuilder<Position> builder)

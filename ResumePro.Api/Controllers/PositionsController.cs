@@ -26,4 +26,33 @@ public sealed class PositionsController(IServiceProvider serviceProvider, IPosit
 
         return BadRequest(result.AsT1);
     }
+
+    [HttpPut("{positionId}")]
+    public async Task<ActionResult<CompanyDetails>> UpdatePosition(int personId, int companyId, int positionId, PositionOptions options)
+    {
+        var result = await positionService.UpdatePosition(OrganizationId, personId, companyId, positionId, options)
+            .ConfigureAwait(false);
+        if (result.IsT0) return Ok(result.AsT0);
+
+        return BadRequest(result.AsT1);
+    }
+
+    [HttpDelete("{positionId}")]
+    public async Task<Result> DeletePosition([FromRoute] int personId, [FromRoute] int companyId,
+        [FromRoute] int positionId)
+    {
+        return await positionService.DeletePosition(OrganizationId, personId, companyId, positionId);
+    }
+
+    [HttpGet]
+    public async Task<List<PositionDetails>> GetPositions([FromRoute] int personId, [FromRoute] int companyId)
+    {
+        return await positionService.GetPositions<PositionDetails>(OrganizationId, personId, companyId);
+    }
+
+    [HttpGet("{positionId}")]
+    public async Task<PositionDetails> GetPosition(int personId, int companyId, int positionId)
+    {
+        return await positionService.GetPosition<PositionDetails>(OrganizationId, personId, companyId, positionId);
+    }
 }

@@ -22,5 +22,5 @@ public class ProjectOptions : IBudget, IDescription, IName, IOrder
     [Required] public string Name { get; set; }
 
     public int Order { get; set; }
-    public List<HighlightOptions> HighlightOptions { get; set; } = new();
+    public List<HighlightOptions> Highlights { get; set; } = new();
 }

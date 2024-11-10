@@ -118,9 +118,9 @@ public sealed class CompanyService(
                 ObjectState = ObjectState.Added,
             };
 
-            for (var index = 0; index < position.HighlightOptions.Count; index++)
+            for (var index = 0; index < position.Highlights.Count; index++)
             {
-                var highlight = position.HighlightOptions[index];
+                var highlight = position.Highlights[index];
                 ent.Highlights.Add(new Highlight()
                 {
                     Id = nextHighlightId++,
@@ -255,9 +255,9 @@ public sealed class CompanyService(
             position.EndDate = positionOptions.EndDate;
             position.JobTitle = positionOptions.JobTitle;
 
-            for (var index = 0; index < positionOptions.HighlightOptions.Count; index++)
+            for (var index = 0; index < positionOptions.Highlights.Count; index++)
             {
-                var highlight = positionOptions.HighlightOptions[index];
+                var highlight = positionOptions.Highlights[index];
 
                 var highlightEntity = position.Highlights.FirstOrDefault(x => x.Id == highlight.Id);
                 if (highlightEntity == null)

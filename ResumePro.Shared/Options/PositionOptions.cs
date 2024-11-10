@@ -11,8 +11,8 @@ namespace ResumePro.Shared.Options;
 
 public class PositionOptions : IJobTitle, IStartDate, IEndDate, IId, IValidatableObject
 {
-    public List<HighlightOptions> HighlightOptions { get; set; } = new();
-    public List<ProjectOptions> ProjectOptions { get; set; } = new();
+    public List<HighlightOptions> Highlights { get; set; } = new();
+    public List<ProjectOptions> Projects { get; set; } = new();
 
     [Required]
     public string JobTitle { get; set; }
