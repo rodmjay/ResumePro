@@ -169,6 +169,27 @@ public sealed class PositionService(
             project.Name = projectOptions.Name;
             project.Description = projectOptions.Description;
             project.Budget = projectOptions.Budget;
+
+            for (var index = 0; index < projectOptions.Highlights.Count; index++)
+            {
+                var highlightOptions = projectOptions.Highlights[index];
+                var highlight = project.Highlights.FirstOrDefault(x => x.Id == highlightOptions.Id);
+                if (highlight == null)
+                {
+                    highlight = new ProjectHighlight
+                    {
+                        ObjectState = ObjectState.Added
+                    };
+
+                    project.Highlights.Add(highlight);
+                }
+                else
+                {
+                    highlight.ObjectState = ObjectState.Modified;
+                }
+                highlight.Text = highlightOptions.Text;
+                highlight.Order = index + 1;
+            }
         }
 
 
