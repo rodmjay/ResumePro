@@ -16,12 +16,14 @@ namespace ResumePro.Services;
 public sealed class PositionService(
     IServiceProvider serviceProvider,
     IRepositoryAsync<Highlight> highlightRepo,
+    IRepositoryAsync<ProjectHighlight> projectHighlightRepo,
     IRepositoryAsync<Company> companyRepo)
     : BaseService<Position>(serviceProvider), IPositionService
 {
     private IQueryable<Position> Positions => Repository.Queryable();
     private IQueryable<Company> Companies => companyRepo.Queryable();
     private IQueryable<Highlight> Highlights => highlightRepo.Queryable();
+    private IQueryable<ProjectHighlight> ProjectHighlights => projectHighlightRepo.Queryable();
 
     public async Task<T> GetPosition<T>(int organizationId, int personId, int companyId, int positionId) where T : PositionDto
     {
@@ -41,9 +43,11 @@ public sealed class PositionService(
 
     public async Task<OneOf<PositionDetails, Result>> CreatePosition(int organizationId, int personId, int companyId, PositionOptions options)
     {
+        var nextPositionId = await GetNextPositionId(organizationId, personId, companyId);
+
         var position = new Position
         {
-            Id = await GetNextPositionId(organizationId, personId, companyId),
+            Id = nextPositionId,
             PersonId = personId,
             OrganizationId = organizationId,
             CompanyId = companyId,
@@ -75,7 +79,11 @@ public sealed class PositionService(
             {
                 OrganizationId = organizationId,
                 Id = index + 1,
+                PositionId = nextPositionId,
+                PersonId = personId,
+                CompanyId = companyId,
                 ObjectState = ObjectState.Added,
+                Description = option.Description,
                 Order = index + 1,
                 Name = option.Name
             };
@@ -113,13 +121,56 @@ public sealed class PositionService(
     public async Task<OneOf<PositionDetails, Result>> UpdatePosition(int organizationId, int personId, int companyId, int positionId, PositionOptions options)
     {
         var position = await Positions
+            .Include(x=>x.Projects)
+            .ThenInclude(x=>x.Highlights)
+            .Include(x=>x.Highlights)
             .Where(PositionHelpers.GetPredicate(organizationId, personId, companyId, positionId))
             .FirstOrDefaultAsync();
+
+        foreach (var project in position.Projects)
+        {
+            project.ObjectState = ObjectState.Deleted;
+
+            foreach (var highlight in project.Highlights)
+            {
+                highlight.ObjectState = ObjectState.Deleted;
+            }
+        }
+
+        foreach (var highlight in position.Highlights)
+        {
+            highlight.ObjectState = ObjectState.Deleted;
+        }
 
         position.JobTitle = options.JobTitle;
         position.StartDate = options.StartDate;
         position.EndDate = options.EndDate;
         position.ObjectState = ObjectState.Modified;
+
+
+        foreach (var projectOptions in options.Projects)
+        {
+            var project = position.Projects.FirstOrDefault(x => x.Id == projectOptions.Id);
+            if (project == null)
+            {
+                project = new Project()
+                {
+                    ObjectState = ObjectState.Added,
+                    Order = position.Projects.Count + 1
+                };
+
+                position.Projects.Add(project);
+            }
+            else
+            {
+                project.ObjectState = ObjectState.Modified;
+            }
+
+            project.Name = projectOptions.Name;
+            project.Description = projectOptions.Description;
+            project.Budget = projectOptions.Budget;
+        }
+
 
         var records = await Repository.UpdateAsync(position, true);
 
@@ -141,7 +192,7 @@ public sealed class PositionService(
     {
         var id = await Positions.OrderByDescending(x => x.Id)
             .AsNoTracking()
-            .Where(PositionHelpers.GetPredicate(organizationId, personId, companyId))
+            .Where(x=>x.OrganizationId == organizationId && x.PersonId == personId && x.CompanyId == companyId)
             .Select(x => x.Id)
             .FirstOrDefaultAsync();
 
@@ -157,6 +208,24 @@ public sealed class PositionService(
             .And(x => x.PositionId == positionId);
 
         var id = await Highlights.AsNoTracking()
+            .IgnoreQueryFilters()
+            .Where(predicate)
+            .OrderByDescending(x => x.Id)
+            .Select(x => x.Id)
+            .FirstOrDefaultAsync();
+        return id + 1;
+    }
+
+    private async Task<int> GetNextProjectHighlightId(int organizationId, int personId, int companyId, int positionId, int projectId)
+    {
+        var predicate = PredicateBuilder.True<ProjectHighlight>()
+            .And(x => x.OrganizationId == organizationId)
+            .And(x => x.PersonId == personId)
+            .And(x => x.CompanyId == companyId)
+            .And(x => x.PositionId == positionId)
+            .And(x=>x.ProjectId == projectId);
+
+        var id = await ProjectHighlights.AsNoTracking()
             .IgnoreQueryFilters()
             .Where(predicate)
             .OrderByDescending(x => x.Id)

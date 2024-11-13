@@ -579,8 +579,8 @@ namespace ResumePro.Migrations
                     OrganizationId = table.Column<int>(type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
-                    PersonId = table.Column<int>(type: "int", nullable: false),
                     PositionId = table.Column<int>(type: "int", nullable: false),
+                    PersonId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "varchar(255)", nullable: false),
                     Description = table.Column<string>(type: "varchar(512)", nullable: true),
@@ -588,7 +588,7 @@ namespace ResumePro.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.Id });
+                    table.PrimaryKey("PK_Project", x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId, x.Id });
                     table.ForeignKey(
                         name: "FK_Project_Company_OrganizationId_PersonId_CompanyId",
                         columns: x => new { x.OrganizationId, x.PersonId, x.CompanyId },
@@ -610,18 +610,19 @@ namespace ResumePro.Migrations
                     Id = table.Column<int>(type: "int", nullable: false),
                     CompanyId = table.Column<int>(type: "int", nullable: false),
                     ProjectId = table.Column<int>(type: "int", nullable: false),
+                    PositionId = table.Column<int>(type: "int", nullable: false),
                     PersonId = table.Column<int>(type: "int", nullable: false),
                     Order = table.Column<int>(type: "int", nullable: false),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ProjectHighlight", x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.ProjectId, x.Id });
+                    table.PrimaryKey("PK_ProjectHighlight", x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId, x.ProjectId, x.Id });
                     table.ForeignKey(
-                        name: "FK_ProjectHighlight_Project_OrganizationId_PersonId_CompanyId_ProjectId",
-                        columns: x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.ProjectId },
+                        name: "FK_ProjectHighlight_Project_OrganizationId_PersonId_CompanyId_PositionId_ProjectId",
+                        columns: x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId, x.ProjectId },
                         principalTable: "Project",
-                        principalColumns: new[] { "OrganizationId", "PersonId", "CompanyId", "Id" },
+                        principalColumns: new[] { "OrganizationId", "PersonId", "CompanyId", "PositionId", "Id" },
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -1594,41 +1595,41 @@ namespace ResumePro.Migrations
 
             migrationBuilder.InsertData(
                 table: "Project",
-                columns: new[] { "CompanyId", "Id", "OrganizationId", "PersonId", "Budget", "Description", "Name", "Order", "PositionId" },
+                columns: new[] { "CompanyId", "Id", "OrganizationId", "PersonId", "PositionId", "Budget", "Description", "Name", "Order" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, null, "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops", "BASF-Refinity", 1, 1 },
-                    { 1, 2, 1, 1, null, "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.", "Microsoft", 2, 1 },
-                    { 2, 1, 1, 1, 500000m, "ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.", "Elder Care Management Platform", 1, 2 },
-                    { 2, 2, 1, 1, 500000m, "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.", "Real Estate Accounting Platform", 2, 1 },
-                    { 2, 3, 1, 1, 3000000m, "Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.", "Major Food Distribution System", 3, 2 }
+                    { 1, 1, 1, 1, 1, null, "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops", "BASF-Refinity", 1 },
+                    { 1, 2, 1, 1, 1, null, "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.", "Microsoft", 2 },
+                    { 2, 2, 1, 1, 1, 500000m, "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.", "Real Estate Accounting Platform", 2 },
+                    { 2, 1, 1, 1, 2, 500000m, "ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.", "Elder Care Management Platform", 1 },
+                    { 2, 3, 1, 1, 2, 3000000m, "Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.", "Major Food Distribution System", 3 }
                 });
 
             migrationBuilder.InsertData(
                 table: "ProjectHighlight",
-                columns: new[] { "CompanyId", "Id", "OrganizationId", "PersonId", "ProjectId", "Order", "Text" },
+                columns: new[] { "CompanyId", "Id", "OrganizationId", "PersonId", "PositionId", "ProjectId", "Order", "Text" },
                 values: new object[,]
                 {
-                    { 1, 1, 1, 1, 1, 1, "Spearheaded the architecture of a model MicroService, setting new standards for future developments." },
-                    { 1, 2, 1, 1, 1, 2, "Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities." },
-                    { 1, 3, 1, 1, 1, 3, "Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability." },
-                    { 1, 1, 1, 1, 2, 1, "Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly." },
-                    { 1, 2, 1, 1, 2, 2, "Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department." },
-                    { 1, 3, 1, 1, 2, 3, "Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights." },
-                    { 1, 4, 1, 1, 2, 4, "Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes." },
-                    { 1, 5, 1, 1, 2, 5, "Responsible for implementing integration testing patterns across multiple applications." },
-                    { 1, 6, 1, 1, 2, 6, "Optimized ChatGPT training models to meet internal business needs." },
-                    { 2, 1, 1, 1, 1, 1, "Responsible for the architecture and development of the .NET Core backend." },
-                    { 2, 2, 1, 1, 1, 2, "Developed advanced medication and activity scheduling systems to accommodate complex care requirements." },
-                    { 2, 3, 1, 1, 1, 3, "Made critical technology decisions that kept the project on track and within budgetary constraints." },
-                    { 2, 4, 1, 1, 1, 4, "Maintained a code coverage of 90%, ensuring high reliability and quality of the software." },
-                    { 2, 1, 1, 1, 2, 1, "Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend." },
-                    { 2, 2, 1, 1, 2, 2, "Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow." },
-                    { 2, 3, 1, 1, 2, 3, "Maintained 75% code coverage." },
-                    { 2, 4, 1, 1, 2, 4, "Made key technology decisions to ensure the project remained on schedule and within budget." },
-                    { 2, 1, 1, 1, 3, 1, "Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability." },
-                    { 2, 2, 1, 1, 3, 2, "Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency." },
-                    { 2, 3, 1, 1, 3, 3, "Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication." }
+                    { 1, 1, 1, 1, 1, 1, 1, "Spearheaded the architecture of a model MicroService, setting new standards for future developments." },
+                    { 1, 2, 1, 1, 1, 1, 2, "Conducted hundreds of technical screenings for C# and Angular developers, refining the technical team’s capabilities." },
+                    { 1, 3, 1, 1, 1, 1, 3, "Introduced advanced patterns for unit and integration testing, achieving 90% code coverage and setting a high standard for code reliability." },
+                    { 1, 1, 1, 1, 1, 2, 1, "Pioneered the development and launch of mission-critical workflows, enhancing software reliability significantly." },
+                    { 1, 2, 1, 1, 1, 2, 2, "Architected the Geneva logging library, becoming a foundational tool for the Site Reliability Engineering (SRE) department." },
+                    { 1, 3, 1, 1, 1, 2, 3, "Crafted real-time dashboards using Geneva, handling data from millions of records for instant insights." },
+                    { 1, 4, 1, 1, 1, 2, 4, "Engineered and deployed complex Synapse workspaces with Bicep across multiple environments, optimizing deployment processes." },
+                    { 1, 5, 1, 1, 1, 2, 5, "Responsible for implementing integration testing patterns across multiple applications." },
+                    { 1, 6, 1, 1, 1, 2, 6, "Optimized ChatGPT training models to meet internal business needs." },
+                    { 2, 1, 1, 1, 1, 2, 1, "Responsible for the entire backend and frontend architecture and development, including a .NET Core backend and Angular frontend." },
+                    { 2, 2, 1, 1, 1, 2, 2, "Developed a comprehensive single-entry accounting platform that calculates cash flow, tax savings, appreciation, and capital inflow." },
+                    { 2, 3, 1, 1, 1, 2, 3, "Maintained 75% code coverage." },
+                    { 2, 4, 1, 1, 1, 2, 4, "Made key technology decisions to ensure the project remained on schedule and within budget." },
+                    { 2, 1, 1, 1, 2, 1, 1, "Responsible for the architecture and development of the .NET Core backend." },
+                    { 2, 2, 1, 1, 2, 1, 2, "Developed advanced medication and activity scheduling systems to accommodate complex care requirements." },
+                    { 2, 3, 1, 1, 2, 1, 3, "Made critical technology decisions that kept the project on track and within budgetary constraints." },
+                    { 2, 4, 1, 1, 2, 1, 4, "Maintained a code coverage of 90%, ensuring high reliability and quality of the software." },
+                    { 2, 1, 1, 1, 2, 3, 1, "Overhauled an antiquated system using the latest .NET technologies, greatly improving performance and scalability." },
+                    { 2, 2, 1, 1, 2, 3, 2, "Seamlessly integrated an existing SQL Server database with EF Core, optimizing data operations and efficiency." },
+                    { 2, 3, 1, 1, 2, 3, 3, "Developed a robust gRPC-based messaging system using C# WebAPI, enhancing inter-service communication." }
                 });
 
             migrationBuilder.CreateIndex(
@@ -1675,11 +1676,6 @@ namespace ResumePro.Migrations
                 name: "IX_PersonaSkill_SkillId",
                 table: "PersonaSkill",
                 column: "SkillId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Project_OrganizationId_PersonId_CompanyId_PositionId",
-                table: "Project",
-                columns: new[] { "OrganizationId", "PersonId", "CompanyId", "PositionId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Rendering_TemplateId",

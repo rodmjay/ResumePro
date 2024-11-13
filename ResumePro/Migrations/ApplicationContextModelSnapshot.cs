@@ -3228,6 +3228,9 @@ namespace ResumePro.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Id")
                         .HasColumnType("int");
 
@@ -3244,12 +3247,7 @@ namespace ResumePro.Migrations
                     b.Property<int>("Order")
                         .HasColumnType("int");
 
-                    b.Property<int>("PositionId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "Id");
-
-                    b.HasIndex("OrganizationId", "PersonId", "CompanyId", "PositionId");
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "PositionId", "Id");
 
                     b.ToTable("Project");
 
@@ -3259,58 +3257,58 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             Id = 1,
                             Description = "Refinity is a digital platform that manages inventory, color, learning, and business management for body shops",
                             Name = "BASF-Refinity",
-                            Order = 1,
-                            PositionId = 1
+                            Order = 1
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             Id = 2,
                             Description = "The SRE Team oversees the quality assurance and monitoring of Microsoft's internal systems.",
                             Name = "Microsoft",
-                            Order = 2,
-                            PositionId = 1
+                            Order = 2
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             Id = 1,
                             Budget = 500000m,
                             Description = "ElderKey is a sophisticated platform designed to manage the health and wellness of senior citizens.",
                             Name = "Elder Care Management Platform",
-                            Order = 1,
-                            PositionId = 2
+                            Order = 1
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 1,
                             Id = 2,
                             Budget = 500000m,
                             Description = "Cashflow Tactics is a platform designed to enhance the profitability of real estate investors through a diverse array of strategic approaches.",
                             Name = "Real Estate Accounting Platform",
-                            Order = 2,
-                            PositionId = 1
+                            Order = 2
                         },
                         new
                         {
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             Id = 3,
                             Budget = 3000000m,
                             Description = "Associated Foods is a cooperative network that provides food distribution, warehousing, and retail support to independent grocery stores.",
                             Name = "Major Food Distribution System",
-                            Order = 3,
-                            PositionId = 2
+                            Order = 3
                         });
                 });
 
@@ -3325,6 +3323,9 @@ namespace ResumePro.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PositionId")
+                        .HasColumnType("int");
+
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
@@ -3337,7 +3338,7 @@ namespace ResumePro.Migrations
                     b.Property<string>("Text")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "ProjectId", "Id");
+                    b.HasKey("OrganizationId", "PersonId", "CompanyId", "PositionId", "ProjectId", "Id");
 
                     b.ToTable("ProjectHighlight");
 
@@ -3347,6 +3348,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 1,
                             Id = 1,
                             Order = 1,
@@ -3357,6 +3359,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 1,
                             Id = 2,
                             Order = 2,
@@ -3367,6 +3370,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 1,
                             Id = 3,
                             Order = 3,
@@ -3377,6 +3381,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 1,
                             Order = 1,
@@ -3387,6 +3392,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 2,
                             Order = 2,
@@ -3397,6 +3403,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 3,
                             Order = 3,
@@ -3407,6 +3414,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 4,
                             Order = 4,
@@ -3417,6 +3425,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 5,
                             Order = 5,
@@ -3427,6 +3436,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 1,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 6,
                             Order = 6,
@@ -3437,6 +3447,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 3,
                             Id = 1,
                             Order = 1,
@@ -3447,6 +3458,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 3,
                             Id = 2,
                             Order = 2,
@@ -3457,6 +3469,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 3,
                             Id = 3,
                             Order = 3,
@@ -3467,6 +3480,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 1,
                             Id = 1,
                             Order = 1,
@@ -3477,6 +3491,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 1,
                             Id = 2,
                             Order = 2,
@@ -3487,6 +3502,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 1,
                             Id = 3,
                             Order = 3,
@@ -3497,6 +3513,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 2,
                             ProjectId = 1,
                             Id = 4,
                             Order = 4,
@@ -3507,6 +3524,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 1,
                             Order = 1,
@@ -3517,6 +3535,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 2,
                             Order = 2,
@@ -3527,6 +3546,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 3,
                             Order = 3,
@@ -3537,6 +3557,7 @@ namespace ResumePro.Migrations
                             OrganizationId = 1,
                             PersonId = 1,
                             CompanyId = 2,
+                            PositionId = 1,
                             ProjectId = 2,
                             Id = 4,
                             Order = 4,
@@ -7107,7 +7128,7 @@ namespace ResumePro.Migrations
                 {
                     b.HasOne("ResumePro.Entities.Project", "Project")
                         .WithMany("Highlights")
-                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "ProjectId")
+                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "PositionId", "ProjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

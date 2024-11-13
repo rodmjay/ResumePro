@@ -30,7 +30,7 @@ public sealed class Project : BaseEntity<Project>, IProject
 
     public override void Configure(EntityTypeBuilder<Project> builder)
     {
-        builder.HasKey(x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.Id });
+        builder.HasKey(x => new { x.OrganizationId, x.PersonId, x.CompanyId, x.PositionId, x.Id });
 
         builder.Property(x => x.Name)
             .ConfigureColumn(StringColumnSize.Small);
