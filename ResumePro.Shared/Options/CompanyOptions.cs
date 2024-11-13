@@ -22,7 +22,7 @@ public class CompanyOptions
     [MaxLength(255)]
     public string Location { get; set; }
 
-    public List<PositionOptions> PositionOptions { get; set; } = new();
+    public List<PositionOptions> Positions { get; set; } = new();
 
     public List<int> JobSkillIds { get; set; } = new();
 }

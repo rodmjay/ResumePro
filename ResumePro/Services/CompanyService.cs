@@ -4,6 +4,7 @@
 
 #endregion
 
+using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
@@ -64,10 +65,6 @@ public sealed class CompanyService(
 
         var availableSkills = options.JobSkillIds.Where(x => personSkills.Contains(x)).ToList();
 
-
-        var nextHighlightId = await GetNextHighlightId(organizationId);
-        var nextProjectId = await GetNextProjectId(organizationId);
-
         foreach (var availableSkill in availableSkills)
             company.Skills.Add(new CompanySkill
             {
@@ -77,61 +74,65 @@ public sealed class CompanyService(
                 OrganizationId = organizationId
             });
 
-        //for (var index = 0; index < options.ProjectOptions.Count; index++)
-        //{
-        //    var project = options.ProjectOptions[index];
-        //    var projectEntity = new Project
-        //    {
-        //        OrganizationId = organizationId,
-        //        Budget = project.Budget,
-        //        Description = project.Description,
-        //        Id = nextProjectId++,
-        //        Name = project.Name,
-        //        Order = index + 1,
-        //        ObjectState = ObjectState.Added
-        //    };
 
-        //    for (var i = 0; i < project.HighlightOptions.Count; i++)
-        //    {
-        //        var highlight = project.HighlightOptions[i];
-        //        projectEntity.Highlights.Add(new ProjectHighlight()
-        //        {
-        //            OrganizationId = organizationId,
-        //            ObjectState = ObjectState.Added,
-        //            Id = nextHighlightId++,
-        //            Text = highlight.Text,
-        //            Order = i + 1
-        //        });
-        //    }
-
-        //    company.Projects.Add(projectEntity);
-        //}
-
-        for (int i = 0; i < options.PositionOptions.Count; i++)
+        for (int i = 0; i < options.Positions.Count; i++)
         {
-            var position = options.PositionOptions[i];
+            var positionOptions = options.Positions[i];
 
             var ent = new Position()
             {
-                StartDate = position.StartDate,
-                EndDate = position.EndDate,
+                Id = i + 1,
+                StartDate = positionOptions.StartDate,
+                EndDate = positionOptions.EndDate,
                 ObjectState = ObjectState.Added,
+                JobTitle = positionOptions.JobTitle
             };
 
-            for (var index = 0; index < position.Highlights.Count; index++)
+            for (var j = 0; j < positionOptions.Highlights.Count; j++)
             {
-                var highlight = position.Highlights[index];
+                var highlight = positionOptions.Highlights[j];
                 ent.Highlights.Add(new Highlight()
                 {
-                    Id = nextHighlightId++,
+                    Id = j+ 1,
                     ObjectState = ObjectState.Added,
-                    Order = index,
+                    Order = j + 1,
                     Text = highlight.Text,
                     OrganizationId = organizationId
                 });
             }
 
+            for (var k = 0; k < positionOptions.Projects.Count; k++)
+            {
+                var projectOptions = positionOptions.Projects[k];
+                var project = new Project()
+                {
+                    ObjectState = ObjectState.Added,
+                    Order = k + 1,
+                    Id = k + 1,
+                    Name = projectOptions.Name,
+                    Description = projectOptions.Description,
+                    Budget = projectOptions.Budget
+                };
+
+                for (var l = 0; l < projectOptions.Highlights.Count; l++)
+                {
+                    var highlightOptions = projectOptions.Highlights[l];
+                    var highlight = new ProjectHighlight
+                    {
+                        ObjectState = ObjectState.Added,
+                        Id = l + 1,
+                        Order = l + 1,
+                        Text = highlightOptions.Text
+                    };
+
+                    project.Highlights.Add(highlight);
+                }
+
+                ent.Projects.Add(project);
+            }
+
             company.Positions.Add(ent);
+
         }
 
 
@@ -231,9 +232,9 @@ public sealed class CompanyService(
                 skill.ObjectState = ObjectState.Unchanged;
         }
 
-        for (var i = 0; i < options.PositionOptions.Count; i++)
+        for (var i = 0; i < options.Positions.Count; i++)
         {
-            var positionOptions = options.PositionOptions[i];
+            var positionOptions = options.Positions[i];
             // todo: add stuff here
             var position = company.Positions.FirstOrDefault(x => x.Id == positionOptions.Id);
             if (position == null)
