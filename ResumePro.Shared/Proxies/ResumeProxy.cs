@@ -5,15 +5,15 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public sealed class ResumeProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeController
+public sealed class ResumeProxy : BaseProxy, IResumeController
 {
+    public ResumeProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<ResumeDetails> GetResume(int personId, int resumeId)
     {
         return await DoGet<ResumeDetails>($"v1.0/people/{personId}/resumes/{resumeId}")

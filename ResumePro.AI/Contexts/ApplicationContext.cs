@@ -5,6 +5,7 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ResumePro.Core.Data.Bases;

@@ -4,28 +4,34 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using Bespoke.Shared.Common;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/references")]
-public sealed class ReferencesController(IServiceProvider serviceProvider, IReferenceService referenceService)
-    : BaseController(serviceProvider), IReferencesController
+public sealed class ReferencesController : BaseController, IReferencesController
 {
+    private readonly IReferenceService _referenceService;
+
+    public ReferencesController(IServiceProvider serviceProvider, IReferenceService referenceService) : base(serviceProvider)
+    {
+        _referenceService = referenceService;
+    }
+
     [HttpGet("{referenceId}")]
     public async Task<ReferenceDto> Get([FromRoute] int personId, [FromRoute] int referenceId)
     {
-        return await referenceService.GetReference<ReferenceDto>(OrganizationId, personId, referenceId)
+        return await _referenceService.GetReference<ReferenceDto>(OrganizationId, personId, referenceId)
             .ConfigureAwait(false);
     }
 
     [HttpGet]
     public async Task<List<ReferenceDto>> GetReferences([FromRoute] int personId)
     {
-        return await referenceService.GetReferences<ReferenceDto>(OrganizationId, personId)
+        return await _referenceService.GetReferences<ReferenceDto>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
@@ -33,7 +39,7 @@ public sealed class ReferencesController(IServiceProvider serviceProvider, IRefe
     public async Task<ActionResult<ReferenceDto>> CreateReference([FromRoute] int personId,
         [FromBody] ReferenceOptions options)
     {
-        var result = await referenceService.CreateReference(OrganizationId, personId, options)
+        var result = await _referenceService.CreateReference(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -45,7 +51,7 @@ public sealed class ReferencesController(IServiceProvider serviceProvider, IRefe
         [FromRoute] int referenceId,
         [FromBody] ReferenceOptions options)
     {
-        var result = await referenceService.UpdateReference(OrganizationId, personId, referenceId, options)
+        var result = await _referenceService.UpdateReference(OrganizationId, personId, referenceId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -56,6 +62,6 @@ public sealed class ReferencesController(IServiceProvider serviceProvider, IRefe
     public Task<Result> DeleteReference([FromRoute] int personId,
         [FromRoute] int referenceId)
     {
-        return referenceService.DeleteReference(OrganizationId, personId, referenceId);
+        return _referenceService.DeleteReference(OrganizationId, personId, referenceId);
     }
 }

@@ -10,8 +10,6 @@
 
 #endregion
 
-using ResumePro.Shared.Interfaces;
-
 namespace ResumePro.Shared.Models;
 
 public class UserOutput : IUser

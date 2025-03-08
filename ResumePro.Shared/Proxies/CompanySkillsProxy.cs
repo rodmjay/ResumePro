@@ -4,13 +4,14 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Interfaces;
-
 namespace ResumePro.Shared.Proxies;
 
-public sealed class CompanySkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), ICompanySkillsController
+public sealed class CompanySkillsProxy : BaseProxy, ICompanySkillsController
 {
+    public CompanySkillsProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<Result> AddCompanySkill(int personId, int companyId, int skillId)
     {
         return await DoPatch<Result>($"v1.0/people/{personId}/jobs/{companyId}/skills/{skillId}")

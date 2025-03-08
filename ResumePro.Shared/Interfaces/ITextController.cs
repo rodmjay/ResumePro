@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Interfaces;
 

@@ -6,14 +6,18 @@
 
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Shared.Proxies;
 
-public abstract class BaseProxy(HttpClient httpClient)
+public abstract class BaseProxy
 {
-    protected readonly HttpClient HttpClient = httpClient;
+    protected readonly HttpClient HttpClient;
+
+    protected BaseProxy(HttpClient httpClient)
+    {
+        HttpClient = httpClient;
+    }
 
     protected async Task<TOutput> DoPost<TOutput>(string url)
     {

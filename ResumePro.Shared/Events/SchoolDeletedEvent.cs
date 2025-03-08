@@ -1,6 +1,10 @@
 ﻿namespace ResumePro.Shared.Events;
 
-public class SchoolDeletedEvent() : BaseEvent(EventType.Deleted)
+public class SchoolDeletedEvent : BaseEvent
 {
+    public SchoolDeletedEvent() : base(EventType.Deleted)
+    {
+    }
+
     protected override string Name => "School";
 }

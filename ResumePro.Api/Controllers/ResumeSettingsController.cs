@@ -4,22 +4,28 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes/{resumeId}/settings")]
-public sealed class ResumeSettingsController(IServiceProvider serviceProvider, IResumeSettingsService service) : BaseController(serviceProvider), IResumeSettingsController
+public sealed class ResumeSettingsController : BaseController, IResumeSettingsController
 {
+    private readonly IResumeSettingsService _service;
+
+    public ResumeSettingsController(IServiceProvider serviceProvider, IResumeSettingsService service) : base(serviceProvider)
+    {
+        _service = service;
+    }
+
     [HttpPut]
     public async Task<ActionResult<ResumeSettingsDto>> UpdateSettings(
         [FromRoute] int personId, [FromRoute] int resumeId,
         [FromBody] ResumeSettingsOptions options)
     {
-        var result = await service.AddOrUpdateUpdateResumeSettings(OrganizationId, personId, resumeId, options)
+        var result = await _service.AddOrUpdateUpdateResumeSettings(OrganizationId, personId, resumeId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 

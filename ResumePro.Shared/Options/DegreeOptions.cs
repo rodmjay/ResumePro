@@ -5,8 +5,6 @@
 #endregion
 
 using System.ComponentModel.DataAnnotations;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
 
 namespace ResumePro.Shared.Options;
 

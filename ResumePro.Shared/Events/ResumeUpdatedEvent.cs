@@ -4,12 +4,16 @@
 
 #endregion
 
-using ResumePro.Shared.Models;
-
 namespace ResumePro.Shared.Events;
 
-public class ResumeUpdatedEvent(ResumeDetails resume) : BaseEvent(EventType.Updated)
+public class ResumeUpdatedEvent : BaseEvent
 {
-    public ResumeDetails Resume { get; } = resume;
-    protected override string Name { get; } = $"Resume: {resume.JobTitle}";
+    public ResumeUpdatedEvent(ResumeDetails resume) : base(EventType.Updated)
+    {
+        Resume = resume;
+        Name = $"Resume: {resume.JobTitle}";
+    }
+
+    public ResumeDetails Resume { get; }
+    protected override string Name { get; }
 }

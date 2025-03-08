@@ -5,10 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
-
 namespace ResumePro.Shared.Interfaces;
 
 public interface IResumeController
@@ -16,8 +12,6 @@ public interface IResumeController
     Task<ResumeDetails> GetResume(int personId, int resumeId);
 
     Task<List<ResumeDto>> GetResumes(int personId);
-
-    Task<string> Generate(int personId, int resumeId);
 
     Task<ActionResult<ResumeDetails>> CreateResume(int personId,
         ResumeOptions options);
@@ -29,5 +23,4 @@ public interface IResumeController
     Task<Result> DeleteResume(int personId,
         int resumeId);
 
-    Task<IActionResult> PdfAnonymous(int personId, int resumeId, int organizationId);
 }

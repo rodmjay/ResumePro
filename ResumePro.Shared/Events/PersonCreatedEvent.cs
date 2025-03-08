@@ -1,8 +1,11 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class PersonCreatedEvent(PersonaDetails person) : BaseEvent(EventType.Created)
+public class PersonCreatedEvent : BaseEvent
 {
-    protected override string Name { get; } = $"Person: '{person.LastName}, {person.FirstName}'";
+    public PersonCreatedEvent(PersonaDetails person) : base(EventType.Created)
+    {
+        Name = $"Person: '{person.LastName}, {person.FirstName}'";
+    }
+
+    protected override string Name { get; }
 }

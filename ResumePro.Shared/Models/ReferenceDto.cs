@@ -4,8 +4,6 @@
 
 #endregion
 
-using ResumePro.Shared.Interfaces;
-
 namespace ResumePro.Shared.Models;
 
 [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore)]

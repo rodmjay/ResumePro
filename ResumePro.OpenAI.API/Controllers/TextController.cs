@@ -12,13 +12,19 @@ using ResumePro.Shared.Models;
 
 namespace ResumePro.OpenAI.Api.Controllers;
 
-public class TextController(IServiceProvider serviceProvider, IChatGptService service)
-    : BaseController(serviceProvider), ITextController
+public class TextController : BaseController, ITextController
 {
+    private IChatGptService _service;
+
+    public TextController(IServiceProvider serviceProvider, IChatGptService service) : base(serviceProvider)
+    {
+        _service = service;
+    }
+
     [HttpPost]
     public async Task<ChatResult> Professionalize([FromBody] ChatOptions options)
     {
-        var response = await service.Professionalize(OrganizationId, UserId, options)
+        var response = await _service.Professionalize(OrganizationId, UserId, options)
             .ConfigureAwait(false);
         return response;
     }

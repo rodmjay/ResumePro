@@ -5,15 +5,15 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public sealed class HighlightsProxy(HttpClient httpClient) : BaseProxy(httpClient), IHighlightsController
+public sealed class HighlightsProxy : BaseProxy, IHighlightsController
 {
+    public HighlightsProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<HighlightDto> GetHighlight(int personId, int companyId, int positionId, int highlightId)
     {
         return await DoGet<HighlightDto>($"v1.0/people/{personId}/companies/{companyId}/positions/{positionId}/highlights/{highlightId}")

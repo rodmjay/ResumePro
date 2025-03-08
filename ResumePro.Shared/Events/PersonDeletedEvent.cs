@@ -1,6 +1,10 @@
 ﻿namespace ResumePro.Shared.Events;
 
-public class PersonDeletedEvent() : BaseEvent(EventType.Deleted)
+public class PersonDeletedEvent : BaseEvent
 {
+    public PersonDeletedEvent() : base(EventType.Deleted)
+    {
+    }
+
     protected override string Name => $"Person";
 }

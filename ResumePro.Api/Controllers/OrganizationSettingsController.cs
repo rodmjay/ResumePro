@@ -5,25 +5,29 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/settings")]
-public sealed class OrganizationSettingsController(
-    IServiceProvider serviceProvider,
-    IOrganizationSettingsService service)
-    : BaseController(serviceProvider), IOrganizationSettingsController
+public sealed class OrganizationSettingsController : BaseController, IOrganizationSettingsController
 {
+    private readonly IOrganizationSettingsService _service;
+
+    public OrganizationSettingsController(IServiceProvider serviceProvider,
+        IOrganizationSettingsService service) : base(serviceProvider)
+    {
+        _service = service;
+    }
+
     [HttpPost]
     public async Task<ActionResult<OrganizationSettingsDto>> CreateSettings(
         [FromBody(EmptyBodyBehavior = EmptyBodyBehavior.Allow)]
         OrganizationSettingsOptions? options)
     {
-        var result = await service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -34,7 +38,7 @@ public sealed class OrganizationSettingsController(
     public async Task<ActionResult<OrganizationSettingsDto>> UpdateSettings(
         [FromBody] OrganizationSettingsOptions options)
     {
-        var result = await service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
+        var result = await _service.AddOrUpdateUpdateOrganizationSettings(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 

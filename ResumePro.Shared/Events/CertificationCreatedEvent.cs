@@ -1,8 +1,10 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class CertificationCreatedEvent(CertificationDto certification) : BaseEvent(EventType.Created)
+public class CertificationCreatedEvent : BaseEvent
 {
+    public CertificationCreatedEvent(CertificationDto certification) : base(EventType.Created)
+    {
+    }
+
     protected override string Name => "Certification";
 }

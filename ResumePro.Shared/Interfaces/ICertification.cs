@@ -4,8 +4,6 @@
 
 #endregion
 
-using ResumePro.Shared.Models;
-
 namespace ResumePro.Shared.Interfaces;
 
 public interface ICertification : IOrganizationId, IName, IPersonId, IId, IBody, IDate

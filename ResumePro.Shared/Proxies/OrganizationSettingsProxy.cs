@@ -5,15 +5,15 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public sealed class OrganizationSettingsProxy(HttpClient httpClient)
-    : BaseProxy(httpClient), IOrganizationSettingsController
+public sealed class OrganizationSettingsProxy : BaseProxy, IOrganizationSettingsController
 {
+    public OrganizationSettingsProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<ActionResult<OrganizationSettingsDto>> CreateSettings(OrganizationSettingsOptions options)
     {
         return await DoPostActionResult<OrganizationSettingsOptions, OrganizationSettingsDto>("v1.0/settings", options)

@@ -14,18 +14,26 @@ using ResumePro.Core.Settings;
 
 namespace ResumePro.OpenAI.Api;
 
-public class Startup(
-    IConfiguration configuration,
-    IWebHostEnvironment environment,
-    HttpMessageHandler identityServerMessageHandler = null)
+public class Startup
 {
-    public IWebHostEnvironment Environment { get; } = environment;
-    public IConfiguration Configuration { get; } = configuration;
+    private readonly HttpMessageHandler _identityServerMessageHandler;
+
+    public Startup(IConfiguration configuration,
+        IWebHostEnvironment environment,
+        HttpMessageHandler identityServerMessageHandler = null)
+    {
+        _identityServerMessageHandler = identityServerMessageHandler;
+        Environment = environment;
+        Configuration = configuration;
+    }
+
+    public IWebHostEnvironment Environment { get; }
+    public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
         var thisAssembly = Assembly.GetAssembly(GetType());
-        var businessAssembly = typeof(ChatGptService).Assembly;
+        var businessAssembly = typeof(ResumeService).Assembly;
 
         var builder = services.ConfigureApp(Configuration)
             .AddDatabase<ApplicationContext>()
@@ -38,7 +46,7 @@ public class Startup(
         var restBuilder = webAppBuilder.ConfigureRest()
             .AddCors()
             .AddAuthorization()
-            .AddBearerAuthentication(identityServerMessageHandler)
+            .AddBearerAuthentication(_identityServerMessageHandler)
             .AddSwagger(thisAssembly!);
     }
 

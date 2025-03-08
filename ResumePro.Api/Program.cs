@@ -5,6 +5,7 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
+using Bespoke.Core.Extensions;
 using ResumePro.Core.Middleware.Extensions;
 using Serilog;
 
@@ -23,7 +24,7 @@ public class Program
     {
         return Host.CreateDefaultBuilder(args)
             .ConfigureAppConfiguration(HostBuilderExtensions.Configure)
-            .UseSerilog()
+            .UseSerilog(HostBuilderExtensions.ConfigureLogging)
             .ConfigureWebHostDefaults(builder =>
             {
                 builder

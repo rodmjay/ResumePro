@@ -1,10 +1,14 @@
-﻿using ResumePro.Shared.Models;
-
-namespace ResumePro.Shared.Events
+﻿namespace ResumePro.Shared.Events
 {
-    public class ResumeCreatedEvent(ResumeDetails resume) : BaseEvent(EventType.Created)
+    public class ResumeCreatedEvent : BaseEvent
     {
-        public ResumeDetails Resume { get; } = resume;
-        protected override string Name { get; } = $"Resume: {resume.JobTitle}";
+        public ResumeCreatedEvent(ResumeDetails resume) : base(EventType.Created)
+        {
+            Resume = resume;
+            Name = $"Resume: {resume.JobTitle}";
+        }
+
+        public ResumeDetails Resume { get; }
+        protected override string Name { get; }
     }
 }

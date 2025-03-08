@@ -1,9 +1,12 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class JobUpdatedEvent(CompanyDetails company) : BaseEvent(EventType.Updated)
+public class JobUpdatedEvent : BaseEvent
 {
-    public CompanyDetails Company { get; } = company;
+    public JobUpdatedEvent(CompanyDetails company) : base(EventType.Updated)
+    {
+        Company = company;
+    }
+
+    public CompanyDetails Company { get; }
     protected override string Name => $"Job: {Company.JobTitle}";
 }

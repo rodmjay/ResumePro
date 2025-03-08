@@ -1,9 +1,12 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class ReferenceUpdatedEvent(ReferenceDto reference) : BaseEvent(EventType.Updated)
+public class ReferenceUpdatedEvent : BaseEvent
 {
-    public ReferenceDto Reference { get; } = reference;
+    public ReferenceUpdatedEvent(ReferenceDto reference) : base(EventType.Updated)
+    {
+        Reference = reference;
+    }
+
+    public ReferenceDto Reference { get; }
     protected override string Name => "Reference";
 }

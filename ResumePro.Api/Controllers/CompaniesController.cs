@@ -4,35 +4,41 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using Bespoke.Shared.Common;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/companies")]
-public sealed class CompaniesController(IServiceProvider serviceProvider, ICompanyService companyService)
-    : BaseController(serviceProvider), ICompaniesController
+public sealed class CompaniesController : BaseController, ICompaniesController
 {
+    private readonly ICompanyService _companyService;
+
+    public CompaniesController(IServiceProvider serviceProvider, ICompanyService companyService) : base(serviceProvider)
+    {
+        _companyService = companyService;
+    }
+
     [HttpGet]
     public async Task<List<CompanyDetails>> GetCompanies([FromRoute] int personId)
     {
-        return await companyService.GetCompanies<CompanyDetails>(OrganizationId, personId)
+        return await _companyService.GetCompanies<CompanyDetails>(OrganizationId, personId)
             .ConfigureAwait(false);
     }
 
     [HttpGet("{companyId}")]
     public async Task<CompanyDetails> GetCompany([FromRoute] int personId, [FromRoute] int companyId)
     {
-        return await companyService.GetCompany<CompanyDetails>(OrganizationId, personId, companyId)
+        return await _companyService.GetCompany<CompanyDetails>(OrganizationId, personId, companyId)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<CompanyDetails>> CreateCompany([FromRoute] int personId, [FromBody] CompanyOptions options)
     {
-        var result = await companyService.CreateCompany(OrganizationId, personId, options)
+        var result = await _companyService.CreateCompany(OrganizationId, personId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -43,7 +49,7 @@ public sealed class CompaniesController(IServiceProvider serviceProvider, ICompa
     public async Task<ActionResult<CompanyDetails>> UpdateCompany([FromRoute] int personId, [FromRoute] int companyId,
         [FromBody] CompanyOptions options)
     {
-        var result = await companyService.UpdateCompany(OrganizationId, personId, companyId, options)
+        var result = await _companyService.UpdateCompany(OrganizationId, personId, companyId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -53,7 +59,7 @@ public sealed class CompaniesController(IServiceProvider serviceProvider, ICompa
     [HttpDelete("{jobId}")]
     public async Task<Result> DeleteCompany([FromRoute] int personId, [FromRoute] int jobId)
     {
-        return await companyService.DeleteCompany(OrganizationId, personId, jobId)
+        return await _companyService.DeleteCompany(OrganizationId, personId, jobId)
             .ConfigureAwait(false);
     }
 }

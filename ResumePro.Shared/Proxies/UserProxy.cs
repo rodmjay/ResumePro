@@ -4,13 +4,14 @@
 
 #endregion
 
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-
 namespace ResumePro.Shared.Proxies;
 
-public sealed class UserProxy(HttpClient httpClient) : BaseProxy(httpClient), IUserController
+public sealed class UserProxy : BaseProxy, IUserController
 {
+    public UserProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<UserOutput> GetUser()
     {
         throw new NotImplementedException();

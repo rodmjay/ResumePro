@@ -9,8 +9,5 @@
 		<DocumentationFile>ResumePro.Users.Api.xml</DocumentationFile>
 		<NoWarn>1701;1702;1591;</NoWarn>
 	</PropertyGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ResumePro.Users\ResumePro.Users.csproj" />
-  </ItemGroup>
 
 </Project>

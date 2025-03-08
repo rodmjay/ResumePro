@@ -4,14 +4,14 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-
 namespace ResumePro.Shared.Proxies;
 
-public sealed class PersonSkillsProxy(HttpClient httpClient) : BaseProxy(httpClient), IPersonSkillsController
+public sealed class PersonSkillsProxy : BaseProxy, IPersonSkillsController
 {
+    public PersonSkillsProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<List<PersonaSkillDto>> GetSkills(int personId)
     {
         return await DoGet<List<PersonaSkillDto>>($"v1.0/people/{personId}/skills")

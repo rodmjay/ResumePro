@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bespoke.azure.blobstorage" Version="1.0.0" />
+    <PackageReference Include="bespoke.services" Version="1.0.0" />
+    <PackageReference Include="oneof" Version="3.0.271" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumePro.Domain\ResumePro.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -5,22 +5,28 @@
 #endregion
 
 using System.Reflection;
+using Bespoke.Core.Settings;
+using Bespoke.Rest.Extensions;
 using Microsoft.Extensions.Options;
-using ResumePro.Context;
-using ResumePro.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Core.Settings;
-using ResumePro.Extensions;
+using ResumePro.Data.Contexts;
 
 namespace ResumePro.Api;
 
-public sealed class Startup(
-    IConfiguration configuration,
-    IWebHostEnvironment environment,
-    HttpMessageHandler identityServerMessageHandler = null)
+public sealed class Startup
 {
-    public IWebHostEnvironment Environment { get; } = environment;
-    public IConfiguration Configuration { get; } = configuration;
+    private readonly HttpMessageHandler _identityServerMessageHandler;
+
+    public Startup(IConfiguration configuration,
+        IWebHostEnvironment environment,
+        HttpMessageHandler identityServerMessageHandler = null)
+    {
+        _identityServerMessageHandler = identityServerMessageHandler;
+        Environment = environment;
+        Configuration = configuration;
+    }
+
+    public IWebHostEnvironment Environment { get; }
+    public IConfiguration Configuration { get; }
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -39,7 +45,7 @@ public sealed class Startup(
         var restBuilder = webAppBuilder.ConfigureRest()
             .AddCors()
             .AddAuthorization()
-            .AddBearerAuthentication(identityServerMessageHandler)
+            .AddBearerAuthentication(_identityServerMessageHandler)
             .AddSwagger(thisAssembly);
     }
 

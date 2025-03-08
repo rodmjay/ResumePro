@@ -162,4 +162,10 @@
 		<ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Context\" />
+	  <Folder Include="Entities\" />
+	  <Folder Include="Extensions\" />
+	</ItemGroup>
+
 </Project>

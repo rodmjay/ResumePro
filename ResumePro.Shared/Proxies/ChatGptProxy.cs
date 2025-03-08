@@ -4,13 +4,14 @@
 
 #endregion
 
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-
 namespace ResumePro.Shared.Proxies;
 
-public sealed class ChatGptProxy(HttpClient httpClient) : BaseProxy(httpClient), ITextController
+public sealed class ChatGptProxy : BaseProxy, ITextController
 {
+    public ChatGptProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<ChatResult> Professionalize(ChatOptions options)
     {
         try

@@ -5,14 +5,15 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Interfaces;
-using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.Shared.Proxies;
 
-public sealed class ResumeSettingsProxy(HttpClient httpClient) : BaseProxy(httpClient), IResumeSettingsController
+public sealed class ResumeSettingsProxy : BaseProxy, IResumeSettingsController
 {
+    public ResumeSettingsProxy(HttpClient httpClient) : base(httpClient)
+    {
+    }
+
     public async Task<ActionResult<ResumeSettingsDto>> UpdateSettings(int personId, int resumeId, ResumeSettingsOptions options)
     {
         return await DoPutActionResult<ResumeSettingsOptions, ResumeSettingsDto>(

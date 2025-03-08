@@ -4,7 +4,7 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
+using Bespoke.Shared.Common;
 
 namespace ResumePro.Core.Extensions;
 

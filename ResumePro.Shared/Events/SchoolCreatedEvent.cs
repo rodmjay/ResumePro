@@ -1,9 +1,13 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class SchoolCreatedEvent(SchoolDetails school) : BaseEvent(EventType.Created)
+public class SchoolCreatedEvent : BaseEvent
 {
-    public SchoolDetails School { get; } = school;
-    protected override string Name { get; } = $"School: '{school.Name}'";
+    public SchoolCreatedEvent(SchoolDetails school) : base(EventType.Created)
+    {
+        School = school;
+        Name = $"School: '{school.Name}'";
+    }
+
+    public SchoolDetails School { get; }
+    protected override string Name { get; }
 }

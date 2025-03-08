@@ -1,9 +1,12 @@
-﻿using ResumePro.Shared.Models;
+﻿namespace ResumePro.Shared.Events;
 
-namespace ResumePro.Shared.Events;
-
-public class ReferenceCreatedEvent(ReferenceDto reference) : BaseEvent(EventType.Created)
+public class ReferenceCreatedEvent : BaseEvent
 {
-    public ReferenceDto Reference { get; } = reference;
+    public ReferenceCreatedEvent(ReferenceDto reference) : base(EventType.Created)
+    {
+        Reference = reference;
+    }
+
+    public ReferenceDto Reference { get; }
     protected override string Name => "Reference";
 }

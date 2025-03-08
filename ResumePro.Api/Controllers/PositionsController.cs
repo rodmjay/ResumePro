@@ -4,23 +4,28 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using Bespoke.Shared.Common;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/companies/{companyId}/positions")]
-public sealed class PositionsController(IServiceProvider serviceProvider, IPositionService positionService)
-    : BaseController(serviceProvider), IPositionsController
+public sealed class PositionsController : BaseController, IPositionsController
 {
+    private readonly IPositionService _positionService;
+
+    public PositionsController(IServiceProvider serviceProvider, IPositionService positionService) : base(serviceProvider)
+    {
+        _positionService = positionService;
+    }
 
     [HttpPost]
     public async Task<ActionResult<CompanyDetails>> CreatePosition([FromRoute] int personId, [FromRoute] int companyId,
         [FromBody] PositionOptions options)
     {
-        var result = await positionService.CreatePosition(OrganizationId, personId, companyId, options)
+        var result = await _positionService.CreatePosition(OrganizationId, personId, companyId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -30,7 +35,7 @@ public sealed class PositionsController(IServiceProvider serviceProvider, IPosit
     [HttpPut("{positionId}")]
     public async Task<ActionResult<CompanyDetails>> UpdatePosition(int personId, int companyId, int positionId, PositionOptions options)
     {
-        var result = await positionService.UpdatePosition(OrganizationId, personId, companyId, positionId, options)
+        var result = await _positionService.UpdatePosition(OrganizationId, personId, companyId, positionId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -41,18 +46,18 @@ public sealed class PositionsController(IServiceProvider serviceProvider, IPosit
     public async Task<Result> DeletePosition([FromRoute] int personId, [FromRoute] int companyId,
         [FromRoute] int positionId)
     {
-        return await positionService.DeletePosition(OrganizationId, personId, companyId, positionId);
+        return await _positionService.DeletePosition(OrganizationId, personId, companyId, positionId);
     }
 
     [HttpGet]
     public async Task<List<PositionDetails>> GetPositions([FromRoute] int personId, [FromRoute] int companyId)
     {
-        return await positionService.GetPositions<PositionDetails>(OrganizationId, personId, companyId);
+        return await _positionService.GetPositions<PositionDetails>(OrganizationId, personId, companyId);
     }
 
     [HttpGet("{positionId}")]
     public async Task<PositionDetails> GetPosition(int personId, int companyId, int positionId)
     {
-        return await positionService.GetPosition<PositionDetails>(OrganizationId, personId, companyId, positionId);
+        return await _positionService.GetPosition<PositionDetails>(OrganizationId, personId, companyId, positionId);
     }
 }

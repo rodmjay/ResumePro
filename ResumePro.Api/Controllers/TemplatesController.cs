@@ -4,28 +4,33 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-using ResumePro.Interfaces;
+using ResumePro.Services.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/templates")]
-public sealed class TemplatesController(IServiceProvider serviceProvider, ITemplateService service)
-    : BaseController(serviceProvider), ITemplatesController
+public sealed class TemplatesController : BaseController, ITemplatesController
 {
+    private readonly ITemplateService _service;
+
+    public TemplatesController(IServiceProvider serviceProvider, ITemplateService service) : base(serviceProvider)
+    {
+        _service = service;
+    }
+
     [HttpGet]
     public async Task<List<TemplateDto>> GetTemplates()
     {
-        return await service.GetTemplates<TemplateDto>(OrganizationId)
+        return await _service.GetTemplates<TemplateDto>(OrganizationId)
             .ConfigureAwait(false);
     }
 
     [HttpPost]
     public async Task<ActionResult<TemplateDto>> CreateTemplate([FromBody] TemplateOptions options)
     {
-        var result = await service.CreateTemplate(OrganizationId, options)
+        var result = await _service.CreateTemplate(OrganizationId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 
@@ -36,7 +41,7 @@ public sealed class TemplatesController(IServiceProvider serviceProvider, ITempl
     public async Task<ActionResult<TemplateDto>> UpdateTemplate([FromRoute] int templateId,
         [FromBody] TemplateOptions options)
     {
-        var result = await service.UpdateTemplate(OrganizationId, templateId, options)
+        var result = await _service.UpdateTemplate(OrganizationId, templateId, options)
             .ConfigureAwait(false);
         if (result.IsT0) return Ok(result.AsT0);
 

@@ -1,8 +1,13 @@
 ﻿namespace ResumePro.Shared.Events;
 
-public abstract class BaseEvent(EventType eventType)
+public abstract class BaseEvent
 {
-    public EventType EventType { get; } = eventType;
+    protected BaseEvent(EventType eventType)
+    {
+        EventType = eventType;
+    }
+
+    public EventType EventType { get; }
 
     protected abstract string Name { get; }
     
