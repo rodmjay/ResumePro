@@ -1,29 +1,46 @@
-﻿#region Header Info
-
-// Copyright 2024 Rod Johnson.  All rights reserved
-
-#endregion
-
+﻿using Bespoke.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Options;
 using ResumePro.Data.Contexts;
+using Serilog;
+using Serilog.Events;
 
 namespace ResumePro.Api.Factories;
 
-public sealed class OperationalContextFactory : IApplicationContextFactory
+public class ApplicationContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
 {
     public ApplicationContext CreateDbContext(string[] args)
     {
-        // Used only for EF .NET Core CLI tools (update database/migrations etc.)
+        // Build configuration from appsettings.json for connection string and DbSettings
         var builder = new ConfigurationBuilder()
-            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory()))
-            .AddJsonFile("sharedSettings.json", false, true);
-
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json", false, true);
         var config = builder.Build();
 
+        // Explicitly configure Serilog for migration logging without reading from configuration.
+        Log.Logger = new LoggerConfiguration()
+            .MinimumLevel.Information()
+            .Enrich.FromLogContext()
+            .WriteTo.Async(a => a.Console(
+                LogEventLevel.Debug,
+                "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}"
+            ))
+            .CreateLogger();
+
+        // Log initialization to confirm logging is active
+        Log.Information("Initializing ApplicationContextFactory with explicit logging settings.");
+
+        // Retrieve custom database settings
+        var dbSettings = config.GetSection("DbSettings").Get<DbSettings>() ?? new DbSettings();
+        var settings = new OptionsWrapper<DbSettings>(dbSettings);
+
+        // Configure the DbContext options with explicit migration assembly settings.
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationContext>()
             .EnableSensitiveDataLogging()
-            .UseSqlServer(config.GetConnectionString("DefaultConnection"));
+            .UseSqlServer(config.GetConnectionString("DefaultConnection"),
+                opt => { opt.MigrationsAssembly("CMS.Infrastructure"); });
 
-        return new ApplicationContext(optionsBuilder.Options);
+        return new ApplicationContext(optionsBuilder.Options, settings);
     }
 }

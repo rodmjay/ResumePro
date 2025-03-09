@@ -10,9 +10,9 @@
 		<NoWarn>1701;1702;1591;</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
-	  <PackageReference Include="bespoke.azure" Version="1.0.0" />
-	  <PackageReference Include="bespoke.azure.blobstorage" Version="1.0.0" />
-	  <PackageReference Include="bespoke.rest" Version="1.0.0" />
+	  <PackageReference Include="bespoke.azure" Version="1.0.1" />
+	  <PackageReference Include="bespoke.azure.blobstorage" Version="1.0.1" />
+	  <PackageReference Include="bespoke.rest" Version="1.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\ResumePro.Infrastructure.SqlServer\ResumePro.Infrastructure.SqlServer.csproj" />

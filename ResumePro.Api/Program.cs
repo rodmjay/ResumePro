@@ -6,7 +6,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 using Bespoke.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
 using Serilog;
 
 namespace ResumePro.Api;
@@ -23,12 +22,11 @@ public class Program
     public static IHostBuilder BuildHost(string[] args)
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureAppConfiguration(HostBuilderExtensions.Configure)
+            .ConfigureAppConfiguration(HostBuilderExtensions.ConfigureAppConfiguration)
             .UseSerilog(HostBuilderExtensions.ConfigureLogging)
             .ConfigureWebHostDefaults(builder =>
             {
                 builder
-                    .ConfigureLogging(HostBuilderExtensions.ConfigureLogging)
                     .UseStartup<Startup>();
             });
     }

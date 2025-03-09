@@ -6,7 +6,7 @@
     <Nullable>disable</Nullable>
   </PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="bespoke.shared" Version="1.0.0" />
+		<PackageReference Include="bespoke.shared" Version="1.0.1" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.*" />

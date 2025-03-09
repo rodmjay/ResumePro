@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="bespoke.azure.blobstorage" Version="1.0.0" />
-    <PackageReference Include="bespoke.services" Version="1.0.0" />
+    <PackageReference Include="bespoke.azure.blobstorage" Version="1.0.1" />
+    <PackageReference Include="bespoke.services" Version="1.0.1" />
     <PackageReference Include="oneof" Version="3.0.271" />
   </ItemGroup>
 
