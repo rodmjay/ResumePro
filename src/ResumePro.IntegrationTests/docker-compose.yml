@@ -1,35 +1,36 @@
 version: "3.9"
 
 services:
-  postgres:
-    image: postgres:17-alpine
-    container_name: resumepro_db
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: resumepro_sql_db
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=resumepro
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=YourStrong!Passw0rd
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - sqlserver_data:/var/opt/mssql
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d resumepro"]
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1"]
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 6
       start_period: 30s
 
   resumeprotest:
     build:
-      context: "."  # assuming you run from the repo root
-      dockerfile: src/ResumePro.IntegrationTests/DockerFile
+      # Since this file is located in src/ResumePro.IntegrationTests/,
+      # we set the build context to one level up (the src folder)
+      context: ".."
+      dockerfile: "ResumePro.IntegrationTests/DockerFile"
     depends_on:
-      postgres:
+      sqlserver:
         condition: service_healthy
     environment:
-      - ConnectionStrings__PostgreSQLConnection=Host=postgres;Port=5432;Database=resumepro;Username=postgres;Password=postgres
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=resumepro;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;
     command: >
-      sh -c "dotnet test --collect:\"XPlat Code Coverage\" --results-directory:./TestResults --logger:console;verbosity=detailed &&
+      sh -c "dotnet test --collect:\"XPlat Code Coverage\" --results-directory:./TestResults --logger \"console;verbosity=detailed\" &&
              /root/.dotnet/tools/reportgenerator -reports:\"./TestResults/**/coverage.cobertura.xml\" -targetdir:\"./CoverageReport\" -reporttypes:TextSummary &&
              cat ./CoverageReport/Summary.txt"
 
 volumes:
-  postgres_data:
+  sqlserver_data:
