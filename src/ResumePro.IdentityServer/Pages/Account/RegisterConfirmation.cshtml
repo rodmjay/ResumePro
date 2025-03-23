@@ -1,0 +1,36 @@
+﻿@page
+@model RegisterConfirmationModel
+@{
+    ViewData["Title"] = "Register Confirmation";
+}
+
+<div class="row justify-content-center h-100">
+    <left-column>
+        <ss-main-content>
+            <shadow-area>
+
+                <partial name="Shared/_Logo"/>
+
+                <main-header name="Confirm Account"></main-header>
+                <p>
+                    An email with a confirmation link has been sent to
+                    your inbox. Go check it now and click the link to
+                    finish the registration process!
+                </p>
+                <p class="subtle">
+                    You may close this browser tab.
+                </p>
+                @{
+                    if (Model.DisplayConfirmAccountLink)
+                    {
+                        <p>
+                            <a id="confirm-link" href="@Model.EmailConfirmationUrl">Click here to confirm your account</a>
+                        </p>
+                    }
+                }
+            </shadow-area>
+        </ss-main-content>
+    </left-column>
+
+
+</div>

@@ -1,0 +1,47 @@
+:host ::ng-deep {
+  .person-dialog {
+    .p-dialog-header {
+      padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+      background-color: var(--surface-card);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+    
+    .p-dialog-content {
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      background-color: var(--surface-card);
+    }
+    
+    .p-dialog-footer {
+      padding: 1rem 1.5rem 1.5rem 1.5rem;
+      border-top: 1px solid var(--surface-border);
+      background-color: var(--surface-card);
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+    }
+  }
+  
+  // Add overlay mask styling to ensure proper contrast
+  .p-dialog-mask.p-component-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .field {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    small.p-error {
+      display: block;
+      margin-top: 0.25rem;
+    }
+  }
+  
+  .p-dropdown {
+    width: 100%;
+  }
+}

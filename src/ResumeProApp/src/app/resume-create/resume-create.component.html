@@ -1,0 +1,77 @@
+<div class="p-4">
+  <p-toast></p-toast>
+  
+  <p-card [header]="'Create New Resume for ' + (personName || 'User')" styleClass="mb-4">
+    <form [formGroup]="resumeForm" (ngSubmit)="onSubmit()">
+      <div class="field mb-4">
+        <label for="jobTitle" class="block font-medium mb-2">Job Title</label>
+        <input 
+          id="jobTitle" 
+          type="text" 
+          pInputText 
+          formControlName="jobTitle" 
+          class="w-full"
+          [ngClass]="{'ng-invalid ng-dirty': submitted && f['jobTitle'].errors}"
+        />
+        <small *ngIf="submitted && f['jobTitle'].errors?.['required']" class="p-error">
+          Job title is required
+        </small>
+      </div>
+      
+      <div class="field mb-4">
+        <label for="description" class="block font-medium mb-2">Description</label>
+        <input 
+          id="description" 
+          type="text" 
+          pInputText 
+          formControlName="description" 
+          class="w-full"
+          [ngClass]="{'ng-invalid ng-dirty': submitted && f['description'].errors}"
+        />
+        <small *ngIf="submitted && f['description'].errors?.['required']" class="p-error">
+          Description is required
+        </small>
+      </div>
+      
+      <div formGroupName="settings" class="mb-4">
+        <h3 class="text-lg font-medium mb-3">Resume Settings</h3>
+        
+        <div class="field-checkbox mb-2">
+          <p-checkbox formControlName="showEmail" [binary]="true" inputId="showEmail"></p-checkbox>
+          <label for="showEmail" class="ml-2">Show Email</label>
+        </div>
+        
+        <div class="field-checkbox mb-2">
+          <p-checkbox formControlName="showPhone" [binary]="true" inputId="showPhone"></p-checkbox>
+          <label for="showPhone" class="ml-2">Show Phone</label>
+        </div>
+        
+        <div class="field-checkbox mb-2">
+          <p-checkbox formControlName="showLinkedIn" [binary]="true" inputId="showLinkedIn"></p-checkbox>
+          <label for="showLinkedIn" class="ml-2">Show LinkedIn</label>
+        </div>
+        
+        <div class="field-checkbox mb-2">
+          <p-checkbox formControlName="showGitHub" [binary]="true" inputId="showGitHub"></p-checkbox>
+          <label for="showGitHub" class="ml-2">Show GitHub</label>
+        </div>
+        
+        <div class="field-checkbox mb-2">
+          <p-checkbox formControlName="showLocation" [binary]="true" inputId="showLocation"></p-checkbox>
+          <label for="showLocation" class="ml-2">Show Location</label>
+        </div>
+      </div>
+      
+      <div class="flex justify-content-end">
+        <button 
+          pButton 
+          type="submit" 
+          label="Create Resume" 
+          icon="pi pi-check" 
+          [loading]="loading"
+          class="p-button-primary"
+        ></button>
+      </div>
+    </form>
+  </p-card>
+</div>

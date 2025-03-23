@@ -1,0 +1,257 @@
+<div class="card">
+  <p-toast></p-toast>
+  <p-confirmDialog></p-confirmDialog>
+  
+  <div *ngIf="loading" class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <div *ngIf="person && !loading" class="person-details">
+    <div class="flex justify-content-between align-items-center mb-4">
+      <h2>{{ person.firstName }} {{ person.lastName }}</h2>
+      <button 
+        pButton 
+        pRipple 
+        label="Edit" 
+        icon="pi pi-pencil" 
+        class="p-button-outlined" 
+        (click)="showEditPersonDialog()"
+      ></button>
+    </div>
+    
+    <p-tabView>
+      <p-tabPanel header="Personal Information">
+        <div class="grid">
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>Email</label>
+              <div>{{ person.email }}</div>
+            </div>
+            
+            <div class="field">
+              <label>Phone</label>
+              <div>{{ person.phoneNumber }}</div>
+            </div>
+            
+            <div class="field">
+              <label>Location</label>
+              <div>{{ person.city }}, {{ person.state }}, {{ person.country }}</div>
+            </div>
+          </div>
+          
+          <div class="col-12 md:col-6">
+            <div class="field">
+              <label>LinkedIn</label>
+              <div>{{ person.linkedIn || 'Not provided' }}</div>
+            </div>
+            
+            <div class="field">
+              <label>GitHub</label>
+              <div>{{ person.gitHub || 'Not provided' }}</div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Resumes ({{ resumes.length }})">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Create Resume" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="createResume()"
+          ></button>
+        </div>
+        <p-table [value]="resumes" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ID</th>
+              <th>Job Title</th>
+              <th>Description</th>
+              <th>Skills</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-resume>
+            <tr>
+              <td>{{ resume.id }}</td>
+              <td>{{ resume.jobTitle }}</td>
+              <td>{{ resume.description }}</td>
+              <td>{{ resume.skillCount }}</td>
+              <td>
+                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" 
+                        [routerLink]="['/people', personId, 'resume', resume.id]"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteResume(resume.id)"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" class="text-center">No resumes found</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Skills ({{ person.skillCount }})">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Skills" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="addSkills()"
+          ></button>
+        </div>
+        <div *ngIf="person.skills && person.skills.length > 0">
+          <p-chip *ngFor="let skill of person.skills" 
+                  [label]="skill.title" 
+                  styleClass="m-1"
+                  [removable]="true"
+                  (onRemove)="removeSkill(skill.id)"></p-chip>
+        </div>
+        <div *ngIf="!person.skills || person.skills.length === 0">
+          No skills found.
+        </div>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Education">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Education" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="addEducation()"
+          ></button>
+        </div>
+        <div *ngIf="person.schools && person.schools.length > 0">
+          <div *ngFor="let school of person.schools" class="mb-3 p-3 border-round surface-card">
+            <div class="flex justify-content-between align-items-center">
+              <h3>{{ school.name }}</h3>
+              <div>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-sm mr-2"
+                        (click)="editSchool(school)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deleteSchool(school.id)"></button>
+              </div>
+            </div>
+            <p>{{ school.location }}</p>
+            <p>{{ school.startDate | date:'MMM yyyy' }} - {{ school.endDate ? (school.endDate | date:'MMM yyyy') : 'Present' }}</p>
+            
+            <div *ngIf="school.degrees && school.degrees.length > 0" class="mt-2">
+              <div class="flex justify-content-between align-items-center">
+                <h4>Degrees</h4>
+                <button pButton icon="pi pi-plus" class="p-button-rounded p-button-success p-button-sm"
+                        (click)="addDegree(school.id)"></button>
+              </div>
+              <ul>
+                <li *ngFor="let degree of school.degrees" class="flex justify-content-between align-items-center">
+                  <span>{{ degree.name }}</span>
+                  <div>
+                    <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-sm mr-2"
+                            (click)="editDegree(school.id, degree)"></button>
+                    <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                            (click)="deleteDegree(school.id, degree.id)"></button>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!person.schools || person.schools.length === 0">
+          No education information found.
+        </div>
+      </p-tabPanel>
+
+      <p-tabPanel header="Languages" *ngIf="person.languages">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Language" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="addLanguage()"
+          ></button>
+        </div>
+        <div *ngIf="person.languages && person.languages.length > 0">
+          <div *ngFor="let language of person.languages" class="mb-3 p-3 border-round surface-card">
+            <div class="flex justify-content-between align-items-center">
+              <h3>{{ language.name }}</h3>
+              <div class="flex align-items-center">
+                <p-tag [severity]="getLanguageProficiencySeverity(language.proficiency)" 
+                       [value]="language.proficiencyName"
+                       class="mr-2"></p-tag>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-sm mr-2"
+                        (click)="editLanguage(language)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="removeLanguage(language.code3)"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!person.languages || person.languages.length === 0">
+          No language information found.
+        </div>
+      </p-tabPanel>
+
+      <p-tabPanel header="Companies ({{ companies.length }})">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Company" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="showCompanyForm()"
+          ></button>
+        </div>
+        <p-table [value]="companies" [tableStyle]="{'min-width': '50rem'}">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Company</th>
+              <th>Description</th>
+              <th>Location</th>
+              <th>Positions</th>
+              <th>Actions</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-company>
+            <tr>
+              <td>{{ company.company }}</td>
+              <td>{{ company.description }}</td>
+              <td>{{ company.location }}</td>
+              <td>{{ company.positionCount }}</td>
+              <td>
+                <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" 
+                        [routerLink]="['/people', personId, 'companies', company.id]"></button>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning mr-2"
+                        (click)="companyForm.showDialog(company)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                        (click)="deleteCompany(company.id)"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td colspan="5" class="text-center">No companies found</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
+
+<app-person-edit-form #personEditForm [person]="person" [personId]="personId" (personUpdated)="onPersonUpdated($event)"></app-person-edit-form>
+<app-company-form #companyForm [personId]="personId" (companyCreated)="onCompanyCreated($event)" (companyUpdated)="onCompanyUpdated($event)"></app-company-form>

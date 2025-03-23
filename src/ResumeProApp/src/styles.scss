@@ -1,0 +1,20 @@
+/* You can add global styles to this file, and also import other style files */
+@use './tailwind.css';
+@use './assets/layout/layout.scss';
+@use 'primeicons/primeicons.css';
+@use './assets/demo/demo.scss';
+
+/* Fix for PrimeIcons font loading */
+@font-face {
+  font-family: 'primeicons';
+  font-display: block;
+  src: url('./assets/fonts/primeicons.eot');
+  src: url('./assets/fonts/primeicons.eot?#iefix') format('embedded-opentype'),
+       url('./assets/fonts/primeicons.woff2') format('woff2'),
+       url('./assets/fonts/primeicons.woff') format('woff'),
+       url('./assets/fonts/primeicons.ttf') format('truetype'),
+       url('./assets/fonts/primeicons.svg?#primeicons') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+

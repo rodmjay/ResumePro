@@ -1,0 +1,180 @@
+<p-toast></p-toast>
+
+<p-dialog 
+  [(visible)]="visible" 
+  [style]="{width: '450px'}" 
+  header="Create New Person" 
+  [modal]="true" 
+  styleClass="p-fluid"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="hideDialog()">
+  
+  <form [formGroup]="personForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="firstName">First Name*</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="firstName" 
+        formControlName="firstName" 
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('firstName')?.invalid && personForm.get('firstName')?.touched}"
+      />
+      <small 
+        *ngIf="personForm.get('firstName')?.invalid && personForm.get('firstName')?.touched" 
+        class="p-error"
+      >
+        First name is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="lastName">Last Name*</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="lastName" 
+        formControlName="lastName" 
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('lastName')?.invalid && personForm.get('lastName')?.touched}"
+      />
+      <small 
+        *ngIf="personForm.get('lastName')?.invalid && personForm.get('lastName')?.touched" 
+        class="p-error"
+      >
+        Last name is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="email">Email*</label>
+      <input 
+        type="email" 
+        pInputText 
+        id="email" 
+        formControlName="email" 
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('email')?.invalid && personForm.get('email')?.touched}"
+      />
+      <small 
+        *ngIf="personForm.get('email')?.invalid && personForm.get('email')?.touched" 
+        class="p-error"
+      >
+        <span *ngIf="personForm.get('email')?.errors?.['required']">Email is required</span>
+        <span *ngIf="personForm.get('email')?.errors?.['email']">Please enter a valid email address</span>
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="phoneNumber">Phone Number* (Format: 123-456-7890)</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="phoneNumber" 
+        formControlName="phoneNumber" 
+        placeholder="123-456-7890"
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('phoneNumber')?.invalid && personForm.get('phoneNumber')?.touched}"
+      />
+      <small 
+        *ngIf="personForm.get('phoneNumber')?.invalid && personForm.get('phoneNumber')?.touched" 
+        class="p-error"
+      >
+        <span *ngIf="personForm.get('phoneNumber')?.errors?.['required']">Phone number is required</span>
+        <span *ngIf="personForm.get('phoneNumber')?.errors?.['pattern']">Please use format: 123-456-7890</span>
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="linkedIn">LinkedIn</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="linkedIn" 
+        formControlName="linkedIn"
+      />
+    </div>
+    
+    <div class="field">
+      <label for="gitHub">GitHub</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="gitHub" 
+        formControlName="gitHub"
+      />
+    </div>
+    
+    <div class="field">
+      <label for="city">City*</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="city" 
+        formControlName="city" 
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('city')?.invalid && personForm.get('city')?.touched}"
+      />
+      <small 
+        *ngIf="personForm.get('city')?.invalid && personForm.get('city')?.touched" 
+        class="p-error"
+      >
+        City is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="stateId">State/Province*</label>
+      <p-dropdown 
+        id="stateId" 
+        [options]="states" 
+        formControlName="stateId" 
+        optionLabel="name" 
+        optionValue="id"
+        [style]="{'width':'100%'}" 
+        placeholder="Select a state"
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('stateId')?.invalid && personForm.get('stateId')?.touched}"
+      ></p-dropdown>
+      <small 
+        *ngIf="personForm.get('stateId')?.invalid && personForm.get('stateId')?.touched" 
+        class="p-error"
+      >
+        State/Province is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="country">Country*</label>
+      <p-dropdown 
+        id="country" 
+        [options]="countries" 
+        formControlName="country" 
+        optionLabel="name" 
+        optionValue="code"
+        [ngClass]="{'ng-invalid ng-dirty': personForm.get('country')?.invalid && personForm.get('country')?.touched}"
+      ></p-dropdown>
+      <small 
+        *ngIf="personForm.get('country')?.invalid && personForm.get('country')?.touched" 
+        class="p-error"
+      >
+        Country is required
+      </small>
+    </div>
+  </form>
+  
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      label="Cancel" 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      (click)="hideDialog()"
+    ></button>
+    <button 
+      pButton 
+      pRipple 
+      label="Save" 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      [loading]="loading"
+      (click)="onSubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>

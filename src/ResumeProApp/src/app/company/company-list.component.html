@@ -1,0 +1,76 @@
+<div class="card">
+  <p-toast></p-toast>
+  <p-confirmDialog></p-confirmDialog>
+  
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h2 class="text-xl font-semibold m-0">Companies</h2>
+    <button 
+      pButton 
+      pRipple 
+      label="Add Company" 
+      icon="pi pi-plus" 
+      class="p-button-success" 
+      (click)="createCompany()"
+    ></button>
+  </div>
+  
+  <div *ngIf="loading" class="flex justify-content-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <div *ngIf="error" class="p-message p-message-error mb-3">
+    <div class="p-message-wrapper">
+      <span class="p-message-icon pi pi-times-circle"></span>
+      <span class="p-message-text">{{ error }}</span>
+    </div>
+  </div>
+  
+  <p-table 
+    [value]="companies" 
+    [tableStyle]="{'min-width': '60rem'}"
+    [loading]="loading"
+    *ngIf="!loading && !error"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Website</th>
+        <th>Positions</th>
+        <th>Skills</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-company>
+      <tr>
+        <td>{{ company.name }}</td>
+        <td>{{ company.description }}</td>
+        <td>
+          <a [href]="company.website" target="_blank" *ngIf="company.website">{{ company.website }}</a>
+          <span *ngIf="!company.website">-</span>
+        </td>
+        <td>{{ company.positions?.length || 0 }}</td>
+        <td>
+          <div class="flex flex-wrap">
+            <span *ngFor="let skill of company.skills" class="mr-1 mb-1 p-tag p-tag-rounded">
+              {{ skill.title }}
+            </span>
+          </div>
+        </td>
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" 
+                  (click)="viewCompany(company.id)"></button>
+          <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger"
+                  (click)="deleteCompany(company.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" class="text-center">
+          No companies found. Click "Add Company" to create one.
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

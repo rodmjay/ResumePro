@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ResumePro.Api</name>
+    </assembly>
+    <members>
+        <member name="M:ResumePro.Api.Controllers.BaseController.#ctor(System.IServiceProvider)">
+            <param name="serviceProvider"></param>
+        </member>
+    </members>
+</doc>

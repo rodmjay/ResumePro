@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Pages/Shared/_Layout.cshtml";
+}
+@inject UserManager userManager
+
+@{
+    var user = await userManager.GetUserAsync(User);
+    var displayName = user.FullName;
+}
+
+<nav class="sticky-top py-1 bg-ss-dark text-white">
+    <div class="container d-flex flex-row justify-content-between align-items-center">
+
+        <a class="py-2  d-inline-block" asp-page="/Account/Manage/Index">
+            <img src="~/assets/logo.png" id="logo"/>
+        </a>
+
+        <div class="py-2 d-inline-block">
+
+            <div class="nav-item dropdown d-inline-block mx-2">
+                <a class="text-white dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    @displayName
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @*<a class="dropdown-item" href="#">Item</a>
+                        <a class="dropdown-item" href="#">Item</a>*@
+                    @*<div class="dropdown-divider"></div>*@
+                    <form method="post" action="~/Account/LogOut">
+                        <button type="submit" class="ss-manage-nav-link nav-link btn btn-link">
+                            <i data-feather="log-out"></i>
+                            <span>
+                                Log Out
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<div class="container ss-manage-header-container  bg-white shadow ss-rounded">
+    <div class="row d-flex flex-md-row flex-column justify-content-between align-items-center p-3 px-1 my-3 mt-4">
+        <h2 class="my-auto">
+            Manage Account
+        </h2>
+    </div>
+
+</div>
+<div class="container ss-manage-content-container bg-white shadow ss-rounded">
+    <div class="row flex-nowrap">
+        <nav class="col-md-1 col-lg-3 px-0 border-right ss-left-nav-container">
+            <partial name="_ManageNav"/>
+        </nav>
+        <div class="col-md-11 col-lg-9 p-md-4 p-lg-5 p-3">
+            @RenderBody()
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+    @RenderSection("Scripts", false)
+}

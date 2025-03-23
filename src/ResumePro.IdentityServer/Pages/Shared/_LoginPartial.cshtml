@@ -1,0 +1,19 @@
+﻿@using ResumePro.Users.Managers
+@inject SignInManager SignInManager
+@inject UserManager UserManager
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <a href="Identity/Account/Manage">Hello, @UserManager.GetUserName(User)</a>
+    <form method="post" action="Identity/Account/LogOut">
+        <button type="submit" class="nav-link btn btn-link">Log out</button>
+    </form>
+}
+else
+{
+    <a href="Identity/Account/Register">Register</a>
+    <a href="Identity/Account/Login">Log in</a>
+}

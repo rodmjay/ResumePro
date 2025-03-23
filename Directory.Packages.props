@@ -8,6 +8,14 @@
     <PackageVersion Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.Sqlite" Version="9.0.0" />
     <PackageVersion Include="AspNetCore.HealthChecks.SqlServer" Version="8.0.2" />
+	  <PackageVersion Include="bespoke.azure.blobstorage" Version="1.0.6" />
+	  <PackageVersion Include="bespoke.azure.appinsights" Version="1.0.6" />
+    <PackageVersion Include="bespoke.data" Version="1.0.6" />
+    <PackageVersion Include="bespoke.data.sqlserver" Version="1.0.6" />
+    <PackageVersion Include="bespoke.services" Version="1.0.6" />
+	  <PackageVersion Include="bespoke.shared" Version="1.0.6" />
+	  <PackageVersion Include="bespoke.rest" Version="1.0.6" />
+	  <PackageVersion Include="bespoke.integrationtesting" Version="1.0.6" />
     <PackageVersion Include="coverlet.msbuild" Version="6.0.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>

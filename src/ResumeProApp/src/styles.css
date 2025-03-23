@@ -1,0 +1,30 @@
+/* Global styles for ResumeProApp */
+/* PrimeNG styles will be loaded from node_modules */
+
+body {
+  font-family: var(--font-family);
+  margin: 0;
+  padding: 0;
+}
+
+.card {
+  background: var(--surface-card);
+  padding: 2rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  box-shadow: var(--card-shadow);
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.error {
+  color: var(--red-500);
+  padding: 1rem;
+  background-color: var(--red-50);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}

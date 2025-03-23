@@ -1,0 +1,5 @@
+﻿Id,GrantType,ClientId
+1,password,1
+3,client_credentials,2
+4,authorization_code,3
+5,authorization_code,5

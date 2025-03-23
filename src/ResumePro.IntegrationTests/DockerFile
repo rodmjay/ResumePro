@@ -1,0 +1,31 @@
+# Use .NET 8 SDK image
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS testrunner
+
+# Set work directory
+WORKDIR /app
+
+# Copy the entire repository into the image
+COPY . .
+
+# Restore dependencies for the integration test project, suppressing specific warnings and not treating warnings as errors
+RUN dotnet restore demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
+    -p:TreatWarningsAsErrors=false
+
+# Build the integration tests project (and its project references) in Release mode
+RUN dotnet build demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
+    -c Release \
+    -p:TreatWarningsAsErrors=false
+
+# Install ReportGenerator global tool for coverage report generation
+RUN dotnet tool install -g dotnet-reportgenerator-globaltool
+ENV PATH="$PATH:/root/.dotnet/tools"
+
+# Default command: run tests with coverage and generate report, then output coverage summary
+CMD /bin/sh -c '\
+    dotnet test demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj -c Release --no-build \
+        --results-directory ./TestResults \
+        -p:CollectCoverage=true -p:CoverletOutputFormat=cobertura -p:CoverletOutput=./TestResults/coverage.cobertura.xml \
+        -p:NoWarn="NU1604;NU1902;NU1903;NU1701" -p:TreatWarningsAsErrors=false && \
+    reportgenerator -reports:./TestResults/coverage.cobertura.xml -targetdir:./TestResults/CoverageReport -reporttypes:Html\;TextSummary && \
+    cat ./TestResults/CoverageReport/Summary.txt \
+'

@@ -1,0 +1,59 @@
+:host {
+  display: block;
+}
+
+.field {
+  margin-bottom: 1rem;
+}
+
+.field-checkbox {
+  display: flex;
+  align-items: center;
+}
+
+small.p-error {
+  color: #f44336;
+  display: block;
+  margin-top: 0.25rem;
+}
+
+/* Custom checkbox styles to avoid dependency on PrimeIcons */
+:host ::ng-deep {
+  .p-checkbox {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ced4da;
+    border-radius: 4px;
+    background-color: #ffffff;
+    transition: background-color 0.2s, border-color 0.2s;
+    
+    &.p-checkbox-checked {
+      background-color: #3B82F6;
+      border-color: #3B82F6;
+      
+      .p-checkbox-box {
+        background-color: #3B82F6;
+        border-color: #3B82F6;
+        
+        &:after {
+          content: '';
+          width: 10px;
+          height: 10px;
+          border: 2px solid #ffffff;
+          border-top: 0;
+          border-left: 0;
+          transform: rotate(45deg);
+          display: block;
+          margin-left: 4px;
+          margin-top: 0px;
+        }
+      }
+    }
+  }
+  
+  .p-button {
+    .pi-check:before {
+      content: '✓';
+    }
+  }
+}

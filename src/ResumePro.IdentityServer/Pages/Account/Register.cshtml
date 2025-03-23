@@ -1,0 +1,140 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Create New Account";
+}
+
+<div class="row justify-content-center h-100">
+    <left-column>
+        <ss-main-content>
+            <shadow-area>
+
+                <partial name="Shared/_Logo"/>
+
+                <main-header name="@ViewData["Title"]"></main-header>
+
+                <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label asp-for="Input.FirstName"></label>
+                            <input asp-for="Input.FirstName" class="form-control"/>
+
+                        </div>
+
+                        <div class="col form-group">
+                            <label asp-for="Input.LastName"></label>
+                            <input asp-for="Input.LastName" class="form-control"/>
+
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label asp-for="Input.Email"></label>
+                            <input asp-for="Input.Email" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col form-group">
+                            <label asp-for="Input.Password"></label>
+
+                            <div class="input-group">
+                                <input asp-for="Input.Password" class="form-control py-2 check-password"/>
+                                <span class="input-group-append">
+                                    <button class="btn btn-sm btn-secondary" type="button" id="eye-on">
+                                        <i data-feather="eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-secondary" type="button" id="eye-off">
+                                        <i data-feather="eye-off"></i>
+                                    </button>
+                                </span>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <partial name="Shared/_PasswordRequirements"/>
+
+
+                    <div class="form-row">
+                        <div class="col form-group">
+
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <input asp-for="Input.ConfirmPassword" class="form-control"/>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col form-group">
+
+                            <div class="form-check">
+                                <input asp-for="Input.TermsAndConditions" class="form-check-input"/>
+                                <label asp-for="Input.TermsAndConditions" class="form-check-label">
+                                    I Agree to these
+                                    <a id="toc-button" href="#" data-toggle="modal" data-target="#toc-modal-popup">
+                                        Terms and Conditions
+                                    </a> of ResumePro
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <submit-button name="Sign Up"></submit-button>
+
+
+                </form>
+                <div class="d-flex flex-column justify-content-center align-items-center ss-extra-items">
+                    <div>
+                        Already have an account? <a asp-page="./Login">Sign In</a>
+                    </div>
+
+                </div>
+
+            </shadow-area>
+        </ss-main-content>
+    </left-column>
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="toc-modal-popup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Terms and Conditions</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+    <script src="~/js/passwords.js"></script>
+    <script src="~/js/terms-and-conditions.js"></script>
+}

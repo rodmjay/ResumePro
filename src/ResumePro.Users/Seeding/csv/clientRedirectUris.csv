@@ -1,0 +1,5 @@
+﻿Id,RedirectUri,ClientId
+1,https://localhost:5002/signin-oidc,3
+3,https://localhost:44330/authentication/login-callback,5
+4,https://resumepro-app-test.azurewebsites.net/authentication/login-callback,5
+5,http://localhost:7243/authentication/login-callback,5

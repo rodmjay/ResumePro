@@ -1,0 +1,60 @@
+﻿@font-face {
+    font-family: inter;
+    src: url(../assets/inter_font/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: inter-semibold;
+    src: url(../assets/inter_font/Inter-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: inter-bold;
+    src: url(../assets/inter_font/Inter-Bold.ttf);
+}
+
+html, body {
+    font-family: inter;
+    font-size: 1em;
+}
+
+h1 {
+    font-family: inter-bold;
+    font-size: 4em;
+}
+
+h2 {
+    font-family: inter-semibold;
+    font-size: 2.5em;
+}
+
+h3 {
+    font-family: inter-bold;
+    font-size: 1.75rem;
+}
+
+.subtle {
+    color: #777;
+    font-family: inter-semibold;
+}
+
+label {
+    font-weight: 800;
+}
+
+.font-inter {
+    font-family: inter;
+}
+
+.font-inter-semibold {
+    font-family: inter-semibold;
+}
+
+.font-inter-bold {
+    font-family: inter-bold;
+}
+
+.ss-manage-nav-link {
+    font-family: inter-semibold;
+    color: black;
+}

@@ -1,0 +1,6 @@
+OrganizationId,PersonId,CompanyId,PositionId,Id,Order,Text
+1,1,1,1,1,1,Led team of 5 developers implementing microservices architecture
+1,1,1,1,2,2,Implemented automated testing increasing code coverage to 85%
+1,1,1,2,1,1,Optimized database queries reducing response time by 50%
+1,1,2,1,1,1,Developed mobile-first responsive design framework
+1,1,3,1,1,1,Implemented logging and monitoring system for production environment

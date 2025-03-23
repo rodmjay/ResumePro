@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<doc>
+	<assembly>
+		<name>ResumePro.IdentityServer</name>
+	</assembly>
+	<members>
+		<member
+			name="M:ResumePro.IdentityServer.Extensions.Extensions.IsNativeClient(Duende.IdentityServer.Models.AuthorizationRequest)">
+			<summary>
+				Checks if the redirect URI is for a native client.
+			</summary>
+			<returns></returns>
+		</member>
+		<member name="M:ResumePro.IdentityServer.Home.HomeController.Error(System.String)">
+			<summary>
+				Shows the error page
+			</summary>
+		</member>
+	</members>
+</doc>

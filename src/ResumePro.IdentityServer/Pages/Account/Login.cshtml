@@ -1,0 +1,67 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Welcome";
+}
+
+<div class="row justify-content-center h-100">
+
+    <left-column>
+        <ss-main-content>
+            <shadow-area>
+
+                <partial name="Shared/_Logo"/>
+
+                <main-header name="@ViewData["Title"]"></main-header>
+
+                <form id="account" method="post">
+
+                    <div asp-validation-summary="All" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Email"></label>
+                        <input asp-for="Input.Email" class="form-control" aria-autocomplete="email"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Input.Password"></label>
+                        <div class="input-group">
+                            <input asp-for="Input.Password" class="form-control py-2"/>
+                            <span class="input-group-append">
+                                <button class="btn btn-sm btn-secondary" type="button" id="eye-on">
+                                    <i data-feather="eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-secondary" type="button" id="eye-off">
+                                    <i data-feather="eye-off"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+
+                    <submit-button name="Sign In"></submit-button>
+
+                </form>
+
+                <div class="d-flex flex-column justify-content-center align-items-center ss-extra-items">
+                    <div>
+                        Don't have an account?
+                        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Sign Up</a>
+                    </div>
+                    <div>
+                        <a asp-page="./ForgotPassword">Forgot Password?</a>
+                    </div>
+
+                </div>
+            </shadow-area>
+        </ss-main-content>
+    </left-column>
+
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial"/>
+    <script src="~/js/passwords.js"></script>
+
+}

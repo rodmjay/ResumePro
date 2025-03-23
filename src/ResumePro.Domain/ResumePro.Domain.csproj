@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	  <TargetFramework>net8.0</TargetFramework>
+	  <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bespoke.data" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

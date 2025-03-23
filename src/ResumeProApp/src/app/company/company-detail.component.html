@@ -1,0 +1,133 @@
+<div class="card">
+  <p-toast></p-toast>
+  <p-confirmDialog></p-confirmDialog>
+  
+  <div *ngIf="loading" class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <div *ngIf="company && !loading" class="company-details">
+    <div class="flex justify-content-between align-items-center mb-4">
+      <div class="flex align-items-center">
+        <button pButton icon="pi pi-arrow-left" class="p-button-text mr-2" (click)="goBack()"></button>
+        <h2 class="text-xl font-semibold m-0">{{ company.company }}</h2>
+      </div>
+      <div>
+        <button 
+          pButton 
+          pRipple 
+          label="Edit" 
+          icon="pi pi-pencil" 
+          class="p-button-outlined mr-2" 
+          (click)="showEditCompanyDialog()"
+        ></button>
+        <button 
+          pButton 
+          pRipple 
+          label="Delete" 
+          icon="pi pi-trash" 
+          class="p-button-danger" 
+          (click)="deleteCompany()"
+        ></button>
+      </div>
+    </div>
+    
+    <p-tabView>
+      <p-tabPanel header="Company Information">
+        <div class="grid">
+          <div class="col-12">
+            <div class="field">
+              <label class="font-bold">Description</label>
+              <div>{{ company.description || 'No description provided' }}</div>
+            </div>
+            
+            <div class="field">
+              <label class="font-bold">Location</label>
+              <div>{{ company.location }}</div>
+            </div>
+            
+            <div class="field">
+              <label class="font-bold">Period</label>
+              <div>{{ company.startDate | date:'MMM yyyy' }} - {{ company.endDate ? (company.endDate | date:'MMM yyyy') : 'Present' }}</div>
+            </div>
+          </div>
+        </div>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Positions ({{ company.positions?.length || 0 }})">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Position" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="addPosition()"
+          ></button>
+        </div>
+        
+        <div *ngIf="company.positions && company.positions.length > 0">
+          <div *ngFor="let position of company.positions" class="mb-4 p-3 border-round surface-card">
+            <div class="flex justify-content-between align-items-center">
+              <h3>{{ position.title }}</h3>
+              <div>
+                <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-sm mr-2"
+                        (click)="editPosition(position.id)"></button>
+                <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-sm"
+                        (click)="deletePosition(position.id)"></button>
+              </div>
+            </div>
+            <p>{{ position.startDate | date:'MMM yyyy' }} - {{ position.endDate ? (position.endDate | date:'MMM yyyy') : 'Present' }}</p>
+            <p>{{ position.description }}</p>
+            
+            <div *ngIf="position.projects && position.projects.length > 0" class="mt-3">
+              <h4>Projects</h4>
+              <div *ngFor="let project of position.projects" class="ml-3 mt-2">
+                <div class="font-bold">{{ project.name }}</div>
+                <div>{{ project.description }}</div>
+                <ul *ngIf="project.highlights && project.highlights.length > 0" class="mt-2">
+                  <li *ngFor="let highlight of project.highlights">{{ highlight.text }}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div *ngIf="!company.positions || company.positions.length === 0" class="text-center p-3">
+          No positions found. Click "Add Position" to create one.
+        </div>
+      </p-tabPanel>
+      
+      <p-tabPanel header="Skills ({{ company.skills?.length || 0 }})">
+        <div class="flex justify-content-end mb-3">
+          <button 
+            pButton 
+            pRipple 
+            label="Add Skills" 
+            icon="pi pi-plus" 
+            class="p-button-success" 
+            (click)="addSkill()"
+          ></button>
+        </div>
+        
+        <div *ngIf="company.skills && company.skills.length > 0" class="flex flex-wrap">
+          <p-chip *ngFor="let skill of company.skills" 
+                  [label]="skill.title" 
+                  styleClass="m-1"
+                  [removable]="true"
+                  (onRemove)="removeSkill(skill.id)"></p-chip>
+        </div>
+        
+        <div *ngIf="!company.skills || company.skills.length === 0" class="text-center p-3">
+          No skills found. Click "Add Skills" to add some.
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</div>
+
+<app-company-form #companyForm [personId]="personId" (companyUpdated)="onCompanyUpdated($event)"></app-company-form>

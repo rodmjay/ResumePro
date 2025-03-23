@@ -1,0 +1,12 @@
+﻿Id,Scope,ClientId
+1,openid,3
+2,api1,2
+3,api1,3
+4,api1,1
+5,profile,1
+6,openid,1
+10,profile,3
+11,api1,5
+12,profile,5
+13,openid,5
+14,organization,1

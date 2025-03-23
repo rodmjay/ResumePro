@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<DocumentationFile>ResumePro.Api.xml</DocumentationFile>
+		<NoWarn>1701;1702;1591;</NoWarn>
+	</PropertyGroup>
+
+
+	<ItemGroup>
+
+		<ProjectReference Include="..\ResumePro.Infrastructure.SqlServer\ResumePro.Infrastructure.SqlServer.csproj" />
+		<ProjectReference Include="..\ResumePro.Services\ResumePro.Services.csproj" />
+		<ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Bespoke.Azure.AppInsights" />
+		<PackageReference Include="Bespoke.Azure.BlobStorage" />
+		<PackageReference Include="Bespoke.Data.SqlServer" />
+		<PackageReference Include="Bespoke.Rest" />
+		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" />
+		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="wwwroot\" />
+	</ItemGroup>
+</Project>

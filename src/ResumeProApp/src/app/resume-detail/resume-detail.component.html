@@ -1,0 +1,142 @@
+<p-breadcrumb [model]="breadcrumbItems" [home]="{ icon: 'pi pi-home', routerLink: '/' }" styleClass="mb-3"></p-breadcrumb>
+
+<p-card *ngIf="resume && !loading" styleClass="mb-4">
+  <div class="grid">
+    <!-- Header Section with Avatar and Basic Info -->
+    <div class="col-12 md:col-3 flex flex-column align-items-center justify-content-center">
+      <p-avatar icon="pi pi-user" size="xlarge" styleClass="mb-2" [style]="{'background-color': '#2196F3', 'color': '#ffffff'}"></p-avatar>
+      <h2 class="m-0">{{ resume.firstName }} {{ resume.lastName }}</h2>
+      <h3 class="mt-1 mb-3">{{ resume.jobTitle }}</h3>
+      
+      <!-- Contact Information -->
+      <div class="w-full">
+        <div *ngIf="resume.settings.showEmail" class="flex align-items-center mb-2">
+          <i class="pi pi-envelope mr-2"></i>
+          <span>{{ resume.email }}</span>
+        </div>
+        <div *ngIf="resume.settings.showPhone" class="flex align-items-center mb-2">
+          <i class="pi pi-phone mr-2"></i>
+          <span>{{ resume.phoneNumber }}</span>
+        </div>
+        <div *ngIf="resume.settings.showLinkedIn" class="flex align-items-center mb-2">
+          <i class="pi pi-linkedin mr-2"></i>
+          <span>{{ resume.linkedIn }}</span>
+        </div>
+        <div *ngIf="resume.settings.showGitHub" class="flex align-items-center mb-2">
+          <i class="pi pi-github mr-2"></i>
+          <span>{{ resume.gitHub }}</span>
+        </div>
+        <div *ngIf="resume.settings.showLocation" class="flex align-items-center mb-2">
+          <i class="pi pi-map-marker mr-2"></i>
+          <span>{{ resume.city }}, {{ resume.state }}, {{ resume.country }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Main Content Section -->
+    <div class="col-12 md:col-9">
+      <!-- Description Panel -->
+      <p-panel header="Professional Summary" styleClass="mb-3">
+        <p>{{ resume.description }}</p>
+      </p-panel>
+      
+      <!-- Skills Section -->
+      <p-panel header="Skills" styleClass="mb-3">
+        <div *ngIf="resume.skillDictionary && resume.skillDictionary.length > 0" class="skills-table">
+          <div class="grid">
+            <div class="col-12">
+              <div class="p-grid skills-grid">
+                <div class="p-col-3 skills-column">
+                  <h4>Programming Languages</h4>
+                  <ul class="skill-list p-0 m-0">
+                    <li *ngFor="let skill of getSkillsByCategory('Programming Languages')" class="mb-2">
+                      <p-tag [value]="skill.title" [severity]="getSkillSeverity(skill.rating)">
+                        <span class="ml-2">{{skill.rating}}/5</span>
+                      </p-tag>
+                    </li>
+                  </ul>
+                </div>
+                <div class="p-col-3 skills-column">
+                  <h4>Frontend</h4>
+                  <ul class="skill-list p-0 m-0">
+                    <li *ngFor="let skill of getSkillsByCategory('Frontend')" class="mb-2">
+                      <p-tag [value]="skill.title" [severity]="getSkillSeverity(skill.rating)">
+                        <span class="ml-2">{{skill.rating}}/5</span>
+                      </p-tag>
+                    </li>
+                  </ul>
+                </div>
+                <div class="p-col-3 skills-column">
+                  <h4>Database</h4>
+                  <ul class="skill-list p-0 m-0">
+                    <li *ngFor="let skill of getSkillsByCategory('Database')" class="mb-2">
+                      <p-tag [value]="skill.title" [severity]="getSkillSeverity(skill.rating)">
+                        <span class="ml-2">{{skill.rating}}/5</span>
+                      </p-tag>
+                    </li>
+                  </ul>
+                </div>
+                <div class="p-col-3 skills-column">
+                  <h4>Cloud</h4>
+                  <ul class="skill-list p-0 m-0">
+                    <li *ngFor="let skill of getSkillsByCategory('Cloud')" class="mb-2">
+                      <p-tag [value]="skill.title" [severity]="getSkillSeverity(skill.rating)">
+                        <span class="ml-2">{{skill.rating}}/5</span>
+                      </p-tag>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!resume.skillDictionary || resume.skillDictionary.length === 0">
+          No skills found.
+        </div>
+      </p-panel>
+      
+      <!-- Experience Timeline -->
+      <p-panel header="Work Experience" styleClass="mb-3">
+        <p-timeline *ngIf="resume.companies && resume.companies.length > 0" [value]="getTimelineEvents()" layout="vertical">
+          <ng-template pTemplate="content" let-event>
+            <div class="timeline-event-content">
+              <h4>{{ event.company }}</h4>
+              <h5>{{ event.title }}</h5>
+              <p class="text-color-secondary">{{ event.startDate | date }} - {{ event.endDate | date:'mediumDate' }}</p>
+              <p>{{ event.description }}</p>
+              
+              <div *ngIf="event.projects && event.projects.length > 0" class="mt-2">
+                <p-divider></p-divider>
+                <h6>Projects</h6>
+                <ul class="m-0 p-0 list-none">
+                  <li *ngFor="let project of event.projects" class="mb-2">
+                    <strong>{{ project.name }}</strong>: {{ project.description }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </ng-template>
+        </p-timeline>
+        <div *ngIf="!resume.companies || resume.companies.length === 0">
+          No experience found.
+        </div>
+      </p-panel>
+      
+      <!-- Additional Sections (Education, Languages, etc.) can be added here -->
+    </div>
+  </div>
+</p-card>
+
+<!-- Loading Spinner -->
+<div *ngIf="loading" class="flex justify-content-center align-items-center" style="min-height: 400px;">
+  <p-progressSpinner></p-progressSpinner>
+</div>
+
+<!-- Error Message -->
+<p-card *ngIf="error" styleClass="mb-4">
+  <div class="flex flex-column align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle text-5xl text-yellow-500 mb-3"></i>
+    <h3>Error Loading Resume</h3>
+    <p>{{ error }}</p>
+  </div>
+</p-card>

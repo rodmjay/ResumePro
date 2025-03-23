@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="flex justify-content-between align-items-center mb-4">
+    <h2 class="text-xl font-semibold m-0">People</h2>
+    <button 
+      pButton 
+      pRipple 
+      label="Create Person" 
+      icon="pi pi-plus" 
+      class="p-button-success" 
+      (click)="showCreatePersonDialog()"
+    ></button>
+  </div>
+  
+  <div *ngIf="loading" class="flex justify-content-center">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <div *ngIf="error" class="p-error p-4">
+    <p>{{ error }}</p>
+  </div>
+  
+  <p-table [value]="people" *ngIf="!loading && !error" [paginator]="true" [rows]="10" 
+           [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem', 'width': '100%'}"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Location</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-person>
+      <tr class="cursor-pointer">
+        <td><a [routerLink]="['/people', person.id]" class="text-color no-underline">{{ person.id }}</a></td>
+        <td><a [routerLink]="['/people', person.id]" class="text-color no-underline">{{ person.firstName }} {{ person.lastName }}</a></td>
+        <td><a [routerLink]="['/people', person.id]" class="text-color no-underline">{{ person.email }}</a></td>
+        <td><a [routerLink]="['/people', person.id]" class="text-color no-underline">{{ person.phoneNumber }}</a></td>
+        <td><a [routerLink]="['/people', person.id]" class="text-color no-underline">{{ person.city }}, {{ person.state }}, {{ person.country }}</a></td>
+        <td>
+          <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info mr-2" 
+                  [routerLink]="['/people', person.id]" (click)="$event.stopPropagation()"></button>
+          <button pButton icon="pi pi-file-plus" class="p-button-rounded p-button-success" 
+                  [routerLink]="['/people', person.id, 'resumes', 'create']" (click)="$event.stopPropagation()"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="6" class="text-center">No people found</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<app-person-form #personForm (personCreated)="onPersonCreated($event)"></app-person-form>

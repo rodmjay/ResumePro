@@ -1,0 +1,24 @@
+:host ::ng-deep {
+  .p-dialog-content {
+    padding: 1.5rem;
+  }
+  
+  .field {
+    margin-bottom: 1.5rem;
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    small.p-error {
+      display: block;
+      margin-top: 0.25rem;
+    }
+  }
+  
+  .p-dropdown {
+    width: 100%;
+  }
+}

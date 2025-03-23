@@ -1,0 +1,2 @@
+﻿Id,OrganizationId,TenantId,FirstName,LastName,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount
+1,1,1,Rod,Johnson,admin@admin.com,ADMIN@ADMIN.COM,admin@admin.com,ADMIN@ADMIN.COM,1,AQAAAAIAAYagAAAAEKWd/iQx36LYevmQZ7567wkLZT31FgSYJiEiNwdMi9oYappMoiWnbGCOZOsbO5325g==,GHCMP3XRBQUGXXFNLNP4UCVZAHL73RZ6,4a1f1ee5-0ce2-4b5d-88be-4373574ef024,123-123-1234,0,0,,0,0

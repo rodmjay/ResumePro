@@ -1,0 +1,34 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Welcome to ResumePro";
+}
+
+
+<div class="row justify-content-center h-100">
+    <left-column>
+        <ss-main-content>
+            <shadow-area>
+
+                <partial name="Shared/_Logo"/>
+
+                <main-header name="@ViewData["Title"]"></main-header>
+                <p>
+                    Thank you for confirming your account.<br/>
+                    You can now click the link to proceed.
+                </p>
+
+                <div class="d-flex flex-column justify-content-center align-items-center pt-5">
+                    <a href="@ViewData["LoginUrl"]">
+                        <div class="btn btn-primary">Start Your Journey</div>
+                    </a>
+
+                </div>
+            </shadow-area>
+        </ss-main-content>
+    </left-column>
+
+
+    <partial name="Shared/_RightColumn"/>
+
+</div>

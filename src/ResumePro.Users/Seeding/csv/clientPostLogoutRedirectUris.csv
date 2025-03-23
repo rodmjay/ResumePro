@@ -1,0 +1,5 @@
+﻿Id,PostLogoutRedirectUri,ClientId
+1,https://localhost:5002/signout-callback-oidc,3
+3,https://localhost:44330/authentication/logout-callback,5
+4,https://resumepro-app-test.azurewebsites.net/authentication/logout-callback,5
+5,https://localhost:7243/authentication/logout-callback,5

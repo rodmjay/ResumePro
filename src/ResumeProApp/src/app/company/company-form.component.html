@@ -1,0 +1,114 @@
+<p-toast></p-toast>
+
+<p-dialog 
+  [(visible)]="visible" 
+  [style]="{width: '450px'}" 
+  [header]="isEditMode ? 'Edit Company' : 'Create Company'" 
+  [modal]="true" 
+  styleClass="p-fluid"
+  [draggable]="false"
+  [resizable]="false"
+  (onHide)="hideDialog()">
+  
+  <form [formGroup]="companyForm" (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label for="company">Company Name*</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="company" 
+        formControlName="company" 
+        [ngClass]="{'ng-invalid ng-dirty': companyForm.get('company')?.invalid && companyForm.get('company')?.touched}"
+      />
+      <small 
+        *ngIf="companyForm.get('company')?.invalid && companyForm.get('company')?.touched" 
+        class="p-error"
+      >
+        Company name is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="description">Description</label>
+      <textarea 
+        pInputTextarea 
+        id="description" 
+        formControlName="description" 
+        [rows]="5"
+        [ngClass]="{'ng-invalid ng-dirty': companyForm.get('description')?.invalid && companyForm.get('description')?.touched}"
+      ></textarea>
+      <small 
+        *ngIf="companyForm.get('description')?.invalid && companyForm.get('description')?.touched" 
+        class="p-error"
+      >
+        Description cannot exceed 500 characters
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="location">Location*</label>
+      <input 
+        type="text" 
+        pInputText 
+        id="location" 
+        formControlName="location"
+        placeholder="City, State"
+        [ngClass]="{'ng-invalid ng-dirty': companyForm.get('location')?.invalid && companyForm.get('location')?.touched}"
+      />
+      <small 
+        *ngIf="companyForm.get('location')?.invalid && companyForm.get('location')?.touched" 
+        class="p-error"
+      >
+        Location is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="startDate">Start Date*</label>
+      <p-calendar 
+        id="startDate" 
+        formControlName="startDate"
+        [showIcon]="true"
+        dateFormat="yy-mm-dd"
+        [ngClass]="{'ng-invalid ng-dirty': companyForm.get('startDate')?.invalid && companyForm.get('startDate')?.touched}"
+      ></p-calendar>
+      <small 
+        *ngIf="companyForm.get('startDate')?.invalid && companyForm.get('startDate')?.touched" 
+        class="p-error"
+      >
+        Start date is required
+      </small>
+    </div>
+    
+    <div class="field">
+      <label for="endDate">End Date</label>
+      <p-calendar 
+        id="endDate" 
+        formControlName="endDate"
+        [showIcon]="true"
+        dateFormat="yy-mm-dd"
+      ></p-calendar>
+      <small class="text-muted">Leave blank if current</small>
+    </div>
+  </form>
+  
+  <ng-template pTemplate="footer">
+    <button 
+      pButton 
+      pRipple 
+      label="Cancel" 
+      icon="pi pi-times" 
+      class="p-button-text" 
+      (click)="hideDialog()"
+    ></button>
+    <button 
+      pButton 
+      pRipple 
+      [label]="isEditMode ? 'Update' : 'Save'" 
+      icon="pi pi-check" 
+      class="p-button-text" 
+      [loading]="loading"
+      (click)="onSubmit()"
+    ></button>
+  </ng-template>
+</p-dialog>

@@ -1,0 +1,30 @@
+<div class="card">
+  <h2>Skills</h2>
+  
+  <div *ngIf="loading" class="loading">
+    <p-progressSpinner></p-progressSpinner>
+  </div>
+  
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+  
+  <p-table [value]="skills" *ngIf="!loading && !error" [paginator]="true" [rows]="10" 
+           [showCurrentPageReport]="true" [tableStyle]="{'min-width': '50rem'}"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Category</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-skill>
+      <tr>
+        <td>{{ skill.id }}</td>
+        <td>{{ skill.title }}</td>
+        <td>{{ skill.category }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
