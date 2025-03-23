@@ -1,5 +1,4 @@
 using NUnit.Framework;
-using System.Threading.Tasks;
 using ResumePro.IntegrationTests.TestData;
 using ResumePro.Shared.Options;
 

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ResumePro.Shared.Options;
+﻿using ResumePro.Shared.Options;
 
 namespace ResumePro.IntegrationTests.TestData
 {

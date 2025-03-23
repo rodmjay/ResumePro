@@ -5,8 +5,6 @@ using NUnit.Framework;
 using ResumePro.Api;
 using ResumePro.Api.Interfaces;
 using ResumePro.IntegrationTests.Proxies;
-using System;
-using System.Threading.Tasks;
 
 namespace ResumePro.IntegrationTests.Tests;
 

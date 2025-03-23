@@ -1,6 +1,5 @@
 using NUnit.Framework;
 using ResumePro.Shared.Models;
-using Bespoke.IntegrationTesting.Extensions;
 using Bespoke.Shared.Common;
 
 namespace ResumePro.IntegrationTests.Tests

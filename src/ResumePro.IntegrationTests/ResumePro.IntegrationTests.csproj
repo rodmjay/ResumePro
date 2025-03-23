@@ -30,9 +30,8 @@
 		<PackageReference Include="ReportGenerator" />
 		<PackageReference Include="Bespoke.IntegrationTesting" />
 	</ItemGroup>
-
 	<ItemGroup>
-    <ProjectReference Include="..\ResumePro.Api\ResumePro.Api.csproj" />
-  </ItemGroup>
+	  <ProjectReference Include="..\ResumePro.Api\ResumePro.Api.csproj" />
+	</ItemGroup>
 
 </Project>

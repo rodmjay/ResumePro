@@ -1,9 +1,5 @@
 using NUnit.Framework;
 using ResumePro.Shared.Models;
-using Bespoke.IntegrationTesting.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace ResumePro.IntegrationTests.Tests
 {

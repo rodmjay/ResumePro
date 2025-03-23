@@ -1,12 +1,5 @@
 using NUnit.Framework;
-using System;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
-using Bespoke.Shared.Common;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ResumePro.IntegrationTests.Tests.Controllers
 {

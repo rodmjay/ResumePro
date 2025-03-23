@@ -1,8 +1,5 @@
 using NUnit.Framework;
 using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
-using Bespoke.IntegrationTesting.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ResumePro.IntegrationTests.Tests
 {
