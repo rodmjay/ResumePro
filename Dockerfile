@@ -4,7 +4,7 @@
 FROM node:18 AS node-build
 WORKDIR /app/ResumeProApp
 # Copy Angular project files from repository root (located in demo/ResumePro/ResumeProApp)
-COPY demo/ResumePro/ResumeProApp/ ./
+COPY src/ ./
 # (Optional) List files for debugging � remove when confirmed
 RUN ls -la
 # Remove any existing node_modules (to avoid platform conflicts)
@@ -24,7 +24,7 @@ WORKDIR /build
 # Copy the entire repository (build context is the repository root)
 COPY . .
 # Set working directory to the API project folder (adjust path if necessary)
-WORKDIR /build/demo/ResumePro/ResumePro.Api
+WORKDIR /build/src/ResumePro.Api
 # Restore dependencies (disabling treat warnings as errors)
 RUN dotnet restore ResumePro.Api.csproj /p:TreatWarningsAsErrors=false
 # Publish the API as a self-contained deployment for linux-x64

@@ -1,0 +1,8 @@
+services:
+  resumepro:
+    image: ${DOCKERHUB_USERNAME}/resumepro:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "5229:5229"
