@@ -1,0 +1,32 @@
+
+name: Run Integration Tests
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'  # Using .NET 8
+          
+      # *** New Step: Run Integration Tests ***
+      - name: Run Integration Tests via Docker Compose
+        run: |
+          docker compose -f src/ResumePro.IntegrationTests/docker-compose.yml up --build --exit-code-from resumeprotest --abort-on-container-exit
+          docker compose -f src/ResumePro.IntegrationTests/docker-compose.yml down -v
+        shell: bash
