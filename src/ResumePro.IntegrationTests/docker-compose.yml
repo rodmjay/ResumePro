@@ -19,8 +19,8 @@ services:
 
   resumeprotest:
     build:
-      context: "../../.."  # assuming you run from the repo root
-      dockerfile: demo/ResumePro/ResumePro.IntegrationTests/DockerFile
+      context: "."  # assuming you run from the repo root
+      dockerfile: src/ResumePro.IntegrationTests/DockerFile
     depends_on:
       postgres:
         condition: service_healthy

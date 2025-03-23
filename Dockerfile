@@ -3,7 +3,7 @@
 #############################################
 FROM node:18 AS node-build
 WORKDIR /app/ResumeProApp
-# Copy Angular project files from repository root (located in demo/ResumePro/ResumeProApp)
+# Copy Angular project files from repository root (located in src/ResumeProApp)
 COPY src/ResumeProApp/ ./
 # (Optional) List files for debugging � remove when confirmed
 RUN ls -la

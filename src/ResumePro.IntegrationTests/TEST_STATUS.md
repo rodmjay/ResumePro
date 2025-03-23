@@ -87,7 +87,7 @@ Initial code coverage: Not measured
 Previous code coverage: 1.2% line coverage, 12.9% branch coverage
 Current code coverage: Estimated 40-45% (significantly increased from previous measurement)
 
-The coverage report is available at `./demo/ResumePro/ResumePro.IntegrationTests/CoverageReport/index.html`
+The coverage report is available at `./src/ResumePro.IntegrationTests/CoverageReport/index.html`
 
 ## Recent Implementations
 

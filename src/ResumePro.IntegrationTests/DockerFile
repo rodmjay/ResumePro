@@ -8,11 +8,11 @@ WORKDIR /app
 COPY . .
 
 # Restore dependencies for the integration test project, suppressing specific warnings and not treating warnings as errors
-RUN dotnet restore demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
+RUN dotnet restore src/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
     -p:TreatWarningsAsErrors=false
 
 # Build the integration tests project (and its project references) in Release mode
-RUN dotnet build demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
+RUN dotnet build src/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj \
     -c Release \
     -p:TreatWarningsAsErrors=false
 
@@ -22,7 +22,7 @@ ENV PATH="$PATH:/root/.dotnet/tools"
 
 # Default command: run tests with coverage and generate report, then output coverage summary
 CMD /bin/sh -c '\
-    dotnet test demo/ResumePro/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj -c Release --no-build \
+    dotnet test src/ResumePro.IntegrationTests/ResumePro.IntegrationTests.csproj -c Release --no-build \
         --results-directory ./TestResults \
         -p:CollectCoverage=true -p:CoverletOutputFormat=cobertura -p:CoverletOutput=./TestResults/coverage.cobertura.xml \
         -p:NoWarn="NU1604;NU1902;NU1903;NU1701" -p:TreatWarningsAsErrors=false && \
