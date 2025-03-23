@@ -1,0 +1,33 @@
+name: Build and Publish Containers
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # Docker steps using docker-compose to build and push images
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login --username ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Set Docker Hub Username Environment Variable
+        run: echo "DOCKERHUB_USERNAME=${{ secrets.DOCKERHUB_USERNAME }}" >> $GITHUB_ENV
+
+      - name: Build Docker Images via Docker Compose
+        run: docker compose -f docker-compose.yml build
+
+      - name: Push Docker Image for ResumePro
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: docker compose -f docker-compose.yml push resumepro
