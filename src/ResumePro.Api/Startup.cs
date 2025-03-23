@@ -120,19 +120,6 @@ public sealed class Startup
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            
-            // Start the Angular app in development mode if the service is available
-            var angularAppService = app.ApplicationServices.GetService<AngularAppService>();
-            if (angularAppService != null)
-            {
-                angularAppService.StartAngularApp();
-                
-                // Register for application shutdown to dispose the Angular process
-                appLifetime.ApplicationStopping.Register(() =>
-                {
-                    angularAppService.Dispose();
-                });
-            }
         }
         else
         {
