@@ -1,6 +1,4 @@
 using NUnit.Framework;
-using System.Threading.Tasks;
-using System.Linq;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.IntegrationTests.Tests.Controllers

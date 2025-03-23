@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Api.Interfaces;
 using ResumePro.Shared.Models;
-using ResumePro.Shared.Options;
 
 namespace ResumePro.IntegrationTests.Proxies;
 

@@ -4,9 +4,6 @@ using ResumePro.Shared.Options;
 using ResumePro.Shared.Filters;
 using Bespoke.IntegrationTesting.Extensions;
 using Bespoke.Shared.Common;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Threading.Tasks;
 
 namespace ResumePro.IntegrationTests.Tests
 {

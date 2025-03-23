@@ -3,7 +3,6 @@ using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;
 using Bespoke.IntegrationTesting.Extensions;
 using Bespoke.Shared.Common;
-using Microsoft.AspNetCore.Mvc;
 
 namespace ResumePro.IntegrationTests.Tests
 {
