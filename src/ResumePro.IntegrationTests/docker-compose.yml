@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:latest
+    image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: resumepro_sql_db
     environment:
       - ACCEPT_EULA=Y
@@ -10,18 +10,18 @@ services:
     volumes:
       - sqlserver_data:/var/opt/mssql
     healthcheck:
-      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "YourStrong!Passw0rd", "-Q", "SELECT 1"]
+      test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P \"YourStrong!Passw0rd\" -d master -Q \"SELECT 1\""]
       interval: 10s
-      timeout: 5s
-      retries: 6
-      start_period: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s
 
   resumeprotest:
     build:
       # Since this file is located in src/ResumePro.IntegrationTests/,
-      # we set the build context to one level up (the src folder)
-      context: ".."
-      dockerfile: "ResumePro.IntegrationTests/DockerFile"
+      # we set the build context to two levels up (the repository root)
+      context: "../../.."
+      dockerfile: "src/ResumePro.IntegrationTests/DockerFile"
     depends_on:
       sqlserver:
         condition: service_healthy

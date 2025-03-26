@@ -21,6 +21,9 @@ RUN npm install && \
 ##################################################
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /build
+ENV ASPNETCORE_URLS=http://+:8080 \
+    ASPNETCORE_FORWARDEDHEADERS_ENABLED=true 
+
 # Copy the entire repository (build context is the repository root)
 COPY . .
 # Set working directory to the API project folder (adjust path if necessary)
@@ -42,6 +45,6 @@ COPY --from=build /app/publish .
 # (This assumes Angular outputs to "dist/resumepro" � adjust if necessary.)
 COPY --from=node-build /app/ResumeProApp/dist/resumepro ./wwwroot
 # Expose the API port (adjust if necessary)
-EXPOSE 80
+EXPOSE 8080
 # Set the container�s entry point to the published API executable
 ENTRYPOINT ["./ResumePro.Api"]
