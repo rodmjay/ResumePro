@@ -1,8 +1,10 @@
+version: "3.8"
 services:
   resumepro:
-    image: ${DOCKERHUB_USERNAME}/resumepro:latest
-    build:
-      context: .
-      dockerfile: ./Dockerfile
+    build: .
+    working_dir: /app
+    volumes:
+      - ./src:/app/src
+      - ./Directory.Packages.props:/app/src/Directory.Packages.props
     ports:
-      - "5229:5229"
+      - "8080:8080"

@@ -20,6 +20,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{19B1135F-305B-4A4F-B3AB-1B3B6480652E}"
 	ProjectSection(SolutionItems) = preProject
 		.dockerignore = .dockerignore
+		.env = .env
 		.gitignore = .gitignore
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile

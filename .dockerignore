@@ -1,1 +1,19 @@
-**/node_modules
+# Angular-related
+node_modules/
+dist/
+.angular/cache/
+coverage/
+
+# .NET Core-related
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# General exclusions
+.git/
+.gitignore
+.vscode/
+.DS_Store
+Thumbs.db
