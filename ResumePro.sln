@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".sln", ".sln", "{19B1135F-3
 		.dockerignore = .dockerignore
 		.env = .env
 		.gitignore = .gitignore
+		cmd.txt = cmd.txt
 		docker-compose.yml = docker-compose.yml
 		Dockerfile = Dockerfile
 	EndProjectSection

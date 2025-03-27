@@ -8,6 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="bespoke.shared" />
+	  <PackageReference Include="bespoke.shared"  />
 	</ItemGroup>
 </Project>

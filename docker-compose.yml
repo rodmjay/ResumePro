@@ -1,10 +1,8 @@
-version: "3.8"
 services:
   resumepro:
     build: .
     working_dir: /app
     volumes:
       - ./src:/app/src
-      - ./Directory.Packages.props:/app/src/Directory.Packages.props
     ports:
-      - "8080:8080"
+      - "5229:8080"

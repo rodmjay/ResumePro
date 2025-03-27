@@ -9,8 +9,8 @@ using Bespoke.Rest.Extensions;
 using Bespoke.Rest.Middleware;
 using Bespoke.Rest.Swagger.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Options;
-using ResumePro.Api.Services;
 using ResumePro.Data.Contexts;
 using ResumePro.Services.Extensions;
 
@@ -115,6 +115,12 @@ public sealed class Startup
     {
         app.UseMiddleware<ExceptionMiddleware>();
 
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+        });
+
+        app.UseHttpsRedirection();
         var appSettings = settings.Value;
 
         if (env.IsDevelopment())
@@ -136,8 +142,7 @@ public sealed class Startup
         // Serve Angular’s static files (index.html, etc.)
         app.UseDefaultFiles();
         app.UseStaticFiles();
-
-        app.UseHttpsRedirection();
+;
         app.UseRouting();
         app.UseAuthorization();
         
@@ -166,6 +171,7 @@ public sealed class Startup
                     await context.Response.WriteAsync(result);
                 }
             });
+            endpoints.MapFallbackToFile("index.html").AllowAnonymous();
         });
     }
 }
