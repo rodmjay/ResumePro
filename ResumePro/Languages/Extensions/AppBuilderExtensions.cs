@@ -5,9 +5,9 @@
 #endregion
 
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using ResumePro.Core.Middleware.Builders;
 using ResumePro.Languages.Interfaces;
 using ResumePro.Languages.Services;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Languages.Extensions;
 

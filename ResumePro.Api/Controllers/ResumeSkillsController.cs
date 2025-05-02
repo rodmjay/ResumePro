@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 
@@ -12,7 +11,7 @@ namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resume/{resumeId}/skills")]
 public sealed class ResumeSkillsController(IServiceProvider serviceProvider, IResumeSkillService resumeSkillService)
-    : BaseController(serviceProvider), IResumeSkillsController
+    : ExtendedBaseController(serviceProvider), IResumeSkillsController
 {
     [HttpPatch("{skillId}")]
     public async Task<Result> AddResumeSkill([FromRoute] int personId, [FromRoute] int resumeId,

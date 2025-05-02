@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Services.Interfaces;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Interfaces;
@@ -14,7 +13,7 @@ public interface IPositionService : IService<Position>
     Task<T> GetPosition<T>(int organizationId, int personId, int companyId, int positionId) where T : PositionDto;
     Task<List<T>> GetPositions<T>(int organizationId, int personId, int companyId) where T : PositionDto;
 
-    Task<OneOf<PositionDetails, Result>> CreatePosition(int organizationId, int personId, int companyId, PositionOptions options);
+    Task<OneOf<PositionDetails, Result>> AddPosition(int organizationId, int personId, int companyId, PositionOptions options);
 
     Task<OneOf<PositionDetails, Result>> UpdatePosition(int organizationId, int personId, int companyId, int positionId,
         PositionOptions options);

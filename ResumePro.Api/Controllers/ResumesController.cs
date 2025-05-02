@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Authorization;
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Generation;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Extensions;
@@ -18,7 +17,7 @@ namespace ResumePro.Api.Controllers;
 public sealed class ResumesController(IServiceProvider serviceProvider
     , IPdfStorage pdfStorage
     , IResumeService resumeService)
-    : BaseController(serviceProvider), IResumeController
+    : ExtendedBaseController(serviceProvider), IResumeController
 {
     [HttpGet("{resumeId}")]
     public async Task<ResumeDetails> GetResume([FromRoute] int personId, [FromRoute] int resumeId)
@@ -50,7 +49,7 @@ public sealed class ResumesController(IServiceProvider serviceProvider
     [AllowAnonymous]
     public async Task<IActionResult> PdfAnonymous([FromRoute] int personId, [FromRoute] int resumeId, [FromQuery]int organizationId)
     {
-        var resume = await resumeService.GetResume<ResumeDetails>(organizationId, personId, resumeId);
+        var resume = await resumeService.GetResume<ResumeDetails>(OrganizationId, personId, resumeId);
         var fileName = resume.GetFileName();
 
         var resumeStream = await resumeService.Generate2(resume)

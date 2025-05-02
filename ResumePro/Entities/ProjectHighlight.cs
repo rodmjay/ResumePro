@@ -5,11 +5,10 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
 
 namespace ResumePro.Entities;
 
-public sealed class ProjectHighlight : BaseEntity<ProjectHighlight>
+public sealed class ProjectHighlight : BaseEntity<ProjectHighlight>, IHighlight
 {
     public int OrganizationId { get; set; }
     public int Id { get; set; }

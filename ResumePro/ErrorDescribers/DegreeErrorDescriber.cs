@@ -12,7 +12,8 @@ public class DegreeErrorDescriber
     {
         return new Error
         {
-            Code = nameof(DegreeNotFound)
+            Code = nameof(DegreeNotFound),
+            Description = ""
         };
     }
 
@@ -21,7 +22,8 @@ public class DegreeErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveDegree)
+            Code = nameof(UnableToSaveDegree),
+            Description = ""
         };
     }
 }

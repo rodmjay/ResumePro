@@ -7,7 +7,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using ResumePro.Core.Middleware.Builders;
 using ResumePro.Users.Contexts;
 using ResumePro.Users.Entities;
 using ResumePro.Users.Factories;
@@ -15,6 +14,7 @@ using ResumePro.Users.Interfaces;
 using ResumePro.Users.Managers;
 using ResumePro.Users.Services;
 using ResumePro.Users.Validators;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Users.Extensions;
 

@@ -4,9 +4,7 @@
 
 #endregion
 
-using System.Net;
 using Microsoft.AspNetCore.Mvc;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;
 
 namespace ResumePro.Shared.Proxies;

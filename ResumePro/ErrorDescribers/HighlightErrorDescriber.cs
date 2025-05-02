@@ -12,7 +12,8 @@ public class HighlightErrorDescriber
     {
         return new Error
         {
-            Code = nameof(HighlightNotFound)
+            Code = nameof(HighlightNotFound),
+            Description = ""
         };
     }
 
@@ -20,7 +21,8 @@ public class HighlightErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveHighlight)
+            Code = nameof(UnableToSaveHighlight),
+            Description = ""
         };
     }
 }

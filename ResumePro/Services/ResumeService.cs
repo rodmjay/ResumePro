@@ -6,7 +6,7 @@
 
 using HandlebarsDotNet;
 using Microsoft.Extensions.Logging;
-using ResumePro.Generation;
+using ResumePro.Extensions;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
@@ -16,7 +16,7 @@ namespace ResumePro.Services;
 public sealed class ResumeService(
     ResumeErrorDescriber resumeErrors,
     TemplateErrorDescriber templateErrors,
-    IRepositoryAsync<Company> jobRepo,
+    IRepositoryAsync<Company> companyRepo,
     IRepositoryAsync<PersonaSkill> personalSkillsRepo,
     IRepositoryAsync<Rendering> renderingRepo,
     IRepositoryAsync<Template> templateRepo,
@@ -25,17 +25,14 @@ public sealed class ResumeService(
     : BaseService<Resume>(serviceProvider), IResumeService
 {
     private IQueryable<Resume> Resumes => Repository.Queryable();
-    private IQueryable<Company> Companies => jobRepo.Queryable();
+    private IQueryable<Company> Companies => companyRepo.Queryable();
     private IQueryable<PersonaSkill> PersonalSkills => personalSkillsRepo.Queryable();
     private IQueryable<Template> Templates => templateRepo.Queryable();
     private IQueryable<Rendering> Renderings => renderingRepo.Queryable();
 
     public async Task<T> GetResume<T>(int organizationId, int personId, int resumeId) where T : ResumeDto
     {
-        var resume = await Resumes.Where(x => x.Id == resumeId && x.PersonId == personId
-                                                               && x.OrganizationId == organizationId)
-            .AsNoTracking()
-            .AsSplitQuery()
+        var resume = await Resumes.Where(x=>x.OrganizationId == organizationId && x.PersonId == personId && x.Id == resumeId)
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
 
@@ -44,9 +41,7 @@ public sealed class ResumeService(
 
     public Task<List<T>> GetResumes<T>(int organizationId, int personId) where T : ResumeDto
     {
-        return Resumes.Where(x => x.PersonId == personId
-                                  && x.OrganizationId == organizationId)
-            .AsNoTracking()
+        return Resumes.Where(x=>x.OrganizationId == organizationId && x.PersonId == personId)
             .AsSplitQuery()
             .ProjectTo<T>(Mapper)
             .ToListAsync();
@@ -59,50 +54,29 @@ public sealed class ResumeService(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
-        var resume = new Resume
-        {
-            Id = await idGenerationService.GetNextResumeId(organizationId),
-            ObjectState = ObjectState.Added,
-            OrganizationId = organizationId,
-            PersonId = personId,
-            JobTitle = options.JobTitle,
-            Description = options.Description,
-            ResumeSettings = new ResumeSettings
-            {
-                ObjectState = ObjectState.Added,
-                DefaultTemplateId = options.Settings.DefaultTemplateId,
-                OrganizationId = organizationId,
-                ResumeYearHistory = options.Settings.ResumeYearHistory,
-                ShowTechnologyPerJob = options.Settings.ShowTechnologyPerJob,
-                AttachAllJobs = options.Settings.AttachAllJobs,
-                AttachAllSkills = options.Settings.AttachAllSkills,
-                ShowRatings = options.Settings.ShowRatings,
-                ShowContactInfo = options.Settings.ShowContactInfo,
-                ShowDuration = options.Settings.ShowDuration,
-                SkillView = options.Settings.SkillView
-            }
-        };
 
+        var newId = await idGenerationService.GetNextResumeId(organizationId);
+
+        var resume = options.Create(newId, organizationId, personId);
 
         var changes = Repository.InsertOrUpdateGraph(resume, true);
         if (changes > 0)
         {
             var resumeDto = await GetResume<ResumeDto>(organizationId, personId, resume.Id);
-
             if (resumeDto.Settings.AttachAllJobs)
             {
-                var jobs = await Companies
+                var companies = await Companies
                     .AsNoTracking()
                     .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
                     .ToListAsync();
 
-                foreach (var job in jobs)
+                foreach (var company in companies)
                     resume.Companies.Add(new ResumeCompany
                     {
                         ObjectState = ObjectState.Added,
                         OrganizationId = organizationId,
                         ResumeId = resume.Id,
-                        CompanyId = job.Id
+                        CompanyId = company.Id
                     });
             }
             else
@@ -266,7 +240,7 @@ public sealed class ResumeService(
 
         var records = Repository.InsertOrUpdateGraph(resume, true);
         if (records > 0)
-            return await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+            return await GetResume<ResumeDetails>(organizationId, personId, resume.Id);
 
         return Result.Failed(resumeErrors.UnableToSaveResume());
     }
@@ -324,7 +298,7 @@ public sealed class ResumeService(
 
         var records = renderingRepo.InsertOrUpdateGraph(rendering, true);
 
-        return await GetResume<ResumeDetails>(organizationId, personId, resumeId);
+        return await GetResume<ResumeDetails>(organizationId, personId, resume.Id);
     }
 
     public async Task<OneOf<string, Result>> Generate(ResumeDetails resume, int templateId)

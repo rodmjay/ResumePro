@@ -9,9 +9,9 @@ using NUnit.Framework;
 using NUnit.Framework.Legacy;
 using ResumePro.Api.Controllers;
 using ResumePro.Api.Testing.TestData;
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Extensions;
 using ResumePro.Shared.Options;
+using TechValley.Shared.Common;
 
 namespace ResumePro.Api.Testing.Tests;
 

@@ -4,12 +4,13 @@
 
 #endregion
 
-using Microsoft.Azure.Amqp.Serialization;
 using ResumePro.Languages.Entities;
 using ResumePro.Languages.Extensions;
 using ResumePro.Languages.Interfaces;
 using ResumePro.Languages.Models;
 using ResumePro.Shared.Models;
+using TechValley.Services;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.Languages.Services;
 

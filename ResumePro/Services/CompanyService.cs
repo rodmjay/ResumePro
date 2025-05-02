@@ -4,34 +4,30 @@
 
 #endregion
 
-using Microsoft.Extensions.Azure;
 using Microsoft.Extensions.Logging;
+using ResumePro.Extensions;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
 public sealed class CompanyService(
-    IServiceProvider serviceProvider,
-    IRepositoryAsync<Project> projectRepo,
-    IRepositoryAsync<Resume> resumeRepo,
-    IRepositoryAsync<PersonaSkill> personSkillRepo,
-    IRepositoryAsync<Position> positionRepo,
-    IRepositoryAsync<Highlight> highlightRepo)
+    IServiceProvider serviceProvider)
     : BaseService<Company>(serviceProvider), ICompanyService
 {
-    private IQueryable<Company> Companies => Repository.Queryable();
-    private IQueryable<Resume> Resumes => resumeRepo.Queryable();
-    private IQueryable<Highlight> Highlights => highlightRepo.Queryable();
-    private IQueryable<Project> Projects => projectRepo.Queryable();
-    private IQueryable<PersonaSkill> PersonSkills => personSkillRepo.Queryable();
-    private IQueryable<Position> Positions => positionRepo.Queryable();
+    private IQueryable<Company> Companies => UnitOfWork.RepositoryAsync<Company>().Queryable();
+    private IQueryable<Resume> Resumes => UnitOfWork.RepositoryAsync<Resume>().Queryable();
+    private IQueryable<Highlight> Highlights => UnitOfWork.RepositoryAsync<Highlight>().Queryable();
+    private IQueryable<Project> Projects => UnitOfWork.RepositoryAsync<Project>().Queryable();
+    private IQueryable<PersonaSkill> PersonSkills => UnitOfWork.RepositoryAsync<PersonaSkill>().Queryable();
+    private IQueryable<Position> Positions => UnitOfWork.RepositoryAsync<Position>().Queryable();
 
     public Task<List<T>> GetCompanies<T>(int organizationId, int personId) where T : CompanyDto
     {
-        return Companies.AsNoTracking()
+        return Companies
             .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
-            .ProjectTo<T>(Mapper).ToListAsync();
+            .ProjectTo<T>(Mapper)
+            .ToListAsync();
     }
 
     public Task<T> GetCompany<T>(int organizationId, int personId, int companyId) where T : CompanyDto
@@ -47,94 +43,12 @@ public sealed class CompanyService(
             GetLogMessage("OrganizationId: {@organizationId}, PersonId: {@personId}, Options: {@options}"),
             organizationId, personId, options);
 
-        var company = new Company
-        {
-            Id = await GetNextJobId(organizationId),
-            ObjectState = ObjectState.Added,
-            StartDate = options.StartDate,
-            EndDate = options.EndDate,
-            CompanyName = options.Company,
-            Description = options.Description,
-            Location = options.Location,
-            OrganizationId = organizationId,
-            PersonId = personId
-        };
-
-        var personSkills = await PersonSkills.Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
+        var personSkills = await PersonSkills
+            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .Select(x => x.SkillId).ToListAsync();
 
-        var availableSkills = options.JobSkillIds.Where(x => personSkills.Contains(x)).ToList();
-
-        foreach (var availableSkill in availableSkills)
-            company.Skills.Add(new CompanySkill
-            {
-                ObjectState = ObjectState.Added,
-                SkillId = availableSkill,
-                PersonId = personId,
-                OrganizationId = organizationId
-            });
-
-
-        for (int i = 0; i < options.Positions.Count; i++)
-        {
-            var positionOptions = options.Positions[i];
-
-            var ent = new Position()
-            {
-                Id = i + 1,
-                StartDate = positionOptions.StartDate,
-                EndDate = positionOptions.EndDate,
-                ObjectState = ObjectState.Added,
-                JobTitle = positionOptions.JobTitle
-            };
-
-            for (var j = 0; j < positionOptions.Highlights.Count; j++)
-            {
-                var highlight = positionOptions.Highlights[j];
-                ent.Highlights.Add(new Highlight()
-                {
-                    Id = j+ 1,
-                    ObjectState = ObjectState.Added,
-                    Order = j + 1,
-                    Text = highlight.Text,
-                    OrganizationId = organizationId
-                });
-            }
-
-            for (var k = 0; k < positionOptions.Projects.Count; k++)
-            {
-                var projectOptions = positionOptions.Projects[k];
-                var project = new Project()
-                {
-                    ObjectState = ObjectState.Added,
-                    Order = k + 1,
-                    Id = k + 1,
-                    Name = projectOptions.Name,
-                    Description = projectOptions.Description,
-                    Budget = projectOptions.Budget
-                };
-
-                for (var l = 0; l < projectOptions.Highlights.Count; l++)
-                {
-                    var highlightOptions = projectOptions.Highlights[l];
-                    var highlight = new ProjectHighlight
-                    {
-                        ObjectState = ObjectState.Added,
-                        Id = l + 1,
-                        Order = l + 1,
-                        Text = highlightOptions.Text
-                    };
-
-                    project.Highlights.Add(highlight);
-                }
-
-                ent.Projects.Add(project);
-            }
-
-            company.Positions.Add(ent);
-
-        }
-
+        var company = options
+            .Create(personSkills, organizationId, personId, await GetNextCompanyId(organizationId));
 
         var results = Repository.InsertOrUpdateGraph(company, true);
         if (results > 0)
@@ -161,10 +75,10 @@ public sealed class CompanyService(
                     });
                 }
 
-                resumeRepo.InsertOrUpdateGraph(resume);
+                UnitOfWork.RepositoryAsync<Resume>().InsertOrUpdateGraph(resume);
             }
 
-            resumeRepo.Commit();
+            UnitOfWork.RepositoryAsync<Resume>().Commit();
 
             return await GetCompany<CompanyDetails>(organizationId, personId, company.Id);
         }
@@ -182,7 +96,8 @@ public sealed class CompanyService(
 
         var company = await Companies.Include(x => x.Positions)
             .ThenInclude(x => x.Highlights)
-            .Include(x => x.Projects)
+            .Include(x => x.Positions)
+            .ThenInclude(x => x.Projects)
             .ThenInclude(x => x.Highlights)
             .Include(x => x.Skills)
             .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == companyId)
@@ -191,147 +106,7 @@ public sealed class CompanyService(
         if (company == null)
             return Result.Failed();
 
-        company.ObjectState = ObjectState.Modified;
-        company.CompanyName = options.Company;
-        company.Description = options.Description;
-        company.EndDate = options.EndDate;
-        company.StartDate = options.StartDate;
-        company.Location = options.Location;
-
-        var nextHighlightId = await GetNextHighlightId(organizationId);
-        var nextProjectId = await GetNextProjectId(organizationId);
-        var nextPositionId = await GetNextPositionId(organizationId);
-
-        foreach (var position in company.Positions)
-        {
-            position.ObjectState = ObjectState.Deleted;
-            foreach (var highlight in position.Highlights)
-                highlight.ObjectState = ObjectState.Deleted;
-        }
-
-        foreach (var project in company.Projects)
-        {
-            project.ObjectState = ObjectState.Deleted;
-            foreach (var highlight in project.Highlights) highlight.ObjectState = ObjectState.Deleted;
-        }
-
-        foreach (var skill in company.Skills) skill.ObjectState = ObjectState.Deleted;
-
-        foreach (var skillId in options.JobSkillIds)
-        {
-            var skill = company.Skills.FirstOrDefault(x => x.SkillId == skillId);
-            if (skill == null)
-                company.Skills.Add(new CompanySkill
-                {
-                    ObjectState = ObjectState.Added,
-                    PersonId = personId,
-                    OrganizationId = organizationId,
-                    SkillId = skillId
-                });
-            else
-                skill.ObjectState = ObjectState.Unchanged;
-        }
-
-        for (var i = 0; i < options.Positions.Count; i++)
-        {
-            var positionOptions = options.Positions[i];
-            // todo: add stuff here
-            var position = company.Positions.FirstOrDefault(x => x.Id == positionOptions.Id);
-            if (position == null)
-            {
-                position = new Position()
-                {
-                    ObjectState = ObjectState.Added,
-                    CompanyId = companyId,
-                    PersonId = personId,
-                    Id = nextPositionId++,
-                };
-            }
-            else
-            {
-                position.ObjectState = ObjectState.Modified;
-            }
-
-            position.StartDate = positionOptions.StartDate;
-            position.EndDate = positionOptions.EndDate;
-            position.JobTitle = positionOptions.JobTitle;
-
-            for (var index = 0; index < positionOptions.Highlights.Count; index++)
-            {
-                var highlight = positionOptions.Highlights[index];
-
-                var highlightEntity = position.Highlights.FirstOrDefault(x => x.Id == highlight.Id);
-                if (highlightEntity == null)
-                {
-                    highlightEntity = new Highlight
-                    {
-                        ObjectState = ObjectState.Added,
-                        Id = nextHighlightId++,
-                        Order = index + 1,
-                        OrganizationId = organizationId
-                    };
-                    position.Highlights.Add(highlightEntity);
-                }
-                else
-                {
-                    highlightEntity.ObjectState = ObjectState.Modified;
-                    highlightEntity.Order = index + 1;
-                }
-
-                highlightEntity.Text = highlight.Text;
-            }
-        }
-
-
-        //for (var index = 0; index < options.ProjectOptions.Count; index++)
-        //{
-        //    var projectOptions = options.ProjectOptions[index];
-        //    var projectEntity = company.Projects.FirstOrDefault(x => x.Id == projectOptions.Id);
-        //    if (projectEntity == null)
-        //    {
-        //        projectEntity = new Project
-        //        {
-        //            ObjectState = ObjectState.Added,
-        //            Id = nextProjectId++,
-        //            Order = company.Projects.Count + 1,
-        //            OrganizationId = organizationId
-        //        };
-        //        company.Projects.Add(projectEntity);
-        //    }
-        //    else
-        //    {
-        //        projectEntity.ObjectState = ObjectState.Modified;
-        //        projectEntity.Order = index + 1;
-        //    }
-
-        //    projectEntity.Name = projectOptions.Name;
-        //    projectEntity.Description = projectOptions.Description;
-        //    projectEntity.Budget = projectOptions.Budget;
-
-        //    for (var i = 0; i < projectOptions.HighlightOptions.Count; i++)
-        //    {
-        //        var highlightOption = projectOptions.HighlightOptions[i];
-        //        var highlightEntity = projectEntity.Highlights.FirstOrDefault(x =>
-        //            x.Id == highlightOption.Id && x.ProjectId == projectOptions.Id);
-        //        if (highlightEntity == null)
-        //        {
-        //            highlightEntity = new ProjectHighlight
-        //            {
-        //                ObjectState = ObjectState.Added,
-        //                Id = nextHighlightId++,
-        //                OrganizationId = organizationId
-        //            };
-        //            projectEntity.Highlights.Add(highlightEntity);
-        //        }
-        //        else
-        //        {
-        //            highlightEntity.ObjectState = ObjectState.Modified;
-        //        }
-
-        //        highlightEntity.Text = highlightOption.Text;
-        //        highlightEntity.Order = i + 1;
-        //    }
-        //}
+        company.Update(options);
 
         var results = Repository.InsertOrUpdateGraph(company, true);
         if (results > 0) return await GetCompany<CompanyDetails>(organizationId, personId, companyId);
@@ -347,20 +122,12 @@ public sealed class CompanyService(
         var company = await Companies
             .Include(x => x.Positions)
             .ThenInclude(x => x.Highlights)
-            .Include(x => x.Projects)
+            .Include(x => x.Positions)
+            .ThenInclude(x => x.Projects)
             .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == companyId)
             .FirstOrDefaultAsync();
 
         if (company == null) return Result.Failed();
-
-        foreach (var position in company.Positions)
-        {
-            positionRepo.Delete(position);
-            foreach (var highlight in position.Highlights)
-                highlightRepo.Delete(highlight);
-        }
-
-        foreach (var project in company.Projects) projectRepo.Delete(project);
 
         Repository.Delete(company);
 
@@ -370,7 +137,7 @@ public sealed class CompanyService(
         return Result.Failed();
     }
 
-    private async Task<int> GetNextJobId(int organizationId)
+    private async Task<int> GetNextCompanyId(int organizationId)
     {
         var id = await Companies.AsNoTracking()
             .IgnoreQueryFilters()

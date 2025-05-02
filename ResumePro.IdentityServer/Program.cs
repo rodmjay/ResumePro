@@ -7,8 +7,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using ResumePro.Core.Middleware.Extensions;
 using Serilog;
+using TechValley.Core.Extensions;
 
 namespace ResumePro.IdentityServer;
 

@@ -12,7 +12,8 @@ public class ResumeErrorDescriber
     {
         return new Error
         {
-            Code = nameof(ResumeNotFound)
+            Code = nameof(ResumeNotFound),
+            Description = "School Not Found"
         };
     }
 
@@ -20,7 +21,8 @@ public class ResumeErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveResume)
+            Code = nameof(UnableToSaveResume),
+            Description = "School Not Found"
         };
     }
 }

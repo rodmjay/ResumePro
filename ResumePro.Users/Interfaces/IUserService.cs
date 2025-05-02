@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Identity;
-using ResumePro.Core.Services.Interfaces;
 using ResumePro.Shared.Models;
 using ResumePro.Users.Entities;
 

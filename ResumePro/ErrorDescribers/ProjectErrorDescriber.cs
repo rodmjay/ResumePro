@@ -12,7 +12,8 @@ public class ProjectErrorDescriber
     {
         return new Error
         {
-            Code = nameof(ProjectNotFound)
+            Code = nameof(ProjectNotFound),
+            Description = "School Not Found"
         };
     }
 
@@ -21,7 +22,8 @@ public class ProjectErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveProject)
+            Code = nameof(UnableToSaveProject),
+            Description = "School Not Found"
         };
     }
 }

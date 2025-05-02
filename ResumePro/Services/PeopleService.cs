@@ -5,10 +5,12 @@
 #endregion
 
 using Microsoft.Extensions.Logging;
-using ResumePro.Core.Builders;
 using ResumePro.Extensions;
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Models;
+using TechValley.Core.Builders;
+using TechValley.Services;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.Services;
 

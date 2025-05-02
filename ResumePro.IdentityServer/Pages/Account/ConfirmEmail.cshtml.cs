@@ -11,8 +11,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
-using ResumePro.Core.Settings;
 using ResumePro.Users.Managers;
+using TechValley.Core.Settings;
 
 namespace ResumePro.IdentityServer.Pages.Account;
 

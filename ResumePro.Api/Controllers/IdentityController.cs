@@ -4,11 +4,9 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
-
 namespace ResumePro.Api.Controllers;
 
-public sealed class IdentityController(IServiceProvider serviceProvider) : BaseController(serviceProvider)
+public sealed class IdentityController(IServiceProvider serviceProvider) : ExtendedBaseController(serviceProvider)
 {
     [HttpGet]
     public IActionResult GetIdentity()

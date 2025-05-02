@@ -6,7 +6,6 @@
 
 using System.ComponentModel;
 using Microsoft.AspNetCore.Identity;
-using ResumePro.Core.Services.Bases;
 using ResumePro.Users.Entities;
 using ResumePro.Users.Interfaces;
 

@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -16,12 +15,8 @@ public sealed class Project : BaseEntity<Project>, IProject
     public ICollection<ProjectHighlight> Highlights { get; set; } = new List<ProjectHighlight>();
     public int Id { get; set; }
     public int CompanyId { get; set; }
-
-    public Company Company { get; set; }
-
     public int PositionId { get; set; }
     public Position Position { get; set; }
-
     public int PersonId { get; set; }
     public int Order { get; set; }
     public string Name { get; set; }
@@ -37,12 +32,6 @@ public sealed class Project : BaseEntity<Project>, IProject
 
         builder.Property(x => x.Description)
             .ConfigureColumn(StringColumnSize.Medium, false);
-
-        builder.HasOne(x => x.Company)
-            .WithMany(x => x.Projects)
-            .HasForeignKey(x => new {x.OrganizationId, x.PersonId, x.CompanyId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.PersonId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.Position)
             .WithMany(x => x.Projects)

@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;
 using ResumePro.Shared.Enums;
 using ResumePro.Shared.Interfaces;

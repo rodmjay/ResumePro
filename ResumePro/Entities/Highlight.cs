@@ -5,8 +5,6 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
-using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
 
@@ -17,7 +15,6 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
     public int PersonId { get; set; }
 
     public int CompanyId { get; set; }
-    public Company Company { get; set; }
 
     public Position Position { get; set; }
     public int PositionId { get; set; }
@@ -40,12 +37,6 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(true);
 
-        builder.HasOne(x => x.Company)
-            .WithMany(x => x.Highlights)
-            .HasForeignKey(x => new {x.OrganizationId, x.PersonId, x.CompanyId})
-            .HasPrincipalKey(x => new {x.OrganizationId, x.PersonId, x.Id})
-            .OnDelete(DeleteBehavior.NoAction)
-            .IsRequired(true);
 
         builder.HasOne(x => x.Person)
             .WithMany(x => x.Highlights)
@@ -53,5 +44,6 @@ public sealed class Highlight : BaseEntity<Highlight>, IHighlight
             .HasPrincipalKey(x => new { x.OrganizationId, x.Id })
             .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(true);
+
     }
 }

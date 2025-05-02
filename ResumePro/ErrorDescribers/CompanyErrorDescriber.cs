@@ -12,7 +12,8 @@ public class CompanyErrorDescriber
     {
         return new Error
         {
-            Code = nameof(CompanyNotFound)
+            Code = nameof(CompanyNotFound),
+            Description = ""
         };
     }
 
@@ -21,7 +22,8 @@ public class CompanyErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveCompany)
+            Code = nameof(UnableToSaveCompany),
+            Description = ""
         };
     }
 }

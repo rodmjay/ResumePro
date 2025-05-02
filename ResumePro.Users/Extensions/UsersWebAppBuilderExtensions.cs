@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using ResumePro.Core.Middleware.Builders;
 using ResumePro.Users.Interfaces;
 using ResumePro.Users.Services;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Users.Extensions;
 

@@ -4,7 +4,7 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Builders;
+using TechValley.Core.Builders;
 
 namespace ResumePro.AI.Extensions;
 

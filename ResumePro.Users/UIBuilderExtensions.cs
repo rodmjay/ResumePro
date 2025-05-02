@@ -15,11 +15,11 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using ResumePro.Core.Middleware.Builders;
-using ResumePro.Core.Settings;
 using ResumePro.Users.Entities;
 using ResumePro.Users.Services;
 using Serilog;
+using TechValley.Core.Builders;
+using TechValley.Core.Settings;
 
 namespace ResumePro.Users;
 
@@ -32,7 +32,7 @@ public static class UIBuilderExtensions
         builder.Services.AddServerSideBlazor();
         builder.Services
             .AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<User>>();
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+       // builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
         return new UIBuilder(builder);
@@ -41,7 +41,7 @@ public static class UIBuilderExtensions
     public static UIBuilder ConfigureUI(this WebAppBuilder builder, Action<RazorPagesOptions> optionsAction)
     {
         builder.Services.AddRazorPages(optionsAction);
-        builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+        //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 
         return new UIBuilder(builder);

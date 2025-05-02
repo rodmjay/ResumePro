@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -13,7 +12,7 @@ namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/filters")]
 public sealed class FiltersController(IServiceProvider serviceProvider, IFilterManager filterManager)
-    : BaseController(serviceProvider), IFiltersController
+    : ExtendedBaseController(serviceProvider), IFiltersController
 {
     [HttpGet]
     public async Task<FilterContainer> GetFilters()

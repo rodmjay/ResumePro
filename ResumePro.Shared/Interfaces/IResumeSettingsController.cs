@@ -4,7 +4,6 @@
 
 #endregion
 
-using System.Security.Cryptography.X509Certificates;
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.Shared.Models;
 using ResumePro.Shared.Options;

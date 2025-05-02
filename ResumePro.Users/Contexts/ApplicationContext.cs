@@ -10,23 +10,16 @@ using Duende.IdentityServer.EntityFramework.Interfaces;
 using Duende.IdentityServer.EntityFramework.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ResumePro.Core.Data.Bases;
 using ResumePro.Users.Entities;
 using ResumePro.Users.Seeding.Extensions;
+using TechValley.Data.Bases;
 
 namespace ResumePro.Users.Contexts;
 
-public class ApplicationContext : BaseContext<ApplicationContext>, IConfigurationDbContext, IPersistedGrantDbContext
+public class ApplicationContext(DbContextOptions<ApplicationContext> options, ILoggerFactory loggerFactory)
+    : BaseContext<ApplicationContext>(options), IConfigurationDbContext, IPersistedGrantDbContext
 {
     private static readonly string IdentityServerSchema = "IdentityServer";
-    private readonly ILoggerFactory _loggerFactory;
-
-    public ApplicationContext(
-        DbContextOptions<ApplicationContext> options, ILoggerFactory loggerFactory) :
-        base(options)
-    {
-        _loggerFactory = loggerFactory;
-    }
 
 
     public ApplicationContext(
@@ -54,7 +47,7 @@ public class ApplicationContext : BaseContext<ApplicationContext>, IConfiguratio
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (_loggerFactory != null) optionsBuilder.UseLoggerFactory(_loggerFactory);
+        if (loggerFactory != null) optionsBuilder.UseLoggerFactory(loggerFactory);
     }
 
     protected override void ConfigureDatabase(ModelBuilder builder)

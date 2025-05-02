@@ -12,5 +12,7 @@
   <ItemGroup>
     <ProjectReference Include="..\ResumePro.Users\ResumePro.Users.csproj" />
   </ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="techvalley.rest" Version="1.0.*" />
+	</ItemGroup>
 </Project>

@@ -12,7 +12,8 @@ public class PersonErrorDescriber
     {
         return new Error
         {
-            Code = nameof(PersonNotFound)
+            Code = nameof(PersonNotFound),
+            Description = ""
         };
     }
 
@@ -20,7 +21,8 @@ public class PersonErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSavePerson)
+            Code = nameof(UnableToSavePerson),
+            Description = ""
         };
     }
 }

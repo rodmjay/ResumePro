@@ -80,21 +80,23 @@
 		<PackageReference Include="Duende.IdentityServer.AspNetIdentity" Version="7.0.5" />
 		<PackageReference Include="Duende.IdentityServer.EntityFramework" Version="7.0.5" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.7" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.tools" Version="8.0.7">
+		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.*" />
+		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.*" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.tools" Version="8.0.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.1" />
-		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.7" />
-		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.3" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="8.0.*" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.*" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.*" />
+		<PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.*" />
+		<PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.*" />
 		<PackageReference Include="NWebsec.AspNetCore.Middleware" Version="3.0.0" />
+		<PackageReference Include="techvalley.services" Version="1.0.*" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\ResumePro.Core\ResumePro.Core.csproj" />
 	  <ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
 	</ItemGroup>
 </Project>

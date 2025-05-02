@@ -8,7 +8,6 @@ using System.ComponentModel;
 using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using ResumePro.Core.Services.Bases;
 using ResumePro.Shared.Models;
 using ResumePro.Users.Entities;
 using ResumePro.Users.Interfaces;

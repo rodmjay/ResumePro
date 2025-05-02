@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.Extensions.Logging;
-using ResumePro.Core.Data.Bases;
 using ResumePro.Languages.Entities;
 using ResumePro.Seeding.Extensions;
 

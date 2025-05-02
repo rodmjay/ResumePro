@@ -7,11 +7,9 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ResumePro.Context;
-using ResumePro.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Generation;
-using ResumePro.Interfaces;
-using ResumePro.Shared.Models;
+using TechValley.Core.Extensions;
+using TechValley.Data.Extensions;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.Generator;
 
@@ -30,9 +28,9 @@ internal class Program
         var services = new ServiceCollection();
 
         ServiceProvider = services!.ConfigureApp(configuration)
-            .AddDatabase<ApplicationContext>()
-            .RegisterHandlebarsExtensions()
-            .AddAutomapperProfilesFromAssemblies()
+            .UseSqlServer<ApplicationContext>()
+            //.RegisterHandlebarsExtensions()
+            .AddAutomapperProfilesFromAssemblies("ResumePro")
             .RegisterAllServices(typeof(ApplicationContext).Assembly)
             .Build();
     }

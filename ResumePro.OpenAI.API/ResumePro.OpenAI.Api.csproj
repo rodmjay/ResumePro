@@ -11,6 +11,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\ResumePro.AI\ResumePro.AI.csproj" />
+		<ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
 	</ItemGroup>
-
+	<ItemGroup>
+		<PackageReference Include="techvalley.rest" Version="1.0.*" />
+	</ItemGroup>
 </Project>

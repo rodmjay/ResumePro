@@ -6,5 +6,7 @@
 
 global using Microsoft.AspNetCore.Mvc;
 global using ResumePro.Shared;
-global using ResumePro.Shared.Common;
 global using ResumePro.Shared.Options;
+global using TechValley.Core.Extensions;
+global using TechValley.Rest.Bases;
+global using TechValley.Shared.Common;

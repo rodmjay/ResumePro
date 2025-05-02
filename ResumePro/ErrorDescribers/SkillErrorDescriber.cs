@@ -12,7 +12,8 @@ public class SkillErrorDescriber
     {
         return new Error
         {
-            Code = nameof(SkillNotFound)
+            Code = nameof(SkillNotFound),
+            Description = "School Not Found"
         };
     }
 
@@ -21,7 +22,8 @@ public class SkillErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveSkill)
+            Code = nameof(UnableToSaveSkill),
+            Description = "School Not Found"
         };
     }
 }

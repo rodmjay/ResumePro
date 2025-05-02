@@ -6,6 +6,8 @@
 
 using System.Linq.Expressions;
 using ResumePro.Shared.Models;
+using TechValley.Services;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.Services;
 

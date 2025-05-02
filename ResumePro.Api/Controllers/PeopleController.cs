@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Filters;
 using ResumePro.Shared.Interfaces;
@@ -14,7 +13,7 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 public sealed class PeopleController(IServiceProvider serviceProvider, IPeopleService peopleService)
-    : BaseController(serviceProvider), IPeopleController
+    : ExtendedBaseController(serviceProvider), IPeopleController
 {
     [HttpPost("Search")]
     public async Task<PagedList<PersonaDto>> GetPeople(

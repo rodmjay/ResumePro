@@ -12,7 +12,8 @@ public class TemplateErrorDescriber
     {
         return new Error
         {
-            Code = nameof(TemplateNotFound)
+            Code = nameof(TemplateNotFound),
+            Description = "School Not Found"
         };
     }
 }

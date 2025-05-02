@@ -4,21 +4,22 @@
 
 #endregion
 
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using ResumePro.Shared.Models;
 
 namespace ResumePro.Services;
 
 [DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.All)]
-public sealed class CertificationService(IServiceProvider serviceProvider, CertificationErrorDescriber errors)
+public sealed class CertificationService(IServiceProvider serviceProvider,
+    CertificationErrorDescriber errors)
     : BaseService<Certification>(serviceProvider), ICertificationService
 {
-    private IQueryable<Certification> Certifications => Repository.Queryable();
+    private IQueryable<Persona> People => UnitOfWork.RepositoryAsync<Persona>().Queryable();
 
     public Task<List<T>> GetCertifications<T>(int organizationId, int personId) where T : CertificationDto
     {
-        return Certifications.AsNoTracking()
+        return Repository.Select(x=>x.OrganizationId == organizationId && x.PersonId == personId)
+            .AsNoTracking()
             .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .ProjectTo<T>(Mapper)
             .ToListAsync();
@@ -26,8 +27,8 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
 
     public Task<T> GetCertification<T>(int organizationId, int personId, int certificationId) where T : CertificationDto
     {
-        return Certifications.AsNoTracking()
-            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
+        return Repository.Select(x => x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
+            .AsNoTracking()
             .ProjectTo<T>(Mapper)
             .FirstOrDefaultAsync();
     }
@@ -65,7 +66,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
                 "OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}, Options: {@options}"),
             organizationId, personId, certificationId, options);
 
-        var certification = await Certifications.Where(x =>
+        var certification = await Repository.Select(x =>
                 x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
 
@@ -90,7 +91,7 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
                 "OrganizationId: {@organizationId}, PersonId: {@personId}, CertificationId: {@certificationId}"),
             organizationId, personId, certificationId);
 
-        var certification = await Certifications.Where(x =>
+        var certification = await Repository.Select(x =>
                 x.OrganizationId == organizationId && x.PersonId == personId && x.Id == certificationId)
             .FirstOrDefaultAsync();
 
@@ -107,9 +108,9 @@ public sealed class CertificationService(IServiceProvider serviceProvider, Certi
 
     private async Task<int> GetNextCertificationId(int organizationId, int personId)
     {
-        var id = await Certifications.AsNoTracking()
+        var id = await Repository.Select(x => x.OrganizationId == organizationId && x.PersonId == personId)
+            .AsNoTracking()
             .IgnoreQueryFilters()
-            .Where(x => x.OrganizationId == organizationId && x.PersonId == personId)
             .OrderByDescending(x => x.Id)
             .Select(x => x.Id)
             .FirstOrDefaultAsync();

@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ResumePro.Core.Middleware.Extensions;
 using ResumePro.Users;
 using ResumePro.Users.Contexts;
 using ResumePro.Users.Extensions;
 using ResumePro.Users.IdentityServer.Extensions;
+using TechValley.Core.Extensions;
+using TechValley.Data.Extensions;
 
 namespace ResumePro.IdentityServer;
 
@@ -30,9 +31,9 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         var builder = services.ConfigureApp(Configuration)
-            .AddDatabase<ApplicationContext>()
+            .UseSqlServer<ApplicationContext>()
             .AddIdentity()
-            .AddAutomapperProfilesFromAssemblies()
+            .AddAutomapperProfilesFromAssemblies("ResumePro")
             .AddCaching()
             .AddUserDependencies();
 

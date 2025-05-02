@@ -8,9 +8,11 @@ using System.Reflection;
 using Microsoft.Extensions.Options;
 using ResumePro.AI.Contexts;
 using ResumePro.AI.Services;
-using ResumePro.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Core.Settings;
+using TechValley.Core.Extensions;
+using TechValley.Core.Settings;
+using TechValley.Data.Extensions;
+using TechValley.Rest.Extensions;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.OpenAI.Api;
 
@@ -28,9 +30,9 @@ public class Startup(
         var businessAssembly = typeof(ChatGptService).Assembly;
 
         var builder = services.ConfigureApp(Configuration)
-            .AddDatabase<ApplicationContext>()
-            .AddAutomapperProfilesFromAssemblies()
-            .RegisterHandlebarsExtensions()
+            .UseSqlServer<ApplicationContext>()
+            .AddAutomapperProfilesFromAssemblies("ResumePro")
+            //.RegisterHandlebarsExtensions()
             .RegisterAllServices(businessAssembly);
 
         var webAppBuilder = builder.ConfigureWebApp(Environment);

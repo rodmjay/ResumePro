@@ -12,7 +12,8 @@ public class ReferenceErrorDescriber
     {
         return new Error
         {
-            Code = nameof(ReferenceNotFound)
+            Code = nameof(ReferenceNotFound),
+            Description = "School Not Found"
         };
     }
 
@@ -20,7 +21,8 @@ public class ReferenceErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveReference)
+            Code = nameof(UnableToSaveReference),
+            Description = "School Not Found"
         };
     }
 }

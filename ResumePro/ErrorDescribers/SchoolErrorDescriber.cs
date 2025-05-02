@@ -12,7 +12,8 @@ public class SchoolErrorDescriber
     {
         return new Error
         {
-            Code = nameof(SchoolNotFound)
+            Code = nameof(SchoolNotFound),
+            Description = "School Not Found"
         };
     }
 
@@ -21,7 +22,8 @@ public class SchoolErrorDescriber
     {
         return new Error
         {
-            Code = nameof(UnableToSaveSchool)
+            Code = nameof(UnableToSaveSchool),
+            Description = "Unable to save school"
         };
     }
 }

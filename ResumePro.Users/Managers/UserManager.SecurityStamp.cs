@@ -6,8 +6,8 @@
 
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
-using ResumePro.Core.Cryptography;
 using ResumePro.Users.Entities;
+using TechValley.Core.Cryptography;
 
 namespace ResumePro.Users.Managers;
 

@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -12,7 +11,7 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 public sealed class SkillsController(IServiceProvider serviceProvider, ISkillService skillService)
-    : BaseController(serviceProvider), ISkillsController
+    : ExtendedBaseController(serviceProvider), ISkillsController
 {
     [HttpGet]
     public async Task<List<SkillDto>> GetSkills()

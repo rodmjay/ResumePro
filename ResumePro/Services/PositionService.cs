@@ -4,11 +4,10 @@
 
 #endregion
 
-using Azure.Storage.Blobs.Models;
-using ResumePro.Core.Builders;
-using ResumePro.Entities;
 using ResumePro.Extensions;
 using ResumePro.Shared.Models;
+using System.Linq.Expressions;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Services;
 
@@ -41,75 +40,11 @@ public sealed class PositionService(
             .ProjectTo<T>(Mapper).ToListAsync();
     }
 
-    public async Task<OneOf<PositionDetails, Result>> CreatePosition(int organizationId, int personId, int companyId, PositionOptions options)
+    public async Task<OneOf<PositionDetails, Result>> AddPosition(int organizationId, int personId, int companyId, PositionOptions options)
     {
-        var nextPositionId = await GetNextPositionId(organizationId, personId, companyId);
-
-        var position = new Position
-        {
-            Id = nextPositionId,
-            PersonId = personId,
-            OrganizationId = organizationId,
-            CompanyId = companyId,
-            EndDate = options.EndDate,
-            StartDate = options.StartDate,
-            JobTitle = options.JobTitle,
-            ObjectState = ObjectState.Added
-        };
-
-        for (var index = 0; index < options.Highlights.Count; index++)
-        {
-            var option = options.Highlights[index];
-            var highlight = new Highlight()
-            {
-                OrganizationId = organizationId,
-                Id = index + 1,
-                ObjectState = ObjectState.Added,
-                Order = index + 1,
-                Text = option.Text
-            };
-
-            position.Highlights.Add(highlight);
-        }
-
-        for (var index = 0; index < options.Projects.Count; index++)
-        {
-            var option = options.Projects[index];
-            var project = new Project()
-            {
-                OrganizationId = organizationId,
-                Id = index + 1,
-                PositionId = nextPositionId,
-                PersonId = personId,
-                CompanyId = companyId,
-                ObjectState = ObjectState.Added,
-                Description = option.Description,
-                Order = index + 1,
-                Name = option.Name
-            };
-
-            for (var j = 0; j < option.Highlights.Count; j++)
-            {
-                var highlightOption = option.Highlights[j];
-
-                var highlight = new ProjectHighlight()
-                {
-                    OrganizationId = organizationId,
-                    Id = j + 1,
-                    ObjectState = ObjectState.Added,
-                    Order = j + 1,
-                    Text = highlightOption.Text
-                };
-
-                project.Highlights.Add(highlight);
-
-            }
-
-            position.Projects.Add(project);
-        }
+        var position = options.Create(async () => await NextId(organizationId, personId, companyId));
 
         var records = Repository.InsertOrUpdateGraph(position, true);
-
         if (records > 0)
         {
             return await GetPosition<PositionDetails>(organizationId, personId, companyId, position.Id);
@@ -121,82 +56,23 @@ public sealed class PositionService(
     public async Task<OneOf<PositionDetails, Result>> UpdatePosition(int organizationId, int personId, int companyId, int positionId, PositionOptions options)
     {
         var position = await Positions
-            .Include(x=>x.Projects)
-            .ThenInclude(x=>x.Highlights)
-            .Include(x=>x.Highlights)
-            .Where(PositionHelpers.GetPredicate(organizationId, personId, companyId, positionId))
+            .Include(x => x.Projects)
+            .ThenInclude(x => x.Highlights)
+            .Include(x => x.Highlights)
+            .Where(Predicate(organizationId, personId, companyId, positionId))
             .FirstOrDefaultAsync();
 
-        foreach (var project in position.Projects)
+        if (position == null)
         {
-            project.ObjectState = ObjectState.Deleted;
-
-            foreach (var highlight in project.Highlights)
-            {
-                highlight.ObjectState = ObjectState.Deleted;
-            }
+            return Result.Failed();
         }
 
-        foreach (var highlight in position.Highlights)
-        {
-            highlight.ObjectState = ObjectState.Deleted;
-        }
-
-        position.JobTitle = options.JobTitle;
-        position.StartDate = options.StartDate;
-        position.EndDate = options.EndDate;
-        position.ObjectState = ObjectState.Modified;
-
-
-        foreach (var projectOptions in options.Projects)
-        {
-            var project = position.Projects.FirstOrDefault(x => x.Id == projectOptions.Id);
-            if (project == null)
-            {
-                project = new Project()
-                {
-                    ObjectState = ObjectState.Added,
-                    Order = position.Projects.Count + 1
-                };
-
-                position.Projects.Add(project);
-            }
-            else
-            {
-                project.ObjectState = ObjectState.Modified;
-            }
-
-            project.Name = projectOptions.Name;
-            project.Description = projectOptions.Description;
-            project.Budget = projectOptions.Budget;
-
-            for (var index = 0; index < projectOptions.Highlights.Count; index++)
-            {
-                var highlightOptions = projectOptions.Highlights[index];
-                var highlight = project.Highlights.FirstOrDefault(x => x.Id == highlightOptions.Id);
-                if (highlight == null)
-                {
-                    highlight = new ProjectHighlight
-                    {
-                        ObjectState = ObjectState.Added
-                    };
-
-                    project.Highlights.Add(highlight);
-                }
-                else
-                {
-                    highlight.ObjectState = ObjectState.Modified;
-                }
-                highlight.Text = highlightOptions.Text;
-                highlight.Order = index + 1;
-            }
-        }
-
+        position.Update(options);
 
         var records = await Repository.UpdateAsync(position, true);
 
         if (records > 0)
-            return Result.Success();
+            return await GetPosition<PositionDetails>(organizationId, personId, companyId, positionId);
 
         return Result.Failed();
     }
@@ -204,54 +80,37 @@ public sealed class PositionService(
     public async Task<Result> DeletePosition(int organizationId, int personId, int companyId, int positionId)
     {
         var success = await Repository
-            .DeleteAsync(PositionHelpers.GetPredicate(organizationId, personId, companyId, positionId));
+            .DeleteAsync(Predicate(organizationId, personId, companyId, positionId));
 
         return success ? Result.Success(positionId) : Result.Failed();
     }
 
-    private async Task<int> GetNextPositionId(int organizationId, int personId, int companyId)
+    private async Task<int> NextId(int organizationId, int personId, int companyId)
     {
         var id = await Positions.OrderByDescending(x => x.Id)
             .AsNoTracking()
-            .Where(x=>x.OrganizationId == organizationId && x.PersonId == personId && x.CompanyId == companyId)
+            .Where(Predicate(organizationId, personId, companyId))
             .Select(x => x.Id)
             .FirstOrDefaultAsync();
 
         return id + 1;
     }
 
-    private async Task<int> GetNextHighlightId(int organizationId, int personId, int companyId, int positionId)
+    private static Expression<Func<Position, bool>> Predicate(int organizationId, int personId, int companyId)
     {
-        var predicate = PredicateBuilder.True<Highlight>()
+        var predicate = PredicateBuilder.True<Position>()
             .And(x => x.OrganizationId == organizationId)
             .And(x => x.PersonId == personId)
-            .And(x => x.CompanyId == companyId)
-            .And(x => x.PositionId == positionId);
+            .And(x => x.CompanyId == companyId);
 
-        var id = await Highlights.AsNoTracking()
-            .IgnoreQueryFilters()
-            .Where(predicate)
-            .OrderByDescending(x => x.Id)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
-        return id + 1;
+        return predicate;
     }
 
-    private async Task<int> GetNextProjectHighlightId(int organizationId, int personId, int companyId, int positionId, int projectId)
+    private static Expression<Func<Position, bool>> Predicate(int organizationId, int personId, int companyId, int positionId)
     {
-        var predicate = PredicateBuilder.True<ProjectHighlight>()
-            .And(x => x.OrganizationId == organizationId)
-            .And(x => x.PersonId == personId)
-            .And(x => x.CompanyId == companyId)
-            .And(x => x.PositionId == positionId)
-            .And(x=>x.ProjectId == projectId);
+        var predicate = Predicate(organizationId, personId, companyId)
+            .And(x => x.Id == positionId);
 
-        var id = await ProjectHighlights.AsNoTracking()
-            .IgnoreQueryFilters()
-            .Where(predicate)
-            .OrderByDescending(x => x.Id)
-            .Select(x => x.Id)
-            .FirstOrDefaultAsync();
-        return id + 1;
+        return predicate;
     }
 }

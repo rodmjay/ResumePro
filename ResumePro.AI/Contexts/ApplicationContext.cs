@@ -7,7 +7,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ResumePro.Core.Data.Bases;
+using TechValley.Data.Bases;
 
 namespace ResumePro.AI.Contexts;
 

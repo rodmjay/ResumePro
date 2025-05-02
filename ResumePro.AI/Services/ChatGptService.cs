@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using OpenAI.API;
 using OpenAI.API.Completions;
 using ResumePro.AI.Entities;
-using ResumePro.Core.Services.Bases;
 using ResumePro.Shared.Models;
+using TechValley.Services.Bases;
 
 namespace ResumePro.AI.Services;
 

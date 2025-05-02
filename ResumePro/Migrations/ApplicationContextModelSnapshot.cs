@@ -7026,19 +7026,11 @@ namespace ResumePro.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("ResumePro.Entities.Company", "Company")
-                        .WithMany("Highlights")
-                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("ResumePro.Entities.Position", "Position")
                         .WithMany("Highlights")
                         .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "PositionId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("Person");
 
@@ -7107,19 +7099,11 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Project", b =>
                 {
-                    b.HasOne("ResumePro.Entities.Company", "Company")
-                        .WithMany("Projects")
-                        .HasForeignKey("OrganizationId", "PersonId", "CompanyId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("ResumePro.Entities.Position", "Position")
                         .WithMany("Projects")
                         .HasForeignKey("OrganizationId", "PersonId", "CompanyId", "PositionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Company");
 
                     b.Navigation("Position");
                 });
@@ -7282,11 +7266,7 @@ namespace ResumePro.Migrations
 
             modelBuilder.Entity("ResumePro.Entities.Company", b =>
                 {
-                    b.Navigation("Highlights");
-
                     b.Navigation("Positions");
-
-                    b.Navigation("Projects");
 
                     b.Navigation("Resumes");
 

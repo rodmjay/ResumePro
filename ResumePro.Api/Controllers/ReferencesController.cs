@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -13,7 +12,7 @@ namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/references")]
 public sealed class ReferencesController(IServiceProvider serviceProvider, IReferenceService referenceService)
-    : BaseController(serviceProvider), IReferencesController
+    : ExtendedBaseController(serviceProvider), IReferencesController
 {
     [HttpGet("{referenceId}")]
     public async Task<ReferenceDto> Get([FromRoute] int personId, [FromRoute] int referenceId)

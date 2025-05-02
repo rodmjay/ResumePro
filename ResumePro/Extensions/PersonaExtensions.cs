@@ -5,13 +5,33 @@
 #endregion
 
 using System.Linq.Expressions;
-using ResumePro.Core.Builders;
 using ResumePro.Shared.Filters;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Extensions;
 
 public static class PersonaExtensions
 {
+    public static Persona AddCertificate(this Persona persona, CertificationOptions options, Func<Task<int>> newId)
+    {
+        var id = newId().Result;
+
+        var certification = new Certification
+        {
+            ObjectState = ObjectState.Added,
+            Id = id,
+            Body = options.Body,
+            OrganizationId = persona.OrganizationId,
+            PersonId = id,
+            Date = options.Date.Value,
+            Name = options.Name
+        };
+
+        persona.Certifications.Add(certification);
+
+        return persona;
+    }
+
     public static Expression<Func<Persona, bool>> GetExpression(this PersonaFilters filters)
     {
         var predicate = PredicateBuilder.True<Persona>();

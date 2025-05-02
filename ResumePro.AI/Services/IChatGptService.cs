@@ -5,8 +5,8 @@
 #endregion
 
 using ResumePro.AI.Entities;
-using ResumePro.Core.Services.Interfaces;
 using ResumePro.Shared.Models;
+using TechValley.Services.Interfaces;
 
 namespace ResumePro.AI.Services;
 

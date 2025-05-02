@@ -12,7 +12,8 @@ public class LanguageErrorDescriber
     {
         return new Error
         {
-            Code = nameof(LanguageNotFound)
+            Code = nameof(LanguageNotFound),
+            Description = ""
         };
     }
 }

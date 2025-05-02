@@ -5,7 +5,6 @@
 #endregion
 
 using System.Diagnostics.CodeAnalysis;
-using ResumePro.Core.Middleware.Extensions;
 using Serilog;
 
 namespace ResumePro.Api;

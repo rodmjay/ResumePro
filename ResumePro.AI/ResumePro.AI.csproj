@@ -19,14 +19,17 @@
 	<ItemGroup>
 		<PackageReference Include="OpenAI.API" Version="1.0.0" />
 
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.7">
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.*">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
 
+		<PackageReference Include="TechValley.Services" Version="1.0.57" />
+
 	</ItemGroup>
+
 	<ItemGroup>
-		<ProjectReference Include="..\ResumePro.Core\ResumePro.Core.csproj" />
+	  <ProjectReference Include="..\ResumePro.Shared\ResumePro.Shared.csproj" />
 	</ItemGroup>
 
 </Project>

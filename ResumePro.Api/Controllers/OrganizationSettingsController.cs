@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -16,7 +15,7 @@ namespace ResumePro.Api.Controllers;
 public sealed class OrganizationSettingsController(
     IServiceProvider serviceProvider,
     IOrganizationSettingsService service)
-    : BaseController(serviceProvider), IOrganizationSettingsController
+    : ExtendedBaseController(serviceProvider), IOrganizationSettingsController
 {
     [HttpPost]
     public async Task<ActionResult<OrganizationSettingsDto>> CreateSettings(

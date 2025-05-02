@@ -5,7 +5,7 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
+using TechValley.Data.Bases;
 
 namespace ResumePro.AI.Entities;
 

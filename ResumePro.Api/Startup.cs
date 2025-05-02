@@ -7,10 +7,13 @@
 using System.Reflection;
 using Microsoft.Extensions.Options;
 using ResumePro.Context;
-using ResumePro.Core.Extensions;
-using ResumePro.Core.Middleware.Extensions;
-using ResumePro.Core.Settings;
 using ResumePro.Extensions;
+using TechValley.Core.Settings;
+using TechValley.Data.Extensions;
+using TechValley.Handlebars;
+using TechValley.Rest;
+using TechValley.Rest.Extensions;
+using TechValley.Services.Extensions;
 
 namespace ResumePro.Api;
 
@@ -27,10 +30,10 @@ public sealed class Startup(
         var thisAssembly = Assembly.GetAssembly(GetType());
         var businessAssembly = typeof(ApplicationContext).Assembly;
 
-        var builder = services.ConfigureApp(Configuration).AddDatabase<ApplicationContext>()
-            .AddAutomapperProfilesFromAssemblies()
+        var builder = services.ConfigureApp(Configuration).UseSqlServer<ApplicationContext>()
+            .AddAutomapperProfilesFromAssemblies("ResumePro")
             .RegisterHandlebarsExtensions()
-            .AddAppInsights()
+            //.AddAppInsights()
             .RegisterPdfGeneration()
             .RegisterAllServices(businessAssembly);
 

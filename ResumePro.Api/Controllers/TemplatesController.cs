@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -13,7 +12,7 @@ namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/templates")]
 public sealed class TemplatesController(IServiceProvider serviceProvider, ITemplateService service)
-    : BaseController(serviceProvider), ITemplatesController
+    : ExtendedBaseController(serviceProvider), ITemplatesController
 {
     [HttpGet]
     public async Task<List<TemplateDto>> GetTemplates()

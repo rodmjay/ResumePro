@@ -4,8 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Services.Interfaces;
-
 namespace ResumePro.Interfaces;
 
 public interface IResumeSkillService : IService<ResumeSkill>

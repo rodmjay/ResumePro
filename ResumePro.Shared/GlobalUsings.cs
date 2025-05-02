@@ -5,3 +5,4 @@
 #endregion
 
 global using Newtonsoft.Json;
+global using TechValley.Shared.Common;

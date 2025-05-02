@@ -4,5 +4,7 @@
 
 #endregion
 
-global using ResumePro.Core.Data.Enums;
-global using ResumePro.Core.Data.Interfaces;
+global using TechValley.Data.Enums;
+global using TechValley.Data.Interfaces;
+global using TechValley.Services.Bases;
+global using TechValley.Services.Interfaces;

@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -15,7 +14,7 @@ namespace ResumePro.Api.Controllers;
 public sealed class CertificationsController(
     IServiceProvider serviceProvider,
     ICertificationService certificationService)
-    : BaseController(serviceProvider), ICertificationsController
+    : ExtendedBaseController(serviceProvider), ICertificationsController
 {
     [HttpGet("{certificationId}")]
     public async Task<CertificationDto> Get([FromRoute] int personId, [FromRoute] int certificationId)

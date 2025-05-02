@@ -12,15 +12,17 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using ResumePro.Core.Middleware.Builders;
 using ResumePro.Users.Contexts;
 using ResumePro.Users.Entities;
 using ResumePro.Users.IdentityServer.Builders;
 using ResumePro.Users.IdentityServer.Services;
 using ResumePro.Users.Managers;
 using Serilog;
+using TechValley.Core.Builders;
+using TechValley.Data.Providers;
 
 namespace ResumePro.Users.IdentityServer.Extensions;
 
@@ -28,6 +30,8 @@ public static class IdentityBuilderExtensions
 {
     public static LocalIdentityServerBuilder ConfigureIdentityServer(this WebAppBuilder builder)
     {
+        var connectionString = builder.Configuration.GetConnectionString(ConnectionStringProvider.GetConnectionStringName());
+
         var identityBuilder = builder.Services.AddIdentityServer(options =>
             {
                 options.IssuerUri = builder.AppSettings.Authority;
@@ -41,11 +45,11 @@ public static class IdentityBuilderExtensions
             })
             .AddConfigurationStore<ApplicationContext>(options =>
             {
-                options.ConfigureDbContext = b => { b.UseSqlServer(builder.ConnectionString); };
+                options.ConfigureDbContext = b => { b.UseSqlServer(connectionString); };
             })
             .AddOperationalStore<ApplicationContext>(options =>
             {
-                options.ConfigureDbContext = b => b.UseSqlServer(builder.ConnectionString);
+                options.ConfigureDbContext = b => b.UseSqlServer(connectionString);
 
                 options.EnableTokenCleanup = true;
                 options.TokenCleanupInterval = 30;
@@ -107,7 +111,7 @@ public static class IdentityBuilderExtensions
         if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
-            app.UseMigrationsEndPoint();
+            //app.UseMigrationsEndPoint();
         }
         else
         {

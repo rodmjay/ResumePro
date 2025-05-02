@@ -5,7 +5,6 @@
 #endregion
 
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ResumePro.Core.Data.Bases;
 using ResumePro.Shared.Interfaces;
 
 namespace ResumePro.Entities;
@@ -14,12 +13,10 @@ public sealed class Company : BaseEntity<Company>, ICompany
 {
     public int OrganizationId { get; set; }
     public Persona Persona { get; set; }
-    public ICollection<Project> Projects { get; set; } = new List<Project>();
     public int PersonId { get; set; }
-    public ICollection<ResumeCompany> Resumes { get; set; } = new List<ResumeCompany>();
     public ICollection<CompanySkill> Skills { get; set; } = new List<CompanySkill>();
     public ICollection<Position> Positions { get; set; } = new List<Position>();
-    public ICollection<Highlight> Highlights { get; set; } = new List<Highlight>();
+    public ICollection<ResumeCompany> Resumes { get; set; } = new List<ResumeCompany>();
     public int Id { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }

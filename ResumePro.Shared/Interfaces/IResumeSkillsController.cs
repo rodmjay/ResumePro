@@ -10,8 +10,6 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
-
 namespace ResumePro.Shared.Interfaces;
 
 public interface IResumeSkillsController

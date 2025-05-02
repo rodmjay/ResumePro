@@ -6,14 +6,14 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ResumePro.AI.Services;
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
+using TechValley.Rest.Bases;
 
 namespace ResumePro.OpenAI.Api.Controllers;
 
 public class TextController(IServiceProvider serviceProvider, IChatGptService service)
-    : BaseController(serviceProvider), ITextController
+    : ExtendedBaseController(serviceProvider), ITextController
 {
     [HttpPost]
     public async Task<ChatResult> Professionalize([FromBody] ChatOptions options)

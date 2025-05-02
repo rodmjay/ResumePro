@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Core.Middleware.Bases;
 using ResumePro.Interfaces;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
@@ -12,7 +11,7 @@ using ResumePro.Shared.Models;
 namespace ResumePro.Api.Controllers;
 
 [Route("v1.0/people/{personId}/resumes/{resumeId}/settings")]
-public sealed class ResumeSettingsController(IServiceProvider serviceProvider, IResumeSettingsService service) : BaseController(serviceProvider), IResumeSettingsController
+public sealed class ResumeSettingsController(IServiceProvider serviceProvider, IResumeSettingsService service) : ExtendedBaseController(serviceProvider), IResumeSettingsController
 {
     [HttpPut]
     public async Task<ActionResult<ResumeSettingsDto>> UpdateSettings(

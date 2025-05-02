@@ -4,7 +4,6 @@
 
 #endregion
 
-using ResumePro.Shared.Common;
 using ResumePro.Shared.Interfaces;
 using ResumePro.Shared.Models;
 

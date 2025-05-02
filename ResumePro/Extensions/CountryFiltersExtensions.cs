@@ -8,10 +8,9 @@ using System.Linq.Expressions;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ResumePro.Core.Builders;
-using ResumePro.Core.Middleware.Builders;
 using ResumePro.Generation;
 using ResumePro.Shared.Models;
+using TechValley.Core.Builders;
 
 namespace ResumePro.Extensions;
 
